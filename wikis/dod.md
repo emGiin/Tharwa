@@ -9,11 +9,8 @@ according to Scrum Alliance, there are three main types:
 
 ## Definition of Done for a feature
 - [ ] Produced code for presumed functionalities.
-
 - [ ] Assumptions of User Story met.
-
 - [ ] Unit tests written and passing.
-
 - [ ] Feature is tested against acceptance criteria.
 
 ##  Definition of Done for a sprint
