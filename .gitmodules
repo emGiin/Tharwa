@@ -1,0 +1,9 @@
+[submodule "tharwa-backend"]
+	path = tharwa-backend
+	url = https://github.com/emGiin/tharwa-backend.git
+[submodule "tharwa-web"]
+	path = tharwa-web
+	url = https://github.com/emGiin/tharwa-web.git
+[submodule "tharwa-mobile"]
+	path = tharwa-mobile
+	url = https://github.com/emGiin/tharwa-mobile.git
