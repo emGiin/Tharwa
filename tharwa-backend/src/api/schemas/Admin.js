@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 const httpStatus = require('http-status');
 const bcrypt = require('bcryptjs');
@@ -5,6 +6,9 @@ const moment = require('moment-timezone');
 const jwt = require('jwt-simple');
 const APIError = require('../utils/APIError');
 const { env, jwtSecret, jwtExpirationInterval } = require('../../config/vars');
+Promise = require('bluebird'); // eslint-disable-line no-global-assign
+
+mongoose.Promise = Promise;
 
 
 const adminSchema = new mongoose.Schema({
@@ -23,7 +27,7 @@ const adminSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: 62,
+    minlength: 5,
     maxlength: 62,
   },
   firstName: {
@@ -104,11 +108,11 @@ adminSchema.method({
     return bcrypt.compare(password, this.password);
   },
 
-  toObject: {
-    transform(doc, ret) {
-      delete ret.password; // eslint-disable-line no-param-reassign
-    },
-  },
+  // toObject: ()=> {
+  //   transform(doc, ret) {
+  //     delete ret.password; // eslint-disable-line no-param-reassign
+  //   },
+  // },
 
 });
 
@@ -149,14 +153,14 @@ adminSchema.statics = {
    * @param {String} email - The objectId of admin.
    * @returns {Promise<admin, APIError>}
    */
-  async get(email) {
+  async getByEmail(email) {
     try {
-      const admin = await this.findById({
+      const admin = await this.findOne({
         email: email.toLowerCase(),
       }).exec();
 
       if (admin) {
-        delete admin.password;
+        // delete admin.password;
         return admin;
       }
 
@@ -177,12 +181,12 @@ adminSchema.statics = {
    * @returns {canLogin , admin}
    */
   async login(email, password) {
-    const admin = await this.statics.get(email);
-    const canLogin = await admin.passwordMatches(password);
-    if (canLogin) return { canLogin, admin };
-    return canLogin;
+    try {
+      const admin = await this.getByEmail(email);
+      const canLogin = await admin.passwordMatches(password);
+      return { canLogin, admin };
+    } catch (e) { throw e; }
   },
-
 
 };
 
