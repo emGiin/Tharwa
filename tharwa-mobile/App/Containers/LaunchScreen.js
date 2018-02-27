@@ -6,6 +6,12 @@ import { Images } from '../Themes'
 import styles from './Styles/LaunchScreenStyles'
 
 export default class LaunchScreen extends Component {
+
+  componentDidMount() {
+    const { navigate } = this.props.navigation;
+    setTimeout(() => navigate('LoginScreen'), 0)
+  }
+
   render() {
     return (
       <View style={styles.mainContainer}>
