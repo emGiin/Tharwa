@@ -1,0 +1,23 @@
+import { combineReducers } from 'redux'
+
+
+const login = (state = null , action) => {
+    switch (action.type) {
+        case 'CHANGE_LOGIN':
+            console.log( " prev state " +state);
+            console.log( state);
+            return {
+                ...state,
+                tabLogin : (state.tabLogin === "nopin") ? "pin" : "nopin"
+            }
+
+        default:
+            return state
+    }
+};
+
+const webApp = combineReducers({
+    login
+});
+
+export default webApp
