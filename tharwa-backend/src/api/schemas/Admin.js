@@ -108,7 +108,7 @@ adminSchema.method({
     return bcrypt.compare(password, this.password);
   },
 
-  // toObject: ()=> {
+  // toObject: {
   //   transform(doc, ret) {
   //     delete ret.password; // eslint-disable-line no-param-reassign
   //   },
@@ -184,7 +184,8 @@ adminSchema.statics = {
     try {
       const admin = await this.getByEmail(email);
       const canLogin = await admin.passwordMatches(password);
-      return { canLogin, admin };
+      if (canLogin) return { canLogin, admin };
+      return { canLogin };
     } catch (e) { throw e; }
   },
 
