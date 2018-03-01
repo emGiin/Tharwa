@@ -7,23 +7,7 @@ import PinFrom from "../components/Login/PinFrom";
 import "./Styles/Login.css";
 
 const Step = Steps.Step;
-const steps = [
-  {
-    title: "Login",
-    content: <LoginForm />,
-    icon: <Icon type="user" />
-  },
-  {
-    title: "Code Pin",
-    content: <PinChoiceForm />,
-    icon: <Icon type="inbox" />
-  },
-  {
-    title: "Vérification",
-    content: <PinFrom />,
-    icon: <Icon type="qrcode" />
-  }
-];
+
 
 class Login extends Component {
   constructor(props) {
@@ -34,6 +18,25 @@ class Login extends Component {
   }
 
   render() {
+
+    const steps = [
+      {
+        title: "Login",
+        content: <LoginForm ref="loginForm" />,
+        icon: <Icon type="user" />
+      },
+      {
+        title: "Code Pin",
+        content: <PinChoiceForm />,
+        icon: <Icon type="inbox" />
+      },
+      {
+        title: "Vérification",
+        content: <PinFrom />,
+        icon: <Icon type="qrcode" />
+      }
+    ];
+
     const current = this.state.current;
 
     return (
@@ -75,6 +78,7 @@ class Login extends Component {
   }
 
   next() {
+    console.log(this.refs.loginForm.submit(()=>{alert('spy')}));
     const current = this.state.current + 1;
     this.setState({ current });
   }
@@ -85,8 +89,9 @@ class Login extends Component {
   }
 
   done() {
-   message.success("Processing complete!");  
+    message.success("Processing complete!");  
   }
+
 }
 
 export default Login;
