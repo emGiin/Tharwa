@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Steps, Button, message, Icon } from "antd";
+import { Steps, message, Icon } from "antd";
 
 import LoginForm from "../components/Login/LoginForm";
 import PinChoiceForm from "../components/Login/PinChoiceForm";
@@ -22,17 +22,17 @@ class Login extends Component {
     const steps = [
       {
         title: "Login",
-        content: <LoginForm ref="loginForm" />,
+        content: <LoginForm onNext={this.next.bind(this)} />,
         icon: <Icon type="user" />
       },
       {
         title: "Code Pin",
-        content: <PinChoiceForm />,
+        content: <PinChoiceForm onNext={this.next.bind(this)}/>,
         icon: <Icon type="inbox" />
       },
       {
         title: "Vérification",
-        content: <PinFrom />,
+        content: <PinFrom onNext={this.done.bind(this)}/>,
         icon: <Icon type="qrcode" />
       }
     ];
@@ -50,7 +50,7 @@ class Login extends Component {
         <div className="stepContent">{steps[current].content}</div>
 
         <div className="stepActions">
-          {current > 0 && (
+          {/* {current > 0 && (
             <Button onClick={this.prev.bind(this)}>
               Previous
             </Button>
@@ -71,20 +71,14 @@ class Login extends Component {
             >
               Done
             </Button>
-          )}
+          )} */}
         </div>
       </div>
     );
   }
 
   next() {
-    console.log(this.refs.loginForm.submit(()=>{alert('spy')}));
     const current = this.state.current + 1;
-    this.setState({ current });
-  }
-
-  prev() {
-    const current = this.state.current - 1;
     this.setState({ current });
   }
 

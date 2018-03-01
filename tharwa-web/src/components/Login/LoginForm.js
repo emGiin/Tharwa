@@ -1,15 +1,16 @@
 import React, { Component } from "react";
-import { Form, Icon, Input, Checkbox } from "antd";
+import { Form, Icon, Input, Checkbox, Button } from "antd";
 
 const FormItem = Form.Item;
 
 class NormalLoginForm extends Component {
   handleSubmit = event => {
-    console.log('handeling submit');
+    console.log("handeling submit");
     event.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
+        this.props.onNext();
       }
     });
   };
@@ -19,12 +20,17 @@ class NormalLoginForm extends Component {
     return (
       <Form onSubmit={this.handleSubmit} className="loginForm">
         <FormItem>
-          {getFieldDecorator('email', {
-            rules: [{
-              type: 'email', message: 'The input is not valid E-mail!',
-            }, {
-              required: true, message: 'Please input your E-mail!',
-            }],
+          {getFieldDecorator("email", {
+            rules: [
+              {
+                type: "email",
+                message: "The input is not valid E-mail!"
+              },
+              {
+                required: true,
+                message: "Please input your E-mail!"
+              }
+            ]
           })(
             <Input
               prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
@@ -48,6 +54,16 @@ class NormalLoginForm extends Component {
             valuePropName: "checked",
             initialValue: true
           })(<Checkbox>Remember me</Checkbox>)}
+        </FormItem>
+        <FormItem>
+          <Button
+            type="primary"
+            className="primaryAction"
+            // onClick={this.props.onNext}
+            htmlType="submit"
+          >
+            Next
+          </Button>
         </FormItem>
       </Form>
     );

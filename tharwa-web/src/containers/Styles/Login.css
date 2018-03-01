@@ -20,8 +20,8 @@
 }
 
 .primaryAction{
-  width: 50%;
-  margin: 1em; 
+  width: 95%;
+  margin: 1em auto; 
 }
 .secondaryAction{
   width: 30%;
