@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Steps, message, Icon } from "antd";
 
 import LoginForm from "../components/Login/LoginForm";
-import PinChoiceForm from "../components/Login/PinChoiceForm";
+import ConfirmationMethodPrompt from "../components/Login/ConfirmationMethodPrompt";
 import PinFrom from "../components/Login/PinFrom";
 import "./Styles/Login.css";
 
@@ -27,7 +27,7 @@ class Login extends Component {
       },
       {
         title: "Code Pin",
-        content: <PinChoiceForm onNext={this.next.bind(this)}/>,
+        content: <ConfirmationMethodPrompt onNext={this.next.bind(this)}/>,
         icon: <Icon type="inbox" />
       },
       {
