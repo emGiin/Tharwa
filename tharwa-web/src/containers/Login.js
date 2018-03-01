@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Steps, Button, message, Icon } from 'antd';
-import './LoginPage.css';
+import './Styles/Login.css';
 import LoginForm from './LoginForm';
 import PinChoiceForm from './PinChoiceForm';
 import PinFrom from "./PinFrom";
@@ -20,7 +20,7 @@ const steps = [{
     icon : <Icon type="login" />
 }];
 
-class LoginPage extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -67,4 +67,4 @@ class LoginPage extends Component {
     }
 }
 
-export default LoginPage;
+export default Login;
