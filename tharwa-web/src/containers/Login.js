@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Steps, Button, message, Icon } from 'antd';
 import './Styles/Login.css';
-import LoginForm from './LoginForm';
-import PinChoiceForm from './PinChoiceForm';
-import PinFrom from "./PinFrom";
+import LoginForm from '../components/Login/LoginForm';
+import PinChoiceForm from '../components/Login/PinChoiceForm';
+import PinFrom from "../components/Login/PinFrom";
 const Step = Steps.Step;
 
 const steps = [{
