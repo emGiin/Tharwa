@@ -1,27 +1,38 @@
+.loginForms {
+  margin: 0 auto;
+  max-width: 400px;
+  margin-top: 10%;
+  padding: 1em;
+}
+
+.stepContent {
+  padding: 10%;
+  border: 1px dashed #e9e9e9;
+  border-radius: 6px;
+  background-color: #fafafa;
+  height: 250px;
+  text-align: center;
+}
+
+.stepActions {
+  width: 100%;
+  padding: 1em
+}
+
+.primaryAction{
+  width: 50%;
+  margin: 1em; 
+}
+.secondaryAction{
+  width: 30%;
+  margin: 1em;
+}
+
 .login-form {
-    margin: 0 auto;
-    max-width: 300px;
+  margin: 0 auto;
+  max-width: 300px;
 }
-.login-part {
-    margin: 0 auto;
-    max-width: 400px;
-    padding-top: 10%;
-}
+
 .login-form-button {
-    width: 100%;
-}
-
-
-.steps-content {
-    margin-top: 16px;
-    border: 1px dashed #e9e9e9;
-    border-radius: 6px;
-    background-color: #fafafa;
-    min-height: 200px;
-    text-align: center;
-    padding-top: 40px;
-}
-
-.steps-action {
-    margin-top: 24px;
+  width: 100%;
 }
