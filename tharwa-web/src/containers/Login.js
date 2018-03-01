@@ -3,7 +3,7 @@ import { Steps, message, Icon } from "antd";
 
 import LoginForm from "../components/Login/LoginForm";
 import ConfirmationMethodPrompt from "../components/Login/ConfirmationMethodPrompt";
-import PinFrom from "../components/Login/PinFrom";
+import PinForm from "../components/Login/PinForm";
 import "./Styles/Login.css";
 
 const Step = Steps.Step;
@@ -32,7 +32,7 @@ class Login extends Component {
       },
       {
         title: "Vérification",
-        content: <PinFrom onNext={this.done.bind(this)}/>,
+        content: <PinForm onNext={this.done.bind(this)}/>,
         icon: <Icon type="qrcode" />
       }
     ];
