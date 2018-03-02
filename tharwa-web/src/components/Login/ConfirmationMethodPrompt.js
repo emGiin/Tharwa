@@ -28,7 +28,7 @@ class ConfirmationMethodPrompt extends Component {
         <Button
           type="primary"
           className="primaryAction"
-          onClick={this.props.onNext}
+          onClick={()=>this.props.onNext(this.state.value)}
         >
           Next
         </Button>
