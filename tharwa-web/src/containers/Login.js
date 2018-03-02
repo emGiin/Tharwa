@@ -26,28 +26,12 @@ class Login extends Component {
     const steps = [
       {
         title: "Login",
-        content: (
-          <LoginForm
-            onNext={(email, password) =>
-              this.setState({
-                ...this.state,
-                email,
-                password,
-                current: this.state.current+1
-              })
-            }
-          />
-        ),
+        content: <LoginForm onNext={this.handleLoginForm.bind(this)} />,
         icon: <Icon type="user" />
       },
       {
         title: "Code Pin",
-        content: <ConfirmationMethodPrompt onNext={(confirmationMethod) =>{
-          this.setState({
-            ...this.state,
-            confirmationMethod
-          }, this.submitCredentials)
-        }} />,
+        content: <ConfirmationMethodPrompt onNext={this.submitCredentials.bind(this)} />,
         icon: <Icon type="inbox" />
       },
       {
@@ -74,7 +58,26 @@ class Login extends Component {
     );
   }
 
-  submitCredentials() {
+  handleLoginForm(email, password) {
+    this.setState({
+      ...this.state,
+      email,
+      password,
+      current: this.state.current + 1
+    });
+  }
+
+  submitCredentials(confirmationMethod) {
+    this.setState(
+      {
+        ...this.state,
+        confirmationMethod
+      },
+      this.sendCredentials
+    );
+  }
+
+  sendCredentials() {
     APIMOCK.post("server", {
       email: this.state.email,
       password: this.state.password,
