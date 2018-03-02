@@ -5,15 +5,13 @@ const FormItem = Form.Item;
 
 class NormalLoginForm extends Component {
   handleSubmit = event => {
-    console.log("handeling submit");
     event.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
-        //TODO put the onNext call on here
+        this.props.onNext(values.email, values.password);
       }
     });
-    this.props.onNext();
   };
 
   render() {
