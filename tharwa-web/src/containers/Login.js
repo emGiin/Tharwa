@@ -31,12 +31,16 @@ class Login extends Component {
       },
       {
         title: "Code Pin",
-        content: <ConfirmationMethodPrompt onNext={this.submitCredentials.bind(this)} />,
+        content: (
+          <ConfirmationMethodPrompt
+            onNext={this.submitCredentials.bind(this)}
+          />
+        ),
         icon: <Icon type="inbox" />
       },
       {
         title: "Vérification",
-        content: <PinForm onNext={this.done.bind(this)} />,
+        content: <PinForm onNext={this.submitPin.bind(this)} />,
         icon: <Icon type="qrcode" />
       }
     ];
@@ -83,7 +87,7 @@ class Login extends Component {
       password: this.state.password,
       confirmationMethod: this.state.confirmationMethod
     }).then(response => {
-      console.log(`authorisation code received`, response);
+      message.success(`authorisation code received \n ${response}`);
       this.setState({
         ...this.state,
         authCode: response,
@@ -97,13 +101,37 @@ class Login extends Component {
     });
   }
 
+  sendPin() {
+    APIMOCK.post("server", {
+      pin: this.state.pin,
+      authCode: this.state.authCode
+    }).then(() => {
+      message.success("Processing complete!");
+      this.setState({
+        ...this.state,
+        isLoading: false
+      });
+      //TODO Redirect
+    });
+    this.setState({
+      ...this.state,
+      isLoading: true
+    });
+  }
+
   next() {
     const current = this.state.current + 1;
     this.setState({ ...this.state, current });
   }
 
-  done() {
-    message.success("Processing complete!");
+  submitPin(pin) {
+    this.setState(
+      {
+        ...this.state,
+        pin
+      },
+      this.sendPin
+    );
   }
 }
 
