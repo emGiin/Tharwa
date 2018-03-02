@@ -8,7 +8,8 @@ import {
   createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers';
 
-const middleware = createReactNavigationReduxMiddleware(
+// const middleware = createReactNavigationReduxMiddleware(
+createReactNavigationReduxMiddleware(
   "root",
   state => state.nav,
 );

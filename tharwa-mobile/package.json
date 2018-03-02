@@ -1,7 +1,7 @@
 {
   "name": "tharwa-backend",
   "version": "0.0.0",
-  "description": "Online mobile Banking application (server-side app)",
+  "description": "Online mobile Banking application (client-side app)",
   "author": "Tharwa Team <contact@tharwa.com>",
   "private": true,
   "license": "UNLICENSED",
@@ -44,6 +44,7 @@
     "react-native": "0.50.4",
     "react-native-config": "^0.10.0",
     "react-native-form-validator": "^0.2.0",
+    "react-native-popup-dialog": "^0.10.46",
     "react-navigation": "^1.0.0-beta.21",
     "react-navigation-redux-helpers": "^1.0.1",
     "react-redux": "^5.0.6",
