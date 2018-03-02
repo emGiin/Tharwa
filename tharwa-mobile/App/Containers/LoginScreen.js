@@ -8,7 +8,7 @@ import PopupDialog, {
   SlideAnimation
 } from 'react-native-popup-dialog';
 import axios from 'axios'
-import config, { API_URL } from 'react-native-config'
+import config from 'react-native-config'
 import { Images } from '../Themes'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -26,24 +26,18 @@ class LoginScreen extends Component {
     this.password = 'cityslicka';
   }
 
-  componentDidMount() {
-    console.log('====================================');
-    console.log(config, API_URL);
-    console.log('====================================');
-  }
-
   signIn(authType) {
     console.log(this.email, this.password);
     if (!this.emailRegex.test(this.email)) {
       console.log("Email invalid!");
     }
     this.slideAnimationDialog.dismiss();
-    axios.post(`${API_URL}/login`, {
+    axios.post(`${config.API_URL}/login`, {
       email: this.email,
       password: this.password
     }).then(response => {
       Toast.show(`Success: ${response}`, 'bottom', 'success')
-    }).catch(error => Toast.show(error, 'bottom', 'warning'));
+    }).catch(error => Toast.show(error, 'bottom', 'danger'));
   }
 
   goToSignUp() {
