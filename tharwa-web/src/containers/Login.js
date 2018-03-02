@@ -1,24 +1,28 @@
 import React, { Component } from "react";
 import { Steps, message, Icon } from "antd";
 
-import LoginForm from "../components/Login/LoginForm";
-import ConfirmationMethodPrompt from "../components/Login/ConfirmationMethodPrompt";
-import PinForm from "../components/Login/PinForm";
+import {
+  Loading,
+  PinForm,
+  ConfirmationMethodPrompt,
+  LoginForm
+} from "../components/Login";
 import "./Styles/Login.css";
 
 const Step = Steps.Step;
 
-
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      current: 0
-    };
-  }
+  state = {
+    current: 0,
+    isLoading: false,
+    email: null,
+    password: null,
+    authCode: null,
+    confirmationMethod: null,
+    pin: null
+  };
 
   render() {
-
     const steps = [
       {
         title: "Login",
@@ -27,12 +31,12 @@ class Login extends Component {
       },
       {
         title: "Code Pin",
-        content: <ConfirmationMethodPrompt onNext={this.next.bind(this)}/>,
+        content: <ConfirmationMethodPrompt onNext={this.next.bind(this)} />,
         icon: <Icon type="inbox" />
       },
       {
         title: "Vérification",
-        content: <PinForm onNext={this.done.bind(this)}/>,
+        content: <PinForm onNext={this.done.bind(this)} />,
         icon: <Icon type="qrcode" />
       }
     ];
@@ -47,31 +51,8 @@ class Login extends Component {
           ))}
         </Steps>
 
-        <div className="stepContent">{steps[current].content}</div>
-
-        <div className="stepActions">
-          {/* {current > 0 && (
-            <Button onClick={this.prev.bind(this)}>
-              Previous
-            </Button>
-          )}
-          {current < steps.length - 1 && (
-            <Button type="primary" 
-              className="primaryAction"
-              onClick={this.next.bind(this)}
-            >
-              Next
-            </Button>
-          )}
-          {current === steps.length - 1 && (
-            <Button
-              type="primary"
-              className="primaryAction"     
-              onClick={this.done.bind(this)}         
-            >
-              Done
-            </Button>
-          )} */}
+        <div className="stepContent">
+          {this.state.isLoading ? <Loading /> : steps[current].content}
         </div>
       </div>
     );
@@ -79,13 +60,12 @@ class Login extends Component {
 
   next() {
     const current = this.state.current + 1;
-    this.setState({ current });
+    this.setState({ ...this.state, current });
   }
 
   done() {
-    message.success("Processing complete!");  
+    message.success("Processing complete!");
   }
-
 }
 
 export default Login;
