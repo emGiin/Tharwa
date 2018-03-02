@@ -26,12 +26,28 @@ class Login extends Component {
     const steps = [
       {
         title: "Login",
-        content: <LoginForm onNext={this.next.bind(this)} />,
+        content: (
+          <LoginForm
+            onNext={(email, password) =>
+              this.setState({
+                ...this.state,
+                email,
+                password,
+                current: this.state.current+1
+              })
+            }
+          />
+        ),
         icon: <Icon type="user" />
       },
       {
         title: "Code Pin",
-        content: <ConfirmationMethodPrompt onNext={this.next.bind(this)} />,
+        content: <ConfirmationMethodPrompt onNext={(confirmationMethod) =>{
+          this.setState({
+            ...this.state,
+            confirmationMethod
+          }, this.submitCredentials)
+        }} />,
         icon: <Icon type="inbox" />
       },
       {
@@ -58,6 +74,26 @@ class Login extends Component {
     );
   }
 
+  submitCredentials() {
+    APIMOCK.post("server", {
+      email: this.state.email,
+      password: this.state.password,
+      confirmationMethod: this.state.confirmationMethod
+    }).then(response => {
+      console.log(`authorisation code received`, response);
+      this.setState({
+        ...this.state,
+        authCode: response,
+        isLoading: false,
+        current: this.state.current + 1
+      });
+    });
+    this.setState({
+      ...this.state,
+      isLoading: true
+    });
+  }
+
   next() {
     const current = this.state.current + 1;
     this.setState({ ...this.state, current });
@@ -67,5 +103,16 @@ class Login extends Component {
     message.success("Processing complete!");
   }
 }
+
+const APIMOCK = {
+  post: (url, data) => {
+    console.log(`sending in data to ${url} :  `, data);
+    return new Promise((resolve, reject) => {
+      setTimeout(function() {
+        resolve("a321bab132c21e12a");
+      }, 1000);
+    });
+  }
+};
 
 export default Login;
