@@ -38,8 +38,9 @@ class PinForm extends Component {
   }
 
   done() {
-    console.log(`Pin entred ${this.state.pin}`);
-    this.props.onNext();
+    const pin = this.state.pin
+    console.log(`Pin entred ${pin}`);
+    this.props.onNext(pin);
   }
 }
 
