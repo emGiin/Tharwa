@@ -7,11 +7,13 @@ import API from '../Services/Api'
 
 import { StartupTypes } from '../Redux/StartupRedux'
 import { AuthTypes } from '../Redux/AuthRedux'
+import { PinCodeTypes } from '../Redux/PinCodeRedux'
 
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
-import { login, confirmPinCode, logout, loadToken } from './AuthSaga'
+import { login, logout, loadToken } from './AuthSaga'
+import { confirmPinCode } from './PinCodeSaga'
 
 /* ------------- API ------------- */
 
@@ -32,8 +34,10 @@ export default function* root() {
 
     // authentication
     takeLatest(AuthTypes.AUTH_REQUEST, login, api),
-    takeLatest(AuthTypes.PIN_CODE_REQUEST, confirmPinCode, api),
     takeLatest(AuthTypes.LOGOUT_REQUEST, logout, api),
+
+    // Pin Code
+    takeLatest(PinCodeTypes.PIN_CODE_REQUEST, confirmPinCode, api),
 
     // // registration
     // takeLatest(RegisterTypes.REGISTER_REQUEST, register, api),

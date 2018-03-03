@@ -4,7 +4,8 @@ import rootSaga from '../Sagas/'
 
 const reducers = combineReducers({
   nav: require('./NavigationRedux').reducer,
-  auth: require('./AuthRedux').reducer
+  auth: require('./AuthRedux').reducer,
+  pinCode: require('./PinCodeRedux').reducer
 });
 
 

@@ -1,7 +1,7 @@
 import { call, put, select } from 'redux-saga/effects'
 import AuthActions from '../Redux/AuthRedux'
+import PinCodeActions from '../Redux/PinCodeRedux'
 
-export const selectPinCodeToken = (state) => state.auth.pinCodeToken
 export const selectAuthToken = (state) => state.auth.authToken
 // attempts to login
 export function* login(api, { email, password, confirmationMethod }) {
@@ -11,21 +11,12 @@ export function* login(api, { email, password, confirmationMethod }) {
 
   // success?
   if (response.ok) {
-    yield put(AuthActions.authSuccess(response.data.token))
+    yield put(AuthActions.authSuccess())
+    yield put(PinCodeActions.savePinCode(response.data.token))
     // yield put({ type: 'RELOGIN_OK' })
   } else {
     yield put(AuthActions.authFailure('WRONG'))
   }
-}
-
-// loads the login
-export function* confirmPinCode(api) {
-  const token = yield select(selectPinCodeToken)
-  // only set the token if we have it
-  if (token) {
-    yield call(api.setAuthToken, token)
-  }
-  yield put(AuthActions.tokenLoadSuccess())
 }
 
 // attempts to logout

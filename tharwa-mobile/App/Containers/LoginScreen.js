@@ -32,15 +32,13 @@ class LoginScreen extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    // Did the login attempt complete?
-    console.tron.log('here', newProps)
     if (!newProps.fetching) {
       if (newProps.error) {
         if (newProps.error === 'WRONG') {
           Alert.alert('Error', 'Invalid login', [{ text: 'OK' }])
           this.slideAnimationDialog.dismiss();
         }
-      } else {
+      } else if (newProps.success) {
         this.slideAnimationDialog.dismiss();
         this.goToPinCodePage();
       }
@@ -59,15 +57,15 @@ class LoginScreen extends Component {
   }
 
   handleChange = (name) => {
-    return value => this[name] = value;
+    return value => this.setState({ [name]: value });
   }
 
   goToPinCodePage = () => {
-    this.props.navigation.navigate('LaunchScreen');
+    this.props.navigation.navigate('PinCodeScreen');
   }
 
   goToSignUpPage = () => {
-    this.props.navigation.navigate('LaunchScreen');
+    this.props.navigation.navigate('RegisterScreen');
   }
 
   render() {
@@ -152,11 +150,8 @@ class LoginScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    // account: state.account.account,
-    fetching: state.auth.fetching,
-    error: state.auth.error
-  }
+  const { fetching, error, success } = state.auth;
+  return { fetching, error, success }
 }
 
 const mapDispatchToProps = (dispatch) => {
