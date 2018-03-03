@@ -1,12 +1,12 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 import configureStore from './CreateStore'
 import rootSaga from '../Sagas/'
 
-/* ------------- Assemble The Reducers ------------- */
-export const reducers = combineReducers({
+const reducers = combineReducers({
   nav: require('./NavigationRedux').reducer,
-  // github: require('./GithubRedux').reducer
-})
+  auth: require('./AuthRedux').reducer
+});
+
 
 export default () => {
   let { store, sagasManager, sagaMiddleware } = configureStore(reducers, rootSaga)
