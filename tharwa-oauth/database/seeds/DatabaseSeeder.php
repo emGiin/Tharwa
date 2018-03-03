@@ -12,5 +12,20 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
+
+        $oauth_clients = DB::table('oauth_clients');
+        $oauth_clients->insert([
+            'name' => 'tharwa-web',
+            'secret' => str_random(20),
+            'created_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);
+        $oauth_clients->insert([
+            'name' => 'tharwa-mob',
+            'secret' => str_random(20),
+            'created_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);
+
     }
 }
