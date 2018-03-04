@@ -1,4 +1,0 @@
-version: "2"
-services:
-  tharwa-api:
-    command: yarn start
