@@ -4,13 +4,7 @@ const RadioGroup = Radio.Group;
 
 class ConfirmationMethodPrompt extends Component {
   state = {
-    value: 1
-  };
-  onChange = e => {
-    console.log("radio checked", e.target.value);
-    this.setState({
-      value: e.target.value
-    });
+    choice: 1
   };
   render() {
     return (
@@ -19,8 +13,8 @@ class ConfirmationMethodPrompt extends Component {
         <RadioGroup
           style={{ marginTop: "3em" }}
           onChange={this.onChange}
-          value={this.state.value}
-        >
+          value={this.state.choice}
+          >
           <Radio value={1}>Mail</Radio>
           <Radio value={2}>SMS</Radio>
           {/* <Radio value={3}>J'ai déjà un code pin</Radio> */}
@@ -28,13 +22,18 @@ class ConfirmationMethodPrompt extends Component {
         <Button
           type="primary"
           className="primaryAction"
-          onClick={()=>this.props.onNext(this.state.value)}
-        >
+          onClick={()=>this.props.onNext(this.state.choice)}
+          >
           Next
         </Button>
       </div>
     );
   }
+  onChange = e => {
+    this.setState({
+      choice: e.target.value
+    });
+  };
 }
 
 export default ConfirmationMethodPrompt;
