@@ -26,6 +26,12 @@ class PinForm extends Component {
             return false;
           }}
           onChange={this.onPinChange.bind(this)}
+          onPaste={(event)=>  {
+            
+            const pastedData = event.clipboardData.getData('Text');
+            const reg =  /^[0-9]{4}$/;
+            if (!reg.test(pastedData)) event.preventDefault();
+          }}
         />
         <Button
           type="primary"
@@ -41,7 +47,7 @@ class PinForm extends Component {
 
   onPinChange(e) {
     const { value } = e.target;
-    const reg = /[0-9]{4}/;
+    const reg =  /^[0-9]{4}$/;
     if ((!isNaN(value) && reg.test(value)) || value === '' ) {
       this.setState({ pin: value });
     }
