@@ -15,8 +15,8 @@ const create = (baseURL = config.API_URL) => {
 
   const setAuthToken = (userAuth) => api.setHeader('Authorization', 'Bearer ' + userAuth)
   const removeAuthToken = () => api.setHeader('Authorization', '')
-  const login = (user) => api.post('api/client/auth', user)
-  const confirmPinCode = (data) => api.post('api/client/pincode', data)
+  const login = (user) => api.post('oath/pincode', user)
+  const confirmPinCode = (data) => api.post('oath/token', data)
   const register = (user) => api.post('api/client/register', user)
   const changePassword = (newPassword) => api.post('api/change-password')
 

@@ -5,7 +5,7 @@ const { Types, Creators } = createActions({
   pinCodeRequest: ['pinCode'],
   pinCodeSuccess: [],
   pinCodeFailure: ['error'],
-  savePinCode: ['pinCodeToken']
+  savePinCodeToken: ['pinCodeToken']
 })
 
 export const PinCodeTypes = Types
@@ -33,5 +33,5 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.PIN_CODE_REQUEST]: request,
   [Types.PIN_CODE_SUCCESS]: success,
   [Types.PIN_CODE_FAILURE]: failure,
-  [Types.SAVE_PIN_CODE]: save,
+  [Types.SAVE_PIN_CODE_TOKEN]: save,
 });
