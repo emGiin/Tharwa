@@ -18,6 +18,13 @@ class PinForm extends Component {
           size="large"
           maxLength="4"
           placeholder="Code pin"
+          onKeyPress={ (event) =>  {            
+            const charCode = (event.which) ? event.which : event.keyCode
+            console.log(charCode);
+            if (!(charCode > 31 && (charCode < 48 || charCode > 57))) return true;
+            event.preventDefault();
+            return false;
+          }}
           onChange={this.onPinChange.bind(this)}
         />
         <Button
@@ -34,7 +41,10 @@ class PinForm extends Component {
 
   onPinChange(e) {
     const { value } = e.target;
-    this.setState({ pin: value });
+    const reg = /[0-9]{4}/;
+    if ((!isNaN(value) && reg.test(value)) || value === '' ) {
+      this.setState({ pin: value });
+    }
   }
 
   done() {
