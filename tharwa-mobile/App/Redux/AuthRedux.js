@@ -37,7 +37,7 @@ export const loadSuccess = (state) => state.merge({ loading: false })
 export const saveToken = (state, { authToken }) => state.merge({ authToken })
 
 // we need to logout, meaning clear access tokens and account
-export const logoutRequest = state => state
+export const logoutRequest = state => state.merge({ authToken: null })
 export const logoutSuccess = state => INITIAL_STATE
 
 export const reducer = createReducer(INITIAL_STATE, {
