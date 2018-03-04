@@ -4,15 +4,6 @@ import { Form, Icon, Input, Checkbox, Button } from "antd";
 const FormItem = Form.Item;
 
 class NormalLoginForm extends Component {
-  handleSubmit = event => {
-    event.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log("Received values of form: ", values);
-        this.props.onNext(values.email, values.password);
-      }
-    });
-  };
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -53,6 +44,7 @@ class NormalLoginForm extends Component {
             valuePropName: "checked",
             initialValue: true
           })(<Checkbox>Remember me</Checkbox>)}
+          //TODO replace by captcha 
         </FormItem>
         <FormItem>
           <Button
@@ -67,6 +59,16 @@ class NormalLoginForm extends Component {
       </Form>
     );
   }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log("Received values of form: ", values);
+        this.props.onNext(values.email, values.password);
+      }
+    });
+  };
 }
 
 const LoginForm = Form.create()(NormalLoginForm);
