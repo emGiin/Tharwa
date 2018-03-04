@@ -24,7 +24,6 @@ describe("The login form component : LoginForm", () => {
     const spy = jest.fn(); 
     const wrapper = shallow (<LoginForm onNext={spy} />);
     const insideWrap = wrapper.dive();
-    console.log(insideWrap.debug());
     insideWrap.childAt(0).childAt(0).simulate('change', 'test@test.dz');
     insideWrap.childAt(1).childAt(0).simulate('change', 'password123');
     insideWrap.find("Form").simulate('submit', { preventDefault() {}});
