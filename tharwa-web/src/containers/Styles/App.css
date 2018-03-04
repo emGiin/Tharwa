@@ -1,1 +1,8 @@
 @import '../../../node_modules/antd/dist/antd.css';
+
+.boite{
+    box-shadow: 0px 4px 8px #80808099;
+border-radius: 5px;
+margin: 8px;
+padding: 2%;
+}

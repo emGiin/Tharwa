@@ -1,0 +1,18 @@
+@font-face  {
+    font-family: century;
+    src: url('../fonts/911FONTS.COM_CENTURYGOTHICREGULAR__-_911FONTS.COM_FONTS_MHPY.TTF');
+}
+@font-face  {
+    font-family: century_bold;
+    src: url('../fonts/GOTHICB.TTF');
+}
+
+.century_bold{
+    font-family: century_bold;
+}
+.century{
+    font-family: century;
+}
+*{
+    font-family: century;
+}

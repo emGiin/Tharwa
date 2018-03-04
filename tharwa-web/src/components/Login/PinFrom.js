@@ -7,7 +7,7 @@ class PinFrom extends Component {
             <div className="login-form">
                 Insérer le code pin
                 <br/>
-                <Input style={{ color: 'rgba(0,0,0,.25)', "max-width": "100px", "margin-top": "20px" }} size="large" maxLength="4" placeholder="Code pin" />
+                <Input type="number" style={{ color: 'rgba(0,0,0,.25)', "max-width": "100px", "margin-top": "20px" }} size="large" maxLength="4" placeholder="0000" />
             </div>
         );
     }
