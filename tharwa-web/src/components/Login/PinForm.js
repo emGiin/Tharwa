@@ -11,6 +11,7 @@ class PinForm extends Component {
         <p>Insérer le code pin</p>
         <br />
         <Input
+          ref="pin"
           style={{
             marginTop: "1em",
             maxWidth: 100
@@ -18,20 +19,9 @@ class PinForm extends Component {
           size="large"
           maxLength="4"
           placeholder="Code pin"
-          onKeyPress={ (event) =>  {            
-            const charCode = (event.which) ? event.which : event.keyCode
-            console.log(charCode);
-            if (!(charCode > 31 && (charCode < 48 || charCode > 57))) return true;
-            event.preventDefault();
-            return false;
-          }}
+          onKeyPress={this.onKeyPress}
           onChange={this.onPinChange.bind(this)}
-          onPaste={(event)=>  {
-            
-            const pastedData = event.clipboardData.getData('Text');
-            const reg =  /^[0-9]{4}$/;
-            if (!reg.test(pastedData)) event.preventDefault();
-          }}
+          onPaste={this.onPaste}
         />
         <Button
           type="primary"
@@ -47,14 +37,28 @@ class PinForm extends Component {
 
   onPinChange(e) {
     const { value } = e.target;
-    const reg =  /^[0-9]{4}$/;
-    if ((!isNaN(value) && reg.test(value)) || value === '' ) {
+    const reg = /^[0-9]{4}$/;
+    if ((!isNaN(value) && reg.test(value)) || value === "") {
       this.setState({ pin: value });
     }
   }
 
+  onKeyPress(event) {
+    const charCode = event.which ? event.which : event.keyCode;
+    console.log(charCode);
+    if (!(charCode > 31 && (charCode < 48 || charCode > 57))) return true;
+    event.preventDefault();
+    return false;
+  }
+
+  onPaste(event) {
+    const pastedData = event.clipboardData.getData("Text");
+    const reg = /^[0-9]{4}$/;
+    if (!reg.test(pastedData)) event.preventDefault();
+  }
+
   done() {
-    const pin = this.state.pin
+    const pin = this.state.pin;
     console.log(`Pin entred ${pin}`);
     this.props.onNext(pin);
   }
