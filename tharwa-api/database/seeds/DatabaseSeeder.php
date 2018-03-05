@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
         $managers->insert([
-            'email' => 'a@b.c',
+            'email' => 'gestionnaire@tharwa.con',
             'firstName' => 'gestest',
             'lastName' => 'gestest',
             'password' => bcrypt('1'),

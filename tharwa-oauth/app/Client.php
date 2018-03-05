@@ -14,6 +14,13 @@ class Client extends Model
      */
     protected $table = 'clients';
 
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
     public static function check($userName,$password){
 
         $client = static::where('email', $userName)->first(['password']);

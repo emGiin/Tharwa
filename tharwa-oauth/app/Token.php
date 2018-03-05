@@ -61,4 +61,5 @@ class Token extends Model
         ];
 
     }
+
 }

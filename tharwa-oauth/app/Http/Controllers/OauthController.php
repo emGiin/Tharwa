@@ -15,19 +15,17 @@ class OauthController extends Controller
 
     public function pincode(Request $request)
     {
-
         //validation
         $validator = Validator::make($request->all(), [
             'grant_type' => 'nullable|in:password',
             'client_id' => 'required|digits:1',
             'username' => 'required|email|max:55',
             'password' => 'required|max:255',
-            'recieve_choice' => 'required|in:sms,email',
+            'confirmation_method' => 'required|in:sms,email',
         ]);
         if ($validator->fails()) {
             return response($validator->errors(), config('code.BAD_REQUEST'));
         }
-
 
         //todo refactor
         //client type web or mob tharwa
@@ -46,7 +44,7 @@ class OauthController extends Controller
         //generate pin code then send it
         $pinCode = sprintf("%04d", rand(0, 9999));
         $pin_code_expires_at = \Carbon\Carbon::now()->addHours(1)->format('Y-m-d H:i:s');
-        if ('sms' == $request->recieve_choice){
+        if ('sms' == $request->confirmation_method){
 
 //            $nexmo = app('Nexmo\Client');
 //            $nexmo->message()->send([
@@ -71,12 +69,14 @@ class OauthController extends Controller
 
     }
 
+
+
     public function token(Request $request)
     {
         //validation
         $validator = Validator::make($request->all(), [
             'temporary_token' => 'required|max:100',
-            'pin_code' => 'required|digits:4'
+            'pin' => 'required|digits:4'
         ]);
         if ($validator->fails()) {
             return response($validator->errors(), config('code.BAD_REQUEST'));
@@ -84,7 +84,7 @@ class OauthController extends Controller
 
 
         //check infos
-        $token = Token::checkPinCode($request->temporary_token,$request->pin_code);
+        $token = Token::checkPinCode($request->temporary_token,$request->pin);
         if(!$token)
             return response(["authorization" => false], config('code.UNAUTHORIZED'));
 
