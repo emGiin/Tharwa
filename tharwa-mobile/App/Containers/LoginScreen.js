@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
-import { View, Image } from 'react-native'
-import { Container, Content, Text, Button, Item, Input, Icon, Toast } from 'native-base';
+import PropTypes from 'prop-types'
+import { Alert, View, Image } from 'react-native'
+import { Container, Content, Text, Button, Item, Input, Icon } from 'native-base';
 import { connect } from 'react-redux'
 import PopupDialog, {
   DialogTitle,
   DialogButton,
   SlideAnimation
 } from 'react-native-popup-dialog';
-import axios from 'axios'
-import config from 'react-native-config'
 import { Images } from '../Themes'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import AuthActions from '../Redux/AuthRedux'
 
 // Styles
 import styles from './Styles/LoginScreenStyle'
@@ -19,32 +17,61 @@ import styles from './Styles/LoginScreenStyle'
 const slideAnimation = new SlideAnimation({ slideFrom: 'bottom' });
 
 class LoginScreen extends Component {
-  emailRegex = /(\w(=?@)\w+\.{1}[a-zA-Z]{2,})/i;
-
-  componentWillMount() {
-    this.email = 'peter@klaven';
-    this.password = 'cityslicka';
+  static propTypes = {
+    dispatch: PropTypes.func,
+    fetching: PropTypes.bool,
+    attemptLogin: PropTypes.func
   }
 
-  signIn(authType) {
-    console.log(this.email, this.password);
-    if (!this.emailRegex.test(this.email)) {
-      console.log("Email invalid!");
+  constructor(props) {
+    super(props)
+    this.state = {
+      email: '',
+      password: ''
     }
-    this.slideAnimationDialog.dismiss();
-    axios.post(`${config.API_URL}/login`, {
-      email: this.email,
-      password: this.password
-    }).then(response => {
-      Toast.show(`Success: ${response}`, 'bottom', 'success')
-    }).catch(error => Toast.show(error, 'bottom', 'danger'));
   }
 
-  goToSignUp() {
-    this.props.navigation.navigate('signup');
+  componentWillReceiveProps(newProps) {
+    if (!newProps.fetching) {
+      if (newProps.error) {
+        if (newProps.error === 'WRONG') {
+          Alert.alert('Error', 'Invalid login', [{ text: 'OK' }])
+          this.slideAnimationDialog.dismiss();
+        }
+      } else if (newProps.success) {
+        this.slideAnimationDialog.dismiss();
+        this.goToPinCodePage();
+      }
+    }
+  }
+
+  submit = (confirmationMethod) => {
+    const { email, password } = this.state
+    // attempt a login - a saga is listening to pick it up from here.
+    if (this.formIsValid())
+      this.props.attemptLogin(email, password, confirmationMethod)
+  }
+
+  formIsValid = () => {
+    return true;
+  }
+
+  handleChange = (name) => {
+    return value => this.setState({ [name]: value });
+  }
+
+  goToPinCodePage = () => {
+    this.props.navigation.navigate('PinCodeScreen');
+  }
+
+  goToSignUpPage = () => {
+    this.props.navigation.navigate('RegisterScreen');
   }
 
   render() {
+    const { email, password } = this.state
+    const { fetching } = this.props
+    const editable = !fetching
     return (
       <Container>
         <PopupDialog
@@ -59,10 +86,10 @@ class LoginScreen extends Component {
               votre code d'authentification?
             </Text>
             <View style={{ flex: 1, flexDirection: 'row' }}>
-              <DialogButton text="Par Email" key="button-1"
-                onPress={() => { this.signIn('email'); }} />
-              <DialogButton text="Par SMS" key="button-2"
-                onPress={() => { this.signIn('sms'); }} />
+              <DialogButton disabled={fetching} text="Par Email" key="button-1"
+                onPress={() => { this.submit('email'); }} />
+              <DialogButton disabled={fetching} text="Par SMS" key="button-2"
+                onPress={() => { this.submit('sms'); }} />
             </View>
           </View>
         </PopupDialog>
@@ -82,11 +109,13 @@ class LoginScreen extends Component {
                   returnKeyType='next'
                   autoCapitalize='none'
                   selectionColor='#fff'
+                  value={email}
+                  editable={editable}
                   autoFocus={false}
                   onSubmitEditing={() => { this.PasswordInputRef._root.focus() }}
                   style={styles.whiteColor}
                   placeholderTextColor="#ffffff90"
-                  onChangeText={email => { this.email = email }} />
+                  onChangeText={this.handleChange('email')} />
               </Item>
 
               <Item regular style={styles.inputTxt}>
@@ -99,16 +128,18 @@ class LoginScreen extends Component {
                   returnKeyType='go'
                   selectionColor='#fff'
                   autoCorrect={false}
+                  value={password}
+                  editable={editable}
                   style={styles.whiteColor}
                   onSubmitEditing={() => this.slideAnimationDialog.show()}
-                  onChangeText={password => { this.password = password }} />
+                  onChangeText={this.handleChange('password')} />
               </Item>
             </View>
 
             <Button style={styles.loginBtn} onPress={() => { this.slideAnimationDialog.show() }} >
               <Text>Se connecter</Text>
             </Button>
-            <Button transparent style={styles.signupBtn} onPress={this.goToSignUp.bind(this)}>
+            <Button transparent style={styles.signupBtn} onPress={this.goToSignUpPage}>
               <Text style={styles.whiteColor}>Je n'ai pas de compte</Text>
             </Button>
           </View>
@@ -119,12 +150,14 @@ class LoginScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-  }
+  const { fetching, error, success } = state.auth;
+  return { fetching, error, success }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    attemptLogin: (email, password, confirmationMethod) =>
+      dispatch(AuthActions.authRequest(email, password, confirmationMethod)),
   }
 }
 
