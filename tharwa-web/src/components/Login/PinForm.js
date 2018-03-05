@@ -38,9 +38,9 @@ class PinForm extends Component {
   onPinChange(e) {
     const { value } = e.target;
     const reg = /^[0-9]{4}$/;
-    if ((!isNaN(value) && reg.test(value)) || value === "") {
+    if (!isNaN(value) && reg.test(value)) {
       this.setState({ pin: value });
-    }
+    } else if (this.state.pin) this.setState({ pin: null });
   }
 
   onKeyPress(event) {
@@ -59,7 +59,7 @@ class PinForm extends Component {
 
   done() {
     const pin = this.state.pin;
-    if (pin){
+    if (pin) {
       console.log(`Pin entred ${pin}`);
       this.props.onNext(pin);
     }
