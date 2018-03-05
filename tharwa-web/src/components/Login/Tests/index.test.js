@@ -1,16 +1,16 @@
 import * as LoginComponents from "../";
 
 describe("Login components exports", () => {
-  it("exports LoginForm", () => {
+  it("should export LoginForm", () => {
     expect(LoginComponents).toHaveProperty("LoginForm");
   });
-  it("exports ConfirmationMethodPrompt", () => {
+  it("should export ConfirmationMethodPrompt", () => {
     expect(LoginComponents).toHaveProperty("ConfirmationMethodPrompt");
   });
-  it("exports PinForm", () => {
+  it("should export PinForm", () => {
     expect(LoginComponents).toHaveProperty("PinForm");
   });
-  it("exports Loading", () => {
+  it("should export Loading", () => {
     expect(LoginComponents).toHaveProperty("Loading");
   });
 });
