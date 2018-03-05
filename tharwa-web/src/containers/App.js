@@ -12,8 +12,12 @@ import RegistrationForm from './createBanquier';
 import NavBareTop from '../components/navBareTop/navBarTop';
 import MenuLeft from '../components/menuLeft/menuLeft';
 
+
 //Actions
 import iAmRoot from '../redux/actions/authActions';
+
+
+
 
 import './Styles/App.css';
 
@@ -23,7 +27,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      
       <Router>
     <div>
     

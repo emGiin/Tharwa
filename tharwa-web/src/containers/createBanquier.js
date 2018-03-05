@@ -1,3 +1,6 @@
+
+
+
 import React, { Component } from 'react';
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
 import TitlePage from '../components/titlePage/titlePage';
@@ -8,19 +11,31 @@ const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 
 const residences = [{
-  value: 'zhejiang',
-  label: 'Zhejiang',
+  value: 'Algerie',
+  label: 'Algerie',
   children: [{
-    value: 'hangzhou',
-    label: 'Hangzhou',
+    value: 'Alger',
+    label: 'Alger',
     children: [{
-      value: 'xihu',
-      label: 'West Lake',
+      value: 'Oued Smar',
+      label: 'Oued Smar',
+    },{
+      value: 'Bab ezouar',
+      label: 'Bab ezouar',
+    },{
+      value: 'madania',
+      label: 'madania',
+    },{
+      value: 'Cheraga',
+      label: 'Cheraga',
+    },{
+      value: 'Draria',
+      label: 'Draria',
     }],
   }],
 }, {
-  value: 'jiangsu',
-  label: 'Jiangsu',
+  value: 'Setif',
+  label: 'Setif',
   children: [{
     value: 'nanjing',
     label: 'Nanjing',
@@ -31,15 +46,19 @@ const residences = [{
   }],
 }];
 
-class RegistrationForm extends React.Component {
-  state = {
-    confirmDirty: false,
-    autoCompleteResult: [],
-  };
-  handleSubmit = (e) => {
+class RegistrationForm extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      confirmDirty: false,
+      autoCompleteResult: [],
+    };
+  }
+  handleSubmit (e) {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
+        
         console.log('Received values of form: ', values);
       }
     });
@@ -51,7 +70,7 @@ class RegistrationForm extends React.Component {
   checkPassword = (rule, value, callback) => {
     const form = this.props.form;
     if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!');
+      callback('mot de passe non consistant');
     } else {
       callback();
     }
@@ -64,19 +83,10 @@ class RegistrationForm extends React.Component {
     callback();
   }
 
-  handleWebsiteChange = (value) => {
-    let autoCompleteResult;
-    if (!value) {
-      autoCompleteResult = [];
-    } else {
-      autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
-    }
-    this.setState({ autoCompleteResult });
-  }
+
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { autoCompleteResult } = this.state;
 
     const formItemLayout = {
       labelCol: {
@@ -101,22 +111,46 @@ class RegistrationForm extends React.Component {
       },
     };
     const prefixSelector = getFieldDecorator('prefix', {
-      initialValue: '86',
+      initialValue: '213',
     })(
-      <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
+      <Select style={{ width: 90 }}>
+        <Option value="213">+213</Option>
+        <Option value="31">+31</Option>
       </Select>
     );
 
-    const websiteOptions = autoCompleteResult.map(website => (
-      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    ));
+  
 
     return (
       <div>
       <TitlePage title="Ajouter banquier"/>
       <Form onSubmit={this.handleSubmit} className="boite">
+      <FormItem
+          {...formItemLayout}
+          label="Nom"
+        >
+          {getFieldDecorator('name',{
+            rules: [{
+              required: true
+            }],
+          })(
+            <Input maxLength='30' />
+          )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="Prenom"
+        >
+          {getFieldDecorator('surname',{
+            rules: [{
+              required: true
+            }],
+          })(
+            <Input  />
+          )}
+        </FormItem>
+
         <FormItem
           {...formItemLayout}
           label="E-mail"
@@ -164,9 +198,9 @@ class RegistrationForm extends React.Component {
           {...formItemLayout}
           label="Adresse residence"
         >
-          {getFieldDecorator('residence', {
+          {getFieldDecorator('adresse', {
             initialValue: ['Algerie', 'Alger', 'oued smar'],
-            rules: [{ type: 'array', required: true, message: 'Please select your habitual residence!' }],
+            rules: [{ type: 'array', required: true, message: 'selectionez votre lieu de residence svp!' }],
           })(
             <Cascader options={residences} />
           )}
@@ -181,35 +215,20 @@ class RegistrationForm extends React.Component {
             <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
           )}
         </FormItem>
+
         
-        <FormItem
-          {...formItemLayout}
-          label="Captcha"
-          extra="We must make sure that your are a human."
-        >
-          <Row gutter={8}>
-            <Col span={12}>
-              {getFieldDecorator('captcha', {
-                rules: [{ required: true, message: 'Please input the captcha you got!' }],
-              })(
-                <Input />
-              )}
-            </Col>
-            <Col span={12}>
-              <Button>Get captcha</Button>
-            </Col>
-          </Row>
-        </FormItem>
+        
         <div class="g-recaptcha" data-sitekey="6LcNaUoUAAAAAHBjQV-L9Z7zsW3joXPOGQGA3_NT"></div>
         <FormItem {...tailFormItemLayout}>
           {getFieldDecorator('agreement', {
             valuePropName: 'checked',
           })(
-            <Checkbox>I have read the <a href="">agreement</a></Checkbox>
+            <Checkbox>J ai lu et j accepte tous <a href="">les agreements</a></Checkbox>
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">Register</Button>
+          <Button type="default" htmlType="reset">Anuller</Button>
+          <Button type="primary" htmlType="submit">valider</Button>
         </FormItem>
       </Form>
       </div>

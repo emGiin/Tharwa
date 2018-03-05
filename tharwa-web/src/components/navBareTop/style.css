@@ -14,11 +14,18 @@ background: transparent;
 }
 .txt_menu{
     display: flex;
-padding-top: 12%;
-font-size: 15pt;
+padding-top: 21%;
+font-size: 13pt;
 }
 
 .txt_menu li a {
     color: black;
-    margin-right: 17px;
+    margin-right: 48px;
+    background-color: #d2cfcf4d;
+    padding: 3%;
+    border-radius: 3px;
+    transition: all ease-in 0.3s;
+}
+.txt_menu li a:hover{
+    background-color: white;
 }
