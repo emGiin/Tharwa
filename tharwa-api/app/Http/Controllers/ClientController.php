@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ClientRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 
 class ClientController extends Controller
@@ -14,13 +15,13 @@ class ClientController extends Controller
     {
         //validation
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|max:55',
+            'email' => 'required|email|max:55|unique:clientRequests,email',
             'firstName' => 'required|max:25',
             'lastName' => 'required|max:25',
             'password' => 'required|max:100',
             'address' => 'required|max:255',
             'phone' => 'required|max:100',
-//            'picture' => 'required|mimes:jpeg,bmp,png',//image
+            'picture' => 'required|mimes:jpeg,bmp,png',//image
             'function' => 'required|max:100',
             'type' => 'required|digits:1',//todo number or in ['Client', 'Employeur']
         ]);
@@ -30,8 +31,9 @@ class ClientController extends Controller
 
 
         /**start transaction**/
-        DB::transaction(function () {
+        DB::beginTransaction();
 
+        try {
             //save file in disk
             $path = \Request::file('picture')->store('pictures/client');
 
@@ -48,11 +50,24 @@ class ClientController extends Controller
                 'type' => 'Client', // todo get type related to the num
             ]);
 
-        }, 5);
-        /**commit if no problems else rollback**/
+            // all good
+
+            /**commit - no problems **/
+            return response(["saved" => true], config('code.CREATED'));
+
+        } catch (\Exception $e) {
+            // something went wrong
+
+            /**rollback every thing - problems **/
+            DB::rollback();
+
+            if (Storage::exists($path)) Storage::delete($path);
+
+            return response(["saved" => false], config('code.UNKNOWN_ERROR'));
+
+        }
 
 
-        return response(["saved" => true], config('code.OK'));
     }
 
 }
