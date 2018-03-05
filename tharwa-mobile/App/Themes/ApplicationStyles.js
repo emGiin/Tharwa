@@ -7,6 +7,10 @@ import Colors from './Colors'
 
 const ApplicationStyles = {
   screen: {
+    errorText: {
+      color: '#eb4d4b',
+      fontSize: 15
+    },
     mainContainer: {
       flex: 1,
       backgroundColor: Colors.transparent

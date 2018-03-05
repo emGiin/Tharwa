@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Alert, View, Image } from 'react-native'
-import { Container, Content, Text, Button, Item, Input, Icon } from 'native-base';
+import { Container, Content, Text } from 'native-base';
 import { connect } from 'react-redux'
 import PopupDialog, {
   DialogTitle,
@@ -10,6 +10,7 @@ import PopupDialog, {
 } from 'react-native-popup-dialog';
 import { Images } from '../Themes'
 import AuthActions from '../Redux/AuthRedux'
+import LoginForm from '../Components/LoginForm'
 
 // Styles
 import styles from './Styles/LoginScreenStyle'
@@ -25,10 +26,7 @@ class LoginScreen extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      email: '',
-      password: ''
-    }
+    this.state = { email: '', password: '' }
   }
 
   componentWillReceiveProps(newProps) {
@@ -48,16 +46,12 @@ class LoginScreen extends Component {
   submit = (confirmationMethod) => {
     const { email, password } = this.state
     // attempt a login - a saga is listening to pick it up from here.
-    if (this.formIsValid())
-      this.props.attemptLogin(email, password, confirmationMethod)
+    this.props.attemptLogin(email, password, confirmationMethod)
   }
 
-  formIsValid = () => {
-    return true;
-  }
-
-  handleChange = (name) => {
-    return value => this.setState({ [name]: value });
+  loginFormSubmit = (values) => {
+    console.tron.log(values);
+    this.slideAnimationDialog.show();
   }
 
   goToPinCodePage = () => {
@@ -69,9 +63,7 @@ class LoginScreen extends Component {
   }
 
   render() {
-    const { email, password } = this.state
     const { fetching } = this.props
-    const editable = !fetching
     return (
       <Container>
         <PopupDialog
@@ -99,50 +91,11 @@ class LoginScreen extends Component {
             <Image source={Images.logo} style={styles.logo} />
             <Text style={styles.logoName}>THARWA</Text>
           </View>
-          <View style={styles.centered}>
-            <View style={styles.inputContainer}>
-              <Item regular style={styles.inputTxt}>
-                <Icon name='person' style={styles.inputIcon} />
-                <Input
-                  placeholder='Email'
-                  keyboardType='email-address'
-                  returnKeyType='next'
-                  autoCapitalize='none'
-                  selectionColor='#fff'
-                  value={email}
-                  editable={editable}
-                  autoFocus={false}
-                  onSubmitEditing={() => { this.PasswordInputRef._root.focus() }}
-                  style={styles.whiteColor}
-                  placeholderTextColor="#ffffff90"
-                  onChangeText={this.handleChange('email')} />
-              </Item>
-
-              <Item regular style={styles.inputTxt}>
-                <Icon name='lock' style={styles.inputIcon} />
-                <Input
-                  placeholder='Password'
-                  ref={input => { this.PasswordInputRef = input }}
-                  secureTextEntry={true}
-                  placeholderTextColor="#ffffff90"
-                  returnKeyType='go'
-                  selectionColor='#fff'
-                  autoCorrect={false}
-                  value={password}
-                  editable={editable}
-                  style={styles.whiteColor}
-                  onSubmitEditing={() => this.slideAnimationDialog.show()}
-                  onChangeText={this.handleChange('password')} />
-              </Item>
-            </View>
-
-            <Button style={styles.loginBtn} onPress={() => { this.slideAnimationDialog.show() }} >
-              <Text>Se connecter</Text>
-            </Button>
-            <Button transparent style={styles.signupBtn} onPress={this.goToSignUpPage}>
-              <Text style={styles.whiteColor}>Je n'ai pas de compte</Text>
-            </Button>
-          </View>
+          <LoginForm
+            onSubmit={this.loginFormSubmit}
+            onRegisterClicked={this.goToSignUpPage}
+            editable={!fetching}
+          />
         </Content>
       </Container>
     )
