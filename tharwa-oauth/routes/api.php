@@ -13,14 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
-Route::get('/user', function (Request $request) {
-    return "user";
-});
-
 
 Route::prefix('oauth')->group(function () {
 
@@ -29,3 +21,8 @@ Route::prefix('oauth')->group(function () {
     Route::post('token','OauthController@token');
 
 });
+
+
+Route::fallback(function(){
+    return response()->json(['message' => 'Not Found!'], 404);
+})->name('fallback');;

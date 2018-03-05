@@ -2,8 +2,12 @@
 
 namespace App\Exceptions;
 
+use Route;
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -48,6 +52,18 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof NotFoundHttpException) {
+            return Route::respondWithRoute('fallback');
+        }
+
+        if ($exception instanceof ModelNotFoundException) {
+            return Route::respondWithRoute('fallback');
+        }
+
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            return Route::respondWithRoute('fallback');
+        }
+
         return parent::render($request, $exception);
     }
 }
