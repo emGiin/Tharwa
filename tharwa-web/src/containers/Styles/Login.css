@@ -1,0 +1,27 @@
+.login-form {
+    margin: 0 auto;
+    max-width: 300px;
+}
+.login-part {
+    margin: 0 auto;
+    max-width: 400px;
+    padding-top: 10%;
+}
+.login-form-button {
+    width: 100%;
+}
+
+
+.steps-content {
+    margin-top: 16px;
+    border: 1px dashed #e9e9e9;
+    border-radius: 6px;
+    background-color: #fafafa;
+    min-height: 200px;
+    text-align: center;
+    padding-top: 40px;
+}
+
+.steps-action {
+    margin-top: 24px;
+}
