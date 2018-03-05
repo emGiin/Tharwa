@@ -35,6 +35,10 @@ describe("<PinForm>", () => {
     expect(doneButton).toHaveLength(1);
   });
 
+  it("should have 1 div of loginForm ", () => {
+    expect(wrapper.find('div.loginForm')).toHaveLength(1);
+  });
+
   it("should not call OnNext() after clicking Next button with invalid pin", () => {
     doneButton.simulate("click");
     expect(spy).not.toHaveBeenCalled();
@@ -68,12 +72,18 @@ describe("<PinForm>", () => {
     pinInput.simulate('keypress', {which : 97, preventDefault:spy});
     expect(spy).toBeCalled()
     
+
     spy.mockReset();
 
     pinInput.simulate('keypress', {which : 53, preventDefault:spy});
     expect(spy).not.toBeCalled()
     
   })
+
+  it('should handle when keyCode is provided by onkeypress event',()=>{
+    pinInput.simulate('keypress', {keyCode : 98, preventDefault:spy});
+    expect(spy).toBeCalled()
+  });
 
   it('should only paste valid pin', () => {
         
