@@ -48,7 +48,7 @@ describe("<PinForm>", () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it("should call OnNext() after clicking Next button with valid", () => {
+  it("should call OnNext() after clicking Next button with valid pin", () => {
     pinInput.simulate("change", { target: { value: "1234" } });
     doneButton.simulate("click");
     expect(spy).toBeCalledWith('1234');
