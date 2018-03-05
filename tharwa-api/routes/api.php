@@ -13,6 +13,23 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::prefix('oauth')->group(function () {
+//
+//    Route::post('pincode', 'OauthController@pincode');
+//
+//    Route::post('token','OauthController@token');
+//
+//});
+//
+//
+//Route::fallback(function(){
+//    return response()->json(['message' => 'Not Found!'], 404);
+//})->name('fallback');
+
+Route::post('/client', 'ClientController@create');
+
+//Route::post('/client', function (Request $request) {
+//
+//
+//    return "ok ".$request->header('authorization');
+//});

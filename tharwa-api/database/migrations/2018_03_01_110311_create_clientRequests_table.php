@@ -23,7 +23,7 @@ class CreateClientRequestsTable extends Migration
             $table->string('picture');
             $table->string('function');
             $table->enum('type', ['Client', 'Employeur']);
-            $table->boolean('validated');
+            $table->boolean('validated')->default(false);
             $table->timestamps();
         });
     }
