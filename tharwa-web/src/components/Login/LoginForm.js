@@ -44,7 +44,8 @@ class NormalLoginForm extends Component {
             valuePropName: "checked",
             initialValue: true
           })(<Checkbox>Remember me</Checkbox>)}
-          //TODO replace by captcha 
+          {//TODO replace by captcha
+          } 
         </FormItem>
         <FormItem>
           <Button
