@@ -218,7 +218,7 @@ class RegistrationForm extends Component {
 
         
         
-        <div class="g-recaptcha" data-sitekey="6LcNaUoUAAAAAHBjQV-L9Z7zsW3joXPOGQGA3_NT"></div>
+        <div className="g-recaptcha" data-sitekey="6LcNaUoUAAAAAHBjQV-L9Z7zsW3joXPOGQGA3_NT"></div>
         <FormItem {...tailFormItemLayout}>
           {getFieldDecorator('agreement', {
             valuePropName: 'checked',
@@ -228,7 +228,7 @@ class RegistrationForm extends Component {
         </FormItem>
         <FormItem {...tailFormItemLayout}>
           <Button type="default" htmlType="reset">Anuller</Button>
-          <Button type="primary" htmlType="submit">valider</Button>
+          <Button id="submit" type="primary" htmlType="submit">valider</Button>
         </FormItem>
       </Form>
       </div>

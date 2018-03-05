@@ -4,6 +4,10 @@ list-style: outside none none;
 background: linear-gradient(330deg, #07c6b9 0%, #0e9cd1 75%);
 width: 100%;
 height: 50px;
+position: absolute;
+z-index: 3;
+display: block;
+box-shadow: 2px 1px 4px;
 }
 
 .barretop button{

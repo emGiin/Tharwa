@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 
 import RegistrationForm from '../createBanquier';
 
@@ -21,7 +21,7 @@ describe("<RegistrationForm>", () => {
   
     beforeAll(() => {
       spy = jest.fn();
-      wrapper = shallow(<RegistrationForm  />);
+      wrapper = mount(<RegistrationForm  />);
       nomInput = wrapper.find("Input#name");
       prenomInput= wrapper.find("Input#surname");
       mailInput= wrapper.find("Input#email");
@@ -51,12 +51,15 @@ describe("<RegistrationForm>", () => {
     expect(wrapper).toHaveLength(1);
   });
 
-  it("should have 7 input", () => {
-    return true;
-  });
+  it("should have 7 input fields ", () => {
+    expect(wrapper.find('Input')).toHaveLength(7);   
+});
 
-  it("should have 1 button", () => {
-    expect(validerBtn).toHaveLength(1);
+  it("should have validation button", () => {
+      console.log('validation btn text : ');
+      var text = validerBtn.at(1).text();
+      console.log(text);
+    expect(text).to.equal('valider');
   });
 /*
   it("should have 1 div of loginForm ", () => {
