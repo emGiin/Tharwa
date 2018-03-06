@@ -24,11 +24,6 @@ class LoginScreen extends Component {
     attemptLogin: PropTypes.func
   }
 
-  constructor(props) {
-    super(props)
-    this.state = { email: '', password: '' }
-  }
-
   componentWillReceiveProps(newProps) {
     if (!newProps.fetching) {
       if (newProps.error) {
@@ -44,13 +39,14 @@ class LoginScreen extends Component {
   }
 
   submit = (confirmationMethod) => {
-    const { email, password } = this.state
+    const { email, password } = this
     // attempt a login - a saga is listening to pick it up from here.
     this.props.attemptLogin(email, password, confirmationMethod)
   }
 
   loginFormSubmit = (values) => {
-    console.tron.log(values);
+    this.email = values.email;
+    this.password = values.password;
     this.slideAnimationDialog.show();
   }
 
@@ -85,7 +81,6 @@ class LoginScreen extends Component {
             </View>
           </View>
         </PopupDialog>
-        {/* <Image source={Images.login} style={styles.loginBg} resizeMode='contain' /> */}
         <Content>
           <View style={styles.logoContainer}>
             <Image source={Images.logo} style={styles.logo} />
