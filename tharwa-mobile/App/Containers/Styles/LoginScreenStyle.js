@@ -3,8 +3,9 @@ import { ApplicationStyles } from '../../Themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
-  centered: {
+  logoContainer: {
     alignItems: 'center',
+    marginBottom: 50
   },
   logoName: {
     fontSize: 25,
@@ -14,8 +15,8 @@ export default StyleSheet.create({
   },
   logo: {
     marginTop: 60,
-    height: 125,
-    width: 125,
+    height: 140,
+    width: 140,
     resizeMode: 'contain'
   },
   loginBg: {

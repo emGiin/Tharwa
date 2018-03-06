@@ -65,7 +65,7 @@ class LoginScreen extends Component {
   render() {
     const { fetching } = this.props
     return (
-      <Container>
+      <Container style={{ backgroundColor: '#2c3e50' }}>
         <PopupDialog
           width={0.95}
           height={170}
@@ -85,11 +85,10 @@ class LoginScreen extends Component {
             </View>
           </View>
         </PopupDialog>
-        <Image source={Images.login} style={styles.loginBg} resizeMode='contain' />
+        {/* <Image source={Images.login} style={styles.loginBg} resizeMode='contain' /> */}
         <Content>
-          <View style={styles.centered}>
+          <View style={styles.logoContainer}>
             <Image source={Images.logo} style={styles.logo} />
-            <Text style={styles.logoName}>THARWA</Text>
           </View>
           <LoginForm
             onSubmit={this.loginFormSubmit}

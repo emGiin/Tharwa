@@ -44,8 +44,6 @@
     "react-native": "0.50.4",
     "react-native-config": "0.11.5",
     "react-native-confirmation-code-input": "^1.0.4",
-    "react-native-form-validator": "^0.2.0",
-    "react-native-joi": "^0.0.5",
     "react-native-popup-dialog": "^0.10.46",
     "react-navigation": "^1.0.0-beta.21",
     "react-navigation-redux-helpers": "^1.0.1",

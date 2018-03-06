@@ -2,26 +2,27 @@ import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
   errorText: {
-    color: '#c0392b',
-    fontSize: 15
+    color: '#e74c3cd0',
+    fontSize: 13
   },
-  centered: {
-    alignItems: 'center',
+  mainformContainer: {
+    alignItems: 'center'
   },
   loginBtn: {
     paddingHorizontal: 70,
     marginTop: 30,
     alignSelf: 'center',
-    borderRadius: 5,
     height: 40,
-    backgroundColor: 'rgb(37, 110, 158)'
+    borderColor: '#16a085',
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: 'transparent'
   },
   signupBtn: {
     alignSelf: 'center',
     marginTop: 40
   },
   formContainer: {
-    marginHorizontal: 10,
     marginTop: 10
   },
   whiteColor: {
@@ -30,7 +31,7 @@ export default StyleSheet.create({
   inputTxt: {
     marginTop: 10,
     height: 40,
-    backgroundColor: '#00000080',
+    backgroundColor: '#00000040',
     borderColor: '#00000070',
     borderRadius: 3
   },
