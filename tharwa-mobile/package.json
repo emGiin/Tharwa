@@ -10,9 +10,10 @@
     "yarn": "*"
   },
   "scripts": {
-    "precommit": "yarn lint",
+    "precommit": "yarn validate",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "android": "node node_modules/react-native/local-cli/cli.js run-android",
+    "validate": "yarn lint && yarn test",
     "test": "jest",
     "lint": "esw **/*.js --ignore-path .gitignore server config --color",
     "lint:watch": "yarn lint -- --watch",
