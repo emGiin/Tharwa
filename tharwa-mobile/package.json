@@ -100,7 +100,10 @@
     "setupFiles": [
       "<rootDir>/Tests/Setup"
     ],
-    "preset": "react-native"
+    "preset": "react-native",
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|native-base|react-navigation)"
+    ]
   },
   "config": {}
 }

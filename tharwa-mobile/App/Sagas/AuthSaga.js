@@ -28,9 +28,7 @@ export function* login(api, { email, password, confirmationMethod }) {
 // attempts to logout
 export function* logout(api) {
   yield call(api.removeAuthToken)
-  // yield put(AccountActions.accountRequest())
   yield put(AuthActions.logoutSuccess())
-  yield put({ type: 'RELOGIN_ABORT' })
 }
 
 // loads the login
