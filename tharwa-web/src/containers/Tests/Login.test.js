@@ -38,5 +38,27 @@ describe('<Login>', () => {
     expect(wrapper.find('Loading')).toHaveLength(0);    
   })
 
+  it('should show the content corresponding to the current step', ()=> {
+    expect(wrapper.find('Form(NormalLoginForm)')).toHaveLength(1);
+    
+    wrapper.setState({current : 1});
+    expect(wrapper.find('ConfirmationMethodPrompt')).toHaveLength(1);
+
+    wrapper.setState({current : 2});
+    expect(wrapper.find('PinForm')).toHaveLength(1);
+
+    wrapper.setState({current : 0});
+    expect(wrapper.find('Form(NormalLoginForm)')).toHaveLength(1);
+
+  });
+
+  it('should handle login form', ()=>{
+    wrapper.instance().handleLoginForm('email', 'password');
+    let {email, password, current} = wrapper.state();
+    expect(email).toBe('email');
+    expect(password).toBe('password');
+    expect(current).toBe(1);
+  })
+
 
 });
