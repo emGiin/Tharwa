@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-import { Alert, View, ActivityIndicator } from 'react-native'
+import { View, ActivityIndicator } from 'react-native'
 import { Container, Content, Text, Button } from 'native-base';
 import PopupDialog, {
   DialogTitle,
@@ -48,25 +48,30 @@ class PinCodeScreen extends Component {
 
   render() {
     const { fetching, error } = this.props;
+    let dialogTitle = error ? 'Erreur' : 'Confirmation en cours';
+    let dialogDescription = error || 'Confirmation du code pin\n est en cours';
     return (
       <Container>
         <PopupDialog
           width={0.95}
           height={170}
+          dismissOnTouchOutside={!fetching}
+          dismissOnHardwareBackPress={!fetching}
           ref={(dialog) => { this.dialog = dialog; }}
           dialogAnimation={slideAnimation}
-          dialogTitle={
-            <DialogTitle title={!!error ? 'Erreur' : 'Confirmation en cours'} />
-          }>
-          <View>
-            {fetching && <ActivityIndicator size='large' />}
-            {!!error &&
-              <View>
-                <Text>{error}</Text>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-                  <DialogButton disabled={fetching} text="Fermer" key="button-1"
-                    onPress={() => { this.dialog.dismiss() }} />
-                </View>
+          dialogTitle={<DialogTitle title={dialogTitle} />}
+        >
+          <View style={styles.dialogContentView}>
+            <Text style={styles.dialogContent}> {dialogDescription} </Text>
+            {
+              fetching &&
+              <ActivityIndicator size='large' style={{ marginVertical: 20 }} />
+            }
+            {
+              error &&
+              <View style={{ flex: 1, flexDirection: 'row' }}>
+                <DialogButton disabled={fetching} text="Fermer" key="button-1"
+                  onPress={() => { this.dialog.dismiss() }} />
               </View>
             }
           </View>
@@ -86,9 +91,7 @@ class PinCodeScreen extends Component {
             onFulfill={this.submit}
           />
         </Content>
-        <Text style={styles.noCodeText}>
-          Vous n'avez pas recu un code?
-        </Text>
+        <Text style={styles.noCodeText}> Vous n'avez pas recu un code? </Text>
         <Button transparent style={styles.resendButton} onPress={this.resendPinCode}>
           <Text style={styles.resendButtonText}>Obtenir un nouveau</Text>
         </Button>
