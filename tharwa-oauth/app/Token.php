@@ -20,6 +20,13 @@ class Token extends Model
      */
     protected $guarded = [];
 
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var boolean
+     */
+    public $incrementing = false;
+
     public static function setPinCode($email, $pincode, $pin_code_expires_at,$scope)
     {
 

@@ -15,7 +15,7 @@ class ManagerModelTest extends TestCase
 
     public function testCheckFunction()
     {
-        $userName = 'gestionnaire@tharwa.con';
+        $userName = 'gestionnaire2@tharwa.con';
         $password = 'test';
 
         Manager::create([
@@ -44,7 +44,7 @@ class ManagerModelTest extends TestCase
 
     public function testCheckAndGetInfoFunction()
     {
-        $userName = 'gestionnaire@tharwa.con';
+        $userName = 'gestionnaire2@tharwa.con';
         $password = 'test';
         $phone = '0555555';
         $scope = 'Gestionnaire';

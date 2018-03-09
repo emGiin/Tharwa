@@ -16,6 +16,13 @@ class Manager extends Model
 
     protected $guarded = [];
 
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var boolean
+     */
+    public $incrementing = false;
+
     //todo refactor
     public static function check($userName, $password)
     {

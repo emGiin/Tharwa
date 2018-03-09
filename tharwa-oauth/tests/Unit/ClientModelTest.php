@@ -16,7 +16,7 @@ class ClientModelTest extends TestCase
 
     public function testCheckFunction()
     {
-        $userName = 'a@c.c';
+        $userName = 'a2@c.c';
         $password = 'test';
 
         Client::create([
@@ -47,7 +47,7 @@ class ClientModelTest extends TestCase
 
     public function testCheckAndGetInfoFunction()
     {
-        $userName = 'a@c.c';
+        $userName = 'a2@c.c';
         $password = 'test';
         $phone = '0555555';
         $scope = 'Client';

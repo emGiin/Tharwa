@@ -21,7 +21,15 @@ class Client extends Model
      */
     protected $guarded = [];
 
-    public static function check($userName,$password){
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var boolean
+     */
+    public $incrementing = false;
+
+    public static function check($userName, $password)
+    {
 
         $client = static::where('email', $userName)->first(['password']);
 
@@ -32,9 +40,10 @@ class Client extends Model
     }
 
 
-    public static function checkAndGetInfo($userName,$password){
+    public static function checkAndGetInfo($userName, $password)
+    {
 
-        $client = static::where('email', $userName)->first(['password','phone','type']);
+        $client = static::where('email', $userName)->first(['password', 'phone', 'type']);
 
         if (is_null($client) || !Hash::check($password, $client->password))
             return false;
