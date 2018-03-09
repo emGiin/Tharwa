@@ -1,21 +1,23 @@
 import 'react-native'
 import React from 'react'
-import FullButton from '../../App/Components/FullButton'
 import { shallow } from 'enzyme'
-import renderer from 'react-test-renderer'
+import FullButton from '../../App/Components/FullButton'
 
-test('FullButton component renders correctly', () => {
-  const tree = renderer.create(<FullButton onPress={() => {}} text='hi' />).toJSON()
-  expect(tree).toMatchSnapshot()
-})
+describe('FullButton component', () => {
+  let container, content;
+  const spy = jest.fn();
 
-test('onPress', () => {
-  let i = 0 // i guess i could have used sinon here too... less is more i guess
-  const onPress = () => i++
-  const wrapperPress = shallow(<FullButton onPress={onPress} text='hi' />)
+  beforeAll(() => {
+    container = shallow(<FullButton onPress={spy} text='test' />)
+    content = container.dive()
+  })
 
-  expect(wrapperPress.prop('onPress')).toBe(onPress) // uses the right handler
-  expect(i).toBe(0)
-  wrapperPress.simulate('press')
-  expect(i).toBe(1)
+  it('should render correctly', () => {
+    expect(content).toMatchSnapshot()
+  })
+
+  it('should call on press function', () => {
+    container.simulate('press')
+    expect(spy).toHaveBeenCalled()
+  })
 })
