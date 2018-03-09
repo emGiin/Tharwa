@@ -3,12 +3,13 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import { View, ActivityIndicator } from 'react-native'
-import { Container, Content, Text, Button } from 'native-base';
+import { Container, Content, Text, Button } from 'native-base'
 import PopupDialog, {
   DialogTitle,
   DialogButton,
   SlideAnimation
-} from 'react-native-popup-dialog';
+} from 'react-native-popup-dialog'
+import I18n from 'react-native-i18n'
 import CodeInput from 'react-native-confirmation-code-input'
 import PinCodeActions from '../Redux/PinCodeRedux'
 
@@ -48,8 +49,8 @@ class PinCodeScreen extends Component {
 
   render() {
     const { fetching, error } = this.props;
-    let dialogTitle = error ? 'Erreur' : 'Confirmation en cours';
-    let dialogDescription = error || 'Confirmation du code pin\n est en cours';
+    let dialogTitle = error ? I18n.t('pinCodeTitleError') : I18n.t('pinCodeTitleFetching');
+    let dialogDescription = error || I18n.t('pinCodeDescriptionFetching');
     return (
       <Container>
         <PopupDialog
@@ -70,15 +71,13 @@ class PinCodeScreen extends Component {
             {
               error &&
               <View style={{ flex: 1, flexDirection: 'row' }}>
-                <DialogButton disabled={fetching} text="Fermer" key="button-1"
+                <DialogButton disabled={fetching} text={I18n.t('pinCodeDialogClose')} key="button-1"
                   onPress={() => { this.dialog.dismiss() }} />
               </View>
             }
           </View>
         </PopupDialog>
-        <Text style={styles.mainText}>
-          Veuiller saisir le code pin sur 4 chiffres
-        </Text>
+        <Text style={styles.mainText}>{I18n.t('pinCodeDescription')}</Text>
         <Content>
           <CodeInput
             keyboardType='numeric'
@@ -91,9 +90,9 @@ class PinCodeScreen extends Component {
             onFulfill={this.submit}
           />
         </Content>
-        <Text style={styles.noCodeText}> Vous n'avez pas recu un code? </Text>
+        <Text style={styles.noCodeText}> {I18n.t('pinCodeNotReceived')} </Text>
         <Button transparent style={styles.resendButton} onPress={this.resendPinCode}>
-          <Text style={styles.resendButtonText}>Obtenir un nouveau</Text>
+          <Text style={styles.resendButtonText}>{I18n.t('pinCodeGetNew')}</Text>
         </Button>
       </Container>
     )

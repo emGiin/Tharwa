@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { View, ScrollView } from 'react-native'
-import { Text, Button, Item, Input, Icon } from 'native-base';
-import { reduxForm, Field } from 'redux-form';
+import { Text, Button, Item, Input, Icon } from 'native-base'
+import { reduxForm, Field } from 'redux-form'
+import I18n from 'react-native-i18n'
 import { emailValidators, passwordValidators } from '../Helpers/validators'
 import styles from './Styles/LoginFormStyle'
 
@@ -13,7 +14,7 @@ export class EmailInput extends Component {
         <Item regular style={styles.inputTxt}>
           <Icon name='person' style={styles.inputIcon} />
           <Input
-            placeholder='Email'
+            placeholder={I18n.t('emailPlaceholder')}
             keyboardType='email-address'
             returnKeyType='next'
             autoCapitalize='none'
@@ -53,7 +54,7 @@ export class PasswordInput extends Component {
           <Icon name='lock' style={styles.inputIcon} />
           <Input
             ref={refField}
-            placeholder='Password'
+            placeholder={I18n.t('passwordPlaceholder')}
             secureTextEntry={!showPassword}
             placeholderTextColor="#ffffff90"
             returnKeyType='go'
@@ -105,10 +106,10 @@ const LoginForm = (props) => {
       </ScrollView>
 
       <Button style={styles.loginBtn} onPress={props.handleSubmit} >
-        <Text style={{ color: '#16a085' }}>Se connecter</Text>
+        <Text style={{ color: '#16a085' }}>{I18n.t('signIn')}</Text>
       </Button>
       <Button transparent style={styles.signupBtn} onPress={props.onRegisterClicked}>
-        <Text style={styles.whiteColor}>Je n'ai pas de compte</Text>
+        <Text style={styles.whiteColor}>{I18n.t('noAccount')}</Text>
       </Button>
     </View>
   )

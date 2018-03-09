@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, Image, ActivityIndicator } from 'react-native'
-import { Container, Content, Text } from 'native-base';
+import { Container, Content, Text } from 'native-base'
 import { connect } from 'react-redux'
 import PopupDialog, {
   DialogTitle,
   DialogButton,
   SlideAnimation
-} from 'react-native-popup-dialog';
+} from 'react-native-popup-dialog'
+import I18n from 'react-native-i18n'
 import { Images } from '../Themes'
 import AuthActions from '../Redux/AuthRedux'
 import LoginForm from '../Components/LoginForm'
@@ -60,14 +61,14 @@ class LoginScreen extends Component {
 
   render() {
     const { fetching, error } = this.props;
-    let dialogTitle = 'Code d\'authentification';
-    let dialogDescription = 'Comment souhaiter-vous recevoir votre code d\'authentification?';
+    let dialogTitle = I18n.t('authDialogTitle');
+    let dialogDescription = I18n.t('authDialogDescription');
     if (fetching) {
-      dialogTitle = 'Authentification'
-      dialogDescription = 'Authentification en cours'
+      dialogTitle = I18n.t('authDialogTitleFetching');
+      dialogDescription = I18n.t('authDialogDescriptionFetching');
     } else if (error && !this.state.newRequest) {
-      dialogTitle = 'Erreur'
-      dialogDescription = 'Email ou mot de passe incorrect!'
+      dialogTitle = I18n.t('authDialogTitleError')
+      dialogDescription = error
     }
     return (
       <Container style={{ backgroundColor: '#2c3e50' }}>
@@ -90,13 +91,13 @@ class LoginScreen extends Component {
             }
             {
               error && !this.state.newRequest ?
-                <DialogButton text="Fermer"
+                <DialogButton text={I18n.t('authDialogClose')}
                   onPress={() => { this.dialog.dismiss(); }} />
                 : !fetching &&
                 <View style={{ flex: 1, flexDirection: 'row' }}>
-                  <DialogButton disabled={fetching} text="Par Email"
+                  <DialogButton disabled={fetching} text={I18n.t('authDialogPinByEmail')}
                     onPress={() => { this.submit('email'); }} />
-                  <DialogButton disabled={fetching} text="Par SMS"
+                  <DialogButton disabled={fetching} text={I18n.t('authDialogPinBySms')}
                     onPress={() => { this.submit('sms'); }} />
                 </View>
             }
