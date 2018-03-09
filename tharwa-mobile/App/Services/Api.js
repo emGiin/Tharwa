@@ -1,7 +1,6 @@
 import apisauce from 'apisauce'
-import config from 'react-native-config'
 
-const create = (baseURL = config.API_URL) => {
+const create = (baseURL = 'https://reqres.in/api') => {
   const api = apisauce.create({
     // base URL is read from the "constructor"
     baseURL,
