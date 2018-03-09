@@ -65,7 +65,7 @@ describe('PIN CODE SAGA', () => {
       temporary_token: response
     }))
     // Set the auth token on the API
-    expect(step(response)).toEqual(put(PinCodeActions.pinCodeFailure('WRONG')))
+    expect(step(response)).toEqual(put(PinCodeActions.pinCodeFailure('Le code pin introduit \nest errorné ou a expiré')))
   })
 
   it('should select the pin code token', () => {

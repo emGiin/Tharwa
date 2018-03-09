@@ -52,7 +52,7 @@ describe('Authentication SAGA', () => {
     // Attempt to login and fail
     expect(step(response)).toEqual(call(FixtureAPI.login, authObj))
     // Send the error
-    expect(step(response)).toEqual(put(AuthActions.authFailure('WRONG')))
+    expect(step(response)).toEqual(put(AuthActions.authFailure('Email ou mot de passe incorrect!')))
   })
 
   it('should show login load path with no token', () => {
