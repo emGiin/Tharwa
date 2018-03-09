@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Alert, View, Image, ActivityIndicator } from 'react-native'
+import { View, Image, ActivityIndicator } from 'react-native'
 import { Container, Content, Text } from 'native-base';
 import { connect } from 'react-redux'
 import PopupDialog, {
@@ -17,12 +17,6 @@ import styles from './Styles/LoginScreenStyle'
 
 const slideAnimation = new SlideAnimation({ slideFrom: 'bottom' });
 
-const Logo = () => (
-  <View style={styles.logoContainer}>
-    <Image source={Images.logo} style={styles.logo} />
-  </View>
-)
-
 class LoginScreen extends Component {
   static propTypes = {
     dispatch: PropTypes.func,
@@ -32,16 +26,17 @@ class LoginScreen extends Component {
     attemptLogin: PropTypes.func
   }
 
+  constructor(props) {
+    super(props)
+    this.state = { newRequest: true }
+  }
+
   componentWillReceiveProps(props) {
-    if (!props.fetching) {
-      if (props.error && props.error === 'WRONG') {
-        // Alert.alert('Erreur', 'Email ou mot de passe incorrect!', [{ text: 'Fermer' }])
-        this.slideAnimationDialog.dismiss();
-      } else if (props.success && !this.props.success) {
-        this.slideAnimationDialog.dismiss();
-        this.goToPinCodePage();
-      }
+    if (!props.fetching && props.success) {
+      this.dialog.dismiss();
+      this.goToPinCodePage();
     }
+    if (props.error) this.setState({ newRequest: false })
   }
 
   submit = (confirmationMethod) => {
@@ -51,7 +46,8 @@ class LoginScreen extends Component {
   loginFormSubmit = (values) => {
     this.email = values.email;
     this.password = values.password;
-    this.slideAnimationDialog.show();
+    this.setState({ newRequest: true })
+    this.dialog.show();
   }
 
   goToPinCodePage = () => {
@@ -64,37 +60,57 @@ class LoginScreen extends Component {
 
   render() {
     const { fetching, error } = this.props;
+    let dialogTitle = 'Code d\'authentification';
+    let dialogDescription = 'Comment souhaiter-vous recevoir votre code d\'authentification?';
+    if (fetching) {
+      dialogTitle = 'Authentification'
+      dialogDescription = 'Authentification en cours'
+    } else if (error && !this.state.newRequest) {
+      dialogTitle = 'Erreur'
+      dialogDescription = 'Email ou mot de passe incorrect!'
+    }
     return (
       <Container style={{ backgroundColor: '#2c3e50' }}>
         <PopupDialog
           width={0.95}
           height={170}
-          ref={(popupDialog) => { this.slideAnimationDialog = popupDialog; }}
+          dismissOnTouchOutside={!fetching}
+          dismissOnHardwareBackPress={!fetching}
+          ref={(dialog) => { this.dialog = dialog; }}
           dialogAnimation={slideAnimation}
-          dialogTitle={<DialogTitle title="Code d'authentification" />}>
+          dialogTitle={<DialogTitle title={dialogTitle} />}
+        >
           <View style={styles.dialogContentView}>
             <Text style={styles.dialogContent}>
-              Comment souhaiter-vous recevoir votre code d'authentification?
+              {dialogDescription}
             </Text>
             {
-              fetching ? <ActivityIndicator size='large' />
-                : <View style={{ flex: 1, flexDirection: 'row' }}>
-                  <DialogButton disabled={fetching} text="Par Email" key="button-1"
+              fetching &&
+              <ActivityIndicator size='large' style={{ marginVertical: 20 }} />
+            }
+            {
+              error && !this.state.newRequest ?
+                <DialogButton text="Fermer"
+                  onPress={() => { this.dialog.dismiss(); }} />
+                : !fetching &&
+                <View style={{ flex: 1, flexDirection: 'row' }}>
+                  <DialogButton disabled={fetching} text="Par Email"
                     onPress={() => { this.submit('email'); }} />
-                  <DialogButton disabled={fetching} text="Par SMS" key="button-2"
+                  <DialogButton disabled={fetching} text="Par SMS"
                     onPress={() => { this.submit('sms'); }} />
                 </View>
             }
           </View>
         </PopupDialog>
         <Content>
-          <Logo />
+          <View style={styles.logoContainer}>
+            <Image source={Images.logo} style={styles.logo} />
+          </View>
           <LoginForm
             onSubmit={this.loginFormSubmit}
             onRegisterClicked={this.goToSignUpPage}
             editable={!fetching}
           />
-          {!!error && <Text>{error}</Text>}
         </Content>
       </Container>
     )

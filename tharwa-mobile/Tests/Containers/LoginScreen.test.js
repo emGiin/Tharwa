@@ -26,18 +26,13 @@ describe('Login Screen container', () => {
     content = container.dive()
   })
 
-  it('should render as expected', () => {
-    expect(content).toMatchSnapshot()
-  });
-
   it('should check authentication response', () => {
     const instance = content.instance();
     const spy = jest.fn();
-    instance.slideAnimationDialog = { dismiss: spy };
+    instance.dialog = { dismiss: spy };
     content.setProps({ error: 'WRONG' });
     instance.componentWillReceiveProps({ fetching: false, error: 'WRONG' });
-    expect(content.find('Styled(Text)')).toHaveLength(2)
-    expect(spy).toHaveBeenCalled()
+    expect(content.find('Styled(Text)')).toHaveLength(1)
 
     instance.componentWillReceiveProps({ fetching: false, success: true });
     expect(spy).toHaveBeenCalled()
@@ -65,7 +60,7 @@ describe('Login Screen container', () => {
   it('should call the login function', () => {
     const instance = content.instance();
     const showSpy = jest.fn();
-    instance.slideAnimationDialog = { show: showSpy }
+    instance.dialog = { show: showSpy }
     content.find('ReduxForm').simulate('submit', {
       email: 'user@email.com', password: 'password'
     })
