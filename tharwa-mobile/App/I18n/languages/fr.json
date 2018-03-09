@@ -24,5 +24,7 @@
   "emailRequiredError": "Le champ Email est obligatoire",
   "invalidEmailError": "Le format d'email est invalide",
   "passwordRequiredError": "Le champ Mot de passe est obligatoire",
-  "passwordLengthError": "Le mot de passe doit comporter au moins 8 caractères"
+  "passwordLengthError": "Le mot de passe doit comporter au moins 8 caractères",
+  "connected": "Connecté",
+  "noInternet": "Pas de connexion Internet"
 }
