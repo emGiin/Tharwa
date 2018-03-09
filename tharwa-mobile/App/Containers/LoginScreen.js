@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Alert, View, Image } from 'react-native'
+import { Alert, View, Image, ActivityIndicator } from 'react-native'
 import { Container, Content, Text } from 'native-base';
 import { connect } from 'react-redux'
 import PopupDialog, {
@@ -17,21 +17,27 @@ import styles from './Styles/LoginScreenStyle'
 
 const slideAnimation = new SlideAnimation({ slideFrom: 'bottom' });
 
+const Logo = () => (
+  <View style={styles.logoContainer}>
+    <Image source={Images.logo} style={styles.logo} />
+  </View>
+)
+
 class LoginScreen extends Component {
   static propTypes = {
     dispatch: PropTypes.func,
     fetching: PropTypes.bool,
+    error: PropTypes.string,
+    success: PropTypes.bool,
     attemptLogin: PropTypes.func
   }
 
-  componentWillReceiveProps(newProps) {
-    if (!newProps.fetching) {
-      if (newProps.error) {
-        if (newProps.error === 'WRONG') {
-          Alert.alert('Error', 'Invalid login', [{ text: 'OK' }])
-          this.slideAnimationDialog.dismiss();
-        }
-      } else if (newProps.success) {
+  componentWillReceiveProps(props) {
+    if (!props.fetching) {
+      if (props.error && props.error === 'WRONG') {
+        // Alert.alert('Erreur', 'Email ou mot de passe incorrect!', [{ text: 'Fermer' }])
+        this.slideAnimationDialog.dismiss();
+      } else if (props.success && !this.props.success) {
         this.slideAnimationDialog.dismiss();
         this.goToPinCodePage();
       }
@@ -39,9 +45,7 @@ class LoginScreen extends Component {
   }
 
   submit = (confirmationMethod) => {
-    const { email, password } = this
-    // attempt a login - a saga is listening to pick it up from here.
-    this.props.attemptLogin(email, password, confirmationMethod)
+    this.props.attemptLogin(this.email, this.password, confirmationMethod)
   }
 
   loginFormSubmit = (values) => {
@@ -59,7 +63,7 @@ class LoginScreen extends Component {
   }
 
   render() {
-    const { fetching } = this.props
+    const { fetching, error } = this.props;
     return (
       <Container style={{ backgroundColor: '#2c3e50' }}>
         <PopupDialog
@@ -70,26 +74,27 @@ class LoginScreen extends Component {
           dialogTitle={<DialogTitle title="Code d'authentification" />}>
           <View style={styles.dialogContentView}>
             <Text style={styles.dialogContent}>
-              Comment souhaiter-vous recevoir
-              votre code d'authentification?
+              Comment souhaiter-vous recevoir votre code d'authentification?
             </Text>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-              <DialogButton disabled={fetching} text="Par Email" key="button-1"
-                onPress={() => { this.submit('email'); }} />
-              <DialogButton disabled={fetching} text="Par SMS" key="button-2"
-                onPress={() => { this.submit('sms'); }} />
-            </View>
+            {
+              fetching ? <ActivityIndicator size='large' />
+                : <View style={{ flex: 1, flexDirection: 'row' }}>
+                  <DialogButton disabled={fetching} text="Par Email" key="button-1"
+                    onPress={() => { this.submit('email'); }} />
+                  <DialogButton disabled={fetching} text="Par SMS" key="button-2"
+                    onPress={() => { this.submit('sms'); }} />
+                </View>
+            }
           </View>
         </PopupDialog>
         <Content>
-          <View style={styles.logoContainer}>
-            <Image source={Images.logo} style={styles.logo} />
-          </View>
+          <Logo />
           <LoginForm
             onSubmit={this.loginFormSubmit}
             onRegisterClicked={this.goToSignUpPage}
             editable={!fetching}
           />
+          {!!error && <Text>{error}</Text>}
         </Content>
       </Container>
     )
