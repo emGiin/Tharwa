@@ -18,7 +18,7 @@ class CreateAccountRequestsTable extends Migration
             $table->boolean('validated')->comment('la demande est elle validee par un admin ou non');
             $table->timestamps();
             $table->char('type_id',5);
-            $table->char('client_id',55);
+            $table->string('client_id',55);
             $table->foreign('client_id')->references('email')->on('clients');
         });
     }
