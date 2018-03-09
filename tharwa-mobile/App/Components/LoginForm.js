@@ -2,23 +2,10 @@ import React, { Component } from 'react'
 import { View, ScrollView } from 'react-native'
 import { Text, Button, Item, Input, Icon } from 'native-base';
 import { reduxForm, Field } from 'redux-form';
+import { emailValidators, passwordValidators } from '../Helpers/validators'
 import styles from './Styles/LoginFormStyle'
 
-// validators
-const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-
-const emailValidators = [
-  (val) => val ? undefined : 'Le champ Email est obligatoire',
-  (val) => val && emailRegex.test(val) ? undefined : 'Le format d\'email est invalide'
-]
-
-const passwordValidators = [
-  (val) => val ? undefined : 'Le champ Mot de passe est obligatoire',
-  (val) => val && val.length >= 8 ? undefined : 'Le mot de passe doit comporter au moins 8 caractères'
-]
-
-
-class EmailInput extends Component {
+export class EmailInput extends Component {
   render() {
     const { input, meta, onEnter } = this.props;
     return (
@@ -39,7 +26,7 @@ class EmailInput extends Component {
             onFocus={input.onFocus}
             style={styles.whiteColor}
             placeholderTextColor="#ffffff90" />
-          {meta.invalid && meta.touched && <Icon style={{ color: '#e74c3cb0' }} name='close-circle' />}
+          {meta.invalid && meta.touched && <Icon style={{ color: '#e74c3cb0' }} name='md-alert' />}
         </Item>
         {meta.invalid && meta.touched && <Text style={styles.errorText}> {meta.error} </Text>}
       </View>
@@ -47,7 +34,7 @@ class EmailInput extends Component {
   }
 }
 
-class PasswordInput extends Component {
+export class PasswordInput extends Component {
   constructor(props) {
     super(props)
     this.state = { showPassword: false }
@@ -58,7 +45,7 @@ class PasswordInput extends Component {
   }
 
   render() {
-    const { input, meta, onEnter, refField } = this.props;
+    const { input, meta, refField } = this.props;
     const { showPassword } = this.state;
     return (
       <View>
@@ -73,7 +60,6 @@ class PasswordInput extends Component {
             selectionColor='#fff'
             autoCorrect={false}
             onChangeText={input.onChange}
-            onSubmitEditing={onEnter}
             onBlur={input.onBlur}
             onFocus={input.onFocus}
             value={input.password}
@@ -82,7 +68,7 @@ class PasswordInput extends Component {
           />
           {
             (meta.invalid && meta.touched) ?
-              <Icon style={{ color: '#e74c3cb0' }} name='close-circle' />
+              <Icon style={{ color: '#e74c3cb0' }} name='md-alert' />
               : <Icon name={showPassword ? 'eye-off' : 'eye'} style={styles.inputIcon} onPress={this.togglePassword.bind(this)} />
           }
         </Item>
@@ -115,7 +101,6 @@ const LoginForm = (props) => {
           component={PasswordInput}
           editable={props.editable}
           validate={passwordValidators}
-          onEnter={props.handleSubmit}
         />
       </ScrollView>
 
