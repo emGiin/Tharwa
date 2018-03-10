@@ -1,5 +1,5 @@
 import { all, takeLatest } from 'redux-saga/effects'
-import API from '../Services/Api'
+import AuthAPI from '../Services/AuthApi'
 // import FixtureAPI from '../Services/FixtureApi'
 // import DebugConfig from '../Config/DebugConfig'
 
@@ -20,7 +20,7 @@ import { confirmPinCode } from './PinCodeSaga'
 // The API we use is only used from Sagas, so we create it here and pass along
 // to the sagas which need it.
 // const api = DebugConfig.useFixtures ? FixtureAPI : API.create()
-const api = API.create()
+const authApi = AuthAPI.create()
 
 /* ------------- Connect Types To Sagas ------------- */
 
@@ -30,14 +30,14 @@ export default function* root() {
     takeLatest(StartupTypes.STARTUP, startup),
 
     // load token
-    takeLatest(AuthTypes.TOKEN_LOAD, loadToken, api),
+    takeLatest(AuthTypes.TOKEN_LOAD, loadToken, authApi),
 
     // authentication
-    takeLatest(AuthTypes.AUTH_REQUEST, login, api),
-    takeLatest(AuthTypes.LOGOUT_REQUEST, logout, api),
+    takeLatest(AuthTypes.AUTH_REQUEST, login, authApi),
+    takeLatest(AuthTypes.LOGOUT_REQUEST, logout, authApi),
 
     // Pin Code
-    takeLatest(PinCodeTypes.PIN_CODE_REQUEST, confirmPinCode, api),
+    takeLatest(PinCodeTypes.PIN_CODE_REQUEST, confirmPinCode, authApi),
 
     // // registration
     // takeLatest(RegisterTypes.REGISTER_REQUEST, register, api),
