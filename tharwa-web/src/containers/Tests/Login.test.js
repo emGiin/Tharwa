@@ -60,5 +60,19 @@ describe('<Login>', () => {
     expect(current).toBe(1);
   })
 
+  it('should submit credentials',()=>{
+    let spy = jest.fn();
+    wrapper.instance().sendCredentials = spy;
+    wrapper.instance().handleLoginForm('email', 'password');
+    wrapper.instance().submitCredentials(1);
+
+    let {email, password, confirmationMethod} = wrapper.state();
+    expect(email).toBe('email');
+    expect(password).toBe('password');
+    expect(confirmationMethod).toBe(1);
+
+    expect(spy).toBeCalled();
+  })
+
 
 });
