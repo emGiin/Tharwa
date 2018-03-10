@@ -22,6 +22,12 @@ export default StyleSheet.create({
   loginBg: {
     ...ApplicationStyles.screen.backgroundImage,
   },
+  loginColor:{
+    ...ApplicationStyles.screen.backgroundImage,
+    backgroundColor: '#2c3e50',
+    opacity:0.9
+
+  },
   dialogContentView: {
     flex: 1,
     alignItems: 'center',

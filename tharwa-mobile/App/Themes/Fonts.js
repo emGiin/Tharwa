@@ -28,7 +28,7 @@ const style = {
     fontSize: size.h2
   },
   h3: {
-    fontFamily: type.emphasis,
+    fontFamily: 'Roboto',
     fontSize: size.h3
   },
   h4: {
@@ -40,7 +40,7 @@ const style = {
     fontSize: size.h5
   },
   h6: {
-    fontFamily: type.emphasis,
+    fontFamily: 'Roboto',
     fontSize: size.h6
   },
   normal: {

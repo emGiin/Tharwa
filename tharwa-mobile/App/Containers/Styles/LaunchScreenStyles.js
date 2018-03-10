@@ -4,7 +4,9 @@ import { Metrics, ApplicationStyles } from '../../Themes/'
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
-    paddingBottom: Metrics.baseMargin
+   
+    paddingBottom: Metrics.baseMargin,
+    
   },
   logo: {
     marginTop: Metrics.doubleSection,
@@ -12,7 +14,23 @@ export default StyleSheet.create({
     width: Metrics.images.logo,
     resizeMode: 'contain'
   },
+  loginColor:{
+    ...ApplicationStyles.screen.backgroundImage,
+    backgroundColor: '#2c3e50',
+    opacity:0.9
+
+  },
+  loginColor2:{
+    ...ApplicationStyles.screen.backgroundImage,
+    backgroundColor: '#2c3e50',
+  
+
+  },
   centered: {
+    top: 50,
+    alignItems: 'center'
+  },
+  centered2: {
     alignItems: 'center'
   }
 })

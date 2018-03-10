@@ -71,7 +71,9 @@ class LoginScreen extends Component {
       dialogDescription = error
     }
     return (
-      <Container style={{ backgroundColor: '#2c3e50' }}>
+      <Container>
+       <Image source={Images.login} style={styles.loginBg}/>
+       <View style={styles.loginColor}></View>
         <PopupDialog
           width={0.95}
           height={170}
