@@ -27,3 +27,10 @@ export const success = state =>
   state.merge({ fetching: false, error: null, success: true });
 
 export const save = (state, { pinCodeToken }) => state.merge({ pinCodeToken });
+
+export const reducer = createReducer(INITIAL_STATE, {
+  [Types.PIN_CODE_REQUEST]: request,
+  [Types.PIN_CODE_SUCCESS]: success,
+  [Types.PIN_CODE_FAILURE]: failure,
+  [Types.SAVE_PIN_CODE_TOKEN]: save
+});
