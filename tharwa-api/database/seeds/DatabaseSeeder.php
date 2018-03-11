@@ -13,10 +13,10 @@ class DatabaseSeeder extends Seeder
     {
         $managers = DB::table('managers');
         $managers->insert([
-            'email' => 'a@a.c',
+            'email' => 'bl_banquier@Tharwa.com',
             'firstName' => 'bantest',
             'lastName' => 'bantest',
-            'password' => bcrypt('1'),
+            'password' => bcrypt('bl_bank'),
             'address' => 'oued essamar',
             'phone' => str_random(9),
             'role' => 'Banquier',
@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'gestionnaire@tharwa.con',
             'firstName' => 'gestest',
             'lastName' => 'gestest',
-            'password' => bcrypt('1'),
+            'password' => bcrypt('Admin'),
             'address' => 'oued essamar',
             'phone' => str_random(9),
             'role' => 'Gestionnaire',
@@ -38,10 +38,10 @@ class DatabaseSeeder extends Seeder
 
         $clients = DB::table('clients');
         $clients->insert([
-            'email' => 'a@c.c',
+            'email' => 'client@domaine.com',
             'firstName' => 'cltest',
             'lastName' => 'cltest',
-            'password' => bcrypt('1'),
+            'password' => bcrypt('clientmdp'),
             'address' => 'oued essamar',
             'picture' => 'hi.png',
             'function' => 'teacher',

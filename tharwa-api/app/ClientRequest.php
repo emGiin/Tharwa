@@ -10,4 +10,11 @@ class ClientRequest extends Model
 
     protected $guarded = [];
 
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var boolean
+     */
+    public $incrementing = false;
+
 }

@@ -21,6 +21,13 @@ class Client extends Model
      */
     protected $guarded = [];
 
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var boolean
+     */
+    public $incrementing = false;
+
     public static function check($userName,$password){
 
         $client = static::where('email', $userName)->first(['password']);
