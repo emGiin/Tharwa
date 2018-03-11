@@ -20,19 +20,10 @@ export function* login(api, { email, password, confirmationMethod }) {
     yield put(AuthActions.authFailure('Email ou mot de passe incorrect!'));
   }
 }
-
-// attempts to logout
 export function* logout(api) {
   yield call(api.removeAuthToken)
   yield put(AuthActions.logoutSuccess())
 }
 
-// loads the login
-export function* loadToken(api) {
-  const authToken = yield select((state) => state.auth.authToken)
-  // only set the token if we have it
-  if (authToken) {
-    yield call(api.setAuthToken, authToken)
-  }
-  yield put(AuthActions.tokenLoadSuccess())
-}
+
+
