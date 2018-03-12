@@ -24,4 +24,13 @@ describe("Authentication REDUX", () => {
     expect(state.success).toBe(true)
     expect(state.error).toBeNull()
   })
+
+  it('should handle authFailure', () => {
+    const error = 'ERROR!'
+    const state = reducer(INITIAL_STATE, Actions.authFailure(error))
+
+    expect(state.fetching).toBe(false)
+    expect(state.success).toBe(false)
+    expect(state.error).toBe(error)
+  })
 });
