@@ -2,6 +2,8 @@ import { call, put, select } from "redux-saga/effects";
 import AuthActions from "../redux/AuthRedux";
 import PinCodeActions from "../redux/PinCodeRedux";
 
+
+
 export function* login(api, { email, password, confirmationMethod }) {
   const body = {
     username: email,
@@ -26,9 +28,11 @@ export function* logout(api) {
 }
 
 export function* loadToken(api) {
-  const authToken = yield select(state => state.auth.authToken);
+  const authToken = yield select(selectAuthToken);
   if (authToken) {
     yield call(api.setAuthToken, authToken);
   }
   yield put(AuthActions.tokenLoadSuccess());
 }
+
+export const selectAuthToken = state => state.auth.authToken;
