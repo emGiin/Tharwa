@@ -51,7 +51,7 @@ class TokenModelTest extends TestCase
             ->where('expires_at', $result['expires_at'])
             ->count();
 
-        $this->assertTrue(1 == $count);
+        $this->assertEquals(1, $count);
 
     }
 }

@@ -64,8 +64,8 @@ class ManagerModelTest extends TestCase
         $infos = Manager::checkAndGetInfo($userName, $password);
 
 
-        $this->assertTrue($phone === $infos['phone']
-            && $scope === $infos['scope']);
+        $this->assertEquals($phone, $infos['phone']);
+        $this->assertEquals($scope, $infos['scope']);
 
 
         //try false credentials
