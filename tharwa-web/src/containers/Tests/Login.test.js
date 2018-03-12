@@ -77,7 +77,6 @@ describe("<Login>", () => {
   });
 
   it("should show the content corresponding to the current step", () => {
-    console.log(content.debug());
     expect(content.find("Form(NormalLoginForm)")).toHaveLength(1);
 
     content.setState({ current: 1 });
@@ -100,11 +99,11 @@ describe("<Login>", () => {
 
   it("should submit credentials", () => {
     let spy = jest.fn();
-    wrapper.instance().sendCredentials = spy;
-    wrapper.instance().handleLoginForm("email", "password");
-    wrapper.instance().submitCredentials(1);
+    content.instance().sendCredentials = spy;
+    content.instance().handleLoginForm("email", "password");
+    content.instance().submitCredentials(1);
 
-    let { email, password, confirmationMethod } = wrapper.state();
+    let { email, password, confirmationMethod } = content.state();
     expect(email).toBe("email");
     expect(password).toBe("password");
     expect(confirmationMethod).toBe(1);
