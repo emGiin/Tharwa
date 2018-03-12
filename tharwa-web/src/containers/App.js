@@ -5,7 +5,7 @@ import createStore from '../redux'
 import Login from './Login';
 import './Styles/App.css';
 
-const store = createStore()
+export const store = createStore()
 
 class App extends Component {
   render() {
