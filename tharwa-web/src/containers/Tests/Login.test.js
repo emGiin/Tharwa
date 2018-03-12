@@ -62,8 +62,6 @@ describe("<Login>", () => {
 
   it("should show loading spinner when and only when fetching", () => {
     expect(content.find("Loading")).toHaveLength(0);
-    content.setProps({ auth: {fetching: false}, pinCode: {fetching: false} });
-    expect(content.find("Loading")).toHaveLength(0);
 
     content.setProps({ auth: {fetching: true}, pinCode: {fetching: false} });
     expect(content.find("Loading")).toHaveLength(1);
@@ -73,6 +71,9 @@ describe("<Login>", () => {
 
     content.setProps({ auth: {fetching: true}, pinCode: {fetching: true} });
     expect(content.find("Loading")).toHaveLength(1);
+
+    content.setProps({ auth: {fetching: false}, pinCode: {fetching: false} });
+    expect(content.find("Loading")).toHaveLength(0);
   });
 
   it("should show the content corresponding to the current step", () => {
