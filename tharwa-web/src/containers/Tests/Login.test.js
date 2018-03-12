@@ -138,6 +138,16 @@ describe("<Login>", () => {
     expect(content.state().error).toBe("test");
     //TODO : test error appearance
   });
+  it("should go to the next step on authentication success", () => {
+    content.setState({ current: 1 });
+    content.instance().componentWillReceiveProps({
+      auth: { error: null, success: true },
+      pinCode: { error: null }
+    });
+
+    expect(content.state().current).toBe(2);
+  });
+
 
 
 });
