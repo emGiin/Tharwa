@@ -33,4 +33,19 @@ describe("Authentication REDUX", () => {
     expect(state.success).toBe(false)
     expect(state.error).toBe(error)
   })
+
+  it('should handle tokenLoad', () => {
+    const state = reducer(INITIAL_STATE, Actions.tokenLoad())
+
+    expect(state.loading).toBe(true)
+  })
+
+  it('should handle tokenLoadSuccess', () => {
+    const state = reducer(INITIAL_STATE, Actions.tokenLoadSuccess())
+
+    expect(state.loading).toBe(false)
+  })
+
+
+
 });
