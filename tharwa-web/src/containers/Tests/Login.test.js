@@ -110,6 +110,7 @@ describe("<Login>", () => {
 
   it("should submit credentials", () => {
     let spy = jest.fn();
+    let _temp = content.instance().sendCredentials;
     content.instance().sendCredentials = spy;
     content.instance().handleLoginForm("email", "password");
     content.instance().submitCredentials(1);
@@ -120,6 +121,8 @@ describe("<Login>", () => {
     expect(confirmationMethod).toBe(1);
 
     expect(spy).toBeCalled();
+
+    content.instance().sendCredentials = _temp;
   });
 
   it("should show error if there is one", () => {
@@ -147,7 +150,5 @@ describe("<Login>", () => {
 
     expect(content.state().current).toBe(2);
   });
-
-
 
 });
