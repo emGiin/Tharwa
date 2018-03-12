@@ -11,7 +11,7 @@
   "pinCodeTitleFetching": "Confirmation en cours",
   "pinCodeTitleError": "Erreur",
   "pinCodeDescriptionFetching": "Confirmation du code pin\n est en cours",
-  "pinCodeDescriptionErreur": "Le code pin introduit \nest errorné ou a expiré",
+  "pinCodeDescriptionErreur": "Le code pin introduit \nest erroné ou a expiré",
   "pinCodeDialogClose": "Fermer",
   "pinCodeDescription": "Veuiller saisir le code pin sur 4 chiffres",
   "pinCodeNotReceived": "Vous n'avez pas recu un code?",
