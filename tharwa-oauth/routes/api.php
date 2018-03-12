@@ -25,4 +25,4 @@ Route::prefix('oauth')->group(function () {
 
 Route::fallback(function(){
     return response()->json(['message' => 'Not Found!'], 404);
-})->name('fallback');;
+})->name('fallback');

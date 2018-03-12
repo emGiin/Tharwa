@@ -27,7 +27,6 @@ class OauthController extends Controller
             return response($validator->errors(), config('code.BAD_REQUEST'));
         }
 
-        //todo refactor
         //client type web or mob tharwa
         if (2 == $request->client_id) {
             //check credentials
@@ -48,14 +47,14 @@ class OauthController extends Controller
 
 //            $nexmo = app('Nexmo\Client');
 //            $nexmo->message()->send([
-//                'to'   => '+213553673740',//$clientInfo['phone']
+//                'to'   => '+213553673740',//$clientInfo['phone'] +213669479443 +213656092713
 //                'from' => '+213553673740',
 //                'text' => 'code pin: '.$pinCode.' valide pour une heure, Tharwa '
 //            ]);
 
-            return 'sms sent';
+//            return 'sms sent';
         }else
-            Mail::to($request->username)->send(new PinCodeMail($pinCode,$pin_code_expires_at));
+            Mail::to($request->username)->queue(new PinCodeMail($pinCode,$pin_code_expires_at));
 
 
         //save it to db

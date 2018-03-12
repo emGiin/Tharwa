@@ -15,7 +15,7 @@ class CreateAccountTypesTable extends Migration
     {
         Schema::create('accountTypes', function (Blueprint $table) {
             $table->char('code',5)->primary()->index();
-            $table->char('name',25);
+            $table->string('name',25);
             $table->timestamps();
         });
 
