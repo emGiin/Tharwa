@@ -100,31 +100,6 @@ describe("<Login>", () => {
     expect(content.find("Form(NormalLoginForm)")).toHaveLength(1);
   });
 
-  it("should handle login form", () => {
-    content.instance().handleLoginForm("email", "password");
-    let { email, password, current } = content.state();
-    expect(email).toBe("email");
-    expect(password).toBe("password");
-    expect(current).toBe(1);
-  });
-
-  it("should submit credentials", () => {
-    let spy = jest.fn();
-    let _temp = content.instance().sendCredentials;
-    content.instance().sendCredentials = spy;
-    content.instance().handleLoginForm("email", "password");
-    content.instance().submitCredentials(1);
-
-    let { email, password, confirmationMethod } = content.state();
-    expect(email).toBe("email");
-    expect(password).toBe("password");
-    expect(confirmationMethod).toBe(1);
-
-    expect(spy).toBeCalled();
-
-    content.instance().sendCredentials = _temp;
-  });
-
   it("should show error if there is one", () => {
     content.setState({ current: 2 });
     content.instance().componentWillReceiveProps({
@@ -151,8 +126,35 @@ describe("<Login>", () => {
     expect(content.state().current).toBe(2);
   });
 
+  it("should handle login form", () => {
+    content.setState({ current: 0 });
+    content.instance().handleLoginForm("email", "password");
+    let { email, password, current } = content.state();
+    expect(email).toBe("email");
+    expect(password).toBe("password");
+    expect(current).toBe(1);
+  });
+
+  it("should submit credentials", () => {
+    content.setState({ current: 1 });
+    let spy = jest.fn();
+    let _temp = content.instance().sendCredentials;
+    content.instance().sendCredentials = spy;
+    content.instance().handleLoginForm("email", "password");
+    content.instance().submitCredentials(1);
+
+    let { email, password, confirmationMethod } = content.state();
+    expect(email).toBe("email");
+    expect(password).toBe("password");
+    expect(confirmationMethod).toBe(1);
+
+    expect(spy).toBeCalled();
+
+    content.instance().sendCredentials = _temp;
+  });
 
   it("should dispatch AUTH_REQUEST on sendCredentials", () => {
+    content.setState({ current: 1 });
     content.setState({
       email: "user@email.com",
       password: "password",
