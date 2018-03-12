@@ -23,7 +23,7 @@ const INITIAL_STATE = Immutable({
   authToken: null
 });
 
-export const request = state => state.merge({ fetching: true, success: false });
+export const request = state => state.merge({ fetching: true, success: false, error: null });
 
 export const success = state =>
   state.merge({ fetching: false, error: null, success: true });
