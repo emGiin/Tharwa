@@ -46,6 +46,13 @@ describe("Authentication REDUX", () => {
     expect(state.loading).toBe(false)
   })
 
+  it('should handle tokenSave', () => {
+    const authToken = 'token'
+    const state = reducer(INITIAL_STATE, Actions.saveAuthToken(authToken))
+
+    expect(state.authToken).toBe(authToken)
+  })
+
 
 
 });
