@@ -41,8 +41,8 @@ class Login extends Component {
   };
 
   componentWillReceiveProps(newProps) {
-    const authError = this.props.auth.error;
-    const pinError = this.props.pinCode.error;
+    const authError = newProps.auth.error;
+    const pinError = newProps.pinCode.error;
 
     if (authError) {
       this.setState({ current: 0, error: authError });
