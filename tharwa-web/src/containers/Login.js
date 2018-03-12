@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { Steps, message, Icon } from "antd";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Steps, Icon } from "antd";
+
+import AuthActions from "../redux/AuthRedux";
+import PinCodeActions from "../redux/PinCodeRedux";
 
 import {
   Loading,
@@ -12,15 +17,41 @@ import "./Styles/Login.css";
 const Step = Steps.Step;
 
 class Login extends Component {
+  static propTypes = {
+    attemptLogin: PropTypes.func.isRequired,
+    auth: PropTypes.shape({
+      fetching: PropTypes.bool,
+      success: PropTypes.bool,
+      error: PropTypes.string
+    }),
+    pinCode: PropTypes.shape({
+      fetching: PropTypes.bool,
+      success: PropTypes.bool,
+      error: PropTypes.string
+    })
+  };
+
   state = {
     current: 0,
-    isLoading: false,
     email: null,
     password: null,
-    authCode: null,
     confirmationMethod: null,
-    pin: null
+    pin: null,
+    error: null
   };
+
+  componentWillReceiveProps(newProps) {
+    const authError = this.props.auth.error;
+    const pinError = this.props.pinCode.error;
+
+    if (authError) {
+      this.setState({ current: 0, error: authError });
+    } else if (pinError) this.setState({ error: pinError });
+
+    if (newProps.auth.success && this.state.current === 1) {
+      this.setState({ current: this.state.current + 1 });
+    }
+  }
 
   render() {
     const steps = [
@@ -56,7 +87,11 @@ class Login extends Component {
         </Steps>
 
         <div className="stepContent">
-          {this.state.isLoading ? <Loading /> : steps[current].content}
+          {this.props.auth.fetching || this.props.pinCode.fetching ? (
+            <Loading />
+          ) : (
+            steps[current].content
+          )}
         </div>
       </div>
     );
@@ -64,7 +99,6 @@ class Login extends Component {
 
   handleLoginForm(email, password) {
     this.setState({
-      ...this.state,
       email,
       password,
       current: this.state.current + 1
@@ -72,78 +106,47 @@ class Login extends Component {
   }
 
   submitCredentials(confirmationMethod) {
-    this.setState(
-      {
-        ...this.state,
-        confirmationMethod
-      },
-      this.sendCredentials
-    );
+    this.setState({ confirmationMethod }, this.sendCredentials);
   }
-
   sendCredentials() {
-    APIMOCK.post("server", {
-      email: this.state.email,
-      password: this.state.password,
-      confirmationMethod: this.state.confirmationMethod
-    }).then(response => {
-      message.success(`authorisation code received \n ${response}`);
-      this.setState({
-        ...this.state,
-        authCode: response,
-        isLoading: false,
-        current: this.state.current + 1
-      });
-    });
-    this.setState({
-      ...this.state,
-      isLoading: true
-    });
-  }
-
-  sendPin() {
-    APIMOCK.post("server", {
-      pin: this.state.pin,
-      authCode: this.state.authCode
-    }).then(() => {
-      message.success("Processing complete!");
-      this.setState({
-        ...this.state,
-        isLoading: false
-      });
-      //TODO Redirect
-    });
-    this.setState({
-      ...this.state,
-      isLoading: true
-    });
-  }
-
-  next() {
-    const current = this.state.current + 1;
-    this.setState({ ...this.state, current });
+    this.props.attemptLogin(
+      this.state.email,
+      this.state.password,
+      this.state.confirmationMethod
+    );
   }
 
   submitPin(pin) {
-    this.setState(
-      {
-        ...this.state,
-        pin
-      },
-      this.sendPin
-    );
+    this.setState({ pin }, this.sendPin);
+  }
+  sendPin() {
+    this.props.confirmPinCode(this.state.pin);
   }
 }
 
-const APIMOCK = {
-  post: (url, data) => {
-    console.log(`sending in data to ${url} :  `, data);
-    return new Promise((resolve, reject) => {
-      setTimeout(function() {
-        resolve("a321bab132c21e12a");
-      }, 1000);
-    });
-  }
+const mapStateToProps = state => {
+  // extracting only some properties of state.auth
+  const auth = (({ fetching, error, success }) => ({
+    fetching,
+    error,
+    success
+  }))(state.auth);
+  
+  const pinCode = (({ fetching, error, success }) => ({
+    fetching,
+    error,
+    success
+  }))(state.pinCode);
+
+  return { auth, pinCode };
 };
 
-export default Login;
+const mapDispatchToProps = dispatch => {
+  return {
+    attemptLogin: (email, password, confirmationMethod) =>
+      dispatch(AuthActions.authRequest(email, password, confirmationMethod)),
+    confirmPinCode: pinCode => dispatch(PinCodeActions.pinCodeRequest(pinCode))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
