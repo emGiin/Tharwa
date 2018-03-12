@@ -1,7 +1,9 @@
 import React from "react";
-import { shallow , mount} from "enzyme";
+import { shallow, mount } from "enzyme";
 import configureStore from "redux-mock-store";
 
+import AuthActions from "../../redux/AuthRedux";
+import PinCodeActions from "../../redux/PinCodeRedux";
 import Login from "../Login";
 
 describe("<Login>", () => {
@@ -63,16 +65,25 @@ describe("<Login>", () => {
   it("should show loading spinner when and only when fetching", () => {
     expect(content.find("Loading")).toHaveLength(0);
 
-    content.setProps({ auth: {fetching: true}, pinCode: {fetching: false} });
+    content.setProps({
+      auth: { fetching: true },
+      pinCode: { fetching: false }
+    });
     expect(content.find("Loading")).toHaveLength(1);
 
-    content.setProps({ auth: {fetching: false}, pinCode: {fetching: true} });
+    content.setProps({
+      auth: { fetching: false },
+      pinCode: { fetching: true }
+    });
     expect(content.find("Loading")).toHaveLength(1);
 
-    content.setProps({ auth: {fetching: true}, pinCode: {fetching: true} });
+    content.setProps({ auth: { fetching: true }, pinCode: { fetching: true } });
     expect(content.find("Loading")).toHaveLength(1);
 
-    content.setProps({ auth: {fetching: false}, pinCode: {fetching: false} });
+    content.setProps({
+      auth: { fetching: false },
+      pinCode: { fetching: false }
+    });
     expect(content.find("Loading")).toHaveLength(0);
   });
 
@@ -110,4 +121,23 @@ describe("<Login>", () => {
 
     expect(spy).toBeCalled();
   });
+
+  it("should show error if there is one", () => {
+    content.setState({ current: 2 });
+    content.instance().componentWillReceiveProps({
+      auth: { error: "test" },
+      pinCode: { error: null }
+    });
+    expect(content.state().current).toBe(0);
+    expect(content.state().error).toBe("test");
+
+    content.instance().componentWillReceiveProps({
+      auth: { error: null },
+      pinCode: { error: "test" }
+    });
+    expect(content.state().error).toBe("test");
+    //TODO : test error appearance
+  });
+
+
 });
