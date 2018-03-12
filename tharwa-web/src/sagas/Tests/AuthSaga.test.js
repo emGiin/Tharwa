@@ -59,4 +59,13 @@ describe("Authentication SAGA", () => {
     expect(step(response)).toEqual(put(AuthActions.authFailure('Email ou mot de passe incorrect!')))
   })
 
+  it('should show login load path with no token', () => {
+    const step = stepper(loadToken(FixtureAPI))
+    // Attempt to select the token
+    expect(step()).toEqual(select(selectAuthToken))
+    // No token was found so call success
+    expect(step()).toEqual(put(AuthActions.tokenLoadSuccess()))
+  })
+
+
 });
