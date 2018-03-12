@@ -15,4 +15,13 @@ describe("Authentication REDUX", () => {
     expect(state.success).toBe(false);
     expect(state.error).toBeNull();
   });
+
+  it('should handle authSuccess', () => {
+    const pinCodeToken = 'token'
+    const state = reducer(INITIAL_STATE, Actions.authSuccess(pinCodeToken))
+
+    expect(state.fetching).toBe(false)
+    expect(state.success).toBe(true)
+    expect(state.error).toBeNull()
+  })
 });
