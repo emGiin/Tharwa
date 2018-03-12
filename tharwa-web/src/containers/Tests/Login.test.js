@@ -151,4 +151,16 @@ describe("<Login>", () => {
     expect(content.state().current).toBe(2);
   });
 
+
+  it("should dispatch AUTH_REQUEST on sendCredentials", () => {
+    content.setState({
+      email: "user@email.com",
+      password: "password",
+      confirmationMethod: 1
+    });
+    content.instance().sendCredentials();
+    expect(dispatcherSpy).toHaveBeenCalledWith(
+      AuthActions.authRequest("user@email.com", "password", 1)
+    );
+  });
 });
