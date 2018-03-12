@@ -22,4 +22,6 @@ switch (languageCode) {
   case 'en':
     I18n.translations.bg = require('./languages/en.json')
     break
+  default:
+    break;
 }
