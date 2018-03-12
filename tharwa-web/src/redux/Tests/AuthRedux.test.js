@@ -53,6 +53,23 @@ describe("Authentication REDUX", () => {
     expect(state.authToken).toBe(authToken)
   })
 
+  it('should handle logoutRequest', () => {
+    const authToken = 'token'
+    const loginState = reducer(INITIAL_STATE, Actions.saveAuthToken(authToken))
+    const state = reducer(loginState, Actions.logoutRequest())
+
+    expect(state.authToken).toBeNull()
+  })
+
+  it('should handle logoutSuccess', () => {
+    const state = reducer(INITIAL_STATE, Actions.logoutSuccess())
+
+    expect(state.authToken).toBeNull()
+    expect(state.error).toBeNull()
+    expect(state.fetching).toBe(false)
+    expect(state.loading).toBe(false)
+    expect(state.success).toBe(false)
+  })
 
 
 });
