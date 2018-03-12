@@ -5,7 +5,7 @@ const create = (baseURL = AUTH_API_URL) => {
   const api = apisauce.create({
     baseURL,
     headers: {
-      'Cache-Control': 'no-cache'
+      'Cache-Control': 'no-cache',
     },
     timeout: 10000
   })
@@ -14,6 +14,7 @@ const create = (baseURL = AUTH_API_URL) => {
   const confirmPinCode = (data) => api.post('token', data)
 
   return {
+    api,
     login,
     confirmPinCode
   }
