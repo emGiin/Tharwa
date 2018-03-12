@@ -87,4 +87,12 @@ describe("Authentication SAGA", () => {
     // Retrieve the API token
     expect(selectAuthToken(state)).toEqual("token");
   });
+
+  it('should show logout success path', () => {
+    const step = stepper(logout(FixtureAPI))
+    expect(step()).toEqual(call(FixtureAPI.removeAuthToken))
+    FixtureAPI.removeAuthToken()
+    // Reset the account and logout
+    expect(step()).toEqual(put(AuthActions.logoutSuccess()))
+  })
 });
