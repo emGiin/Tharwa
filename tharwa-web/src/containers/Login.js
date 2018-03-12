@@ -46,7 +46,10 @@ class Login extends Component {
 
     if (authError) {
       this.setState({ current: 0, error: authError });
-    } else if (pinError) this.setState({ error: pinError });
+    } else if (pinError) {
+      this.setState({ error: pinError })
+    } else this.setState({ error: null }) ;
+
 
     if (newProps.auth.success && this.state.current === 1) {
       this.setState({ current: this.state.current + 1 });
@@ -80,6 +83,7 @@ class Login extends Component {
 
     return (
       <div className="loginForms">
+        {this.state.error && this.state.current===0 && alert(this.state.error)}
         <Steps current={current}>
           {steps.map(item => (
             <Step key={item.title} title={item.title} icon={item.icon} />
