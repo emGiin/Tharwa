@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import App from '../App';
+import App, {store} from '../App';
 
 describe('<App>', () => {
   let wrapper; 
@@ -13,4 +13,10 @@ describe('<App>', () => {
   it('should render without crashig', ()=>{
     expect(wrapper).toHaveLength(1);
   });
+
+  it('should have a provider with redux store', ()=>{
+    let provider = wrapper.find('Provider');
+    expect(provider).toHaveLength(1);
+    expect(provider.prop('store')).toBe(store);
+  })
 });
