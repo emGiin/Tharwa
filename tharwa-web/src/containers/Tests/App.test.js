@@ -4,8 +4,13 @@ import {shallow} from 'enzyme';
 import App from '../App';
 
 describe('<App>', () => {
-  it('should render without creashig', ()=>{
-    const wrapper = shallow(<App/>);
+  let wrapper; 
+
+  beforeAll(()=> {
+    wrapper = shallow(<App/>);
+  })
+
+  it('should render without crashig', ()=>{
     expect(wrapper).toHaveLength(1);
   });
 });
