@@ -136,9 +136,10 @@ describe("<Login>", () => {
   });
 
   it("should submit credentials", () => {
-    content.setState({ current: 1 });
-    let spy = jest.fn();
     let _temp = content.instance().sendCredentials;
+    
+    let spy = jest.fn();
+    content.setState({ current: 1 });
     content.instance().sendCredentials = spy;
     content.instance().handleLoginForm("email", "password");
     content.instance().submitCredentials(1);
@@ -163,6 +164,30 @@ describe("<Login>", () => {
     content.instance().sendCredentials();
     expect(dispatcherSpy).toHaveBeenCalledWith(
       AuthActions.authRequest("user@email.com", "password", 1)
+    );
+  });
+
+  it('should submit pin', ()=>{
+    let _temp = content.instance().sendPin;
+
+    let spy = jest.fn();
+    content.setState({current: 2});
+    content.instance().sendPin = spy;
+    content.instance().submitPin("1456");
+
+    let { pin } = content.state();
+    expect(pin).toBe("1456");
+    expect(spy).toBeCalled();
+
+    content.instance().sendPin = _temp;
+  })
+
+  it("should dispatch PIN_CODE_REQUEST on sendPin", () => {
+    content.setState({ current: 2 });
+    content.setState({ pin: "1456" });
+    content.instance().sendPin();
+    expect(dispatcherSpy).toHaveBeenCalledWith(
+      PinCodeActions.pinCodeRequest("1456")
     );
   });
 });
