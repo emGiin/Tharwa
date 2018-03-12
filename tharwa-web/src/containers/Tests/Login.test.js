@@ -91,8 +91,8 @@ describe("<Login>", () => {
   });
 
   it("should handle login form", () => {
-    wrapper.instance().handleLoginForm("email", "password");
-    let { email, password, current } = wrapper.state();
+    content.instance().handleLoginForm("email", "password");
+    let { email, password, current } = content.state();
     expect(email).toBe("email");
     expect(password).toBe("password");
     expect(current).toBe(1);
