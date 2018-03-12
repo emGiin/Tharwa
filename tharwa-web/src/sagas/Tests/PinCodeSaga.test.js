@@ -19,7 +19,7 @@ describe('PIN CODE SAGA', () => {
     const authResponse = FixtureAPI.login(authObj)
     const pinCode = '1234'
     const pinCodeObj = {
-      pin_code: pinCode,
+      pin: pinCode,
       temporary_token: authResponse.data.temporary_token
     }
 
@@ -30,13 +30,13 @@ describe('PIN CODE SAGA', () => {
     expect(step(pinCodeObj.temporary_token)).toEqual(select(selectPinCodeToken))
 
     expect(step(response)).toEqual(call(FixtureAPI.confirmPinCode, {
-      pin_code: pinCode,
+      pin: pinCode,
       temporary_token: response
     }))
     // Set the auth token on the API
     expect(step(response)).toEqual(put(PinCodeActions.pinCodeSuccess()))
     // Store the auth token in redux
-    expect(step(response)).toEqual(put(AuthActions.saveAuthToken(response.data.token)))
+    expect(step(response)).toEqual(put(AuthActions.saveAuthToken(response.data.token_)))
   })
 
 
@@ -51,7 +51,7 @@ describe('PIN CODE SAGA', () => {
     const authResponse = FixtureAPI.login(authObj)
     const pinCode = '1235'
     const pinCodeObj = {
-      pin_code: pinCode,
+      pin: pinCode,
       temporary_token: authResponse.data.temporary_token
     }
 
@@ -62,7 +62,7 @@ describe('PIN CODE SAGA', () => {
     expect(step(pinCodeObj.temporary_token)).toEqual(select(selectPinCodeToken))
 
     expect(step(response)).toEqual(call(FixtureAPI.confirmPinCode, {
-      pin_code: pinCode,
+      pin: pinCode,
       temporary_token: response
     }))
     // Set the auth token on the API

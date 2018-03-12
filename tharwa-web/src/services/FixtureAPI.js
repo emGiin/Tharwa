@@ -21,7 +21,7 @@ export default {
   },
   confirmPinCode: data => {
     if (
-      data.pin_code === "1234" &&
+      data.pin === "1234" &&
       data.temporary_token === require("../fixtures/login.json").temporary_token
     ) {
       return {
