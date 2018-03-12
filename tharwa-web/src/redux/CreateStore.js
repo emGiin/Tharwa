@@ -16,8 +16,8 @@ export default (rootReducer, rootSaga) => {
 
   const store = createStore(
     rootReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     compose(...enhancers),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
 
   let sagasManager = sagaMiddleware.run(rootSaga);
