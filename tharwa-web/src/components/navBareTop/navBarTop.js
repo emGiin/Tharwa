@@ -20,7 +20,7 @@ class NavBareTop  extends Component {
         return (
                 <ul className="barretop">
                     <li>
-                    <img src="logo_web_small.png" alt="non disponible"/>
+                    <img id="logo" src="logo_web_small.png" alt="non disponible"/>
                     </li>
                     <Col className="txt_menu" offset={4}>
                         <li >

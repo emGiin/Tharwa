@@ -63,6 +63,9 @@ class RegistrationForm extends Component {
       }
     });
   }
+  test(){
+    console.log('test');
+  }
   handleConfirmBlur = (e) => {
     const value = e.target.value;
     this.setState({ confirmDirty: this.state.confirmDirty || !!value });
@@ -235,6 +238,7 @@ class RegistrationForm extends Component {
     );
   }
 }
+
 
 const WrappedRegistrationForm = Form.create()(RegistrationForm);
 

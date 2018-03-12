@@ -56,11 +56,38 @@ describe("<RegistrationForm>", () => {
 });
 
   it("should have validation button", () => {
-      console.log('validation btn text : ');
       var text = validerBtn.at(1).text();
-      console.log(text);
-    expect(text).to.equal('valider');
+    expect(text).toEqual('valider');
   });
+
+  it("should have name input", () => {
+  expect(nomInput).toHaveLength(1);
+});
+it("should have surname input", () => {
+    expect(prenomInput).toHaveLength(1);
+  });
+  it("should have password input", () => {
+    expect(passwordInput).toHaveLength(1);
+  });
+  it("should have confirmation password input", () => {
+    expect(confirmPassInput).toHaveLength(1);
+  });
+  it("should have adress input", () => {
+    expect(adressInput).toHaveLength(1);
+  });
+  it("should have email input", () => {
+    expect(mailInput).toHaveLength(1);
+  });
+  it("should have phone number input", () => {
+    expect(phoneInput).toHaveLength(1);
+  });
+
+  it("should have onr form element", () => {
+    expect(phoneInput).toHaveLength(1);
+  });
+
+  
+
 /*
   it("should have 1 div of loginForm ", () => {
     expect(wrapper.find('div.loginForm')).toHaveLength(1);

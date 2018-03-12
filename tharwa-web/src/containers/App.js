@@ -27,21 +27,20 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <Router>
-    <div>
-    
-      <NavBareTop />
-      <Col span={5}><MenuLeft /></Col>
-      <Col span={16}>
-      
-      <div >
-        <Route path="/login" component={Login} /> 
-        <Route path="/newBanquier" component={RegistrationForm} />
-      </div>
-      </Col>
-    </div>
-  </Router>
-     
+          <Router>
+             <div className="routChild"> 
+                      <NavBareTop />
+                      <div className="page">
+                          <Col span={5}><MenuLeft /></Col>
+                          <Col span={16}>
+                              <div >
+                                <Route path="/login" component={Login} /> 
+                                <Route path="/newBanquier" component={RegistrationForm} />
+                              </div>
+                          </Col>
+                      </div>
+            </div>
+        </Router>
       </div>
     );
   }
