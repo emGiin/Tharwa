@@ -29,4 +29,11 @@ describe('Pin Code REDUX', () => {
     expect(state.error).toBe(error)
   })
 
+  it('should handle savePinCodeToken', () => {
+    const pinCodeToken = 'token'
+    const state = reducer(INITIAL_STATE, Actions.savePinCodeToken(pinCodeToken))
+
+    expect(state.pinCodeToken).toBe(pinCodeToken)
+  })
+
 })
