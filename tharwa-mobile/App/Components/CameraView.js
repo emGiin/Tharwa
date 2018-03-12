@@ -1,42 +1,37 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity } from 'react-native'
-import { Icon, Text } from 'native-base'
+import { Icon } from 'native-base'
 import Camera from 'react-native-camera';
-import { NavigationActions } from 'react-navigation'
 
 import styles from './Styles/CameraViewStyle'
 
 class CameraView extends Component {
   takePicture = () => {
-    const options = {};
-    //options.location = ...
+    const options = { quality: 0.5, base64: true };
     this.camera.capture({ metadata: options })
-      .then(data => this.props.onCapture)
+      .then(data => { this.props.input.onChange(data); this.props.onCapture(data) })
       .catch(err => console.error(err));
   }
 
-  goBack() {
-    this.props.navigation.dispatch(NavigationActions.back());
-  }
-
   render() {
-    const { cancel } = this.props;
+    const { previousPage } = this.props;
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.backIcon} onPress={cancel}>
+        <TouchableOpacity style={styles.backIcon} onPress={previousPage}>
           <Icon
-            name={'ios-arrow-dropleft-outline'}
-            size={40}
-            style={{ color: '#fff' }} />
+            name={'ios-arrow-dropleft'}
+            style={{ color: '#fff', fontSize: 40 }} />
         </TouchableOpacity>
         <Camera
           ref={cam => this.camera = cam}
           style={styles.preview}
           onBarCodeRead={() => { }}
           aspect={Camera.constants.Aspect.fill}>
-          <Text style={styles.capture} onPress={this.takePicture}>
-            [CAPTURE]
-          </Text>
+          <TouchableOpacity onPress={this.takePicture}>
+            <Icon
+              name={'ios-camera'}
+              style={{ color: '#fff', fontSize: 70 }} />
+          </TouchableOpacity>
         </Camera>
       </View>
     )
