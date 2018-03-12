@@ -63,12 +63,24 @@ class LoginScreen extends Component {
     const { fetching, error } = this.props;
     let dialogTitle = I18n.t('authDialogTitle');
     let dialogDescription = I18n.t('authDialogDescription');
+    let dialogContent;
     if (fetching) {
       dialogTitle = I18n.t('authDialogTitleFetching');
       dialogDescription = I18n.t('authDialogDescriptionFetching');
+      dialogContent = <ActivityIndicator size='large' style={{ marginVertical: 20 }} />;
     } else if (error && !this.state.newRequest) {
       dialogTitle = I18n.t('authDialogTitleError')
       dialogDescription = error
+      dialogContent = <DialogButton text={I18n.t('authDialogClose')}
+        onPress={() => { this.dialog.dismiss(); }} />
+    } else {
+      dialogContent =
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <DialogButton disabled={fetching} text={I18n.t('authDialogPinByEmail')}
+            onPress={() => { this.submit('email'); }} />
+          <DialogButton disabled={fetching} text={I18n.t('authDialogPinBySms')}
+            onPress={() => { this.submit('sms'); }} />
+        </View>
     }
     return (
       <Container style={{ backgroundColor: '#2c3e50' }}>
@@ -85,22 +97,7 @@ class LoginScreen extends Component {
             <Text style={styles.dialogContent}>
               {dialogDescription}
             </Text>
-            {
-              fetching &&
-              <ActivityIndicator size='large' style={{ marginVertical: 20 }} />
-            }
-            {
-              error && !this.state.newRequest ?
-                <DialogButton text={I18n.t('authDialogClose')}
-                  onPress={() => { this.dialog.dismiss(); }} />
-                : !fetching &&
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-                  <DialogButton disabled={fetching} text={I18n.t('authDialogPinByEmail')}
-                    onPress={() => { this.submit('email'); }} />
-                  <DialogButton disabled={fetching} text={I18n.t('authDialogPinBySms')}
-                    onPress={() => { this.submit('sms'); }} />
-                </View>
-            }
+            {dialogContent}
           </View>
         </PopupDialog>
         <Content>

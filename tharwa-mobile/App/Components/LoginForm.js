@@ -60,6 +60,7 @@ export class PasswordInput extends Component {
             returnKeyType='go'
             selectionColor='#fff'
             autoCorrect={false}
+            autoCapitalize={'none'}
             onChangeText={input.onChange}
             onBlur={input.onBlur}
             onFocus={input.onFocus}

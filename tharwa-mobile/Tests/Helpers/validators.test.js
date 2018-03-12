@@ -9,7 +9,7 @@ describe('Validators', () => {
 
   it('should return email validation errors', () => {
     const email = 'user@email'
-    expect(emailValidators[0]()).toBe('Le champ Email est obligatoire')
+    expect(emailValidators[0]()).toBe('Ce champ est obligatoire')
     expect(emailValidators[1](email)).toBe('Le format d\'email est invalide')
   })
 
@@ -21,7 +21,7 @@ describe('Validators', () => {
 
   it('should return password validation errors', () => {
     const password = 'pass'
-    expect(passwordValidators[0]()).toBe('Le champ Mot de passe est obligatoire')
+    expect(passwordValidators[0]()).toBe('Ce champ est obligatoire')
     expect(passwordValidators[1](password)).toBe('Le mot de passe doit comporter au moins 8 caractères')
   })
 })

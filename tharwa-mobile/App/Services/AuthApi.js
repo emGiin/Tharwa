@@ -10,7 +10,7 @@ const create = (baseURL = AUTH_API_URL) => {
       'Cache-Control': 'no-cache'
     },
     // 10 second timeout...
-    timeout: 10000
+    timeout: 30000
   })
 
   const login = (user) => api.post('pincode', user)

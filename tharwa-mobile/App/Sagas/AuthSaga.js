@@ -14,7 +14,12 @@ export function* login(api, { email, password, confirmationMethod }) {
     grant_type: "password"
   }
 
+  // console.warn(authObj);
+
+
   const response = yield call(api.login, authObj)
+
+  // console.warn(response);
 
   // success?
   if (response.ok) {

@@ -8,11 +8,11 @@ import { connect } from 'react-redux'
 import styles from './Styles/MainScreenStyle'
 
 class MainScreen extends Component {
-  render () {
+  render() {
     return (
       <ScrollView style={styles.container}>
         <KeyboardAvoidingView behavior='position'>
-          <Text>MainScreen</Text>
+          <Text style={{ fontSize: 30, textAlign: 'center' }}>Bienvenue</Text>
         </KeyboardAvoidingView>
       </ScrollView>
     )

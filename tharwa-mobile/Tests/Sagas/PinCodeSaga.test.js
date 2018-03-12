@@ -29,7 +29,7 @@ describe('PIN CODE SAGA', () => {
     expect(step(pinCodeObj.temporary_token)).toEqual(select(selectPinCodeToken))
 
     expect(step(response)).toEqual(call(FixtureAPI.confirmPinCode, {
-      pin_code: pinCode,
+      pin: pinCode,
       temporary_token: response
     }))
     // Set the auth token on the API
@@ -61,7 +61,7 @@ describe('PIN CODE SAGA', () => {
     expect(step(pinCodeObj.temporary_token)).toEqual(select(selectPinCodeToken))
 
     expect(step(response)).toEqual(call(FixtureAPI.confirmPinCode, {
-      pin_code: pinCode,
+      pin: pinCode,
       temporary_token: response
     }))
     // Set the auth token on the API

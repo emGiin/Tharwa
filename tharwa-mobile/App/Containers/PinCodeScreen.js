@@ -27,6 +27,8 @@ class PinCodeScreen extends Component {
     confirmPinCode: PropTypes.func
   }
 
+  state = { new: true }
+
   componentWillReceiveProps(props) {
     if (!props.fetching && props.success) {
       this.dialog.dismiss();
@@ -43,14 +45,27 @@ class PinCodeScreen extends Component {
   }
 
   submit = (code) => {
+    this.setState({ new: false })
     this.dialog.show();
     this.props.confirmPinCode(code);
   }
 
   render() {
     const { fetching, error } = this.props;
-    let dialogTitle = error ? I18n.t('pinCodeTitleError') : I18n.t('pinCodeTitleFetching');
-    let dialogDescription = error || I18n.t('pinCodeDescriptionFetching');
+    let dialogTitle, dialogContent, dialogDescription;
+    if (fetching) {
+      dialogTitle = I18n.t('pinCodeTitleFetching');
+      dialogDescription = I18n.t('pinCodeDescriptionFetching');
+      dialogContent = <ActivityIndicator size='large' style={{ marginVertical: 20 }} />
+    } else if (error) {
+      dialogTitle = I18n.t('pinCodeTitleError');
+      dialogDescription = error;
+      dialogContent =
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <DialogButton disabled={fetching} text={I18n.t('pinCodeDialogClose')} key="button-1"
+            onPress={() => { this.dialog.dismiss(); this.setState({ new: true }) }} />
+        </View>
+    }
     return (
       <Container>
         <PopupDialog
@@ -64,17 +79,7 @@ class PinCodeScreen extends Component {
         >
           <View style={styles.dialogContentView}>
             <Text style={styles.dialogContent}> {dialogDescription} </Text>
-            {
-              fetching &&
-              <ActivityIndicator size='large' style={{ marginVertical: 20 }} />
-            }
-            {
-              error &&
-              <View style={{ flex: 1, flexDirection: 'row' }}>
-                <DialogButton disabled={fetching} text={I18n.t('pinCodeDialogClose')} key="button-1"
-                  onPress={() => { this.dialog.dismiss() }} />
-              </View>
-            }
+            {dialogContent}
           </View>
         </PopupDialog>
         <Text style={styles.mainText}>{I18n.t('pinCodeDescription')}</Text>
