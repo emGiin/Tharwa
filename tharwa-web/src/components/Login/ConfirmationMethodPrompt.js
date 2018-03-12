@@ -4,7 +4,7 @@ const RadioGroup = Radio.Group;
 
 class ConfirmationMethodPrompt extends Component {
   state = {
-    choice: 1
+    choice: 'email'
   };
   render() {
     return (
@@ -15,8 +15,8 @@ class ConfirmationMethodPrompt extends Component {
           onChange={this.onChange}
           value={this.state.choice}
           >
-          <Radio value={1}>Mail</Radio>
-          <Radio value={2}>SMS</Radio>
+          <Radio value={"email"} >Mail</Radio>
+          <Radio value={"sms"}>SMS</Radio>
           {/* <Radio value={3}>J'ai déjà un code pin</Radio> */}
         </RadioGroup>
         <Button
