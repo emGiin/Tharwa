@@ -12,4 +12,12 @@ describe('Pin Code REDUX', () => {
     expect(state.error).toBeNull()
   })
 
+  it('should handle pinCodeSuccess', () => {
+    const state = reducer(INITIAL_STATE, Actions.pinCodeSuccess())
+
+    expect(state.fetching).toBe(false)
+    expect(state.success).toBe(true)
+    expect(state.error).toBeNull()
+  })
+
 })
