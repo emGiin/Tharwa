@@ -68,4 +68,15 @@ describe("Authentication SAGA", () => {
   })
 
 
+  it('should show login load path with a token', () => {
+    const authToken = 'sample-access-token'
+    const step = stepper(loadToken(FixtureAPI))
+    // Select the token from redux and set it
+    expect(step(authToken)).toEqual(select(selectAuthToken))
+    expect(step(authToken)).toEqual(call(FixtureAPI.setAuthToken, authToken))
+    FixtureAPI.setAuthToken(authToken)
+    // The token has been set so call success
+    expect(step()).toEqual(put(AuthActions.tokenLoadSuccess()))
+  })
+
 });
