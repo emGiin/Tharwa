@@ -1,7 +1,7 @@
 import { all, takeLatest } from 'redux-saga/effects'
 import AuthAPI from '../services/AuthApi'
 import FixtureAPI from '../services/FixtureAPI'
-import DebugConfig from '../Config/DebugConfig'
+import DebugConfig from '../config/DebugConfig'
 
 /* ------------- Types ------------- */
 import { AuthTypes } from '../redux/AuthRedux'
