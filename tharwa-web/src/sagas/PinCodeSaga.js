@@ -4,7 +4,7 @@ import PinCodeActions from "../redux/PinCodeRedux";
 import AuthActions from "../redux/AuthRedux";
 
 export function* confirmPinCode(api, { pinCode }) {
-  const token = yield select(state => state.pinCode.pinCodeToken);
+  const token = yield select(selectPinCodeToken);
   const response = yield call(api.confirmPinCode, {
     pin_code: pinCode,
     temporary_token: token
@@ -21,3 +21,5 @@ export function* confirmPinCode(api, { pinCode }) {
     );
   }
 }
+
+export const selectPinCodeToken = state => state.pinCode.pinCodeToken;
