@@ -1,11 +1,33 @@
 import React from 'react';
 import {shallow} from 'enzyme';
+import configureStore from 'redux-mock-store'
+
 
 import Login from '../Login';
 
 describe('<Login>', () => {
-  let wrapper;
-  beforeAll(()=> wrapper = shallow(<Login/>))
+  const initialState = {
+    auth: {
+      fetching: false, error: null, success: false
+    },
+    pinCode: {
+      fetching: false, error: null, success: false
+    }      
+  }
+  const mockStore = configureStore()
+  const dispatchSpy = jest.fn();
+  let wrapper, content, store;
+  
+  beforeAll(()=>{
+    store = mockStore(initialState);
+    store.dispatch = dispatchSpy;
+    wrapper = shallow(<Login/>,{ context: { store } });
+    content = wrapper.dive();
+  })
+
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
 
   it('should render without crashing', ()=>{
     expect(wrapper).toHaveLength(1);
