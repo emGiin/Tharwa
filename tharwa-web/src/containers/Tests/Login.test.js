@@ -166,28 +166,4 @@ describe("<Login>", () => {
       AuthActions.authRequest("user@email.com", "password", 1)
     );
   });
-
-  it('should submit pin', ()=>{
-    let _temp = content.instance().sendPin;
-
-    let spy = jest.fn();
-    content.setState({current: 2});
-    content.instance().sendPin = spy;
-    content.instance().submitPin("1456");
-
-    let { pin } = content.state();
-    expect(pin).toBe("1456");
-    expect(spy).toBeCalled();
-
-    content.instance().sendPin = _temp;
-  })
-
-  it("should dispatch PIN_CODE_REQUEST on sendPin", () => {
-    content.setState({ current: 2 });
-    content.setState({ pin: "1456" });
-    content.instance().sendPin();
-    expect(dispatcherSpy).toHaveBeenCalledWith(
-      PinCodeActions.pinCodeRequest("1456")
-    );
-  });
 });
