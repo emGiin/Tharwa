@@ -1,7 +1,7 @@
 import { all, takeLatest } from 'redux-saga/effects'
-import AuthAPI from '../services/AuthApi'
+import AuthAPI from '../services/AuthAPI'
 import FixtureAPI from '../services/FixtureAPI'
-import DebugConfig from '../config/DebugConfig'
+import {useFixtures} from '../config/DebugConfig'
 
 /* ------------- Types ------------- */
 import { AuthTypes } from '../redux/AuthRedux'
@@ -12,7 +12,7 @@ import { login, logout, loadToken } from './AuthSaga'
 import { confirmPinCode } from './PinCodeSaga'
 
 /* ------------- API ------------- */
-const api = DebugConfig.useFixtures ? FixtureAPI : AuthAPI.create()
+const api = useFixtures ? FixtureAPI : AuthAPI.create()
 
 /* ------------- Connect Types To Sagas ------------- */
 export default function* root() {
