@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { Text, Item, Picker } from 'native-base'
-import styles from '../../Styles/SignupFormStyle'
+import styles from '../Styles/FormFieldStyles'
 
 class PickerField extends Component {
   render() {
@@ -32,4 +32,4 @@ class PickerField extends Component {
   }
 }
 
-export default PickerField
+export { PickerField }

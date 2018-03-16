@@ -3,8 +3,8 @@ import { View } from 'react-native'
 import { Container, Content, Text, Button, Icon } from 'native-base'
 import { reduxForm, Field } from 'redux-form'
 import I18n from 'react-native-i18n'
-import { emailValidators, passwordValidators } from '../../Helpers/validators'
-import { EmailField, PasswordField } from '../CommonFormFields'
+import { emailValidators, passwordValidators } from '../../../Helpers/validators'
+import { EmailField, PasswordField } from '../../../Components'
 import styles from '../Styles/SignupFormStyle'
 
 

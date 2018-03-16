@@ -9,9 +9,9 @@ import PopupDialog, {
   SlideAnimation
 } from 'react-native-popup-dialog'
 import I18n from 'react-native-i18n'
-import { Images } from '../Themes'
-import AuthActions from '../Redux/AuthRedux'
-import LoginForm from '../Components/LoginForm'
+import { Images } from '../../Themes'
+import AuthActions from '../../Redux/AuthRedux'
+import LoginForm from '../Forms/LoginForm'
 
 // Styles
 import styles from './Styles/LoginScreenStyle'
@@ -20,7 +20,6 @@ const slideAnimation = new SlideAnimation({ slideFrom: 'bottom' });
 
 class LoginScreen extends Component {
   static propTypes = {
-    dispatch: PropTypes.func,
     fetching: PropTypes.bool,
     error: PropTypes.string,
     success: PropTypes.bool,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { Text, Item, Input, Icon } from 'native-base'
-import styles from '../Styles/LoginFormStyle'
+import styles from '../Styles/FormFieldStyles'
 
 class PasswordField extends Component {
   constructor(props) {
@@ -45,4 +45,4 @@ class PasswordField extends Component {
   }
 }
 
-export default PasswordField
+export { PasswordField }

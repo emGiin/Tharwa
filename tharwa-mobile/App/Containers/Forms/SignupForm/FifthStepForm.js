@@ -3,9 +3,8 @@ import { View } from 'react-native'
 import { Container, Content, Text, Button, Item, Input, Icon } from 'native-base'
 import { reduxForm, Field } from 'redux-form'
 import I18n from 'react-native-i18n'
-import { nameValidators } from '../../Helpers/validators'
+import { nameValidators } from '../../../Helpers/validators'
 import styles from '../Styles/SignupFormStyle'
-// import styles from './styles/FourthStepFormStyle'
 
 export class FieldInput extends Component {
   render() {

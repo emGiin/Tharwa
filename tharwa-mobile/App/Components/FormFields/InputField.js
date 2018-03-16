@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { Text, Item, Input, Icon } from 'native-base'
-import styles from '../Styles/SignupFormStyle'
+import styles from '../Styles/FormFieldStyles'
 
-export class InputField extends Component {
+class InputField extends Component {
   render() {
     const {
       input, meta, refField, onEnter, icon,
@@ -33,4 +33,4 @@ export class InputField extends Component {
   }
 }
 
-export default InputField
+export { InputField }

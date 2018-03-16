@@ -11,7 +11,7 @@ import PopupDialog, {
 } from 'react-native-popup-dialog'
 import I18n from 'react-native-i18n'
 import CodeInput from 'react-native-confirmation-code-input'
-import PinCodeActions from '../Redux/PinCodeRedux'
+import PinCodeActions from '../../Redux/PinCodeRedux'
 
 // Styles
 import styles from './Styles/PinCodeScreenStyle'
@@ -26,8 +26,6 @@ class PinCodeScreen extends Component {
     success: PropTypes.bool,
     confirmPinCode: PropTypes.func
   }
-
-  state = { new: true }
 
   componentWillReceiveProps(props) {
     if (!props.fetching && props.success) {
@@ -45,7 +43,6 @@ class PinCodeScreen extends Component {
   }
 
   submit = (code) => {
-    this.setState({ new: false })
     this.dialog.show();
     this.props.confirmPinCode(code);
   }

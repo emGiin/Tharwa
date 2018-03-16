@@ -4,8 +4,8 @@ import { Text, Button } from 'native-base'
 import { reduxForm, Field } from 'redux-form'
 import I18n from 'react-native-i18n'
 import styles from './Styles/LoginFormStyle'
-import { emailValidators, passwordValidators } from '../Helpers/validators'
-import { EmailField, PasswordField } from './CommonFormFields'
+import { emailValidators, passwordValidators } from '../../Helpers/validators'
+import { EmailField, PasswordField } from '../../Components'
 
 
 const LoginForm = ({ editable, handleSubmit, onRegisterClicked }) => {

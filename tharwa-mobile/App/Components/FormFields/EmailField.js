@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { Text, Item, Input, Icon } from 'native-base'
-import styles from '../Styles/LoginFormStyle'
+import styles from '../Styles/FormFieldStyles'
 
-class EmailInput extends Component {
+class EmailField extends Component {
   render() {
     const { input, meta, onEnter, placeholder, refField } = this.props;
     return (
@@ -28,4 +28,4 @@ class EmailInput extends Component {
   }
 }
 
-export default EmailInput
+export { EmailField }

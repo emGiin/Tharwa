@@ -3,13 +3,13 @@ import { View } from 'react-native'
 import { Container, Content, Text, Button, Icon } from 'native-base'
 import { reduxForm, Field } from 'redux-form'
 import I18n from 'react-native-i18n'
-import { InputField } from '../CommonFormFields'
-import { nameValidators } from '../../Helpers/validators'
+import { PickerField, InputField } from "../../../Components";
+import { addressValidators, phoneValidators } from '../../../Helpers/validators'
 import styles from '../Styles/SignupFormStyle'
 
-class SecondStepForm extends Component {
+class ThirdStepForm extends Component {
   componentDidMount() {
-    this.focusOn('lastName')
+    this.focusOn('phone')
   }
 
   focusOn = (field) => {
@@ -17,45 +17,51 @@ class SecondStepForm extends Component {
   }
 
   render() {
-    const { editable, handleSubmit, previousPage } = this.props;
+    const { editable, handleSubmit } = this.props;
     return (
       <Container style={styles.mainformContainer}>
         <Content style={styles.inputContainer} >
           <Field
-            name={'lastName'}
+            name={'phone'}
             withRef
-            refField="lastName"
-            ref={ref => this.lastName = ref}
-            onEnter={() => this.focusOn('firstName')}
-            icon={'person'}
+            refField="phone"
+            ref={ref => this.phone = ref}
+            onEnter={() => this.focusOn('address')}
             component={InputField}
             editable={editable}
-            validate={nameValidators}
+            validate={phoneValidators}
             returnKeyType={'next'}
-            placeholder={I18n.t('lastName')}
+            placeholder={I18n.t('phone')}
           />
 
           <Field
             withRef
-            ref={ref => this.firstName = ref}
-            refField="firstName"
-            name={'firstName'}
-            icon={'person'}
+            ref={ref => this.address = ref}
+            refField="address"
+            name={'address'}
             component={InputField}
             editable={editable}
-            validate={nameValidators}
+            validate={addressValidators}
             returnKeyType={'done'}
-            placeholder={I18n.t('firstName')}
+            placeholder={I18n.t('address')}
+          />
+
+
+          <Field
+            name={'function'}
+            component={PickerField}
+            editable={editable}
+            placeholder={I18n.t('function')}
           />
         </Content>
 
         <View style={styles.nextBtnContainer}>
-          <Button transparent iconLeft onPress={previousPage} >
+          <Button iconLeft transparent onPress={handleSubmit} >
             <Icon name='ios-arrow-back-outline' />
-            <Text>{I18n.t('previous')}</Text>
+            <Text>Précédant</Text>
           </Button>
-          <Button transparent iconRight onPress={handleSubmit} >
-            <Text>{I18n.t('next')}</Text>
+          <Button iconRight transparent onPress={handleSubmit} >
+            <Text>Suivant</Text>
             <Icon name='ios-arrow-forward-outline' />
           </Button>
         </View>
@@ -69,4 +75,4 @@ export default reduxForm({
   form: 'signup',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
-})(SecondStepForm);
+})(ThirdStepForm);

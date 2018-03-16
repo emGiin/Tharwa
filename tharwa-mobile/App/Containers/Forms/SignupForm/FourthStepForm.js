@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { View, Image } from 'react-native'
 import { Button, Text } from 'native-base'
-import { reduxForm, Field, formValues } from 'redux-form'
-import I18n from 'react-native-i18n'
-import CameraView from "../CameraView";
+import { reduxForm, Field } from 'redux-form'
+import { CameraView } from "../../../Components";
 import styles from './styles/FourthStepFormStyle'
 
 

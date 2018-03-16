@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { View, TouchableOpacity } from 'react-native'
 import { Icon } from 'native-base'
 import Camera from 'react-native-camera';
-
 import styles from './Styles/CameraViewStyle'
 
 class CameraView extends Component {
@@ -38,4 +37,4 @@ class CameraView extends Component {
   }
 }
 
-export default CameraView
+export { CameraView }
