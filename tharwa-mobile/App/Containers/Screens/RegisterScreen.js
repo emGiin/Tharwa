@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Container } from 'native-base'
 import { connect } from 'react-redux'
-import SignupForm from '../Forms/SignupForm'
+import { SignupForm } from '../Forms'
 
 // Styles
 import styles from './Styles/RegisterScreenStyle'

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Image } from 'react-native'
 import { Button, Text } from 'native-base'
 import { reduxForm, Field } from 'redux-form'
-import { CameraView } from "../../../Components";
+import { CameraView } from "../../../Components/CameraView";
 import styles from './styles/FourthStepFormStyle'
 
 

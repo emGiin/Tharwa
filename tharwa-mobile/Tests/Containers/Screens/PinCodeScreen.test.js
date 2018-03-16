@@ -2,8 +2,8 @@ import 'react-native'
 import React from 'react'
 import configureStore from 'redux-mock-store'
 import { shallow } from 'enzyme'
-import PinCodeActions from '../../App/Redux/PinCodeRedux'
-import PinCodeScreen from '../../App/Containers/PinCodeScreen'
+import PinCodeActions from '../../../App/Redux/PinCodeRedux'
+import { PinCodeScreen } from '../../../App/Containers/Screens'
 import { NavigationActions } from 'react-navigation'
 
 describe('Login Screen container', () => {

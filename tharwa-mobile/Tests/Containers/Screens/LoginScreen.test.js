@@ -2,8 +2,8 @@ import 'react-native'
 import React from 'react'
 import configureStore from 'redux-mock-store'
 import { shallow } from 'enzyme'
-import AuthActions from '../../App/Redux/AuthRedux'
-import LoginScreen from '../../App/Containers/LoginScreen'
+import AuthActions from '../../../App/Redux/AuthRedux'
+import { LoginScreen } from '../../../App/Containers/Screens'
 
 describe('Login Screen container', () => {
   const initialState = {

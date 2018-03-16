@@ -11,7 +11,7 @@ import PopupDialog, {
 import I18n from 'react-native-i18n'
 import { Images } from '../../Themes'
 import AuthActions from '../../Redux/AuthRedux'
-import LoginForm from '../Forms/LoginForm'
+import { LoginForm } from '../Forms'
 
 // Styles
 import styles from './Styles/LoginScreenStyle'

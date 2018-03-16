@@ -1,5 +1,4 @@
 export * from './AlertMessage'
-export * from './CameraView'
 export * from './DrawerButton'
 export * from './FullButton'
 export * from './RoundedButton'

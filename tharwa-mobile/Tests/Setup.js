@@ -24,3 +24,8 @@ jest
       }
     }
   })
+  .mock('react-native-camera', () => {
+    return {
+
+    }
+  })
