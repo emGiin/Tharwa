@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Button, Icon } from "antd";
 import RoundedImage from "./Reusable Components/RoundedImage";
-
+const confirm = Modal.confirm;
 class ApplicantDetailsModal extends Component{
 
   state = {
@@ -36,7 +36,7 @@ class ApplicantDetailsModal extends Component{
             <Button type="primary" key="validate" size="large" onClick={this.handleValidate}>
             <Icon type="user-add" /> Valider
             </Button>,
-            <Button type="danger" key="reject"  size="large"  onClick={this.handleReject}>
+            <Button type="danger" key="reject"  size="large"  onClick={this.handleConfirmReject}>
               <Icon type="user-delete" /> Rejeter
             </Button>,
           ]}
@@ -60,12 +60,32 @@ class ApplicantDetailsModal extends Component{
 
   handleValidate(){
     console.log("Valider");
+    //if success
+    Modal.success({
+      title: 'Demande d\'inscription validée',
+      content: '',
+    });
   }
 
-  handleReject(){
-    console.log("Rejeter");
-  }
 
+
+  handleConfirmReject(nom,prenom){
+    confirm({
+      title: 'Voulez-vous vraiment rejeter cette demande?',
+      content: 'Nom: '+nom+' '+prenom,
+      okText: 'Oui',
+      okType: 'danger',
+      cancelText: 'Annuler',
+      onOk() {
+        //Reject the request
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+    }
+  
+  
 }
 
 export default ApplicantDetailsModal;

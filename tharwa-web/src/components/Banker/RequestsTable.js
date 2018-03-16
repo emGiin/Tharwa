@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Table, Icon } from "antd";
+import { Table, Icon, Modal } from "antd";
 import RoundedImage from "./Reusable Components/RoundedImage";
 import ApplicantDetailsModal from "./ApplicantDetailsModal";
 
+const confirm = Modal.confirm;
 
 class RequestsTable extends Component {
   state = {
@@ -46,15 +47,46 @@ class RequestsTable extends Component {
         <a href="#" onClick={this.handleClickDetails}><Icon type="info-circle" /></a> {/*show Modal 
         <ApplicantDetailsModal user={record} />*/}
         <span className="ant-divider" />
-        <a href="#"><Icon type="minus-circle-o" /></a>
+        <a href="#"><Icon type="minus-circle-o" onClick={()=>this.handleConfirmReject(record.nom,record.prenom)}/></a>
         <span className="ant-divider" />
-        <a href="#"><Icon  type="check-circle" /></a>
+        <a href="#"><Icon  type="check-circle" onClick={this.handleValidate}/></a>
       </span>
     ),
   }];
 
   handleClickDetails(){
     
+  }
+
+  handleConfirmReject(nom,prenom){
+  confirm({
+    title: 'Voulez-vous vraiment rejeter cette demande?',
+    content: 'Nom: '+nom+' '+prenom,
+    okText: 'Oui',
+    okType: 'danger',
+    cancelText: 'Annuler',
+    onOk() {
+      //reject the request
+    },
+    onCancel() {
+      console.log('Cancel');
+    },
+  });
+  }
+
+  handleValidate(){
+    //if success call confirmValidate
+    Modal.success({
+      title: 'Demande d\'inscription validée',
+      content: '',
+    });
+  }
+
+  confirmValidate(){
+    Modal.success({
+      title: 'Demande d\'inscription validée',
+      content: '',
+    });
   }
   handleTableChange = (pagination, filters, sorter) => {
     const pager = { ...this.state.pagination };
