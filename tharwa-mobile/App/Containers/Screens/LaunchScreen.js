@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, Image, View } from 'react-native'
+import { Image, Text, View, ActivityIndicator } from 'react-native'
 import { Images } from '../../Themes'
 
 // Styles
@@ -14,21 +14,10 @@ export default class LaunchScreen extends Component {
 
   render() {
     return (
-      <View style={styles.mainContainer}>
-        <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
-        <ScrollView style={styles.container}>
-          <View style={styles.centered}>
-            <Image source={Images.launch} style={styles.logo} />
-          </View>
-
-          <View style={styles.section} >
-            <Image source={Images.ready} />
-            <Text style={styles.sectionText}>
-              Page Initial
-            </Text>
-          </View>
-
-        </ScrollView>
+      <View style={styles.centered}>
+        <Image source={Images.logo} style={styles.logo} />
+        <ActivityIndicator size={'large'} />
+        <Text style={{ marginTop: 10 }}>Chargement en cours ...</Text>
       </View>
     )
   }
