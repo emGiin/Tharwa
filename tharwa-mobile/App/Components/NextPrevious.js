@@ -8,18 +8,20 @@ const NextPrevious = ({ onPrevious, onSubmit, isFinal }) => {
   return (
     <View style={styles.nextBtnContainer}>
       { 
-        onPrevious && 
+        onPrevious ? 
         <Button transparent iconLeft onPress={onPrevious} >
           <Icon name='ios-arrow-back-outline' />
           <Text>{I18n.t('previous')}</Text>
         </Button>
+        : <Text />
       }
       { 
-        onSubmit && 
+        onSubmit ?
         <Button transparent iconRight onPress={onSubmit} >
           <Text>{I18n.t(isFinal ? 'confirm' : 'next')}</Text>
           <Icon name={isFinal ? 'ios-checkmark-circle' : 'ios-arrow-forward-outline'}/>
         </Button>
+        : <Text />
       }
     </View>
   )
