@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
-import { Container, Content, Text, Button, Icon } from 'native-base'
+import { Container, Content } from 'native-base'
 import { reduxForm, Field } from 'redux-form'
 import I18n from 'react-native-i18n'
-import { PickerField, InputField } from "../../../Components";
+import { PickerField, InputField, NextPrevious } from "../../../Components";
 import {
   addressValidators,
   phoneValidators,
@@ -67,17 +66,7 @@ class ThirdStepForm extends Component {
             options={this.functions}
           />
         </Content>
-
-        <View style={styles.nextBtnContainer}>
-          <Button iconLeft transparent onPress={previousPage} >
-            <Icon name='ios-arrow-back-outline' />
-            <Text>{I18n.t('previous')}</Text>
-          </Button>
-          <Button iconRight transparent onPress={handleSubmit} >
-            <Text>{I18n.t('next')}</Text>
-            <Icon name='ios-arrow-forward-outline' />
-          </Button>
-        </View>
+        <NextPrevious onPrevious={previousPage} onSubmit={handleSubmit}/>
       </Container>
     )
   }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Header as NativeHeader, Button, Icon, Body, Title, Left } from 'native-base'
 import styles from './Styles/HeaderStyle'
 

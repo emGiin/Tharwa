@@ -38,5 +38,6 @@
   "functionSelection": "Selectioner une fonction",
   "confirm": "Confirmer",
   "cancel": "Annuler",
-  "newAccount": "Nouveau compte"
+  "newAccount": "Nouveau compte",
+  "employeeAccount": "Voulez vous utiliser votre compte pour payer vos employés ?"
 }

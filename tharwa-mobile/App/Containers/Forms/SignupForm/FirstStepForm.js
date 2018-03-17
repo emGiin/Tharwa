@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
-import { Container, Content, Text, Button, Icon } from 'native-base'
+import { Container, Content } from 'native-base'
 import { reduxForm, Field } from 'redux-form'
 import I18n from 'react-native-i18n'
 import { emailValidators, passwordValidators } from '../../../Helpers/validators'
-import { EmailField, PasswordField } from '../../../Components'
+import { EmailField, PasswordField, NextPrevious } from '../../../Components'
 import styles from '../Styles/SignupFormStyle'
 
 
@@ -58,14 +57,7 @@ class FirstStepForm extends Component {
           />
           {/* TODO: add password matching validation */}
         </Content>
-
-        <View style={styles.nextBtnContainer}>
-          <Text />
-          <Button transparent small onPress={handleSubmit} iconRight>
-            <Text>{I18n.t('next')}</Text>
-            <Icon name='ios-arrow-forward-outline' />
-          </Button>
-        </View>
+        <NextPrevious onSubmit={handleSubmit}/>
       </Container>
     )
   }

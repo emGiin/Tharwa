@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { View, Image } from 'react-native'
 import Dimensions from 'Dimensions'
 import { connect } from 'react-redux'
-import { Container, Content, Text, Button, Icon } from 'native-base'
-import RadioForm from 'react-native-simple-radio-button';
+import { Container, Text } from 'native-base'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import I18n from 'react-native-i18n'
+import { RadioField, NextPrevious } from '../../../Components'
 import styles from '../Styles/SignupFormStyle'
 
 class FirstStepForm extends Component {
@@ -22,26 +22,17 @@ class FirstStepForm extends Component {
         <View style={{ alignItems: 'center' }}>
           <Image style={{ marginVertical: 20, width: size, height: size, borderRadius: 100 }} source={{ uri: mediaUri }} />
           <Text style={{ marginVertical: 20, textAlign: 'center', paddingHorizontal: 30 }}>
-            Voulez vous utiliser votre compte pour payer vos employés ?
+            {I18n.t('employeeAccount')}
           </Text>
-          <RadioForm
+          <Field
             radio_props={this.radio_props}
-            initial={0}
-            animation={false}
-            onPress={(value) => { this.setState({ value: value }) }}
+            name={'entreprise'}
+            component={RadioField}
+            editable={editable}
           />
         </View>
 
-        <View style={styles.nextBtnContainer}>
-          <Button transparent iconLeft onPress={previousPage} >
-            <Icon name='ios-arrow-back-outline' />
-            <Text>{I18n.t('previous')}</Text>
-          </Button>
-          <Button transparent iconRight onPress={handleSubmit} >
-            <Text>{I18n.t('confirm')}</Text>
-            <Icon name='ios-checkmark-circle' />
-          </Button>
-        </View>
+        <NextPrevious isFinal onPrevious={previousPage} onSubmit={handleSubmit}/>
       </Container>
     )
   }

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
-import { Container, Content, Text, Button, Icon } from 'native-base'
+import { Container, Content } from 'native-base'
 import { reduxForm, Field } from 'redux-form'
 import I18n from 'react-native-i18n'
-import { InputField } from '../../../Components'
+import { InputField, NextPrevious } from '../../../Components'
 import { nameValidators } from '../../../Helpers/validators'
 import styles from '../Styles/SignupFormStyle'
 
@@ -46,17 +45,7 @@ class SecondStepForm extends Component {
             placeholder={I18n.t('firstName')}
           />
         </Content>
-
-        <View style={styles.nextBtnContainer}>
-          <Button transparent iconLeft onPress={previousPage} >
-            <Icon name='ios-arrow-back-outline' />
-            <Text>{I18n.t('previous')}</Text>
-          </Button>
-          <Button transparent iconRight onPress={handleSubmit} >
-            <Text>{I18n.t('next')}</Text>
-            <Icon name='ios-arrow-forward-outline' />
-          </Button>
-        </View>
+        <NextPrevious onPrevious={previousPage} onSubmit={handleSubmit}/>
       </Container>
     )
   }
