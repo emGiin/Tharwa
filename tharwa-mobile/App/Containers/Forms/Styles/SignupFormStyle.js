@@ -15,7 +15,7 @@ export default StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 20,
+    marginVertical: 5,
     paddingHorizontal: 10
   }
 })

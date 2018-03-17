@@ -27,7 +27,6 @@ class SecondStepForm extends Component {
             refField="lastName"
             ref={ref => this.lastName = ref}
             onEnter={() => this.focusOn('firstName')}
-            icon={'person'}
             component={InputField}
             editable={editable}
             validate={nameValidators}
@@ -40,7 +39,6 @@ class SecondStepForm extends Component {
             ref={ref => this.firstName = ref}
             refField="firstName"
             name={'firstName'}
-            icon={'person'}
             component={InputField}
             editable={editable}
             validate={nameValidators}

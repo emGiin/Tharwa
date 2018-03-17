@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
+import I18n from 'react-native-i18n'
 import styles from '../Styles/SignupFormStyle'
-
+import { Header }from '../../../Components'
 import FirstStepForm from './FirstStepForm'
 import SecondStepForm from './SecondStepForm'
 import ThirdStepForm from './ThirdStepForm'
@@ -19,7 +20,7 @@ class SignupForm extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { currentPage: 1 }
+    this.state = { currentPage: 4 }
     this.nextPage = this.nextPage.bind(this)
     this.previousPage = this.previousPage.bind(this)
   }
@@ -44,6 +45,7 @@ class SignupForm extends Component {
 
     return (
       <View style={styles.mainformContainer}>
+        { currentPage !== 4 && <Header icon={'md-arrow-round-back'} text={I18n.t('newAccount')} /> }
         <CurrentFormComponent {...formStepProps} />
       </View>
     )

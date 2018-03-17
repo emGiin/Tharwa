@@ -1,0 +1,226 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FullButton component should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <TouchableOpacity
+    activeOpacity={0.2}
+    onPress={[MockFunction]}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "rgba(164, 0, 48, 0.5)",
+          "borderBottomColor": "#fb5f26",
+          "borderBottomWidth": 1,
+          "borderTopColor": "#e73536",
+          "borderTopWidth": 1,
+          "marginVertical": 5,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "white",
+          "fontFamily": "Avenir-Black",
+          "fontSize": 14,
+          "margin": 18,
+          "textAlign": "center",
+        }
+      }
+    >
+      TEST
+    </Text>
+  </TouchableOpacity>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "accessibilityComponentType": undefined,
+      "accessibilityLabel": undefined,
+      "accessibilityTraits": undefined,
+      "accessible": true,
+      "children": Array [
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "white",
+              "fontFamily": "Avenir-Black",
+              "fontSize": 14,
+              "margin": 18,
+              "textAlign": "center",
+            }
+          }
+        >
+          TEST
+        </Text>,
+        null,
+      ],
+      "hitSlop": undefined,
+      "isTVSelectable": true,
+      "nativeID": undefined,
+      "onLayout": undefined,
+      "onResponderGrant": [Function],
+      "onResponderMove": [Function],
+      "onResponderRelease": [Function],
+      "onResponderTerminate": [Function],
+      "onResponderTerminationRequest": [Function],
+      "onStartShouldSetResponder": [Function],
+      "style": Array [
+        Array [
+          Object {
+            "backgroundColor": "rgba(164, 0, 48, 0.5)",
+            "borderBottomColor": "#fb5f26",
+            "borderBottomWidth": 1,
+            "borderTopColor": "#e73536",
+            "borderTopWidth": 1,
+            "marginVertical": 5,
+          },
+          undefined,
+        ],
+        Object {
+          "opacity": 1,
+        },
+      ],
+      "testID": undefined,
+      "tvParallaxProperties": undefined,
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "accessible": true,
+          "allowFontScaling": true,
+          "children": "TEST",
+          "ellipsizeMode": "tail",
+          "style": Object {
+            "color": "white",
+            "fontFamily": "Avenir-Black",
+            "fontSize": 14,
+            "margin": 18,
+            "textAlign": "center",
+          },
+        },
+        "ref": null,
+        "rendered": "TEST",
+        "type": [Function],
+      },
+      null,
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "accessibilityComponentType": undefined,
+        "accessibilityLabel": undefined,
+        "accessibilityTraits": undefined,
+        "accessible": true,
+        "children": Array [
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "white",
+                "fontFamily": "Avenir-Black",
+                "fontSize": 14,
+                "margin": 18,
+                "textAlign": "center",
+              }
+            }
+          >
+            TEST
+          </Text>,
+          null,
+        ],
+        "hitSlop": undefined,
+        "isTVSelectable": true,
+        "nativeID": undefined,
+        "onLayout": undefined,
+        "onResponderGrant": [Function],
+        "onResponderMove": [Function],
+        "onResponderRelease": [Function],
+        "onResponderTerminate": [Function],
+        "onResponderTerminationRequest": [Function],
+        "onStartShouldSetResponder": [Function],
+        "style": Array [
+          Array [
+            Object {
+              "backgroundColor": "rgba(164, 0, 48, 0.5)",
+              "borderBottomColor": "#fb5f26",
+              "borderBottomWidth": 1,
+              "borderTopColor": "#e73536",
+              "borderTopWidth": 1,
+              "marginVertical": 5,
+            },
+            undefined,
+          ],
+          Object {
+            "opacity": 1,
+          },
+        ],
+        "testID": undefined,
+        "tvParallaxProperties": undefined,
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "accessible": true,
+            "allowFontScaling": true,
+            "children": "TEST",
+            "ellipsizeMode": "tail",
+            "style": Object {
+              "color": "white",
+              "fontFamily": "Avenir-Black",
+              "fontSize": 14,
+              "margin": 18,
+              "textAlign": "center",
+            },
+          },
+          "ref": null,
+          "rendered": "TEST",
+          "type": [Function],
+        },
+        null,
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

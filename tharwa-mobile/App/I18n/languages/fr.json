@@ -26,6 +26,7 @@
   "passwordLengthError": "Le mot de passe doit comporter au moins 8 caractères",
   "fieldRequiredError": "Ce champ est obligatoire",
   "invalidNameError": "Le format de ce champ est invalide",
+  "invalidPhoneError": "Ce numéro de téléphone est invalide",
   "connected": "Connecté",
   "noInternet": "Pas de connexion Internet",
   "firstName": "Prénom",
@@ -34,5 +35,8 @@
   "previous": "Précédant",
   "phone": "Numéro téléphone",
   "address": "Adresse",
-  "function": "Fonction"
+  "functionSelection": "Selectioner une fonction",
+  "confirm": "Confirmer",
+  "cancel": "Annuler",
+  "newAccount": "Nouveau compte"
 }

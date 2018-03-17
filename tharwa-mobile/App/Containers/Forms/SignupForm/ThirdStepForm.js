@@ -4,10 +4,19 @@ import { Container, Content, Text, Button, Icon } from 'native-base'
 import { reduxForm, Field } from 'redux-form'
 import I18n from 'react-native-i18n'
 import { PickerField, InputField } from "../../../Components";
-import { addressValidators, phoneValidators } from '../../../Helpers/validators'
+import {
+  addressValidators,
+  phoneValidators,
+  pickerValidators
+} from '../../../Helpers/validators'
 import styles from '../Styles/SignupFormStyle'
 
 class ThirdStepForm extends Component {
+  functions = [
+    { label: 'Etudiant', value: 'student' },
+    { label: 'Ingénieur', value: 'engineer' },
+  ]
+
   componentDidMount() {
     this.focusOn('phone')
   }
@@ -17,7 +26,7 @@ class ThirdStepForm extends Component {
   }
 
   render() {
-    const { editable, handleSubmit } = this.props;
+    const { editable, handleSubmit, previousPage } = this.props;
     return (
       <Container style={styles.mainformContainer}>
         <Content style={styles.inputContainer} >
@@ -25,6 +34,7 @@ class ThirdStepForm extends Component {
             name={'phone'}
             withRef
             refField="phone"
+            icon={'md-keypad'}
             ref={ref => this.phone = ref}
             onEnter={() => this.focusOn('address')}
             component={InputField}
@@ -36,6 +46,7 @@ class ThirdStepForm extends Component {
 
           <Field
             withRef
+            icon={'ios-home'}
             ref={ref => this.address = ref}
             refField="address"
             name={'address'}
@@ -46,22 +57,24 @@ class ThirdStepForm extends Component {
             placeholder={I18n.t('address')}
           />
 
-
           <Field
             name={'function'}
+            icon={'ios-briefcase'}
             component={PickerField}
             editable={editable}
-            placeholder={I18n.t('function')}
+            placeholder={I18n.t('functionSelection')}
+            validate={pickerValidators}
+            options={this.functions}
           />
         </Content>
 
         <View style={styles.nextBtnContainer}>
-          <Button iconLeft transparent onPress={handleSubmit} >
+          <Button iconLeft transparent onPress={previousPage} >
             <Icon name='ios-arrow-back-outline' />
-            <Text>Précédant</Text>
+            <Text>{I18n.t('previous')}</Text>
           </Button>
           <Button iconRight transparent onPress={handleSubmit} >
-            <Text>Suivant</Text>
+            <Text>{I18n.t('next')}</Text>
             <Icon name='ios-arrow-forward-outline' />
           </Button>
         </View>

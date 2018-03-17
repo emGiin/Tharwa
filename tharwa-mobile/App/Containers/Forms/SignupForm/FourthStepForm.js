@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { View, Image } from 'react-native'
 import { Button, Text } from 'native-base'
+import I18n from 'react-native-i18n'
 import { reduxForm, Field } from 'redux-form'
 import { CameraView } from "../../../Components/CameraView";
 import styles from './styles/FourthStepFormStyle'
-
 
 class FourthStepForm extends Component {
   state = { pictureTaken: false, image: {} }
@@ -25,10 +25,10 @@ class FourthStepForm extends Component {
         <Image style={styles.imagePreview} source={{ uri: mediaUri }} />
         <View style={styles.buttonsContainer}>
           <Button full bordered rounded success style={{ marginBottom: 20 }} onPress={handleSubmit}>
-            <Text>Confirmer</Text>
+            <Text>{I18n.t('confirm')}</Text>
           </Button>
           <Button full bordered rounded danger onPress={this.cancel.bind(this)}>
-            <Text>Annuler</Text>
+            <Text>{I18n.t('cancel')}</Text>
           </Button>
         </View>
       </View>

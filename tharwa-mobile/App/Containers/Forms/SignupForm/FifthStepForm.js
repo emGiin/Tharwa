@@ -1,101 +1,45 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
-import { Container, Content, Text, Button, Item, Input, Icon } from 'native-base'
-import { reduxForm, Field } from 'redux-form'
+import { View, Image } from 'react-native'
+import Dimensions from 'Dimensions'
+import { connect } from 'react-redux'
+import { Container, Content, Text, Button, Icon } from 'native-base'
+import RadioForm from 'react-native-simple-radio-button';
+import { reduxForm, Field, formValueSelector } from 'redux-form'
 import I18n from 'react-native-i18n'
-import { nameValidators } from '../../../Helpers/validators'
 import styles from '../Styles/SignupFormStyle'
 
-export class FieldInput extends Component {
-  render() {
-    const {
-      input, meta, refField, onEnter,
-      editable, placeholder, returnKeyType
-    } = this.props;
-    return (
-      <View>
-        <Item regular style={styles.inputTxt}>
-          <Icon name='person' style={styles.inputIcon} />
-          <Input
-            ref={refField}
-            placeholder={placeholder}
-            returnKeyType={returnKeyType}
-            autoCapitalize='words'
-            onSubmitEditing={onEnter}
-            editable={editable}
-            placeholderTextColor="#ffffff90"
-            autoFocus={false}
-            style={styles.whiteColor}
-            {...input} />
-          {meta.invalid && meta.touched && <Icon style={{ color: '#e74c3cb0' }} name='md-alert' />}
-        </Item>
-        {meta.invalid && meta.touched && <Text style={styles.errorText}> {meta.error} </Text>}
-      </View>
-    );
-  }
-}
-
 class FirstStepForm extends Component {
-  componentDidMount() {
-    this.lastName.getRenderedComponent().refs.lastName._root.focus()
-  }
-
-  focusOnFirstName = () => {
-    this.firstName.getRenderedComponent().refs.firstName._root.focus()
-  }
+  radio_props = [
+    { label: 'Oui ', value: true },
+    { label: 'Non', value: false }
+  ]
 
   render() {
-    const { editable, handleSubmit } = this.props;
-    // const { store } = this.context
-    // const state = store.getState()
-    // const values = getFormValues('form-id')(state)
+    const size = Dimensions.get('window').width / 2
+    const { editable, handleSubmit, previousPage, picture: { mediaUri } } = this.props;
     return (
       <Container style={styles.mainformContainer}>
-
-        {/* <View style={{ flex: 1 }}>
-          <Image style={styles.imagePreview} source={{ uri: mediaUri }} />
-          <View style={styles.buttonsContainer}>
-            <Button full bordered rounded success style={{ marginBottom: 20 }}>
-              <Text>Confirmer</Text>
-            </Button>
-            <Button full bordered rounded danger>
-              <Text>Annuler</Text>
-            </Button>
-          </View>
-        </View> */}
-        <Content style={styles.inputContainer} >
-          <Field
-            name={'lastName'}
-            withRef
-            refField="lastName"
-            ref={ref => this.lastName = ref}
-            onEnter={this.focusOnFirstName}
-            autoFocus={true}
-            component={FieldInput}
-            editable={editable}
-            validate={nameValidators}
-            returnKeyType={'next'}
-            placeholder={I18n.t('lastName')}
+        <View style={{ alignItems: 'center' }}>
+          <Image style={{ marginVertical: 20, width: size, height: size, borderRadius: 100 }} source={{ uri: mediaUri }} />
+          <Text style={{ marginVertical: 20, textAlign: 'center', paddingHorizontal: 30 }}>
+            Voulez vous utiliser votre compte pour payer vos employés ?
+          </Text>
+          <RadioForm
+            radio_props={this.radio_props}
+            initial={0}
+            animation={false}
+            onPress={(value) => { this.setState({ value: value }) }}
           />
-
-          <Field
-            withRef
-            ref={ref => this.firstName = ref}
-            refField="firstName"
-            name={'firstName'}
-            autoFocus={false}
-            component={FieldInput}
-            editable={editable}
-            validate={nameValidators}
-            returnKeyType={'done'}
-            placeholder={I18n.t('firstName')}
-          />
-        </Content>
+        </View>
 
         <View style={styles.nextBtnContainer}>
-          <Button iconRight transparent onPress={handleSubmit} Right>
-            <Text>Suivant</Text>
-            <Icon name='ios-arrow-forward-outline' />
+          <Button transparent iconLeft onPress={previousPage} >
+            <Icon name='ios-arrow-back-outline' />
+            <Text>{I18n.t('previous')}</Text>
+          </Button>
+          <Button transparent iconRight onPress={handleSubmit} >
+            <Text>{I18n.t('confirm')}</Text>
+            <Icon name='ios-checkmark-circle' />
           </Button>
         </View>
       </Container>
@@ -103,9 +47,18 @@ class FirstStepForm extends Component {
   }
 }
 
-
-export default reduxForm({
+FirstStepForm = reduxForm({
   form: 'signup',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
 })(FirstStepForm);
+
+// connect our component again to get some additional state
+FirstStepForm = connect(
+  state => {
+    const picture = formValueSelector('signup')(state, 'picture')
+    return { picture }
+  }
+)(FirstStepForm)
+
+export default FirstStepForm
