@@ -18,5 +18,8 @@ export default StyleSheet.create({
   },
   alertIcon: {
     color: '#e74c3cb0'
+  },
+  whiteColor: {
+    color: '#fff'
   }
 })

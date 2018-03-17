@@ -24,9 +24,9 @@ class PasswordField extends Component {
             ref={refField}
             placeholder={placeholder}
             secureTextEntry={!showPassword}
-            placeholderTextColor="#ffffff90"
+            placeholderTextColor={"#ffffff90"}
             returnKeyType='go'
-            selectionColor='#fff'
+            selectionColor={'#fff'}
             autoCorrect={false}
             onSubmitEditing={onEnter}
             {...input}

@@ -21,7 +21,8 @@ class InputField extends Component {
             autoCapitalize='words'
             onSubmitEditing={onEnter}
             editable={editable}
-            placeholderTextColor="#ffffff90"
+            selectionColor={'#fff'}
+            placeholderTextColor={"#ffffff90"}
             autoFocus={false}
             style={styles.whiteColor}
             {...input} />

@@ -19,7 +19,8 @@ class EmailField extends Component {
             onSubmitEditing={onEnter}
             {...input}
             style={styles.whiteColor}
-            placeholderTextColor="#ffffff90" />
+            selectionColor={'#fff'}
+            placeholderTextColor={"#ffffff90"} />
           {meta.invalid && meta.touched && <Icon style={styles.alertIcon} name='md-alert' />}
         </Item>
         {meta.invalid && meta.touched && <Text style={styles.errorText}> {meta.error} </Text>}
