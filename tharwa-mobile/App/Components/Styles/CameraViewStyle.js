@@ -22,10 +22,20 @@ export default StyleSheet.create({
     padding: 10,
     margin: 40
   },
+  icon: {
+    color: '#fff',
+    fontSize: 40
+  },
   backIcon: {
     position: 'absolute',
     top: 10,
     left: 10,
+    zIndex: 500
+  },
+  cameraTypeIcon: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
     zIndex: 500
   },
 });
