@@ -72,7 +72,7 @@ class ApplicantDetailsModal extends Component{
   handleConfirmReject(nom,prenom){
     confirm({
       title: 'Voulez-vous vraiment rejeter cette demande?',
-      content: 'Nom: '+nom+' '+prenom,
+      content: `Nom: ${nom} ${prenom}`,
       okText: 'Oui',
       okType: 'danger',
       cancelText: 'Annuler',
