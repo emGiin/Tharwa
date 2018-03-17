@@ -1,18 +1,22 @@
 import { all, takeLatest } from 'redux-saga/effects'
 import AuthAPI from '../services/AuthAPI'
 import FixtureAPI from '../services/FixtureAPI'
+import ConfirmInscriptionAPI from '../services/ConfirmInscriptionAPI'
 import {useFixtures} from '../config/DebugConfig'
 
 /* ------------- Types ------------- */
 import { AuthTypes } from '../redux/AuthRedux'
 import { PinCodeTypes } from '../redux/PinCodeRedux'
+import { ConfirmInscriptionTypes } from '../redux/ConfirmInscriptionRedux'
 
 /* ------------- Sagas ------------- */
 import { login, logout, loadToken } from './AuthSaga'
 import { confirmPinCode } from './PinCodeSaga'
+import { getRequestsList } from './ConfirmInscriptionSaga'
 
 /* ------------- API ------------- */
 const api = useFixtures ? FixtureAPI : AuthAPI.create()
+const api_= useFixtures ? FixtureAPI : ConfirmInscriptionAPI.create()
 
 /* ------------- Connect Types To Sagas ------------- */
 export default function* root() {
@@ -23,5 +27,7 @@ export default function* root() {
     takeLatest(AuthTypes.LOGOUT_REQUEST, logout, api),
 
     takeLatest(PinCodeTypes.PIN_CODE_REQUEST, confirmPinCode, api),
+
+    takeLatest(ConfirmInscriptionTypes.REQ_LIST_REQUEST,getRequestsList , api_),
   ])
 }

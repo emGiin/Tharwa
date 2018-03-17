@@ -74,7 +74,7 @@ class RequestsTable extends Component {
     const { nom, prenom } = record;
     confirm({
       title: "Voulez-vous vraiment rejeter cette demande?",
-      content: "Nom: " + nom + " " + prenom,
+      content: `Nom: ${nom} ${prenom}`,
       okText: "Oui",
       okType: "danger",
       cancelText: "Annuler",
