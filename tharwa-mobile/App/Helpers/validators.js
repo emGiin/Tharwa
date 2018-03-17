@@ -30,3 +30,7 @@ export const phoneValidators = [
 export const addressValidators = [
   requiredValidator
 ]
+
+export const pickerValidators = [
+  val => (val !== 'placeholder' || !val) ? undefined : I18n.t('fieldRequiredError'),
+]
