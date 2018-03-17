@@ -8,8 +8,10 @@ class CameraView extends Component {
   takePicture = () => {
     const options = { quality: 0.5, base64: true };
     this.camera.capture({ metadata: options })
-      .then(data => { this.props.input.onChange(data); this.props.onCapture(data) })
-      .catch(err => console.error(err));
+      .then(data => {
+        this.props.input.onChange(data); 
+        this.props.onCapture(data) 
+      }).catch(err => console.error(err));
   }
 
   render() {
