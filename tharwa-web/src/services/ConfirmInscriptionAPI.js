@@ -10,13 +10,21 @@ const create = (baseURL = API_URL) => {
     timeout: 10000
   })
 
+  const setAuthToken = (userAuth) => api.setHeader('Authorization', 'Bearer ' + userAuth)
+  const setPinCode= (pin) => api.setHeader('code_pin',pin)
+  const removeAuthToken = () => api.setHeader('Authorization', '')
+  const removePinCode=() => api.setHeader('code_pin','')
+
   const  getRequestsList= (data) => {
-    //api.setHeaders({'Authorization': data.token}) todo how to send token and pin code
     api.post('requestsList', data)
   }
   return {
     api,
-    getRequestsList
+    getRequestsList,
+    setAuthToken,
+    setPinCode,
+    removeAuthToken,
+    removePinCode
   }
 }
 
