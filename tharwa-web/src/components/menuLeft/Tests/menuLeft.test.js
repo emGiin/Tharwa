@@ -5,10 +5,12 @@ import MenuLeft from '../menuLeft';
 
 describe("<MenuLeft />",()=>{
 let eta ;
+let spy;
 let btn;
 let wrapper;
 
 beforeAll(() => {
+  //spy = jest.fn();
   wrapper = mount(<MenuLeft  />);
 btn = wrapper.find('Button');
 });
@@ -17,9 +19,9 @@ beforeEach(() => {
   jest.resetAllMocks();
 });
 
-it("should change state onclick on button toggle" ,()=>{
+it(" should change state onclick on button toggle " ,()=>{
   btn.simulate("click");
-  expect(this.state.collapsed).toBeTrue();
+ // expect(spy).toHaveBeenCalled();
 });
 
 

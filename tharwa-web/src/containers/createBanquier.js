@@ -52,42 +52,40 @@ class RegistrationForm extends Component {
     this.state = {
       confirmDirty: false,
       autoCompleteResult: [],
+      nomValide:false,
+      prenomValide:false,
+      mailValide:false,
+      adressValide:false,
+      telValide:false
     };
   }
-  handleSubmit (e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        
         console.log('Received values of form: ', values);
       }
     });
-  }
-  test(){
-    console.log('test');
   }
   handleConfirmBlur = (e) => {
     const value = e.target.value;
     this.setState({ confirmDirty: this.state.confirmDirty || !!value });
   }
-  checkPassword = (rule, value, callback) => {
+  compareToFirstPassword = (rule, value, callback) => {
     const form = this.props.form;
     if (value && value !== form.getFieldValue('password')) {
-      callback('mot de passe non consistant');
+      callback('Two passwords that you enter is inconsistent!');
     } else {
       callback();
     }
   }
-  checkConfirm = (rule, value, callback) => {
+  validateToNextPassword = (rule, value, callback) => {
     const form = this.props.form;
     if (value && this.state.confirmDirty) {
       form.validateFields(['confirm'], { force: true });
     }
     callback();
   }
-
-
-
   render() {
     const { getFieldDecorator } = this.props.form;
 
@@ -120,21 +118,22 @@ class RegistrationForm extends Component {
         <Option value="213">+213</Option>
         <Option value="31">+31</Option>
       </Select>
-    );
+    ); 
 
   
 
     return (
       <div>
-      <TitlePage title="Ajouter banquier"/>
+      <TitlePage title="Ajouter banquier" />
       <Form onSubmit={this.handleSubmit} className="boite">
       <FormItem
           {...formItemLayout}
           label="Nom"
+          onKeyPress={this.test}
         >
           {getFieldDecorator('name',{
             rules: [{
-              required: true
+              required: true,message: 'le nom est obligatoire !',
             }],
           })(
             <Input maxLength='30' />
@@ -147,7 +146,7 @@ class RegistrationForm extends Component {
         >
           {getFieldDecorator('surname',{
             rules: [{
-              required: true
+              required: true,message: 'prenom est obligatoire !',
             }],
           })(
             <Input  />
@@ -230,7 +229,7 @@ class RegistrationForm extends Component {
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
-          <Button type="default" htmlType="reset">Anuller</Button>
+          <Button onClick={this.test} type="default" htmlType="reset">Anuller</Button>
           <Button id="submit" type="primary" htmlType="submit">valider</Button>
         </FormItem>
       </Form>
@@ -239,7 +238,19 @@ class RegistrationForm extends Component {
   }
 }
 
+const  mapStateToProps = (state, ownProps) => {
+  return {
+    prop: state.prop
+  }
+}
 
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    dispatch1: () => {
+      dispatch()
+    }
+  }
+}
 const WrappedRegistrationForm = Form.create()(RegistrationForm);
 
 export default  WrappedRegistrationForm;
