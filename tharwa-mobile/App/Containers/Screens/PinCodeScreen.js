@@ -2,21 +2,15 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-import { View, ActivityIndicator } from 'react-native'
 import { Container, Content, Text, Button } from 'native-base'
-import PopupDialog, {
-  DialogTitle,
-  DialogButton,
-  SlideAnimation
-} from 'react-native-popup-dialog'
 import I18n from 'react-native-i18n'
 import CodeInput from 'react-native-confirmation-code-input'
+import { LoadingDialog } from '../../Components'
 import PinCodeActions from '../../Redux/PinCodeRedux'
 
 // Styles
 import styles from './Styles/PinCodeScreenStyle'
 
-const slideAnimation = new SlideAnimation({ slideFrom: 'bottom' });
 
 class PinCodeScreen extends Component {
   static propTypes = {
@@ -49,36 +43,16 @@ class PinCodeScreen extends Component {
 
   render() {
     const { fetching, error } = this.props;
-    let dialogTitle, dialogContent, dialogDescription;
-    if (fetching) {
-      dialogTitle = I18n.t('pinCodeTitleFetching');
-      dialogDescription = I18n.t('pinCodeDescriptionFetching');
-      dialogContent = <ActivityIndicator size='large' style={{ marginVertical: 20 }} />
-    } else if (error) {
-      dialogTitle = I18n.t('pinCodeTitleError');
-      dialogDescription = error;
-      dialogContent =
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <DialogButton disabled={fetching} text={I18n.t('pinCodeDialogClose')} key="button-1"
-            onPress={() => { this.dialog.dismiss(); this.setState({ new: true }) }} />
-        </View>
-    }
     return (
       <Container>
-        <PopupDialog
-          width={0.95}
-          height={170}
-          dismissOnTouchOutside={!fetching}
-          dismissOnHardwareBackPress={!fetching}
-          ref={(dialog) => { this.dialog = dialog; }}
-          dialogAnimation={slideAnimation}
-          dialogTitle={<DialogTitle title={dialogTitle} />}
-        >
-          <View style={styles.dialogContentView}>
-            <Text style={styles.dialogContent}> {dialogDescription} </Text>
-            {dialogContent}
-          </View>
-        </PopupDialog>
+        <LoadingDialog
+          init={dialog => { this.dialog = dialog }}
+          error={error}
+          errorTitle={I18n.t('pinCodeTitleError')}
+          fetching={fetching}
+          fetchingTitle={I18n.t('pinCodeTitleFetching')}
+          fetchingMessage={I18n.t('pinCodeDescriptionFetching')}
+        />
         <Text style={styles.mainText}>{I18n.t('pinCodeDescription')}</Text>
         <Content>
           <CodeInput
