@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Container, Content } from 'native-base'
-import { reduxForm, Field } from 'redux-form'
+import { Container, Content, Text } from 'native-base'
+import { reduxForm, Field, formValueSelector } from 'redux-form'
+import { connect } from 'react-redux'
 import I18n from 'react-native-i18n'
 import { emailValidators, passwordValidators } from '../../../Helpers/validators'
 import { EmailField, PasswordField, NextPrevious } from '../../../Components'
@@ -16,8 +17,23 @@ class FirstStepForm extends Component {
     this[field].getRenderedComponent().refs[field]._root.focus()
   }
 
+  validatePasswords = () => {
+    const { password, passwordConfirmation } = this.props
+    if (
+      !passwordValidators[0](password) &&
+      !passwordValidators[0](password) &&
+      !passwordValidators[1](passwordConfirmation) &&
+      !passwordValidators[1](passwordConfirmation) &&
+      password !== passwordConfirmation
+    ) {
+      return <Text style={{ color: '#e74c3cd0', fontSize: 13 }}>Passwords do not match</Text>
+    }
+    return false;
+  }
+
   render() {
     const { editable, handleSubmit } = this.props;
+    const error = this.validatePasswords();
     return (
       <Container style={styles.mainformContainer}>
         <Content style={styles.inputContainer} >
@@ -55,17 +71,26 @@ class FirstStepForm extends Component {
             editable={editable}
             validate={passwordValidators}
           />
-          {/* TODO: add password matching validation */}
+          {error}
         </Content>
-        <NextPrevious onSubmit={handleSubmit}/>
+        <NextPrevious onSubmit={handleSubmit} disableSubmit={!!error} />
       </Container>
     )
   }
 }
 
-
-export default reduxForm({
+FirstStepForm = reduxForm({
   form: 'signup',
   destroyOnUnmount: false,
-  forceUnregisterOnUnmount: true
+  forceUnregisterOnUnmount: true,
 })(FirstStepForm);
+
+// connect our component again to get some additional state
+FirstStepForm = connect(
+  state => ({
+    password: formValueSelector('signup')(state, 'password'),
+    passwordConfirmation: formValueSelector('signup')(state, 'passwordConfirmation')
+  })
+)(FirstStepForm)
+
+export default FirstStepForm

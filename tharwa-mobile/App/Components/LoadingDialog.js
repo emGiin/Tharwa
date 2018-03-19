@@ -59,7 +59,7 @@ class LoadingDialog extends Component {
   }
 
   render() {
-    const { fetching, error } = this.props;
+    const { fetching } = this.props;
     let { dialogTitle, dialogContent, dialogDescription } = this.getDialogContent();
     return (
       <PopupDialog

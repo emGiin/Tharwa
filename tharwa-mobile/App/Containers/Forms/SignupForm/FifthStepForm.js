@@ -8,10 +8,10 @@ import I18n from 'react-native-i18n'
 import { RadioField, NextPrevious } from '../../../Components'
 import styles from '../Styles/SignupFormStyle'
 
-class FirstStepForm extends Component {
+class FifthStepForm extends Component {
   radio_props = [
-    { label: 'Oui ', value: true },
-    { label: 'Non', value: false }
+    { label: 'Non', value: 0 },
+    { label: 'Oui ', value: 1 }
   ]
 
   render() {
@@ -32,24 +32,24 @@ class FirstStepForm extends Component {
           />
         </View>
 
-        <NextPrevious isFinal onPrevious={previousPage} onSubmit={handleSubmit}/>
+        <NextPrevious isFinal onPrevious={previousPage} onSubmit={handleSubmit} />
       </Container>
     )
   }
 }
 
-FirstStepForm = reduxForm({
+FifthStepForm = reduxForm({
   form: 'signup',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
-})(FirstStepForm);
+})(FifthStepForm);
 
 // connect our component again to get some additional state
-FirstStepForm = connect(
+FifthStepForm = connect(
   state => {
     const picture = formValueSelector('signup')(state, 'picture')
     return { picture }
   }
-)(FirstStepForm)
+)(FifthStepForm)
 
-export default FirstStepForm
+export default FifthStepForm
