@@ -15,13 +15,13 @@ class ClientController extends Controller
     {
         //validation
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|max:55|unique:clientRequests,email',
+            'email' => 'required|email|max:55|unique:clientRequests,email|unique:clients,email',
             'firstName' => 'required|max:25',
             'lastName' => 'required|max:25',
             'password' => 'required|max:100',
             'address' => 'required|max:255',
             'phone' => 'required|max:100',
-            'picture' => 'required|mimes:jpeg,bmp,png',//image
+//            'picture' => 'required|mimes:jpeg,bmp,png',//image
             'function' => 'required|max:100',
             'type' => 'required|digits:1',//todo number or in ['Client', 'Employeur']
         ]);
@@ -53,6 +53,7 @@ class ClientController extends Controller
             // all good
 
             /**commit - no problems **/
+            DB::commit();
             return response(["saved" => true], config('code.CREATED'));
 
         } catch (\Exception $e) {
