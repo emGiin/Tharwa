@@ -65,6 +65,7 @@ class Token extends Model
         return [
             'token_' => $token,
             'expires_at' => $now,
+            'client_type' => $row->scopes
         ];
 
     }

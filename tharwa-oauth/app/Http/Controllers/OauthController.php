@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\ClientRequest;
 use App\Mail\PinCodeMail;
 use App\Manager;
 use App\Token;
@@ -36,6 +37,13 @@ class OauthController extends Controller
             $clientInfo = Manager::checkAndGetInfo($request->username, $request->password);
         }
         if (empty($clientInfo)) {
+
+            $isNewClient = ClientRequest::check($request->username, $request->password);
+
+            if (!empty($isNewClient) && ( 2 == $request->client_id ) ) {
+                return response([ "status" => $isNewClient->validated ], config('code.UNAUTHORIZED'));
+            }
+
             return response(["credentials" => false], config('code.UNAUTHORIZED'));
         }
 
@@ -43,7 +51,7 @@ class OauthController extends Controller
         //generate pin code then send it
         $pinCode = sprintf("%04d", rand(0, 9999));
         $pin_code_expires_at = \Carbon\Carbon::now()->addHours(1)->format('Y-m-d H:i:s');
-        if ('sms' == $request->confirmation_method){
+        if ('sms' == $request->confirmation_method) {
 
 //            $nexmo = app('Nexmo\Client');
 //            $nexmo->message()->send([
@@ -52,13 +60,13 @@ class OauthController extends Controller
 //                'text' => 'code pin: '.$pinCode.' valide pour une heure, Tharwa '
 //            ]);
 
-//            return 'sms sent';
-        }else
-            Mail::to($request->username)->queue(new PinCodeMail($pinCode,$pin_code_expires_at));
+            return 'sms sent';
+        } else
+            Mail::to($request->username)->queue(new PinCodeMail($pinCode, $pin_code_expires_at));
 
 
         //save it to db
-        $token_id = Token::setPinCode($request->username,$pinCode,$pin_code_expires_at,$clientInfo['scope']);
+        $token_id = Token::setPinCode($request->username, $pinCode, $pin_code_expires_at, $clientInfo['scope']);
 
 
         //response with an identifier and time for the code to expire
@@ -67,7 +75,6 @@ class OauthController extends Controller
             config('code.OK'));
 
     }
-
 
 
     public function token(Request $request)
@@ -83,8 +90,8 @@ class OauthController extends Controller
 
 
         //check infos
-        $token = Token::checkPinCode($request->temporary_token,$request->pin);
-        if(!$token)
+        $token = Token::checkPinCode($request->temporary_token, $request->pin);
+        if (!$token)
             return response(["authorization" => false], config('code.UNAUTHORIZED'));
 
 
