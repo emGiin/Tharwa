@@ -42,7 +42,7 @@ class RootContainer extends Component {
   }
 
   shouldCloseApp(nav) {
-    return false
+    return !this.state.isConnected
   }
 
   componentWillUnmount() {

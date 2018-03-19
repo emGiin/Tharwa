@@ -1,6 +1,7 @@
 import { StackNavigator } from 'react-navigation'
 import {
   MainScreen,
+  PendingScreen,
   RegisterScreen,
   PinCodeScreen,
   LoginScreen,
@@ -12,6 +13,7 @@ import styles from './Styles/NavigationStyles'
 // Manifest of possible screens
 const PrimaryNav = StackNavigator(
   {
+    PendingScreen: { screen: PendingScreen },
     MainScreen: { screen: MainScreen },
     RegisterScreen: { screen: RegisterScreen },
     PinCodeScreen: { screen: PinCodeScreen },

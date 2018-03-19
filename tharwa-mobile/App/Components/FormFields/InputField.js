@@ -7,7 +7,7 @@ class InputField extends Component {
   render() {
     const {
       input, meta, refField, onEnter, icon,
-      editable, placeholder, returnKeyType
+      editable, placeholder, returnKeyType, keyboardType
     } = this.props;
 
     return (
@@ -23,6 +23,7 @@ class InputField extends Component {
             editable={editable}
             selectionColor={'#fff'}
             placeholderTextColor={"#ffffff90"}
+            keyboardType={keyboardType}
             autoFocus={false}
             style={styles.whiteColor}
             {...input} />

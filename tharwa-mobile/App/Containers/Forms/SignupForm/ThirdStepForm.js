@@ -40,6 +40,7 @@ class ThirdStepForm extends Component {
             editable={editable}
             validate={phoneValidators}
             returnKeyType={'next'}
+            keyboardType={'numeric'}
             placeholder={I18n.t('phone')}
           />
 
@@ -66,7 +67,7 @@ class ThirdStepForm extends Component {
             options={this.functions}
           />
         </Content>
-        <NextPrevious onPrevious={previousPage} onSubmit={handleSubmit}/>
+        <NextPrevious onPrevious={previousPage} onSubmit={handleSubmit} />
       </Container>
     )
   }

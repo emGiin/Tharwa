@@ -8,8 +8,9 @@ import styles from './Styles/RegisterScreenStyle'
 
 class RegisterScreen extends Component {
 
-  signupFormSubmit = values => console.tron.log(values)
-
+  signupFormSubmit = (values) => {
+    console.warn(values);
+  }
 
   render() {
     const { fetching } = this.props;
