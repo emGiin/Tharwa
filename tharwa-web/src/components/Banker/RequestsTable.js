@@ -2,15 +2,14 @@ import React, { Component } from "react";
 import { Table, Icon, Modal } from "antd";
 
 import RoundedImage from "../Reusable Components/RoundedImage";
-import ApplicantDetailsModal from "./ApplicantDetailsModal";
 
 const confirm = Modal.confirm;
 
 class RequestsTable extends Component {
   state = {
-    data: [],
     pagination: {},
-    loading: false
+    loading: false,
+    data: []
   };
 
   columns = [
@@ -120,35 +119,7 @@ class RequestsTable extends Component {
     pagination.total = 1; //totalcount of records=data.totalcount
     this.setState({
       loading: false,
-      data: [
-        {
-          key: "1",
-          photo: "https://randomuser.me/api/portraits/med/men/83.jpg",
-          nom: "John",
-          prenom: "Doe",
-          email: "efzef@zefzf.azd",
-          tel: "0554854852",
-          fonction: "azazfzfzef"
-        },
-        {
-          key: "2",
-          photo: "https://randomuser.me/api/portraits/med/men/83.jpg",
-          nom: "John",
-          prenom: "Doe",
-          email: "efzef@zefzf.azd",
-          tel: "0554854852",
-          fonction: "azazfzfzef"
-        },
-        {
-          key: "3",
-          photo: "https://randomuser.me/api/portraits/med/men/83.jpg",
-          nom: "Anna",
-          prenom: "Doe",
-          email: "efzef@zefzf.azd",
-          tel: "0554854852",
-          fonction: "azazfzfzef"
-        }
-      ],
+      data: this.props.list,
       pagination
     });
   };
@@ -161,7 +132,7 @@ class RequestsTable extends Component {
       <Table
         columns={this.columns}
         rowKey={record => record.registered}
-        dataSource={this.state.data}
+        dataSource={this.props.list}
         pagination={this.state.pagination}
         loading={this.state.loading}
         onChange={this.handleTableChange}

@@ -37,9 +37,11 @@ export default {
     }
   },
   getRequestsList:data=>{
+    console.log('API');
     if (
-      data.pin === require("../fixtures/realPinCode.json").pinCode &&
-      data.token === require("../fixtures/token.json").token
+      true
+      //data.pin === require("../fixtures/realPinCode.json").pinCode &&
+      //data.token === require("../fixtures/token.json").token
     ) {
       return {
         ok: true,

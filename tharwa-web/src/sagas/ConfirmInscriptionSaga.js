@@ -13,6 +13,7 @@ export function* getRequestsList(api) {
     grant_type: "password"
   };
   //Headers
+console.log('here0');
   const authToken = yield select(selectAuthToken);
   if (authToken) {
     yield call(api.setAuthToken, authToken);
@@ -21,8 +22,12 @@ export function* getRequestsList(api) {
   //if (pinCode) {
   //  yield call(api.setPinCode, pinCode);
   // }
+console.log('here1', api);
+
+  
   const response = yield call(api.getRequestsList,body);
 
+  console.log('here2', response);
   if (response.ok) {
     yield put(ConfirmInscriptionActions.reqListSuccess());
     yield put(ConfirmInscriptionActions.saveReqList(response.data));

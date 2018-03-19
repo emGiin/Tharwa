@@ -8,7 +8,8 @@ const { Types, Creators } = createActions({
   //rejectFailure: ["error"],
   reqListRequest:[],
   reqListSuccess:[],
-  reqListFailure:["error"]
+  reqListFailure:["error"],
+  saveReqList:["list"]
 });
 
 export const ConfirmInscriptionTypes = Types;
@@ -36,5 +37,6 @@ export const failure = (state, { error }) =>
 export const reducer = createReducer(INITIAL_STATE, {
     [Types.REQ_LIST_REQUEST]: request,
     [Types.REQ_LIST_SUCCESS]: success,
-    [Types.REQ_LIST_FAILURE]: failure
+    [Types.REQ_LIST_FAILURE]: failure,
+    [Types.SAVE_REQ_LIST]: saveReqList,
 });
