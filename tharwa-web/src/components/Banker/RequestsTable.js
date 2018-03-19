@@ -111,7 +111,6 @@ class RequestsTable extends Component {
     });
   };
   fetch = (params = {}) => {
-    console.log("params:", params);
     this.setState({ loading: true });
     const pagination = { ...this.state.pagination };
     //API------

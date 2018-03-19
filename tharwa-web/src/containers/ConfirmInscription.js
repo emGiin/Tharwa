@@ -14,9 +14,9 @@ class ConfirmInscription extends Component {
   }
 
   render(){
-    console.log('data',this.props.list);
+    console.log('data',this.props.reqList.list);
     return(
-      <RequestsTable list={this.props.list}/>
+      <RequestsTable list={this.props.reqList.list}/>
     );
   }
 }
@@ -30,7 +30,7 @@ const mapStateToProps = state => {
     success
   }))(state.confirmInscription);
   console.log(state.confirmInscription.list)
-  return { list: state.confirmInscription.list || [] };
+  return { reqList };
 };
 
 const mapDispatchToProps = dispatch => {
