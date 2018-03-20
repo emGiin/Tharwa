@@ -1,22 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, Image, ActivityIndicator } from 'react-native'
-import { Container, Content, Text } from 'native-base'
+import { View, Image } from 'react-native'
+import { Container, Content } from 'native-base'
 import { connect } from 'react-redux'
-import PopupDialog, {
-  DialogTitle,
-  DialogButton,
-  SlideAnimation
-} from 'react-native-popup-dialog'
 import I18n from 'react-native-i18n'
+import { DialogButton } from 'react-native-popup-dialog'
+import { LoadingDialog } from '../../Components'
 import { Images } from '../../Themes'
 import AuthActions from '../../Redux/AuthRedux'
 import { LoginForm } from '../Forms'
 
 // Styles
 import styles from './Styles/LoginScreenStyle'
-
-const slideAnimation = new SlideAnimation({ slideFrom: 'bottom' });
 
 class LoginScreen extends Component {
   static propTypes = {
@@ -26,17 +21,11 @@ class LoginScreen extends Component {
     attemptLogin: PropTypes.func
   }
 
-  constructor(props) {
-    super(props)
-    this.state = { newRequest: true }
-  }
-
   componentWillReceiveProps(props) {
     if (!props.fetching && props.success) {
       this.dialog.dismiss();
       this.goToPinCodePage();
     }
-    if (props.error) this.setState({ newRequest: false })
   }
 
   submit = (confirmationMethod) => {
@@ -46,7 +35,6 @@ class LoginScreen extends Component {
   loginFormSubmit = (values) => {
     this.email = values.email;
     this.password = values.password;
-    this.setState({ newRequest: true })
     this.dialog.show();
   }
 
@@ -58,47 +46,31 @@ class LoginScreen extends Component {
     this.props.navigation.navigate('RegisterScreen');
   }
 
+  renderConfirmationMethod = (fetching) => (
+    <View style={{ flex: 1, flexDirection: 'row' }}>
+      <DialogButton disabled={fetching} text={I18n.t('authDialogPinByEmail')}
+        onPress={() => { this.submit('email'); }} />
+      <DialogButton disabled={fetching} text={I18n.t('authDialogPinBySms')}
+        onPress={() => { this.submit('sms'); }} />
+    </View>
+  )
+
   render() {
     const { fetching, error } = this.props;
-    let dialogTitle = I18n.t('authDialogTitle');
-    let dialogDescription = I18n.t('authDialogDescription');
-    let dialogContent;
-    if (fetching) {
-      dialogTitle = I18n.t('authDialogTitleFetching');
-      dialogDescription = I18n.t('authDialogDescriptionFetching');
-      dialogContent = <ActivityIndicator size='large' style={{ marginVertical: 20 }} />;
-    } else if (error && !this.state.newRequest) {
-      dialogTitle = I18n.t('authDialogTitleError')
-      dialogDescription = error
-      dialogContent = <DialogButton text={I18n.t('authDialogClose')}
-        onPress={() => { this.dialog.dismiss(); }} />
-    } else {
-      dialogContent =
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <DialogButton disabled={fetching} text={I18n.t('authDialogPinByEmail')}
-            onPress={() => { this.submit('email'); }} />
-          <DialogButton disabled={fetching} text={I18n.t('authDialogPinBySms')}
-            onPress={() => { this.submit('sms'); }} />
-        </View>
-    }
     return (
       <Container style={styles.mainContainer}>
-        <PopupDialog
-          width={0.95}
-          height={170}
-          dismissOnTouchOutside={!fetching}
-          dismissOnHardwareBackPress={!fetching}
-          ref={(dialog) => { this.dialog = dialog; }}
-          dialogAnimation={slideAnimation}
-          dialogTitle={<DialogTitle title={dialogTitle} />}
+        <LoadingDialog
+          init={dialog => { this.dialog = dialog }}
+          error={error}
+          errorTitle={I18n.t('authDialogTitleError')}
+          fetching={fetching}
+          fetchingTitle={I18n.t('authDialogTitleFetching')}
+          fetchingMessage={I18n.t('authDialogDescriptionFetching')}
+          defaultTitle={I18n.t('authDialogTitle')}
+          defailtMessage={I18n.t('authDialogDescription')}
         >
-          <View style={styles.dialogContentView}>
-            <Text style={styles.dialogContent}>
-              {dialogDescription}
-            </Text>
-            {dialogContent}
-          </View>
-        </PopupDialog>
+          {this.renderConfirmationMethod(fetching)}
+        </LoadingDialog>
         <Content>
           <View style={styles.logoContainer}>
             <Image source={Images.logo} style={styles.logo} />

@@ -19,6 +19,8 @@ class LoadingDialog extends Component {
     fetching: PropTypes.bool,
     fetchingTitle: PropTypes.string,
     fetchingMessage: PropTypes.string,
+    defaultTitle: PropTypes.string,
+    defaultMessage: PropTypes.string,
     error: PropTypes.string,
     errorTitle: PropTypes.string
   }
@@ -45,22 +47,26 @@ class LoadingDialog extends Component {
   )
 
   getDialogContent = () => {
-    let dialogTitle, dialogContent, dialogDescription;
+    let dialogTitle, dialogContent, dialogMessage;
     if (this.props.fetching) {
       dialogTitle = this.props.fetchingTitle;
-      dialogDescription = this.props.fetchingMessage;
+      dialogMessage = this.props.fetchingMessage;
       dialogContent = this.renderActivityIndicator();
-    } else if (this.props.error) {
+    } else if (this.props.error && !this.state.new) {
       dialogTitle = this.props.errorTitle;
-      dialogDescription = this.props.error;
+      dialogMessage = this.props.error;
       dialogContent = this.renderCloseButton();
+    } else {
+      dialogTitle = this.props.defaultTitle;
+      dialogMessage = this.props.defaultMessage;
+      dialogContent = this.props.children;
     }
-    return { dialogTitle, dialogContent, dialogDescription }
+    return { dialogTitle, dialogContent, dialogMessage }
   }
 
   render() {
     const { fetching } = this.props;
-    let { dialogTitle, dialogContent, dialogDescription } = this.getDialogContent();
+    let { dialogTitle, dialogContent, dialogMessage } = this.getDialogContent();
     return (
       <PopupDialog
         width={0.95}
@@ -74,7 +80,7 @@ class LoadingDialog extends Component {
         onDismissed={() => this.setState({ new: true })}
       >
         <View style={styles.dialogContentView}>
-          <Text style={styles.dialogContent}> {dialogDescription} </Text>
+          <Text style={styles.dialogContent}> {dialogMessage} </Text>
           {dialogContent}
         </View>
       </PopupDialog>
