@@ -3,7 +3,7 @@ package com.tharwamobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import org.reactnative.camera.RNCameraPackage;
+import com.imagepicker.ImagePickerPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n;
 
 import com.facebook.react.ReactNativeHost;
@@ -26,7 +26,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNCameraPackage(),
+            new ImagePickerPackage(),
             new ReactNativeI18n()
       );
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity } from 'react-native'
 import { Icon } from 'native-base'
-import Camera from 'react-native-camera';
+// import Camera from 'react-native-camera';
 import styles from './Styles/CameraViewStyle'
 
 class CameraView extends Component {
@@ -35,7 +35,7 @@ class CameraView extends Component {
             name={'ios-reverse-camera'}
             style={styles.icon} />
         </TouchableOpacity>
-        <Camera
+        {/* <Camera
           ref={cam => this.camera = cam}
           style={styles.preview}
           onBarCodeRead={() => { }}
@@ -48,7 +48,7 @@ class CameraView extends Component {
               name={'ios-camera'}
               style={{ color: '#fff', fontSize: 70 }} />
           </TouchableOpacity>
-        </Camera>
+        </Camera> */}
       </View>
     )
   }
