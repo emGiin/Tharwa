@@ -20,9 +20,11 @@ class RegisterScreen extends Component {
     success: PropTypes.bool
   }
 
+  state = { showSuccessPage: false }
+
   componentWillReceiveProps(props) {
     if (!props.fetching && props.success) {
-      this.dialog.dismiss();
+      this.setState({ showSuccessPage: true })
     }
   }
 
@@ -59,7 +61,7 @@ class RegisterScreen extends Component {
   }
 
   render() {
-    return this.props.success ? this.renderSuccessPage() : this.renderForm()
+    return this.state.showSuccessPage ? this.renderSuccessPage() : this.renderForm()
   }
 }
 

@@ -15,11 +15,11 @@ class FifthStepForm extends Component {
   ]
 
   render() {
-    const { editable, handleSubmit, previousPage, picture: { mediaUri } } = this.props;
+    const { editable, handleSubmit, previousPage, picture } = this.props;
     return (
       <Container style={styles.mainformContainer}>
         <View style={formStyles.container}>
-          <Image style={formStyles.imagePreview} source={{ uri: mediaUri }} />
+          <Image style={formStyles.imagePreview} source={{ uri: picture }} />
           <Text style={formStyles.employeeText}>
             {I18n.t('employeeAccount')}
           </Text>

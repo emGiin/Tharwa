@@ -1,56 +1,41 @@
 import React, { Component } from 'react'
 import { View, Image } from 'react-native'
-import { Button, Text } from 'native-base'
+import { Text, Container } from 'native-base'
 import I18n from 'react-native-i18n'
+import Dimensions from 'Dimensions'
 import { reduxForm, Field } from 'redux-form'
-import { CameraView } from "../../../Components/CameraView";
+import { Images } from '../../../Themes'
+import { CameraPicker, NextPrevious } from "../../../Components";
+import fomrsStyles from '../Styles/SignupFormStyle'
 import styles from './Styles/FourthStepFormStyle'
 
 class FourthStepForm extends Component {
-  state = { pictureTaken: false, image: {} }
+  state = { picture: '' }
 
   capturePicture = (picture) => {
-    this.setState({ pictureTaken: true, image: picture })
-  }
-
-  cancel = () => {
-    this.setState({ pictureTaken: false, image: {} })
-  }
-
-  renderConfirmation = () => {
-    const { handleSubmit } = this.props;
-    const { image: { mediaUri } } = this.state;
-    return (
-      <View style={{ flex: 1 }}>
-        <Image style={styles.imagePreview} source={{ uri: mediaUri }} />
-        <View style={styles.buttonsContainer}>
-          <Button full bordered rounded success style={{ marginBottom: 20 }} onPress={handleSubmit}>
-            <Text>{I18n.t('confirm')}</Text>
-          </Button>
-          <Button full bordered rounded danger onPress={this.cancel.bind(this)}>
-            <Text>{I18n.t('cancel')}</Text>
-          </Button>
-        </View>
-      </View>
-    )
+    this.setState({ picture: picture })
   }
 
   render() {
-    const { previousPage } = this.props;
-    const { pictureTaken } = this.state;
+    const { previousPage, handleSubmit } = this.props;
+    const imageSrc = this.state.picture ? { uri: this.state.picture } : Images.avatar
     return (
-      <View style={styles.container}>
-        {
-          pictureTaken ? this.renderConfirmation() :
-            <Field
-              name={'picture'}
-              component={CameraView}
-              onCapture={this.capturePicture.bind(this)}
-              previousPage={previousPage}
-            />
-        }
-      </View>
-
+      <Container style={fomrsStyles.mainformContainer}>
+        <View style={styles.container}>
+          <Text style={styles.detailsText}>
+            Veuillez vous prendre en photo pour votre compte bancaire en cliquant sur l'image ci-dessous
+          </Text>
+          <Field
+            name={'picture'}
+            component={CameraPicker}
+            onCapture={this.capturePicture.bind(this)}
+            previousPage={previousPage}
+            style={styles.buttonContainer}
+            buttonComponent={() => <Image style={styles.imagePreview} source={imageSrc} />}
+          />
+        </View>
+        <NextPrevious onPrevious={previousPage} onSubmit={handleSubmit} />
+      </Container>
     )
   }
 }

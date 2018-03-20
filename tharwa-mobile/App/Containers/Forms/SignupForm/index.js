@@ -20,7 +20,7 @@ class SignupForm extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { currentPage: 1 }
+    this.state = { currentPage: 4 }
     this.nextPage = this.nextPage.bind(this)
     this.previousPage = this.previousPage.bind(this)
   }
@@ -45,7 +45,7 @@ class SignupForm extends Component {
 
     return (
       <View style={styles.mainformContainer}>
-        {currentPage !== 4 && <Header icon={'md-arrow-round-back'} text={I18n.t('newAccount')} />}
+        <Header icon={'md-arrow-round-back'} text={I18n.t('newAccount')} />
         <CurrentFormComponent {...formStepProps} />
       </View>
     )
