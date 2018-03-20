@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import RadioForm from 'react-native-simple-radio-button';
+import { Colors } from '../../Themes'
 
 class RadioField extends Component {
   state = { value: '' }
@@ -19,6 +20,10 @@ class RadioField extends Component {
         initial={0}
         animation={false}
         onPress={this.handleChange}
+        buttonColor={Colors.button}
+        selectedButtonColor={Colors.button}
+        labelColor={Colors.white}
+        selectedLabelColor={Colors.white}
       />
     )
   }

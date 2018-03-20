@@ -43,5 +43,7 @@
   "confirm": "Confirmer",
   "cancel": "Annuler",
   "newAccount": "Nouveau compte",
-  "employeeAccount": "Voulez vous utiliser votre compte pour payer vos employés ?"
+  "employeeAccount": "Voulez vous utiliser votre compte pour payer vos employés ?",
+  "registrationSuccessTop": "Votre demande de création de compte Tharwa a été envoyée avec succès.",
+  "registrationSuccessBottom": "En attente de la validation de votre compte par nos banquiers."
 }

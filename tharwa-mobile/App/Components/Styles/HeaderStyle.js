@@ -3,7 +3,8 @@ import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
   container: {
     width: '100%',
-    position: 'relative'
+    position: 'relative',
+    marginBottom: 20
   },
   leftButton: {
     position: 'absolute',

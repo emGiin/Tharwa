@@ -28,25 +28,19 @@ class RegisterScreen extends Component {
   }
 
   renderSuccessPage = () => (
-    <Container style={[styles.container, { flex: 1, alignItems: 'center', justifyContent: 'space-around', backgroundColor: '#2c3e50' }]}>
-      <Text style={{ fontSize: 18, paddingHorizontal: 30, color: '#fff', textAlign: 'center' }}>
-        Votre demande de creation de compte Tharwa a ete envoyee avec succes.
-      </Text>
-
+    <Container style={[styles.container, styles.successContainer]}>
+      <Text style={styles.sucessText}>{I18n.t('registrationSuccessTop')}</Text>
       <View style={styles.logoContainer}>
         <Image source={Images.logo} style={styles.logo} />
       </View>
-
-      <Text style={{ fontSize: 18, paddingHorizontal: 30, color: '#fff', textAlign: 'center' }}>
-        En attente de la validation de votre compte par nos banquiers.
-      </Text>
+      <Text style={styles.sucessText}>{I18n.t('registrationSuccessBottom')}</Text>
     </Container>
   )
 
   renderForm = () => {
     const { fetching, error } = this.props;
     return (
-      <Container style={[styles.container, { paddingTop: 0 }]}>
+      <Container style={[styles.container, styles.formContainer]}>
         <LoadingDialog
           init={dialog => { this.dialog = dialog }}
           error={error}

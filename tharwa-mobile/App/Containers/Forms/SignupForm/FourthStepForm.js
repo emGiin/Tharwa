@@ -4,7 +4,7 @@ import { Button, Text } from 'native-base'
 import I18n from 'react-native-i18n'
 import { reduxForm, Field } from 'redux-form'
 import { CameraView } from "../../../Components/CameraView";
-import styles from './styles/FourthStepFormStyle'
+import styles from './Styles/FourthStepFormStyle'
 
 class FourthStepForm extends Component {
   state = { pictureTaken: false, image: {} }

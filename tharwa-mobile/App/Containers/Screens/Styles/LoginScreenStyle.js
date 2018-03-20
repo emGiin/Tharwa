@@ -1,8 +1,11 @@
 import { StyleSheet } from 'react-native'
-import { ApplicationStyles } from '../../../Themes/'
+import { Colors, ApplicationStyles } from '../../../Themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
+  mainContainer: {
+    backgroundColor: Colors.background
+  },
   logoContainer: {
     alignItems: 'center',
     marginBottom: 50

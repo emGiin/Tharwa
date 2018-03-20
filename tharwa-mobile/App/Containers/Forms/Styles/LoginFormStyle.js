@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native'
 import FormStyles from './FormStyle'
+import { Colors } from '../../../Themes'
 
 export default StyleSheet.create({
   ...FormStyles,
@@ -8,7 +9,7 @@ export default StyleSheet.create({
     marginTop: 30,
     alignSelf: 'center',
     height: 40,
-    borderColor: '#16a085',
+    borderColor: Colors.button,
     borderWidth: 1,
     borderRadius: 5,
     backgroundColor: 'transparent'

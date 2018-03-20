@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { View, Image } from 'react-native'
-import Dimensions from 'Dimensions'
 import { connect } from 'react-redux'
 import { Container, Text } from 'native-base'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import I18n from 'react-native-i18n'
 import { RadioField, NextPrevious } from '../../../Components'
 import styles from '../Styles/SignupFormStyle'
+import formStyles from './Styles/FifthStepFormStyle'
 
 class FifthStepForm extends Component {
   radio_props = [
@@ -15,13 +15,12 @@ class FifthStepForm extends Component {
   ]
 
   render() {
-    const size = Dimensions.get('window').width / 2
     const { editable, handleSubmit, previousPage, picture: { mediaUri } } = this.props;
     return (
       <Container style={styles.mainformContainer}>
-        <View style={{ alignItems: 'center' }}>
-          <Image style={{ marginVertical: 20, width: size, height: size, borderRadius: 100 }} source={{ uri: mediaUri }} />
-          <Text style={{ marginVertical: 20, textAlign: 'center', paddingHorizontal: 30 }}>
+        <View style={formStyles.container}>
+          <Image style={formStyles.imagePreview} source={{ uri: mediaUri }} />
+          <Text style={formStyles.employeeText}>
             {I18n.t('employeeAccount')}
           </Text>
           <Field

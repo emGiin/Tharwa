@@ -82,7 +82,7 @@ class LoginScreen extends Component {
         </View>
     }
     return (
-      <Container style={{ backgroundColor: '#2c3e50' }}>
+      <Container style={styles.mainContainer}>
         <PopupDialog
           width={0.95}
           height={170}

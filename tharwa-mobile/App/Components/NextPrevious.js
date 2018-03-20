@@ -11,14 +11,14 @@ const NextPrevious = ({ onPrevious, onSubmit, disableSubmit, isFinal }) => {
       {
         onPrevious ?
           <Button transparent iconLeft onPress={onPrevious} >
-            <Icon name='ios-arrow-back-outline' />
-            <Text>{I18n.t('previous')}</Text>
+            <Icon style={styles.button} name='ios-arrow-back-outline' />
+            <Text style={styles.button} >{I18n.t('previous')}</Text>
           </Button>
           : <Text />
       }
       <Button transparent iconRight onPress={onSubmit} disabled={disableSubmit} >
-        <Text>{I18n.t(isFinal ? 'confirm' : 'next')}</Text>
-        <Icon name={isFinal ? 'ios-checkmark-circle' : 'ios-arrow-forward-outline'} />
+        <Text style={styles.button} >{I18n.t(isFinal ? 'confirm' : 'next')}</Text>
+        <Icon style={styles.button}  name={isFinal ? 'ios-checkmark-circle' : 'ios-arrow-forward-outline'} />
       </Button>
     </View>
   )
