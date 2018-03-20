@@ -14,18 +14,12 @@ export function* login(api, { email, password, confirmationMethod }) {
     grant_type: "password"
   }
 
-  // console.warn(authObj);
-
-
   const response = yield call(api.login, authObj)
-
-  // console.warn(response);
 
   // success?
   if (response.ok) {
     yield put(AuthActions.authSuccess())
     yield put(PinCodeActions.savePinCodeToken(response.data.temporary_token))
-    // yield put({ type: 'RELOGIN_OK' })
   } else {
     yield put(AuthActions.authFailure(I18n.t('authDialogDescriptionErreur')))
   }

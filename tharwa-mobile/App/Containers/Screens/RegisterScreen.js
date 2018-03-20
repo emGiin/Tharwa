@@ -7,34 +7,32 @@ import I18n from 'react-native-i18n'
 import { LoadingDialog } from '../../Components'
 import { Images } from '../../Themes'
 import { SignupForm } from '../Forms'
+import SignupActions from '../../Redux/SignupRedux'
 
 // Styles
 import styles from './Styles/RegisterScreenStyle'
 
 class RegisterScreen extends Component {
   static propTypes = {
-    dispatch: PropTypes.func,
+    attemptSignup: PropTypes.func,
     fetching: PropTypes.bool,
     error: PropTypes.string,
     success: PropTypes.bool
   }
 
-  state = { showSuccessPage: false };
-
   componentWillReceiveProps(props) {
     if (!props.fetching && props.success) {
       this.dialog.dismiss();
-      this.setState({ showSuccessPage: true });
     }
   }
 
   renderSuccessPage = () => (
     <Container style={[styles.container, styles.successContainer]}>
-      <Text style={styles.sucessText}>{I18n.t('registrationSuccessTop')}</Text>
+      <Text style={styles.successText}>{I18n.t('registrationSuccessTop')}</Text>
       <View style={styles.logoContainer}>
         <Image source={Images.logo} style={styles.logo} />
       </View>
-      <Text style={styles.sucessText}>{I18n.t('registrationSuccessBottom')}</Text>
+      <Text style={styles.successText}>{I18n.t('registrationSuccessBottom')}</Text>
     </Container>
   )
 
@@ -57,27 +55,23 @@ class RegisterScreen extends Component {
 
   submit = (values) => {
     this.dialog.show();
-    setTimeout(() => {
-      this.dialog.dismiss();
-      this.setState({ showSuccessPage: true });
-    }, 2000)
-    // this.props.confirmPinCode(code);
+    this.props.attemptSignup(...values);
   }
 
   render() {
-    return this.state.showSuccessPage ? this.renderSuccessPage() : this.renderForm()
+    return this.props.success ? this.renderSuccessPage() : this.renderForm()
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    fetching: true
-  }
+const mapStateToProps = ({ signup: { fetching, error, success } }) => {
+  return { fetching, error, success }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    attemptSignup: (...data) => dispatch(SignupActions.signupRequest(...data)),
   }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen)

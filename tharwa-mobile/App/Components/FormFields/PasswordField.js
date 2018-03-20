@@ -36,7 +36,7 @@ class PasswordField extends Component {
           {
             (meta.invalid && meta.touched) ?
               <Icon style={{ color: '#e74c3cb0' }} name='md-alert' />
-              : <Icon name={showPassword ? 'eye-off' : 'eye'} style={styles.inputIcon} onPress={this.togglePassword.bind(this)} />
+              : <Icon name={!showPassword ? 'eye-off' : 'eye'} style={styles.inputIcon} onPress={this.togglePassword.bind(this)} />
           }
         </Item>
         {meta.invalid && meta.touched && <Text style={styles.errorText}> {meta.error} </Text>}

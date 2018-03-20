@@ -6,7 +6,8 @@ const reducers = combineReducers({
   form: require('redux-form').reducer,
   nav: require('./NavigationRedux').reducer,
   auth: require('./AuthRedux').reducer,
-  pinCode: require('./PinCodeRedux').reducer
+  pinCode: require('./PinCodeRedux').reducer,
+  signup: require('./SignupRedux').reducer
 });
 
 

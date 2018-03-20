@@ -20,13 +20,13 @@ export default StyleSheet.create({
     width: Metrics.images.logo,
     resizeMode: 'contain'
   },
-  sucessContainer: {
+  successContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-around',
     backgroundColor: Colors.background
   },
-  sucessText: {
+  successText: {
     fontSize: 18,
     paddingHorizontal: 30,
     color: Colors.white,

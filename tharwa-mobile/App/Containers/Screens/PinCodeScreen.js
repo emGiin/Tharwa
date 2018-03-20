@@ -75,14 +75,13 @@ class PinCodeScreen extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { fetching, error, success } = state.pinCode;
+const mapStateToProps = ({ pinCode: { fetching, error, success } }) => {
   return { fetching, error, success }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    confirmPinCode: (pinCode) => dispatch(PinCodeActions.pinCodeRequest(pinCode)),
+    confirmPinCode: (pin) => dispatch(PinCodeActions.pinCodeRequest(pin)),
   }
 }
 

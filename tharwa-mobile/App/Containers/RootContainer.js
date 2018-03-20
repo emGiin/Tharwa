@@ -3,6 +3,7 @@ import { View, Text, StatusBar, BackHandler, NetInfo } from 'react-native'
 import I18n from 'react-native-i18n'
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
+import { Colors } from '../Themes'
 import ReduxNavigation from '../Navigation/ReduxNavigation'
 import StartupActions from '../Redux/StartupRedux'
 
@@ -56,7 +57,7 @@ class RootContainer extends Component {
     const style = isConnected ? styles.online : styles.offline;
     return (
       <View style={styles.applicationView}>
-        <StatusBar barStyle='light-content' />
+        <StatusBar barStyle='light-content' backgroundColor={Colors.forground} />
         {showNetState && <Text style={style}> {message} </Text>}
         <ReduxNavigation />
 

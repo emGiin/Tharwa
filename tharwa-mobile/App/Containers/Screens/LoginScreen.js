@@ -67,7 +67,7 @@ class LoginScreen extends Component {
           fetchingTitle={I18n.t('authDialogTitleFetching')}
           fetchingMessage={I18n.t('authDialogDescriptionFetching')}
           defaultTitle={I18n.t('authDialogTitle')}
-          defailtMessage={I18n.t('authDialogDescription')}
+          defaultMessage={I18n.t('authDialogDescription')}
         >
           {this.renderConfirmationMethod(fetching)}
         </LoadingDialog>
@@ -86,15 +86,13 @@ class LoginScreen extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { fetching, error, success } = state.auth;
-  return { fetching, error, success }
+const mapStateToProps = ({ auth: { fetching, error, success } }) => {
+  return { fetching, error, success };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptLogin: (email, password, confirmationMethod) =>
-      dispatch(AuthActions.authRequest(email, password, confirmationMethod)),
+    attemptLogin: (...data) => dispatch(AuthActions.authRequest(...data)),
   }
 }
 

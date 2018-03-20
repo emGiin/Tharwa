@@ -9,7 +9,7 @@ class EmailField extends Component {
     return (
       <View>
         <Item regular style={styles.inputTxt}>
-          <Icon name='ios-at' style={styles.inputIcon} />
+          <Icon name='ios-mail' style={styles.inputIcon} />
           <Input
             placeholder={placeholder}
             ref={refField}

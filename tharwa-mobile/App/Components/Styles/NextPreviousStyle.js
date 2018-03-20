@@ -7,9 +7,10 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: 5,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    backgroundColor: 'rgba(0,0,0,0)'
   },
-  button:{
+  button: {
     color: Colors.button
   }
 })

@@ -15,7 +15,7 @@ const create = (baseURL = API_URL) => {
 
   const setAuthToken = (userAuth) => api.setHeader('Authorization', 'Bearer ' + userAuth)
   const removeAuthToken = () => api.setHeader('Authorization', '')
-  const register = (user) => api.post('client/register', user)
+  const signup = (user) => api.post('client/signup', user)
   const changePassword = (newPassword) => api.post('change-password')
 
   const getBankAccount = (bankAccountId) => api.get('client/bank-accounts/' + bankAccountId)
@@ -26,7 +26,7 @@ const create = (baseURL = API_URL) => {
     getBankAccount,
     setAuthToken,
     removeAuthToken,
-    register,
+    signup,
     changePassword
   }
 }
