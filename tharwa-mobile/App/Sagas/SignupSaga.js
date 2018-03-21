@@ -4,7 +4,8 @@ import SignupActions from '../Redux/SignupRedux'
 
 // attempts to login
 export function* signup(api, data) {
-  console.warn(data);
+  data.type = data.type_
+  delete data.type_
   const response = yield call(api.signup, data)
   // success?
   if (response.ok) {

@@ -28,6 +28,21 @@ class RegisterScreen extends Component {
     }
   }
 
+  submit = (values) => {
+    this.dialog.show();
+    this.props.attemptSignup(
+      values.email,
+      values.password,
+      values.lastName,
+      values.firstName,
+      values.phone,
+      values.address,
+      values.function,
+      values.type,
+      values.picture
+    );
+  }
+
   renderSuccessPage = () => (
     <Container style={[styles.container, styles.successContainer]}>
       <Text style={styles.successText}>{I18n.t('registrationSuccessTop')}</Text>
@@ -55,11 +70,6 @@ class RegisterScreen extends Component {
     )
   }
 
-  submit = (values) => {
-    this.dialog.show();
-    this.props.attemptSignup(...values);
-  }
-
   render() {
     return this.state.showSuccessPage ? this.renderSuccessPage() : this.renderForm()
   }
@@ -71,9 +81,8 @@ const mapStateToProps = ({ signup: { fetching, error, success } }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptSignup: (...data) => dispatch(SignupActions.signupRequest(...data)),
+    attemptSignup: (...data) => dispatch(SignupActions.signupRequest(...data))
   }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen)

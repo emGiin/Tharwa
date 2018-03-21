@@ -25,7 +25,7 @@ class FifthStepForm extends Component {
           </Text>
           <Field
             radio_props={this.radio_props}
-            name={'entreprise'}
+            name={'type'}
             component={RadioField}
             editable={editable}
           />

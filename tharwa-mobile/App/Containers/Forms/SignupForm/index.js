@@ -20,7 +20,7 @@ class SignupForm extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { currentPage: 4 }
+    this.state = { currentPage: 1 }
     this.nextPage = this.nextPage.bind(this)
     this.previousPage = this.previousPage.bind(this)
   }
