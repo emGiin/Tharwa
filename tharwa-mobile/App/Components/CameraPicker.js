@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { TouchableOpacity } from 'react-native'
 import ImagePicker from 'react-native-image-picker';
-import styles from './Styles/CameraPickerStyle'
 
 class CameraPicker extends Component {
 

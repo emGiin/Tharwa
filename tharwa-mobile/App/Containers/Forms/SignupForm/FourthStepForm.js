@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { View, Image } from 'react-native'
 import { Text, Container } from 'native-base'
 import I18n from 'react-native-i18n'
-import Dimensions from 'Dimensions'
 import { reduxForm, Field } from 'redux-form'
 import { Images } from '../../../Themes'
 import { CameraPicker, NextPrevious } from "../../../Components";

@@ -1,4 +1,4 @@
-import { call, put, select } from 'redux-saga/effects'
+import { call, put } from 'redux-saga/effects'
 import I18n from 'react-native-i18n'
 import SignupActions from '../Redux/SignupRedux'
 
