@@ -31,6 +31,7 @@
   "fieldRequiredError": "Ce champ est obligatoire",
   "invalidNameError": "Le format de ce champ est invalide",
   "invalidPhoneError": "Ce numéro de téléphone est invalide",
+  "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
   "connected": "Connecté",
   "noInternet": "Pas de connexion Internet",
   "firstName": "Prénom",

@@ -16,6 +16,7 @@ class EmailField extends Component {
             keyboardType='email-address'
             returnKeyType='next'
             autoCapitalize='none'
+            autoCorrect={false}
             onSubmitEditing={onEnter}
             {...input}
             style={styles.whiteColor}

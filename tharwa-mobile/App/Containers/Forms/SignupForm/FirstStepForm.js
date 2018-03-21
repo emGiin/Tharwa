@@ -26,7 +26,7 @@ class FirstStepForm extends Component {
       !passwordValidators[1](passwordConfirmation) &&
       password !== passwordConfirmation
     ) {
-      return <Text style={{ color: '#e74c3cd0', fontSize: 13 }}>Passwords do not match</Text>
+      return <Text style={{ color: '#e74c3cd0', fontSize: 13 }}>{I18n.t('passwordsDoNotMatch')}</Text>
     }
     return false;
   }

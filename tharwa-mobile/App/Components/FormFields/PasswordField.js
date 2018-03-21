@@ -28,6 +28,7 @@ class PasswordField extends Component {
             returnKeyType='go'
             selectionColor={'#fff'}
             autoCorrect={false}
+            autoCapitalize={'none'}
             onSubmitEditing={onEnter}
             {...input}
             editable={input.editable}

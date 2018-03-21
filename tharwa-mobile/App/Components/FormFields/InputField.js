@@ -18,7 +18,7 @@ class InputField extends Component {
             ref={refField}
             placeholder={placeholder}
             returnKeyType={returnKeyType}
-            autoCapitalize='words'
+            autoCapitalize={'words'}
             onSubmitEditing={onEnter}
             editable={editable}
             selectionColor={'#fff'}
