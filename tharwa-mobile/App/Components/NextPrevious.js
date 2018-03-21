@@ -6,7 +6,6 @@ import I18n from 'react-native-i18n'
 import styles from './Styles/NextPreviousStyle'
 
 const NextPrevious = ({ onPrevious, onSubmit, disableSubmit, isFinal }) => {
-  // TODO fixe disabled button style
   return (
     <View style={styles.nextBtnContainer}>
       {
@@ -17,7 +16,7 @@ const NextPrevious = ({ onPrevious, onSubmit, disableSubmit, isFinal }) => {
           </Button>
           : <Text />
       }
-      <Button transparent iconRight onPress={onSubmit} disabled={disableSubmit} >
+      <Button transparent iconRight onPress={disableSubmit ? () => { } : onSubmit}>
         <Text style={styles.button} >{I18n.t(isFinal ? 'confirm' : 'next')}</Text>
         <Icon style={styles.button} name={isFinal ? 'ios-checkmark-circle' : 'ios-arrow-forward-outline'} />
       </Button>
