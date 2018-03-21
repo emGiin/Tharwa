@@ -26,6 +26,8 @@ class CameraPicker extends Component {
         reTryTitle: '3awed',
         okTitle: 'pff'
       },
+      maxWidth: 1024,
+      maxHeight: 1024,
       cameraType: 'front',
       mediaType: 'photo',
       quality: 0.5
