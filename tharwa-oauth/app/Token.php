@@ -57,14 +57,16 @@ class Token extends Model
 
         $token = bcrypt($row->user_id). uniqid('', true) . str_random(11);
 
+        $token_expire_at = \Carbon\Carbon::now()->addHours(8)->format('Y-m-d H:i:s');
         $row->token = $token;
-        $row->expires_at = $now;
+        $row->expires_at = $token_expire_at;
+        //todo check how much token is valid
 
         $row->save();
 
         return [
             'token_' => $token,
-            'expires_at' => $now,
+            'expires_at' => $token_expire_at,
             'client_type' => $row->scopes
         ];
 

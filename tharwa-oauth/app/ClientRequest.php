@@ -29,6 +29,7 @@ class ClientRequest extends Model
         if( Hash::check($password, $client->password) )
             return $client;
 
+        return false;
     }
 
 }
