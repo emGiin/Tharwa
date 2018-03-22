@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StatusBar, BackHandler, NetInfo } from 'react-native'
+import { View, Text, StatusBar, BackHandler, NetInfo, AppState } from 'react-native'
 import I18n from 'react-native-i18n'
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
@@ -11,44 +11,63 @@ import StartupActions from '../Redux/StartupRedux'
 import styles from './Styles/RootContainerStyles'
 
 class RootContainer extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { isConnected: true }
+  state = {
+    isConnected: true,
+    appState: AppState.currentState
   }
+
   componentDidMount() {
     this.props.startup();
 
-    BackHandler.addEventListener('hardwareBackPress', () => {
-      if (this.shouldCloseApp(this.props.nav)) return false
-      this.props.goBack();
-      return true
-    });
-
+    BackHandler.addEventListener('hardwareBackPress', this.handleHardwareBackPress);
     NetInfo.isConnected.addEventListener('connectionChange', this.handleConnetionChange);
-  }
-
-  handleConnetionChange = (hasInternetConnection) => {
-    if (hasInternetConnection !== this.state.isConnected) {
-      this.setState({
-        isConnected: hasInternetConnection,
-        showNetState: true
-      })
-
-      if (this.state.isConnected && this.state.showNetState) {
-        setTimeout(() => {
-          this.setState({ showNetState: false })
-        }, 2000);
-      }
-    }
-  }
-
-  shouldCloseApp(nav) {
-    return !this.state.isConnected
+    AppState.addEventListener('change', this.handleAppStateChange);
   }
 
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress')
     NetInfo.isConnected.removeEventListener('connectionChange')
+    AppState.removeEventListener('change', this.handleAppStateChange);
+  }
+
+  handleAppStateChange = (nextAppState) => {
+    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+      console.warn('App has come to the foreground!')
+      // TODO show pin code if logged in
+    }
+    this.setState({ appState: nextAppState });
+  }
+
+  handleHardwareBackPress = () => {
+    console.warn(this.props.nav);
+
+    if (this.shouldCloseApp()) return false
+    this.props.goBack();
+    return true
+  }
+
+  shouldCloseApp() {
+    const routeName = this.getCurrentRouteName()
+    const notAllowedRouted = [
+      'LaunchScreen'
+    ]
+
+    return !this.state.isConnected || notAllowedRouted.includes(routeName)
+  }
+
+  handleConnetionChange = (isConnected) => {
+    if (isConnected !== this.state.isConnected) {
+      this.setState({ isConnected, showNetState: true })
+
+      if (isConnected && this.state.showNetState) {
+        setTimeout(() => { this.setState({ showNetState: false }) }, 2000);
+      }
+    }
+  }
+
+  getCurrentRouteName = () => {
+    const { index } = this.props.nav
+    return this.props.nav.routes[index - 1].routeName
   }
 
   render() {
@@ -68,6 +87,7 @@ class RootContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  // nav: state.nav,
   nav: state.nav,
 })
 
