@@ -1,9 +1,10 @@
 {
-    "files.exclude": {
-        "**/node_modules": true
-    },
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "editor.detectIndentation": false,
-    "files.eol": "\n",
+  "editor.snippetSuggestions": "top",
+  "files.exclude": {
+    "**/node_modules": true
+  },
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "files.eol": "\n",
 }

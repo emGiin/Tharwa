@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native'
-import {Fonts, Metrics, Colors} from '../../Themes/'
+import { StyleSheet } from 'react-native'
+import { Fonts, Metrics, Colors } from '../../Themes/'
 
 export default StyleSheet.create({
   applicationView: {
@@ -20,5 +20,26 @@ export default StyleSheet.create({
     width: 200,
     height: 200,
     alignSelf: 'center'
+  },
+  online: {
+    backgroundColor: '#2ecc71',
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 16,
+  },
+  offline: {
+    backgroundColor: '#ff4b54',
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 16,
+  },
+  disconnectionOverlay: {
+    position: 'absolute',
+    flex: 1,
+    top: 22,
+    left: 0,
+    height: '100%',
+    width: '100%',
+    backgroundColor: 'rgba(255,255,255,0.2)'
   }
 })

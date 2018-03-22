@@ -28,5 +28,15 @@ export default StyleSheet.create({
   resendButtonText: {
     color: '#e67e22',
     fontSize: 12
+  },
+  dialogContentView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  dialogContent: {
+    textAlign: 'center',
+    color: '#555',
+    fontSize: 20
   }
 })

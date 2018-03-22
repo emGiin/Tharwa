@@ -3,6 +3,7 @@ import configureStore from './CreateStore'
 import rootSaga from '../Sagas/'
 
 const reducers = combineReducers({
+  form: require('redux-form').reducer,
   nav: require('./NavigationRedux').reducer,
   auth: require('./AuthRedux').reducer,
   pinCode: require('./PinCodeRedux').reducer

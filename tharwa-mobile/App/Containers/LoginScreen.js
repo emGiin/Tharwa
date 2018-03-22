@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Alert, View, Image } from 'react-native'
-import { Container, Content, Text, Button, Item, Input, Icon } from 'native-base';
+import { View, Image, ActivityIndicator } from 'react-native'
+import { Container, Content, Text } from 'native-base'
 import { connect } from 'react-redux'
 import PopupDialog, {
   DialogTitle,
   DialogButton,
   SlideAnimation
-} from 'react-native-popup-dialog';
+} from 'react-native-popup-dialog'
+import I18n from 'react-native-i18n'
 import { Images } from '../Themes'
 import AuthActions from '../Redux/AuthRedux'
+import LoginForm from '../Components/LoginForm'
 
 // Styles
 import styles from './Styles/LoginScreenStyle'
@@ -20,44 +22,33 @@ class LoginScreen extends Component {
   static propTypes = {
     dispatch: PropTypes.func,
     fetching: PropTypes.bool,
+    error: PropTypes.string,
+    success: PropTypes.bool,
     attemptLogin: PropTypes.func
   }
 
   constructor(props) {
     super(props)
-    this.state = {
-      email: '',
-      password: ''
-    }
+    this.state = { newRequest: true }
   }
 
-  componentWillReceiveProps(newProps) {
-    if (!newProps.fetching) {
-      if (newProps.error) {
-        if (newProps.error === 'WRONG') {
-          Alert.alert('Error', 'Invalid login', [{ text: 'OK' }])
-          this.slideAnimationDialog.dismiss();
-        }
-      } else if (newProps.success) {
-        this.slideAnimationDialog.dismiss();
-        this.goToPinCodePage();
-      }
+  componentWillReceiveProps(props) {
+    if (!props.fetching && props.success) {
+      this.dialog.dismiss();
+      this.goToPinCodePage();
     }
+    if (props.error) this.setState({ newRequest: false })
   }
 
   submit = (confirmationMethod) => {
-    const { email, password } = this.state
-    // attempt a login - a saga is listening to pick it up from here.
-    if (this.formIsValid())
-      this.props.attemptLogin(email, password, confirmationMethod)
+    this.props.attemptLogin(this.email, this.password, confirmationMethod)
   }
 
-  formIsValid = () => {
-    return true;
-  }
-
-  handleChange = (name) => {
-    return value => this.setState({ [name]: value });
+  loginFormSubmit = (values) => {
+    this.email = values.email;
+    this.password = values.password;
+    this.setState({ newRequest: true })
+    this.dialog.show();
   }
 
   goToPinCodePage = () => {
@@ -69,80 +60,58 @@ class LoginScreen extends Component {
   }
 
   render() {
-    const { email, password } = this.state
-    const { fetching } = this.props
-    const editable = !fetching
+    const { fetching, error } = this.props;
+    let dialogTitle = I18n.t('authDialogTitle');
+    let dialogDescription = I18n.t('authDialogDescription');
+    if (fetching) {
+      dialogTitle = I18n.t('authDialogTitleFetching');
+      dialogDescription = I18n.t('authDialogDescriptionFetching');
+    } else if (error && !this.state.newRequest) {
+      dialogTitle = I18n.t('authDialogTitleError')
+      dialogDescription = error
+    }
     return (
-      <Container>
+      <Container style={{ backgroundColor: '#2c3e50' }}>
         <PopupDialog
           width={0.95}
           height={170}
-          ref={(popupDialog) => { this.slideAnimationDialog = popupDialog; }}
+          dismissOnTouchOutside={!fetching}
+          dismissOnHardwareBackPress={!fetching}
+          ref={(dialog) => { this.dialog = dialog; }}
           dialogAnimation={slideAnimation}
-          dialogTitle={<DialogTitle title="Code d'authentification" />}>
+          dialogTitle={<DialogTitle title={dialogTitle} />}
+        >
           <View style={styles.dialogContentView}>
             <Text style={styles.dialogContent}>
-              Comment souhaiter-vous recevoir
-              votre code d'authentification?
+              {dialogDescription}
             </Text>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-              <DialogButton disabled={fetching} text="Par Email" key="button-1"
-                onPress={() => { this.submit('email'); }} />
-              <DialogButton disabled={fetching} text="Par SMS" key="button-2"
-                onPress={() => { this.submit('sms'); }} />
-            </View>
+            {
+              fetching &&
+              <ActivityIndicator size='large' style={{ marginVertical: 20 }} />
+            }
+            {
+              error && !this.state.newRequest ?
+                <DialogButton text={I18n.t('authDialogClose')}
+                  onPress={() => { this.dialog.dismiss(); }} />
+                : !fetching &&
+                <View style={{ flex: 1, flexDirection: 'row' }}>
+                  <DialogButton disabled={fetching} text={I18n.t('authDialogPinByEmail')}
+                    onPress={() => { this.submit('email'); }} />
+                  <DialogButton disabled={fetching} text={I18n.t('authDialogPinBySms')}
+                    onPress={() => { this.submit('sms'); }} />
+                </View>
+            }
           </View>
         </PopupDialog>
-        <Image source={Images.login} style={styles.loginBg} resizeMode='contain' />
         <Content>
-          <View style={styles.centered}>
+          <View style={styles.logoContainer}>
             <Image source={Images.logo} style={styles.logo} />
-            <Text style={styles.logoName}>THARWA</Text>
           </View>
-          <View style={styles.centered}>
-            <View style={styles.inputContainer}>
-              <Item regular style={styles.inputTxt}>
-                <Icon name='person' style={styles.inputIcon} />
-                <Input
-                  placeholder='Email'
-                  keyboardType='email-address'
-                  returnKeyType='next'
-                  autoCapitalize='none'
-                  selectionColor='#fff'
-                  value={email}
-                  editable={editable}
-                  autoFocus={false}
-                  onSubmitEditing={() => { this.PasswordInputRef._root.focus() }}
-                  style={styles.whiteColor}
-                  placeholderTextColor="#ffffff90"
-                  onChangeText={this.handleChange('email')} />
-              </Item>
-
-              <Item regular style={styles.inputTxt}>
-                <Icon name='lock' style={styles.inputIcon} />
-                <Input
-                  placeholder='Password'
-                  ref={input => { this.PasswordInputRef = input }}
-                  secureTextEntry={true}
-                  placeholderTextColor="#ffffff90"
-                  returnKeyType='go'
-                  selectionColor='#fff'
-                  autoCorrect={false}
-                  value={password}
-                  editable={editable}
-                  style={styles.whiteColor}
-                  onSubmitEditing={() => this.slideAnimationDialog.show()}
-                  onChangeText={this.handleChange('password')} />
-              </Item>
-            </View>
-
-            <Button style={styles.loginBtn} onPress={() => { this.slideAnimationDialog.show() }} >
-              <Text>Se connecter</Text>
-            </Button>
-            <Button transparent style={styles.signupBtn} onPress={this.goToSignUpPage}>
-              <Text style={styles.whiteColor}>Je n'ai pas de compte</Text>
-            </Button>
-          </View>
+          <LoginForm
+            onSubmit={this.loginFormSubmit}
+            onRegisterClicked={this.goToSignUpPage}
+            editable={!fetching}
+          />
         </Content>
       </Container>
     )

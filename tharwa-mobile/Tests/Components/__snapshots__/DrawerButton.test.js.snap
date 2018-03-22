@@ -1,44 +1,188 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DrawerButton component renders correctly 1`] = `
-<View
-  accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
-  accessibilityTraits={undefined}
-  accessible={true}
-  collapsable={undefined}
-  hitSlop={undefined}
-  isTVSelectable={true}
-  nativeID={undefined}
-  onLayout={undefined}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  style={
-    Object {
-      "opacity": 1,
-    }
-  }
-  testID={undefined}
-  tvParallaxProperties={undefined}
->
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
-    style={
-      Object {
-        "color": "white",
-        "fontFamily": "Avenir-Book",
-        "fontSize": 20,
-        "marginVertical": 10,
-      }
-    }
+exports[`DrawerButton component should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <TouchableOpacity
+    activeOpacity={0.2}
+    onPress={[MockFunction]}
   >
-    hi
-  </Text>
-</View>
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "white",
+          "fontFamily": "Avenir-Book",
+          "fontSize": 20,
+          "marginVertical": 10,
+        }
+      }
+    >
+      test
+    </Text>
+  </TouchableOpacity>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "accessibilityComponentType": undefined,
+      "accessibilityLabel": undefined,
+      "accessibilityTraits": undefined,
+      "accessible": true,
+      "children": Array [
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "white",
+              "fontFamily": "Avenir-Book",
+              "fontSize": 20,
+              "marginVertical": 10,
+            }
+          }
+        >
+          test
+        </Text>,
+        null,
+      ],
+      "hitSlop": undefined,
+      "isTVSelectable": true,
+      "nativeID": undefined,
+      "onLayout": undefined,
+      "onResponderGrant": [Function],
+      "onResponderMove": [Function],
+      "onResponderRelease": [Function],
+      "onResponderTerminate": [Function],
+      "onResponderTerminationRequest": [Function],
+      "onStartShouldSetResponder": [Function],
+      "style": Array [
+        undefined,
+        Object {
+          "opacity": 1,
+        },
+      ],
+      "testID": undefined,
+      "tvParallaxProperties": undefined,
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "accessible": true,
+          "allowFontScaling": true,
+          "children": "test",
+          "ellipsizeMode": "tail",
+          "style": Object {
+            "color": "white",
+            "fontFamily": "Avenir-Book",
+            "fontSize": 20,
+            "marginVertical": 10,
+          },
+        },
+        "ref": null,
+        "rendered": "test",
+        "type": [Function],
+      },
+      null,
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "accessibilityComponentType": undefined,
+        "accessibilityLabel": undefined,
+        "accessibilityTraits": undefined,
+        "accessible": true,
+        "children": Array [
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "white",
+                "fontFamily": "Avenir-Book",
+                "fontSize": 20,
+                "marginVertical": 10,
+              }
+            }
+          >
+            test
+          </Text>,
+          null,
+        ],
+        "hitSlop": undefined,
+        "isTVSelectable": true,
+        "nativeID": undefined,
+        "onLayout": undefined,
+        "onResponderGrant": [Function],
+        "onResponderMove": [Function],
+        "onResponderRelease": [Function],
+        "onResponderTerminate": [Function],
+        "onResponderTerminationRequest": [Function],
+        "onStartShouldSetResponder": [Function],
+        "style": Array [
+          undefined,
+          Object {
+            "opacity": 1,
+          },
+        ],
+        "testID": undefined,
+        "tvParallaxProperties": undefined,
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "accessible": true,
+            "allowFontScaling": true,
+            "children": "test",
+            "ellipsizeMode": "tail",
+            "style": Object {
+              "color": "white",
+              "fontFamily": "Avenir-Book",
+              "fontSize": 20,
+              "marginVertical": 10,
+            },
+          },
+          "ref": null,
+          "rendered": "test",
+          "type": [Function],
+        },
+        null,
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
 `;

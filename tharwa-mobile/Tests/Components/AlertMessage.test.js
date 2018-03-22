@@ -1,19 +1,23 @@
 import 'react-native'
 import React from 'react'
+import { shallow } from 'enzyme'
 import AlertMessage from '../../App/Components/AlertMessage'
-import renderer from 'react-test-renderer'
 
-test('AlertMessage component renders correctly if show is true', () => {
-  const tree = renderer.create(<AlertMessage title='howdy' />).toJSON()
-  expect(tree).toMatchSnapshot()
-})
+describe('AlertMessage component', () => {
+  let container, content;
+  beforeAll(() => {
+    container = shallow(<AlertMessage title='howdy' />)
+    content = container.dive()
+  })
 
-test('AlertMessage component does not render if show is false', () => {
-  const tree = renderer.create(<AlertMessage title='howdy' show={false} />).toJSON()
-  expect(tree).toMatchSnapshot()
-})
+  it('should render correctly if show is true', () => {
+    expect(content).toMatchSnapshot()
+  })
 
-test('AlertMessage component renders correctly if backgroundColor prop is set', () => {
-  const tree = renderer.create(<AlertMessage title='howdy' style={{backgroundColor: 'red'}} />).toJSON()
-  expect(tree).toMatchSnapshot()
+
+  it('should not render if show is false', () => {
+    container.setProps({ show: false })
+    container.update()
+    expect(content).toMatchSnapshot()
+  })
 })

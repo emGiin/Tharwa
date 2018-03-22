@@ -1,4 +1,5 @@
 import { call, put, select } from 'redux-saga/effects'
+import I18n from 'react-native-i18n'
 import PinCodeActions from '../Redux/PinCodeRedux'
 import AuthActions from '../Redux/AuthRedux'
 
@@ -17,6 +18,6 @@ export function* confirmPinCode(api, { pinCode }) {
     yield put(PinCodeActions.pinCodeSuccess())
     yield put(AuthActions.saveAuthToken(response.data.token_))
   } else {
-    yield put(PinCodeActions.pinCodeFailure('WRONG'))
+    yield put(PinCodeActions.pinCodeFailure(I18n.t('pinCodeDescriptionErreur')))
   }
 }

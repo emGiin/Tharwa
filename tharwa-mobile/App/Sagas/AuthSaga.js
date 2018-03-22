@@ -1,4 +1,5 @@
 import { call, put, select } from 'redux-saga/effects'
+import I18n from 'react-native-i18n'
 import AuthActions from '../Redux/AuthRedux'
 import PinCodeActions from '../Redux/PinCodeRedux'
 
@@ -21,16 +22,14 @@ export function* login(api, { email, password, confirmationMethod }) {
     yield put(PinCodeActions.savePinCodeToken(response.data.temporary_token))
     // yield put({ type: 'RELOGIN_OK' })
   } else {
-    yield put(AuthActions.authFailure('WRONG'))
+    yield put(AuthActions.authFailure(I18n.t('authDialogDescriptionErreur')))
   }
 }
 
 // attempts to logout
 export function* logout(api) {
   yield call(api.removeAuthToken)
-  // yield put(AccountActions.accountRequest())
   yield put(AuthActions.logoutSuccess())
-  yield put({ type: 'RELOGIN_ABORT' })
 }
 
 // loads the login

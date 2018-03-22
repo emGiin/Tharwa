@@ -55,3 +55,6 @@ buck-out/
 # Misc
 #
 # .env
+
+# testing
+/coverage
