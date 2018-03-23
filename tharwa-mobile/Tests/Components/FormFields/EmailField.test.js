@@ -18,7 +18,7 @@ describe('Email Field Component', () => {
     expect(content.find('Styled(Text)')).toHaveLength(0)
   })
 
-  it('should not show email errors', () => {
+  it('should show email errors', () => {
     wrapper.setProps({ meta: { invalid: true, touched: true, error: 'error' } })
     wrapper.update()
     content = wrapper.dive();
