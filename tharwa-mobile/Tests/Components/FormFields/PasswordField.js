@@ -16,7 +16,7 @@ describe('LoginForm Component', () => {
     expect(wrapper).toHaveLength(1)
     expect(content.find('Styled(Icon)')).toHaveLength(2)
     expect(content.find('Styled(Text)')).toHaveLength(0)
-    expect(content.find('Styled(Icon)').at(1).props().name).toBe('eye')
+    expect(content.find('Styled(Icon)').at(1).props().name).toBe('eye-off')
   })
 
   it('should render password input', () => {
@@ -34,6 +34,6 @@ describe('LoginForm Component', () => {
     wrapper.update()
     content = wrapper.dive();
     expect(content.find('Styled(Icon)')).toHaveLength(2)
-    expect(content.find('Styled(Icon)').at(1).props().name).toBe('eye-off')
+    expect(content.find('Styled(Icon)').at(1).props().name).toBe('eye')
   })
 })

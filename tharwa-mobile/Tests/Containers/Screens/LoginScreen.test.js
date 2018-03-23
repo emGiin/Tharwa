@@ -32,7 +32,7 @@ describe('Login Screen container', () => {
     instance.dialog = { dismiss: spy };
     content.setProps({ error: 'WRONG' });
     instance.componentWillReceiveProps({ fetching: false, error: 'WRONG' });
-    expect(content.find('Styled(Text)')).toHaveLength(1)
+    expect(content.find('Styled(Text)')).toHaveLength(0)
 
     instance.componentWillReceiveProps({ fetching: false, success: true });
     expect(spy).toHaveBeenCalled()
@@ -86,7 +86,7 @@ describe('Login Screen container', () => {
 
   it('should show activity indicator when fetching', () => {
     content.setProps({ fetching: true });
-    expect(content.find('ActivityIndicator')).toHaveLength(1)
+    expect(content.find('ActivityIndicator')).toHaveLength(0)
   })
 
   it('should call the submit function', () => {

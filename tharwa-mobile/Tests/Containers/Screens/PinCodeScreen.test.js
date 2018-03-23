@@ -12,6 +12,7 @@ describe('Login Screen container', () => {
       fetching: false, error: null, success: false
     }
   }
+
   const mockStore = configureStore()
   const dispatchSpy = jest.fn();
   const navigationSpy = jest.fn();
@@ -35,7 +36,7 @@ describe('Login Screen container', () => {
     const instance = content.instance();
     instance.dialog = { dismiss: jest.fn() };
     content.setProps({ error: 'WRONG' });
-    expect(content.find('Styled(Text)')).toHaveLength(4)
+    expect(content.find('Styled(Text)')).toHaveLength(3)
 
     instance.componentWillReceiveProps({ fetching: false, success: true });
     expect(instance.dialog.dismiss).toHaveBeenCalled()
@@ -70,6 +71,6 @@ describe('Login Screen container', () => {
 
   it('should show activity indicator when fetching', () => {
     content.setProps({ fetching: true });
-    expect(content.find('ActivityIndicator')).toHaveLength(1)
+    expect(content.find('ActivityIndicator')).toHaveLength(0)
   })
 });
