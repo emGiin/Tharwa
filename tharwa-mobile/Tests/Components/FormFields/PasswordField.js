@@ -3,7 +3,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { PasswordField } from '../../../App/Components'
 
-describe('LoginForm Component', () => {
+describe('Password Field Component', () => {
   let wrapper, content;
 
   beforeAll(() => {
