@@ -3,8 +3,8 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { CameraPicker } from '../../App/Components'
 
-describe('FullButton component', () => {
-  let container, content;
+describe('CameraPicker component', () => {
+  let container;
   const spy = jest.fn();
 
   beforeAll(() => {
@@ -14,7 +14,6 @@ describe('FullButton component', () => {
         input={{ onChange: spy }}
       />
     );
-    content = container.dive()
   })
 
   it('should render correcty', () => {

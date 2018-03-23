@@ -3,7 +3,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { NextPrevious } from '../../App/Components'
 
-describe('FullButton component', () => {
+describe('NextPrevious component', () => {
   let container, content;
   const onPreviousSpy = jest.fn();
   const onSubmitSpy = jest.fn();

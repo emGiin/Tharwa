@@ -3,7 +3,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { Header } from '../../App/Components'
 
-describe('FullButton component', () => {
+describe('Header component', () => {
   let container, content;
   const spy = jest.fn();
   const iconName = 'md-arrow-round-back'
