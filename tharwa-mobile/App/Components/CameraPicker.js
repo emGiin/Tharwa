@@ -25,7 +25,7 @@ class CameraPicker extends Component {
   }
 
   onPress = () => {
-    ImagePicker.launchCamera(options, ({ data }) => {
+    ImagePicker.launchCamera(this.options, ({ data }) => {
       if (data) {
         const base64 = `data:image/jpeg;base64,${data}`;
         if (this.props.input && typeof this.props.input === 'function') {
