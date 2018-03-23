@@ -29,18 +29,9 @@ class RegisterScreen extends Component {
   }
 
   submit = (values) => {
+    delete values.passwordConfirmation
     this.dialog.show();
-    this.props.attemptSignup(
-      values.email,
-      values.password,
-      values.lastName,
-      values.firstName,
-      values.phone,
-      values.address,
-      values.function,
-      values.type,
-      values.picture
-    );
+    this.props.attemptSignup(values);
   }
 
   renderSuccessPage = () => (
@@ -81,7 +72,7 @@ const mapStateToProps = ({ signup: { fetching, error, success } }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptSignup: (...data) => dispatch(SignupActions.signupRequest(...data))
+    attemptSignup: data => dispatch(SignupActions.signupRequest(data))
   }
 }
 

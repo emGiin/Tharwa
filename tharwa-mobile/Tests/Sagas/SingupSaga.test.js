@@ -7,7 +7,7 @@ const stepper = (fn) => (mock) => fn.next(mock).value
 
 describe('Signup SAGA', () => {
   it('should show singup success path', () => {
-    const data = {
+    const user = {
       email: 'user@email.com',
       password: 'password',
       lastName: 'lastName',
@@ -15,25 +15,21 @@ describe('Signup SAGA', () => {
       phone: '0666666666',
       address: 'address',
       function: 'student',
-      type_: '1',
+      type: '1',
       picture: 'picture'
     }
 
-    const sagaData = Object.assign({}, data)
-    sagaData.type = sagaData.type_
-    delete sagaData.type_
+    const response = FixtureAPI.signup(user)
 
-    const response = FixtureAPI.signup(sagaData)
+    const step = stepper(signup(FixtureAPI, { user }))
 
-    const step = stepper(signup(FixtureAPI, data))
-
-    expect(step(response)).toEqual(call(FixtureAPI.signup, data))
+    expect(step(response)).toEqual(call(FixtureAPI.signup, user))
 
     expect(step(response)).toEqual(put(SignupActions.signupSuccess()))
   })
 
   it('should show singup failure path', () => {
-    const data = {
+    const user = {
       email: 'user@email',
       password: 'password',
       lastName: 'lastName',
@@ -41,19 +37,15 @@ describe('Signup SAGA', () => {
       phone: '0666666666',
       address: 'address',
       function: 'student',
-      type_: '1',
+      type: '1',
       picture: 'picture'
     }
 
-    const sagaData = Object.assign({}, data)
-    sagaData.type = sagaData.type_
-    delete sagaData.type_
+    const response = FixtureAPI.signup(user)
 
-    const response = FixtureAPI.signup(sagaData)
+    const step = stepper(signup(FixtureAPI, { user }))
 
-    const step = stepper(signup(FixtureAPI, data))
-
-    expect(step(response)).toEqual(call(FixtureAPI.signup, data))
+    expect(step(response)).toEqual(call(FixtureAPI.signup, user))
 
     expect(step(response)).toEqual(put(SignupActions.signupFailure('Veuillez vérifier les données introduites')))
   })

@@ -3,10 +3,8 @@ import I18n from 'react-native-i18n'
 import SignupActions from '../Redux/SignupRedux'
 
 // attempts to login
-export function* signup(api, data) {
-  data.type = data.type_
-  delete data.type_
-  const response = yield call(api.signup, data)
+export function* signup(api, { user }) {
+  const response = yield call(api.signup, user)
 
   // success?
   if (response.ok) {
