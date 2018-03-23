@@ -19,10 +19,12 @@ describe('Email Field Component', () => {
   })
 
   it('should show email errors', () => {
-    wrapper.setProps({ meta: { invalid: true, touched: true, error: 'error' } })
+    const error = 'error'
+    wrapper.setProps({ meta: { invalid: true, touched: true, error } })
     wrapper.update()
     content = wrapper.dive();
     expect(content.find('Styled(Icon)')).toHaveLength(2)
     expect(content.find('Styled(Text)')).toHaveLength(1)
+    expect(content.find('Styled(Text)').childAt(0).text()).toBe(error)
   })
 })

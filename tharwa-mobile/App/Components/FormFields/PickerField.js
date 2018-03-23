@@ -39,7 +39,7 @@ class PickerField extends Component {
           </Picker>
           {error && <Icon style={styles.alertIcon} name='md-alert' />}
         </Item>
-        {error && <Text style={styles.errorText}> {meta.error} </Text>}
+        {error && <Text style={styles.errorText}>{meta.error}</Text>}
       </View>
     )
   }

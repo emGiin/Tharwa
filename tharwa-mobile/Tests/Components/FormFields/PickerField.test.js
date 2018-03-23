@@ -33,10 +33,12 @@ describe('Input Field Component', () => {
   })
 
   it('should show field errors', () => {
-    container.setProps({ meta: { invalid: true, touched: true, error: 'error' } })
+    const error = 'error'
+    container.setProps({ meta: { invalid: true, touched: true, error } })
     container.update()
     content = container.dive();
     expect(content.find('Styled(Icon)')).toHaveLength(2)
     expect(content.find('Styled(Text)')).toHaveLength(1)
+    expect(content.find('Styled(Text)').childAt(0).text()).toBe(error)
   })
 })
