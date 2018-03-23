@@ -4,8 +4,7 @@ import {
   passwordValidators,
   nameValidators,
   phoneValidators,
-  pickerValidators,
-  addressValidators
+  pickerValidators
 } from '../../App/Helpers/validators'
 
 describe('Validators', () => {
