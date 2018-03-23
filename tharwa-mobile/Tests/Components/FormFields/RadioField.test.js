@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import { RadioField } from '../../../App/Components'
 
 describe('Input Field Component', () => {
-  let container, content, instance;
+  let container, instance;
   const options = [
     { label: '1', value: 1 },
     { label: '2', value: 2 }
@@ -14,7 +14,6 @@ describe('Input Field Component', () => {
   beforeAll(() => {
     const props = { input: { onChange: spy }, meta: {}, radio_props: options }
     container = shallow(<RadioField {...props} />)
-    content = container.dive();
     instance = container.instance();
   })
 
