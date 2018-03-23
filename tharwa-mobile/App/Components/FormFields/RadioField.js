@@ -5,8 +5,9 @@ import { Colors } from '../../Themes'
 class RadioField extends Component {
   constructor(props) {
     super(props)
-    this.state = { value: '' }
-    props.input.onChange(props.radio_props[0].value);
+    const { value } = props.radio_props[0]
+    this.state = { value }
+    props.input.onChange(value);
   }
 
   handleChange = (value) => {
