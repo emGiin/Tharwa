@@ -22,4 +22,13 @@ const Header = ({ icon, text }) => {
   )
 }
 
+Header.propTypes = {
+  icon: PropTypes.string,
+  text: PropTypes.string.isRequired
+}
+
+Header.defaultProps = {
+  icon: 'md-arrow-round-back'
+}
+
 export { Header }
