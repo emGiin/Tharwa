@@ -6,7 +6,7 @@ import { Images } from '../../Themes'
 // Styles
 import styles from './Styles/LaunchScreenStyles'
 
-/* instanbul ignore next */
+/* istanbul ignore next */
 const LogoImage = () => {
   return <Image source={Images.logo} style={styles.logo} />
 }
