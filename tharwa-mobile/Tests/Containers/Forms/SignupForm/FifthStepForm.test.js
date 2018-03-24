@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import { FifthStepForm } from '../../../../App/Containers/Forms/SignupForm/FifthStepForm'
 
 describe('Signup FifthStepForm Component', () => {
-  let container, content, instance;
+  let container, content;
 
   beforeAll(() => {
     container = shallow(
@@ -14,7 +14,6 @@ describe('Signup FifthStepForm Component', () => {
         picture={''}
       />
     );
-    instance = container.instance()
     content = container.dive()
   })
 

@@ -12,6 +12,14 @@ import SignupActions from '../../Redux/SignupRedux'
 // Styles
 import styles from './Styles/RegisterScreenStyle'
 
+/* istanbul ignore next */
+const LogoImage = () => {
+  return (
+    <View style={styles.logoContainer}>
+      <Image source={Images.logo} style={styles.logo} />
+    </View>
+  )
+}
 class RegisterScreen extends Component {
   static propTypes = {
     attemptSignup: PropTypes.func,
@@ -23,6 +31,7 @@ class RegisterScreen extends Component {
   state = { showSuccessPage: false }
 
   componentWillReceiveProps(props) {
+    /* istanbul ignore else */
     if (!props.fetching && props.success) {
       this.setState({ showSuccessPage: true })
     }
@@ -37,9 +46,7 @@ class RegisterScreen extends Component {
   renderSuccessPage = () => (
     <Container style={[styles.container, styles.successContainer]}>
       <Text style={styles.successText}>{I18n.t('registrationSuccessTop')}</Text>
-      <View style={styles.logoContainer}>
-        <Image source={Images.logo} style={styles.logo} />
-      </View>
+      <LogoImage />
       <Text style={styles.successText}>{I18n.t('registrationSuccessBottom')}</Text>
     </Container>
   )
@@ -49,7 +56,7 @@ class RegisterScreen extends Component {
     return (
       <Container style={[styles.container, styles.formContainer]}>
         <LoadingDialog
-          init={dialog => { this.dialog = dialog }}
+          init={/* istanbul ignore next */dialog => { this.dialog = dialog }}
           error={error}
           fetching={fetching}
         />
