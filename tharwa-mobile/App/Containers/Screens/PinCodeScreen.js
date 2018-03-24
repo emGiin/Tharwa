@@ -22,6 +22,7 @@ class PinCodeScreen extends Component {
   }
 
   componentWillReceiveProps(props) {
+    /* istanbul ignore else */
     if (!props.fetching && props.success) {
       this.dialog.dismiss();
       this.goToMainPage();
@@ -46,7 +47,7 @@ class PinCodeScreen extends Component {
     return (
       <Container>
         <LoadingDialog
-          init={dialog => { this.dialog = dialog }}
+          init={/* istanbul ignore next */dialog => { this.dialog = dialog }}
           error={error}
           errorTitle={I18n.t('pinCodeTitleError')}
           fetching={fetching}

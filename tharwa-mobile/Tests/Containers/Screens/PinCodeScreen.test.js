@@ -16,7 +16,7 @@ describe('Login Screen container', () => {
   const mockStore = configureStore()
   const dispatchSpy = jest.fn();
   const navigationSpy = jest.fn();
-  let store, container, content;
+  let store, container, content, instance;
 
   beforeAll(() => {
     store = mockStore(initialState);
@@ -26,6 +26,8 @@ describe('Login Screen container', () => {
       { context: { store } }
     )
     content = container.dive()
+    instance = content.instance();
+    instance.dialog = { dismiss: jest.fn(), show: jest.fn() };
   })
 
   it('should render the component', () => {
@@ -33,11 +35,6 @@ describe('Login Screen container', () => {
   });
 
   it('should check pin code confirmation response', () => {
-    const instance = content.instance();
-    instance.dialog = { dismiss: jest.fn() };
-    content.setProps({ error: 'WRONG' });
-    expect(content.find('Styled(Text)')).toHaveLength(3)
-
     instance.componentWillReceiveProps({ fetching: false, success: true });
     expect(instance.dialog.dismiss).toHaveBeenCalled()
     expect(navigationSpy).toHaveBeenCalled()
@@ -52,25 +49,16 @@ describe('Login Screen container', () => {
   });
 
   it('should call the confirmation function', () => {
-    const instance = content.instance();
     const pinCode = '1234'
-    instance.dialog = { show: jest.fn() }
     content.find('ConfirmationCodeInput').simulate('fulfill', pinCode)
     expect(instance.dialog.show).toHaveBeenCalled()
-    expect(dispatchSpy).toHaveBeenCalled();
     expect(dispatchSpy).toHaveBeenCalledWith(PinCodeActions.pinCodeRequest(pinCode));
     dispatchSpy.mockClear();
   })
 
   it('should call the navigation go back function', () => {
     content.find('Styled(Button)').at(0).simulate('press');
-    expect(navigationSpy).toHaveBeenCalled();
     expect(navigationSpy).toHaveBeenCalledWith(NavigationActions.back());
     navigationSpy.mockClear()
-  })
-
-  it('should show activity indicator when fetching', () => {
-    content.setProps({ fetching: true });
-    expect(content.find('ActivityIndicator')).toHaveLength(0)
   })
 });
