@@ -6953,10 +6953,6 @@ react-native-compat@^1.0.0:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-config@0.11.5:
-  version "0.11.5"
-  resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-0.11.5.tgz#516cb7b6ec437c7739236ca075971db3aabdcb95"
-
 react-native-confirmation-code-input@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/react-native-confirmation-code-input/-/react-native-confirmation-code-input-1.0.4.tgz#f5c2cced66f26b61050fea8bfd17473af1ad5ff9"
@@ -6997,6 +6993,10 @@ react-native-i18n@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-i18n/-/react-native-i18n-1.0.0.tgz#0c407d9ebb846aae1aa5e05de6503008553f02fd"
 
+react-native-image-picker@^0.26.7:
+  version "0.26.7"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-0.26.7.tgz#ad2ee957f7f6cc01396893ea03d84cb2adb2e376"
+
 react-native-iphone-x-helper@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.0.2.tgz#7dbca530930f7c1ce8633cc8fd13ba94102992e1"
@@ -7020,6 +7020,10 @@ react-native-safe-area-view@^0.6.0:
   resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.6.0.tgz#ce01eb27905a77780219537e0f53fe9c783a8b3d"
   dependencies:
     hoist-non-react-statics "^2.3.1"
+
+react-native-simple-radio-button@^2.7.1:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/react-native-simple-radio-button/-/react-native-simple-radio-button-2.7.1.tgz#4a4a5cae903b6bc680c5e4bd5931948aa7608da0"
 
 react-native-tab-view@^0.0.74:
   version "0.0.74"

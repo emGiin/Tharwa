@@ -23,7 +23,7 @@ class DrawerButton extends Component {
     onPress: PropTypes.func
   }
 
-  render () {
+  render() {
     return (
       <TouchableOpacity onPress={this.props.onPress}>
         <Text style={styles.text}>{this.props.text}</Text>
@@ -32,4 +32,4 @@ class DrawerButton extends Component {
   }
 }
 
-export default DrawerButton
+export { DrawerButton }

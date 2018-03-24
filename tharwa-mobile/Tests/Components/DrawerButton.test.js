@@ -1,7 +1,7 @@
 import 'react-native'
 import React from 'react'
 import { shallow } from 'enzyme'
-import DrawerButton from '../../App/Components/DrawerButton'
+import { DrawerButton } from '../../App/Components'
 
 describe('DrawerButton component', () => {
   let container, content;

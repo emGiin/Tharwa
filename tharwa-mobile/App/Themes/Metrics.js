@@ -1,4 +1,4 @@
-import {Dimensions, Platform} from 'react-native'
+import { Dimensions, Platform } from 'react-native'
 
 const { width, height } = Dimensions.get('window')
 
@@ -12,9 +12,9 @@ const metrics = {
   smallMargin: 5,
   doubleSection: 50,
   horizontalLineHeight: 1,
-  screenWidth: width < height ? width : height,
-  screenHeight: width < height ? height : width,
-  navBarHeight: (Platform.OS === 'ios') ? 64 : 54,
+  screenWidth: /* istanbul ignore next*/ width < height ? width : height,
+  screenHeight: /* istanbul ignore next*/ width < height ? height : width,
+  navBarHeight: /* istanbul ignore next*/ (Platform.OS === 'ios') ? 64 : 54,
   buttonRadius: 4,
   icons: {
     tiny: 15,

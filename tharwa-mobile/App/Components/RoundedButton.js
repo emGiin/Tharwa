@@ -17,7 +17,7 @@ ExamplesRegistry.addComponentExample('Rounded Button', () =>
   />
 )
 
-export default class RoundedButton extends Component {
+class RoundedButton extends Component {
   static propTypes = {
     onPress: PropTypes.func,
     text: PropTypes.string,
@@ -25,12 +25,12 @@ export default class RoundedButton extends Component {
     navigator: PropTypes.object
   }
 
-  getText () {
+  getText() {
     const buttonText = this.props.text || this.props.children || ''
     return buttonText.toUpperCase()
   }
 
-  render () {
+  render() {
     return (
       <TouchableOpacity style={styles.button} onPress={this.props.onPress}>
         <Text style={styles.buttonText}>{this.getText()}</Text>
@@ -38,3 +38,5 @@ export default class RoundedButton extends Component {
     )
   }
 }
+
+export { RoundedButton }
