@@ -8,7 +8,7 @@ import { CameraPicker, NextPrevious } from "../../../Components";
 import fomrsStyles from '../Styles/SignupFormStyle'
 import styles from './Styles/FourthStepFormStyle'
 
-class FourthStepForm extends Component {
+export class FourthStepForm extends Component {
   state = { picture: '' }
 
   capturePicture = (picture) => {
@@ -22,7 +22,7 @@ class FourthStepForm extends Component {
       <Container style={fomrsStyles.mainformContainer}>
         <View style={styles.container}>
           <Text style={styles.detailsText}>
-            Veuillez vous prendre en photo pour votre compte bancaire en cliquant sur l'image ci-dessous
+            {I18n.t('signupPictureHint')}
           </Text>
           <Field
             name={'picture'}
@@ -30,7 +30,7 @@ class FourthStepForm extends Component {
             onCapture={this.capturePicture.bind(this)}
             previousPage={previousPage}
             style={styles.buttonContainer}
-            buttonComponent={() => <Image style={styles.imagePreview} source={imageSrc} />}
+            buttonComponent={/* istanbul ignore next */() => <Image style={styles.imagePreview} source={imageSrc} />}
           />
         </View>
         <NextPrevious onPrevious={previousPage} onSubmit={handleSubmit} />

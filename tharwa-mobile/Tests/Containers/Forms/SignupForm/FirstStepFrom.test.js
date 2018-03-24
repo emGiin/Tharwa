@@ -3,7 +3,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { FirstStepForm } from '../../../../App/Containers/Forms/SignupForm/FirstStepForm'
 
-describe('LoginForm Component', () => {
+describe('Signup FirstStepForm Component', () => {
   let container, content, instance;
   const spy = jest.fn();
 
