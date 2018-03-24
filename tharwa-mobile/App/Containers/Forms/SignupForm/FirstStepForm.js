@@ -79,7 +79,7 @@ export class FirstStepForm extends Component {
   }
 }
 
-const StepForm = reduxForm({
+let StepForm = reduxForm({
   form: 'signup',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,

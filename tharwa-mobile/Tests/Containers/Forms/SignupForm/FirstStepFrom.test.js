@@ -20,6 +20,7 @@ describe('LoginForm Component', () => {
 
   it("should render correctly", () => {
     expect(container).toHaveLength(1);
+    expect(content.find('Field')).toHaveLength(3)
   });
 
   describe('password matching', () => {
