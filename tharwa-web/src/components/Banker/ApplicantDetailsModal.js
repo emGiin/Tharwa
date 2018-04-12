@@ -15,14 +15,14 @@ class ApplicantDetailsModal extends Component {
         <Modal
           visible={visible}
           title="Détails"
-          onCancel={this.handleCancel}
+          onCancel={this.props.onCancel}
           footer={[
             <Button
               type="primary"
               key="validate"
               size="large"
               disabled={loading}
-              onClick={this.handleValidate}
+              onClick={this.handleValidate(record.email).bind(this)}
             >
               <Icon type="user-add" /> Valider
             </Button>,
@@ -57,22 +57,13 @@ class ApplicantDetailsModal extends Component {
   }
 
 
-  handleCancel = () => {
-    // TODO : set visibility to false
-  };
-
-  handleValidate() {
-    console.log("Valider");
-    //TODO : Send validation request
-
-    // //if success
-    // Modal.success({
-    //   title: "Demande d'inscription validée",
-    //   content: ""
-    // });
+  handleValidate(email) {
+    this.props.acceptDemand(email);
   }
 
   handleConfirmReject(nom, prenom) {
+    const email=this.props.user.email;
+    const rejectDemand=this.props.rejectDemand;
     confirm({
       title: 'Voulez-vous vraiment rejeter cette demande?',
       content: `Nom: ${nom} ${prenom}`,
@@ -80,10 +71,10 @@ class ApplicantDetailsModal extends Component {
       okType: 'danger',
       cancelText: 'Annuler',
       onOk() {
-        //TODO : Send Rejection request 
+        rejectDemand(email)
       },
       onCancel() {
-        //TODO : set visibility to false         
+                 
       }
     });
   }

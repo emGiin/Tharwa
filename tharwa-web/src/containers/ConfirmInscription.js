@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { LoadingSpinner} from "../components/Reusable Components"
 
 import ConfirmActions from "../redux/ConfirmInscriptionRedux";
 
@@ -16,7 +17,8 @@ class ConfirmInscription extends Component {
   render(){
     console.log('data',this.props.reqList.list);
     return(
-      <RequestsTable list={this.props.reqList.list}/>
+      this.props.reqList.fetching? <LoadingSpinner />:
+      <RequestsTable actionState={this.props.DemandAction} rejectDemand={this.props.rejectDemand} acceptDemand={this.props.acceptDemand} list={this.props.reqList.list}/>
     );
   }
 }
@@ -29,14 +31,20 @@ const mapStateToProps = state => {
     error,
     success
   }))(state.confirmInscription);
-  console.log(state.confirmInscription.list)
-  return { reqList };
+
+  const DemandAction= (({ actionFetching, actionError, actionSuccess }) => ({
+    actionFetching,
+    actionError,
+    actionSuccess
+  }))(state.confirmInscription);
+  return { reqList, DemandAction };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getReqList: () =>
-      dispatch(ConfirmActions.reqListRequest())
+    getReqList: () => dispatch(ConfirmActions.reqListRequest()) ,
+    rejectDemand: (email)=> dispatch(ConfirmActions.rejectRequest(email)) ,
+    acceptDemand: (email)=> dispatch(ConfirmActions.validateRequest(email))
   };
 };
 

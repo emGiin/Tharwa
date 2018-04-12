@@ -15,9 +15,12 @@ const create = (baseURL = API_URL) => {
   const removeAuthToken = () => api.setHeader('Authorization', '')
   const removePinCode=() => api.setHeader('code_pin','')
 
-  const  getRequestsList= (data) => {
-    console.log('API');
-    return api.post('requestsList', data)
+  const  getRequestsList= () => {
+    return api.get('newRequests')
+  }
+
+  const inscriptionAction=(body)=>{
+    return api.post('newRequests',body)
   }
   return {
     api,
@@ -25,7 +28,8 @@ const create = (baseURL = API_URL) => {
     setAuthToken,
     setPinCode,
     removeAuthToken,
-    removePinCode
+    removePinCode,
+    inscriptionAction
   }
 }
 

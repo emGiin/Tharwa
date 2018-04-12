@@ -12,7 +12,7 @@ import { ConfirmInscriptionTypes } from '../redux/ConfirmInscriptionRedux'
 /* ------------- Sagas ------------- */
 import { login, logout, loadToken } from './AuthSaga'
 import { confirmPinCode } from './PinCodeSaga'
-import { getRequestsList } from './ConfirmInscriptionSaga'
+import { getRequestsList, acceptDemand, rejectDemand } from './ConfirmInscriptionSaga'
 
 /* ------------- API ------------- */
 const api = useFixtures ? FixtureAPI : AuthAPI.create()
@@ -29,5 +29,9 @@ export default function* root() {
     takeLatest(PinCodeTypes.PIN_CODE_REQUEST, confirmPinCode, api),
 
     takeLatest(ConfirmInscriptionTypes.REQ_LIST_REQUEST,getRequestsList , api_),
+
+    takeLatest(ConfirmInscriptionTypes.VALIDATE_REQUEST,acceptDemand , api_),
+    
+    takeLatest(ConfirmInscriptionTypes.REJECT_REQUEST,rejectDemand , api_),
   ])
 }

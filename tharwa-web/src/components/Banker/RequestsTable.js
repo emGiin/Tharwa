@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Table, Icon, Modal } from "antd";
 
 import RoundedImage from "../Reusable Components/RoundedImage";
+import ApplicantDetailsModal from "./ApplicantDetailsModal";
+import { LoadingSpinner } from "../Reusable Components";
+import { acceptDemand } from "../../sagas/ConfirmInscriptionSaga";
 
 const confirm = Modal.confirm;
 
@@ -9,7 +12,9 @@ class RequestsTable extends Component {
   state = {
     pagination: {},
     loading: false,
-    data: []
+    data: [],
+    selectedUser:{},
+    isModalVisible: false
   };
 
   columns = [
@@ -66,11 +71,12 @@ class RequestsTable extends Component {
   ];
 
   handleClickDetails(record) {
-    //TODO : request modal to show with `record`
+    this.showDetailsModal(record)
   }
 
   handleConfirmReject(record) {
     const { nom, prenom } = record;
+    const rejectDemand=this.props.rejectDemand;
     confirm({
       title: "Voulez-vous vraiment rejeter cette demande?",
       content: `Nom: ${nom} ${prenom}`,
@@ -78,7 +84,7 @@ class RequestsTable extends Component {
       okType: "danger",
       cancelText: "Annuler",
       onOk() {
-        //TODO : send reject action on `record`
+         rejectDemand(record.email);
       },
       onCancel() {
         console.log("Cancel");
@@ -87,14 +93,21 @@ class RequestsTable extends Component {
   }
 
   handleValidate(record) {
-    //TODO : send validation action on `record`
-    
+    this.props.acceptDemand(record.email);
     // //if success call confirmValidate
+    
     // Modal.success({
     //   title: "Demande d'inscription validée",
     //   content: ""
     // });
   }
+
+  showDetailsModal(record){
+    this.setState({
+      selectedUser:record,
+      isModalVisible:true
+    })
+  } 
 
   handleTableChange = (pagination, filters, sorter) => {
     const pager = { ...this.state.pagination };
@@ -127,7 +140,27 @@ class RequestsTable extends Component {
     this.fetch();
   }
   render() {
+    this.props.actionState.actionSuccess &&
+      Modal.success({
+          title: "Action réussie!",
+          content: ""
+        })
+    this.props.actionState.actionError &&
+        Modal.error({
+            title: "Erreur",
+            content: this.props.actionState.actionError
+          })
     return (
+      this.props.actionState.actionFetching?<LoadingSpinner/>:
+      <div>
+
+        <ApplicantDetailsModal actionState={this.props.actionState} user={this.state.selectedUser} visible={this.state.isModalVisible}
+         onCancel={()=>{
+           this.setState({
+             selectedUser:{},
+             isModalVisible: false
+           })
+           }}/>
       <Table
         columns={this.columns}
         rowKey={record => record.registered}
@@ -135,7 +168,16 @@ class RequestsTable extends Component {
         pagination={this.state.pagination}
         loading={this.state.loading}
         onChange={this.handleTableChange}
+/*onRow={(record)=>{
+          
+          return{
+            onClick:()=>{
+             this.showDetailsModal(record)
+            }
+          }
+        }}*/
       />
+      </div>
     );
   }
 }

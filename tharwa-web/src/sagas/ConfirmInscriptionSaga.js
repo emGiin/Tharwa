@@ -8,12 +8,7 @@ export const selectAuthToken = state => state.auth.authToken;
 ////To do
 
 export function* getRequestsList(api) {
-  const body = {
-    client_id: "1",
-    grant_type: "password"
-  };
   //Headers
-console.log('here0');
   const authToken = yield select(selectAuthToken);
   if (authToken) {
     yield call(api.setAuthToken, authToken);
@@ -22,17 +17,68 @@ console.log('here0');
   //if (pinCode) {
   //  yield call(api.setPinCode, pinCode);
   // }
-console.log('here1', api);
 
   
-  const response = yield call(api.getRequestsList,body);
+  const response = yield call(api.getRequestsList);
 
-  console.log('here2', response);
   if (response.ok) {
     yield put(ConfirmInscriptionActions.reqListSuccess());
     yield put(ConfirmInscriptionActions.saveReqList(response.data));
   } else {
     yield put(ConfirmInscriptionActions.reqListFailure("code pin ou token invalide ou expiré!"));
   }
+}
+
+export function* rejectDemand(api,email){
+  console.log("start");
+  //Headers
+  const authToken = yield select(selectAuthToken);
+  if (authToken) {
+    yield call(api.setAuthToken, authToken);
+  }
+  //const pinCode = yield select(selectPinCode);
+  //if (pinCode) {
+  //  yield call(api.setPinCode, pinCode);
+  // }
+  const body={
+    email:email,
+    code: 0
+  };
+  console.log("1");
+  const response = yield call(api.inscriptionAction,body);
+  console.log("ok");
+  if (response.ok) {
+    yield put(ConfirmInscriptionActions.actionSuccess());
+    yield put(ConfirmInscriptionActions.reqListRequest());
+  } else {
+    yield put(ConfirmInscriptionActions.actionFailure("code pin ou token invalide ou expiré!"));
+  }
+
+}
+
+export function* acceptDemand(api,email){
+  //Headers
+  const authToken = yield select(selectAuthToken);
+  if (authToken) {
+    yield call(api.setAuthToken, authToken);
+  }
+  //const pinCode = yield select(selectPinCode);
+  //if (pinCode) {
+  //  yield call(api.setPinCode, pinCode);
+  // }
+  const body={
+    email:email,
+    code: 1
+  };
+
+  const response = yield call(api.inscriptionAction,body);
+
+  if (response.ok) {
+    yield put(ConfirmInscriptionActions.actionSuccess());
+    yield put(ConfirmInscriptionActions.reqListRequest());
+  } else {
+    yield put(ConfirmInscriptionActions.actionFailure("code pin ou token invalide ou expiré!"));
+  }
+
 }
 
