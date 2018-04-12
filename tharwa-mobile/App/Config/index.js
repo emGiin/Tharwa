@@ -1,3 +1,4 @@
+import '../I18n/I18n'
 import { Text } from 'react-native'
 import DebugConfig from './DebugConfig'
 import AppConfig from './AppConfig'

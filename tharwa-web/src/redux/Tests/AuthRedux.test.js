@@ -47,15 +47,17 @@ describe("Authentication REDUX", () => {
   })
 
   it('should handle tokenSave', () => {
-    const authToken = 'token'
-    const state = reducer(INITIAL_STATE, Actions.saveAuthToken(authToken))
+    const authToken = 'token';
+    const pinCode = '123';
+    const state = reducer(INITIAL_STATE, Actions.saveAuthToken(authToken, pinCode))
 
-    expect(state.authToken).toBe(authToken)
+    expect(state.authToken).toBe(authToken);
+    expect(state.pinCode).toBe(pinCode);
   })
 
   it('should handle logoutRequest', () => {
     const authToken = 'token'
-    const loginState = reducer(INITIAL_STATE, Actions.saveAuthToken(authToken))
+    const loginState = reducer(INITIAL_STATE, Actions.saveAuthToken(authToken, 1234))
     const state = reducer(loginState, Actions.logoutRequest())
 
     expect(state.authToken).toBeNull()

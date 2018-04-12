@@ -20,7 +20,6 @@ export function* login(api, { email, password, confirmationMethod }) {
   if (response.ok) {
     yield put(AuthActions.authSuccess())
     yield put(PinCodeActions.savePinCodeToken(response.data.temporary_token))
-    // yield put({ type: 'RELOGIN_OK' })
   } else {
     yield put(AuthActions.authFailure(I18n.t('authDialogDescriptionErreur')))
   }

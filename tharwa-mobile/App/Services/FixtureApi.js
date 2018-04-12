@@ -37,4 +37,26 @@ export default {
       }
     }
   },
+  signup: (data) => {
+    if (
+      data.email === 'user@email.com' &&
+      data.password === 'password' &&
+      data.lastName === 'lastName' &&
+      data.firstName === 'firstName' &&
+      data.phone === '0666666666' &&
+      data.address === 'address' &&
+      data.address === 'address' &&
+      data.function === 'student' &&
+      data.type === '1' &&
+      data.picture === 'picture'
+    ) {
+      return { ok: true }
+    } else {
+      return {
+        ok: false,
+        status: 400,
+        data: 'validation error'
+      }
+    }
+  }
 }

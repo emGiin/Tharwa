@@ -12,7 +12,7 @@ describe("Authentication SAGA", () => {
     const authObj = {
       username: "user@email.com",
       password: "password",
-      confirmation_method: 2,
+      confirmation_method: "sms",
       client_id: "1",
       grant_type: "password"
     };
@@ -23,7 +23,7 @@ describe("Authentication SAGA", () => {
       login(FixtureAPI, {
         email: "user@email.com",
         password: "password",
-        confirmationMethod: 2
+        confirmationMethod: "sms"
       })
     );
 
@@ -40,7 +40,7 @@ describe("Authentication SAGA", () => {
     const authObj = {
       username: "use@email.com",
       password: "password",
-      confirmation_method: 2,
+      confirmation_method: "sms",
       client_id: "1",
       grant_type: "password"
     };
@@ -51,7 +51,7 @@ describe("Authentication SAGA", () => {
       login(FixtureAPI, {
         email: "use@email.com",
         password: "password",
-        confirmationMethod: 2
+        confirmationMethod: "sms"
       })
     );
 

@@ -29,7 +29,7 @@ describe('PIN CODE SAGA', () => {
     expect(step(pinCodeObj.temporary_token)).toEqual(select(selectPinCodeToken))
 
     expect(step(response)).toEqual(call(FixtureAPI.confirmPinCode, {
-      pin_code: pinCode,
+      pin: pinCode,
       temporary_token: response
     }))
     // Set the auth token on the API
@@ -61,11 +61,11 @@ describe('PIN CODE SAGA', () => {
     expect(step(pinCodeObj.temporary_token)).toEqual(select(selectPinCodeToken))
 
     expect(step(response)).toEqual(call(FixtureAPI.confirmPinCode, {
-      pin_code: pinCode,
+      pin: pinCode,
       temporary_token: response
     }))
     // Set the auth token on the API
-    expect(step(response)).toEqual(put(PinCodeActions.pinCodeFailure('Le code pin introduit \nest errorné ou a expiré')))
+    expect(step(response)).toEqual(put(PinCodeActions.pinCodeFailure('Le code pin introduit \nest erroné ou a expiré')))
   })
 
   it('should select the pin code token', () => {
