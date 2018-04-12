@@ -22,7 +22,7 @@ class ApplicantDetailsModal extends Component {
               key="validate"
               size="large"
               disabled={loading}
-              onClick={this.handleValidate(record.email).bind(this)}
+              onClick={()=>this.props.handleValidate(record)}
             >
               <Icon type="user-add" /> Valider
             </Button>,
@@ -31,7 +31,7 @@ class ApplicantDetailsModal extends Component {
               key="reject"
               size="large"
               disabled={loading}
-              onClick={this.handleConfirmReject}
+              onClick={()=>this.props.handleConfirmReject(record)}
             >
               <Icon type="user-delete" /> Rejeter
             </Button>
@@ -56,28 +56,6 @@ class ApplicantDetailsModal extends Component {
     );
   }
 
-
-  handleValidate(email) {
-    this.props.acceptDemand(email);
-  }
-
-  handleConfirmReject(nom, prenom) {
-    const email=this.props.user.email;
-    const rejectDemand=this.props.rejectDemand;
-    confirm({
-      title: 'Voulez-vous vraiment rejeter cette demande?',
-      content: `Nom: ${nom} ${prenom}`,
-      okText: 'Oui',
-      okType: 'danger',
-      cancelText: 'Annuler',
-      onOk() {
-        rejectDemand(email)
-      },
-      onCancel() {
-                 
-      }
-    });
-  }
 }
 
 export default ApplicantDetailsModal;

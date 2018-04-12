@@ -3,6 +3,7 @@ import Immutable from "seamless-immutable";
 
 //Actions
 const { Types, Creators } = createActions({
+  setDefault:[],
   rejectRequest: ["email"],
   validateRequest:["email"],
   actionSuccess:[],
@@ -28,6 +29,8 @@ const INITIAL_STATE = Immutable({
 });
 
 //Functions
+export const setDefault= state=> state.merge({ actionSuccess: false , actionError:null });
+
 export const request = state => state.merge({ fetching: true, success: false, error: null });
 
 export const success = state =>
@@ -55,5 +58,6 @@ export const reducer = createReducer(INITIAL_STATE, {
     [Types.REJECT_REQUEST]: actionReq,
     [Types.VALIDATE_REQUEST]: actionReq,
     [Types.ACTION_SUCCESS]: actionSuccess,
-    [Types.ACTION_FAILURE]: actionFailure
+    [Types.ACTION_FAILURE]: actionFailure,
+    [Types.SET_DEFAULT]: setDefault
 });

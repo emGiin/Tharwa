@@ -77,6 +77,7 @@ class RequestsTable extends Component {
   handleConfirmReject(record) {
     const { nom, prenom } = record;
     const rejectDemand=this.props.rejectDemand;
+    
     confirm({
       title: "Voulez-vous vraiment rejeter cette demande?",
       content: `Nom: ${nom} ${prenom}`,
@@ -94,12 +95,6 @@ class RequestsTable extends Component {
 
   handleValidate(record) {
     this.props.acceptDemand(record.email);
-    // //if success call confirmValidate
-    
-    // Modal.success({
-    //   title: "Demande d'inscription validée",
-    //   content: ""
-    // });
   }
 
   showDetailsModal(record){
@@ -140,21 +135,26 @@ class RequestsTable extends Component {
     this.fetch();
   }
   render() {
+    const setDefault=this.props.setDefault;
     this.props.actionState.actionSuccess &&
       Modal.success({
           title: "Action réussie!",
-          content: ""
+          content: "",
+          onOk(){
+            setDefault();
+          }
         })
     this.props.actionState.actionError &&
         Modal.error({
             title: "Erreur",
             content: this.props.actionState.actionError
           })
+
     return (
       this.props.actionState.actionFetching?<LoadingSpinner/>:
       <div>
 
-        <ApplicantDetailsModal actionState={this.props.actionState} user={this.state.selectedUser} visible={this.state.isModalVisible}
+        <ApplicantDetailsModal handleValidate={this.handleValidate.bind(this)} handleConfirmReject={this.handleConfirmReject.bind(this)} actionState={this.props.actionState} user={this.state.selectedUser} visible={this.state.isModalVisible}
          onCancel={()=>{
            this.setState({
              selectedUser:{},
