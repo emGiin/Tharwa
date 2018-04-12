@@ -33,7 +33,6 @@ class ClientController extends Controller
             'password' => 'required|max:100',
             'address' => 'required|max:255',
             'phone' => 'required|max:100',
-//            'picture' => 'required|mimes:jpeg,bmp,png',//image
             'picture' => 'required',//image
             'function' => 'required|max:100',
             'type' => 'required|digits:1',//todo number or in ['Client', 'Employeur']
@@ -49,7 +48,6 @@ class ClientController extends Controller
         try {
 
             //save image from 64base
-//            $file_name = time() . ".jpeg";
             $file_name = strtoupper(md5(uniqid(rand(),true))) . ".jpeg";
             $path = 'pictures/client/'. $file_name;
 
@@ -82,7 +80,6 @@ class ClientController extends Controller
 
             if (Storage::exists($path)) Storage::delete($path);
 
-            dd($e);
             return response(["saved" => false], config('code.UNKNOWN_ERROR'));
 
         }
