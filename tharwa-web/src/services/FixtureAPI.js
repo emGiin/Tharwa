@@ -5,7 +5,7 @@ export default {
     if (
       authObj.username === "user@email.com" &&
       authObj.password === "password" &&
-      [1, 2].includes(authObj.confirmation_method)
+      ["email", "sms"].includes(authObj.confirmation_method)
     ) {
       return {
         ok: true,
