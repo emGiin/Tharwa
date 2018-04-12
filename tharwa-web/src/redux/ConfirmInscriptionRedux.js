@@ -33,8 +33,13 @@ export const setDefault= state=> state.merge({ actionSuccess: false , actionErro
 
 export const request = state => state.merge({ fetching: true, success: false, error: null });
 
-export const success = state =>
-  state.merge({ fetching: false, error: null, success: true });
+export const success = state =>{
+  setTimeout(() => {
+    Creators.setDefault()
+  }, 1000);
+  return state.merge({ fetching: false, error: null, success: true });
+}
+  
 
 export const saveReqList = (state, { list }) => state.merge({ list });
 

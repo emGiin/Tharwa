@@ -4,8 +4,9 @@ import ConfirmInscriptionActions from "../redux/ConfirmInscriptionRedux";
 
 //get Token from the store
 export const selectAuthToken = state => state.auth.authToken;
+
 //get Pin code from the store
-////To do
+export const selectPinCode= state=>state.auth.pinCode;
 
 export function* getRequestsList(api) {
   //Headers
@@ -13,10 +14,10 @@ export function* getRequestsList(api) {
   if (authToken) {
     yield call(api.setAuthToken, authToken);
   }
-  //const pinCode = yield select(selectPinCode);
-  //if (pinCode) {
-  //  yield call(api.setPinCode, pinCode);
-  // }
+  const pinCode = yield select(selectPinCode);
+  if (pinCode) {
+    yield call(api.setPinCode, pinCode);
+   }
 
   
   const response = yield call(api.getRequestsList);
@@ -36,10 +37,10 @@ export function* rejectDemand(api,email){
   if (authToken) {
     yield call(api.setAuthToken, authToken);
   }
-  //const pinCode = yield select(selectPinCode);
-  //if (pinCode) {
-  //  yield call(api.setPinCode, pinCode);
-  // }
+  const pinCode = yield select(selectPinCode);
+  if (pinCode) {
+    yield call(api.setPinCode, pinCode);
+   }
   const body={
     email:email,
     code: 0
@@ -62,10 +63,10 @@ export function* acceptDemand(api,email){
   if (authToken) {
     yield call(api.setAuthToken, authToken);
   }
-  //const pinCode = yield select(selectPinCode);
-  //if (pinCode) {
-  //  yield call(api.setPinCode, pinCode);
-  // }
+  const pinCode = yield select(selectPinCode);
+  if (pinCode) {
+    yield call(api.setPinCode, pinCode);
+   }
   const body={
     email:email,
     code: 1
