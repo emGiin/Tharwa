@@ -73,7 +73,7 @@ class LoadingDialog extends Component {
         height={170}
         dismissOnTouchOutside={!fetching}
         dismissOnHardwareBackPress={!fetching}
-        ref={(dialog) => { this.dialog = dialog; this.props.init(dialog); }}
+        ref={/* istanbul ignore next*/(dialog) => { this.dialog = dialog; this.props.init(dialog); }}
         dialogAnimation={slideAnimation}
         dialogTitle={<DialogTitle title={dialogTitle} />}
         onShown={() => this.setState({ new: false })}

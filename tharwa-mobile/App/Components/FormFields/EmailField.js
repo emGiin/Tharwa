@@ -24,7 +24,7 @@ class EmailField extends Component {
             placeholderTextColor={"#ffffff90"} />
           {meta.invalid && meta.touched && <Icon style={styles.alertIcon} name='md-alert' />}
         </Item>
-        {meta.invalid && meta.touched && <Text style={styles.errorText}> {meta.error} </Text>}
+        {meta.invalid && meta.touched && <Text style={styles.errorText}>{meta.error}</Text>}
       </View>
     );
   }

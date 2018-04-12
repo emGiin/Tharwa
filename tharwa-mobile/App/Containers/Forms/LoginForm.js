@@ -9,6 +9,7 @@ import { EmailField, PasswordField } from '../../Components'
 
 
 const LoginForm = ({ editable, handleSubmit, onRegisterClicked }) => {
+  /* istanbul ignore next*/
   const focusOnPassword = () => {
     this.password.getRenderedComponent().refs.password._root.focus()
   }
@@ -27,7 +28,7 @@ const LoginForm = ({ editable, handleSubmit, onRegisterClicked }) => {
 
         <Field
           withRef
-          ref={(componentRef) => this.password = componentRef}
+          ref={/* istanbul ignore next*/(componentRef) => this.password = componentRef}
           refField="password"
           name={'password'}
           placeholder={I18n.t('passwordPlaceholder')}

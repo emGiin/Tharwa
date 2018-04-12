@@ -10,7 +10,7 @@ import {
 } from '../../../Helpers/validators'
 import styles from '../Styles/SignupFormStyle'
 
-class ThirdStepForm extends Component {
+export class ThirdStepForm extends Component {
   functions = [
     { label: 'Etudiant', value: 'student' },
     { label: 'Ingénieur', value: 'engineer' },
@@ -21,7 +21,9 @@ class ThirdStepForm extends Component {
   }
 
   focusOn = (field) => {
-    this[field].getRenderedComponent().refs[field]._root.focus()
+    /* istanbul ignore next */
+    if (this[field] && this[field].getRenderedComponent)
+      this[field].getRenderedComponent().refs[field]._root.focus()
   }
 
   render() {
@@ -34,7 +36,7 @@ class ThirdStepForm extends Component {
             withRef
             refField="phone"
             icon={'md-keypad'}
-            ref={ref => this.phone = ref}
+            ref={/* istanbul ignore next */ref => this.phone = ref}
             onEnter={() => this.focusOn('address')}
             component={InputField}
             editable={editable}
@@ -47,7 +49,7 @@ class ThirdStepForm extends Component {
           <Field
             withRef
             icon={'ios-home'}
-            ref={ref => this.address = ref}
+            ref={/* istanbul ignore next */ref => this.address = ref}
             refField="address"
             name={'address'}
             component={InputField}

@@ -29,7 +29,7 @@ class InputField extends Component {
             {...input} />
           {meta.invalid && meta.touched && <Icon style={styles.alertIcon} name='md-alert' />}
         </Item>
-        {meta.invalid && meta.touched && <Text style={styles.errorText}> {meta.error} </Text>}
+        {meta.invalid && meta.touched && <Text style={styles.errorText}>{meta.error}</Text>}
       </View>
     );
   }

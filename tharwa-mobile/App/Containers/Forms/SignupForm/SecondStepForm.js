@@ -6,13 +6,15 @@ import { InputField, NextPrevious } from '../../../Components'
 import { nameValidators } from '../../../Helpers/validators'
 import styles from '../Styles/SignupFormStyle'
 
-class SecondStepForm extends Component {
+export class SecondStepForm extends Component {
   componentDidMount() {
     this.focusOn('lastName')
   }
 
   focusOn = (field) => {
-    this[field].getRenderedComponent().refs[field]._root.focus()
+    /* istanbul ignore next */
+    if (this[field] && this[field].getRenderedComponent)
+      this[field].getRenderedComponent().refs[field]._root.focus()
   }
 
   render() {
@@ -24,7 +26,7 @@ class SecondStepForm extends Component {
             name={'lastName'}
             withRef
             refField="lastName"
-            ref={ref => this.lastName = ref}
+            ref={/* istanbul ignore next */ref => this.lastName = ref}
             onEnter={() => this.focusOn('firstName')}
             component={InputField}
             editable={editable}
@@ -35,7 +37,7 @@ class SecondStepForm extends Component {
 
           <Field
             withRef
-            ref={ref => this.firstName = ref}
+            ref={/* istanbul ignore next */ref => this.firstName = ref}
             refField="firstName"
             name={'firstName'}
             component={InputField}
@@ -45,7 +47,7 @@ class SecondStepForm extends Component {
             placeholder={I18n.t('firstName')}
           />
         </Content>
-        <NextPrevious onPrevious={previousPage} onSubmit={handleSubmit}/>
+        <NextPrevious onPrevious={previousPage} onSubmit={handleSubmit} />
       </Container>
     )
   }

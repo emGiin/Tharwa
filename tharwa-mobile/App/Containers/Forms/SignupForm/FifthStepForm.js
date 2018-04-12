@@ -8,7 +8,7 @@ import { RadioField, NextPrevious } from '../../../Components'
 import styles from '../Styles/SignupFormStyle'
 import formStyles from './Styles/FifthStepFormStyle'
 
-class FifthStepForm extends Component {
+export class FifthStepForm extends Component {
   radio_props = [
     { label: 'Non', value: 0 },
     { label: 'Oui ', value: 1 }
@@ -37,18 +37,19 @@ class FifthStepForm extends Component {
   }
 }
 
-FifthStepForm = reduxForm({
+let StepForm = reduxForm({
   form: 'signup',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
 })(FifthStepForm);
 
 // connect our component again to get some additional state
-FifthStepForm = connect(
+StepForm = connect(
+  /* istanbul ignore next */
   state => {
     const picture = formValueSelector('signup')(state, 'picture')
     return { picture }
   }
-)(FifthStepForm)
+)(StepForm)
 
-export default FifthStepForm
+export default StepForm

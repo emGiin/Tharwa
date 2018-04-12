@@ -13,6 +13,15 @@ import { LoginForm } from '../Forms'
 // Styles
 import styles from './Styles/LoginScreenStyle'
 
+/* istanbul ignore next */
+const LogoImage = () => {
+  return (
+    <View style={styles.logoContainer}>
+      <Image source={Images.logo} style={styles.logo} />
+    </View>
+  )
+}
+
 class LoginScreen extends Component {
   static propTypes = {
     fetching: PropTypes.bool,
@@ -22,6 +31,7 @@ class LoginScreen extends Component {
   }
 
   componentWillReceiveProps(props) {
+    /* istanbul ignore else */
     if (!props.fetching && props.success) {
       this.dialog.dismiss();
       this.goToPinCodePage();
@@ -60,7 +70,7 @@ class LoginScreen extends Component {
     return (
       <Container style={styles.mainContainer}>
         <LoadingDialog
-          init={dialog => { this.dialog = dialog }}
+          init={/* istanbul ignore next */dialog => { this.dialog = dialog }}
           error={error}
           errorTitle={I18n.t('authDialogTitleError')}
           fetching={fetching}
@@ -72,9 +82,7 @@ class LoginScreen extends Component {
           {this.renderConfirmationMethod(fetching)}
         </LoadingDialog>
         <Content>
-          <View style={styles.logoContainer}>
-            <Image source={Images.logo} style={styles.logo} />
-          </View>
+          <LogoImage />
           <LoginForm
             onSubmit={this.loginFormSubmit}
             onRegisterClicked={this.goToSignUpPage}

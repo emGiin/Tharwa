@@ -8,17 +8,18 @@ import { EmailField, PasswordField, NextPrevious } from '../../../Components'
 import styles from '../Styles/SignupFormStyle'
 
 
-class FirstStepForm extends Component {
+export class FirstStepForm extends Component {
   componentDidMount() {
     this.focusOn('email')
   }
 
   focusOn = (field) => {
-    this[field].getRenderedComponent().refs[field]._root.focus()
+    /* istanbul ignore next */
+    if (this[field] && this[field].getRenderedComponent)
+      this[field].getRenderedComponent().refs[field]._root.focus()
   }
 
-  validatePasswords = () => {
-    const { password, passwordConfirmation } = this.props
+  validatePasswords = ({ password, passwordConfirmation }) => {
     if (
       !passwordValidators[0](password) &&
       !passwordValidators[0](password) &&
@@ -27,20 +28,19 @@ class FirstStepForm extends Component {
       password !== passwordConfirmation
     ) {
       return <Text style={{ color: '#e74c3cd0', fontSize: 13 }}>{I18n.t('passwordsDoNotMatch')}</Text>
-    }
-    return false;
+    } else return null;
   }
 
   render() {
     const { editable, handleSubmit } = this.props;
-    const error = this.validatePasswords();
+    const error = this.validatePasswords(this.props);
     return (
       <Container style={styles.mainformContainer}>
         <Content style={styles.inputContainer} >
           <Field
             withRef
             refField="email"
-            ref={ref => this.email = ref}
+            ref={/* istanbul ignore next */ref => this.email = ref}
             name={'email'}
             placeholder={I18n.t('emailPlaceholder')}
             onEnter={() => this.focusOn('password')}
@@ -51,7 +51,7 @@ class FirstStepForm extends Component {
 
           <Field
             withRef
-            ref={ref => this.password = ref}
+            ref={/* istanbul ignore next */ref => this.password = ref}
             refField="password"
             name={'password'}
             onEnter={() => this.focusOn('passwordConfirmation')}
@@ -63,7 +63,7 @@ class FirstStepForm extends Component {
 
           <Field
             withRef
-            ref={ref => this.passwordConfirmation = ref}
+            ref={/* istanbul ignore next */ref => this.passwordConfirmation = ref}
             refField="passwordConfirmation"
             name={'passwordConfirmation'}
             placeholder={I18n.t('passwordConfitmationPlaceholder')}
@@ -79,18 +79,19 @@ class FirstStepForm extends Component {
   }
 }
 
-FirstStepForm = reduxForm({
+let StepForm = reduxForm({
   form: 'signup',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
 })(FirstStepForm);
 
 // connect our component again to get some additional state
-FirstStepForm = connect(
+StepForm = connect(
+  /* istanbul ignore next */
   state => ({
     password: formValueSelector('signup')(state, 'password'),
     passwordConfirmation: formValueSelector('signup')(state, 'passwordConfirmation')
   })
-)(FirstStepForm)
+)(StepForm)
 
-export default FirstStepForm
+export default StepForm

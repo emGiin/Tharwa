@@ -40,7 +40,7 @@ class PasswordField extends Component {
               : <Icon name={!showPassword ? 'eye-off' : 'eye'} style={styles.inputIcon} onPress={this.togglePassword.bind(this)} />
           }
         </Item>
-        {meta.invalid && meta.touched && <Text style={styles.errorText}> {meta.error} </Text>}
+        {meta.invalid && meta.touched && <Text style={styles.errorText}>{meta.error}</Text>}
       </View>
     )
   }

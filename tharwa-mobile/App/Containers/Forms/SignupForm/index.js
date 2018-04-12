@@ -33,16 +33,19 @@ class SignupForm extends Component {
     this.setState({ currentPage: this.state.currentPage - 1 })
   }
 
-  render() {
+  getNextComponent = (currentPage) => {
     const { fetching, onSubmit } = this.props;
-    const { currentPage } = this.state;
     const formStepProps = {
       editable: !fetching,
       onSubmit: currentPage !== this.formSteps.length ? this.nextPage : onSubmit,
     };
     if (currentPage !== 1) formStepProps.previousPage = this.previousPage;
     const CurrentFormComponent = this.formSteps[currentPage - 1];
+    return { CurrentFormComponent, formStepProps }
+  }
 
+  render() {
+    const { CurrentFormComponent, formStepProps } = this.getNextComponent(this.state.currentPage)
     return (
       <View style={styles.mainformContainer}>
         <Header icon={'md-arrow-round-back'} text={I18n.t('newAccount')} />
