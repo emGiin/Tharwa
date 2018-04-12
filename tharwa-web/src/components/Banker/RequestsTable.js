@@ -135,8 +135,13 @@ class RequestsTable extends Component {
     this.fetch();
   }
   render() {
+    const setDefault=this.props.setDefault;
     this.props.actionState.actionSuccess &&
-      message.success( "Action réussie!");
+      message.success( "Action réussie!") && 
+      setTimeout(() => {
+        console.log("tmeout");
+        setDefault()
+      }, 1000);
     this.props.actionState.actionError &&
       message.error( this.props.actionState.actionError)
     this.props.actionState.actionFetching &&
