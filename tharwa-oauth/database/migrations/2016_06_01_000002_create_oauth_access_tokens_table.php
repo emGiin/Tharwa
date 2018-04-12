@@ -16,12 +16,12 @@ class CreateOauthAccessTokensTable extends Migration
         Schema::create('oauth_access_tokens', function (Blueprint $table) {
             $table->string('id', 100)->primary();
             $table->string('token',200)->index()->nullable();
-            $table->char('user_id',55)->index();
+            $table->string('user_id',55)->index();
             $table->char('pin_code',4)->index();
             $table->dateTime('pin_code_expires_at');
             $table->integer('client_id')->nullable();
             $table->string('name')->nullable();
-            $table->text('scopes')->nullable();
+            $table->string('scopes')->nullable();
             $table->boolean('revoked')->default(false);
             $table->timestamps();
             $table->dateTime('expires_at')->nullable();

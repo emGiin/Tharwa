@@ -21,7 +21,7 @@ class CreateAccountsTable extends Migration
             $table->char('currency_id',3);
             $table->foreign('currency_id')->references('code')->on('currencies');
             $table->char('type_id',5);
-            $table->char('client_id',55);
+            $table->string('client_id',55);
             $table->foreign('client_id')->references('email')->on('clients');
         });
     }
