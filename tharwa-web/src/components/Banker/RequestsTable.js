@@ -4,7 +4,6 @@ import { Table, Icon, Modal } from "antd";
 import RoundedImage from "../Reusable Components/RoundedImage";
 import ApplicantDetailsModal from "./ApplicantDetailsModal";
 import { LoadingSpinner } from "../Reusable Components";
-import { acceptDemand } from "../../sagas/ConfirmInscriptionSaga";
 
 const confirm = Modal.confirm;
 
@@ -54,15 +53,15 @@ class RequestsTable extends Component {
       key: "action",
       render: record => (
         <span>
-          <a href="#" onClick={() => this.handleClickDetails(record)}>
+          <a onClick={() => this.handleClickDetails(record)}>
             <Icon type="info-circle" />
           </a>
           <span className="ant-divider" />
-          <a href="#" onClick={() => this.handleConfirmReject(record)}>
+          <a onClick={() => this.handleConfirmReject(record)}>
             <Icon type="minus-circle-o" />
           </a>
           <span className="ant-divider" />
-          <a href="#" onClick={() => this.handleValidate(record)}>
+          <a onClick={() => this.handleValidate(record)}>
             <Icon type="check-circle" />
           </a>
         </span>
