@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use App\Client;
-use App\Manager;
 use App\Token;
 use Closure;
 use Illuminate\Support\Facades\App;
@@ -28,17 +27,19 @@ class AuthClient
         //check their validity
         if (is_null($token) ||
             is_null($pin) ||
-            !$userInfo = Token::checkAndGetScope($token,$pin)
-        ){
+            !$userInfo = Token::checkAndGetScope($token, $pin) ||
+                ($userInfo["scope"] != "Client" &&
+                    $userInfo["scope"] != "Employeur")
+        ) {
             return response([
                 "credentials" => false,
                 "headers" => false
-            ],config('code.UNAUTHORIZED'));
+            ], config('code.UNAUTHORIZED'));
         }
 
 
         //create the user singleton
-        App::instance(Client::class,Client::find($userInfo['id']));
+        App::instance(Client::class, Client::find($userInfo['id']));
 
 
         return $next($request);
