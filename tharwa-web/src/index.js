@@ -12,11 +12,12 @@ registerServiceWorker();*/
 import { Provider } from 'react-redux';
 import createStore from './redux'
 import ConfirmInscription from './containers/ConfirmInscription'
+import ValidateTransfer from './containers/ValidateTransfer'
 export const store = createStore();
 ReactDOM.render(
   <Provider store={store}>
   <div className="App">
-    <ConfirmInscription />
+    <ValidateTransfer />
   </div>
 </Provider>, document.getElementById('root'));
 registerServiceWorker();

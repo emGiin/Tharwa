@@ -1,45 +1,62 @@
 import React, { Component } from "react";
 import { Table, Icon, Modal, message, Tooltip } from "antd";
 
-import RoundedImage from "../Reusable Components/RoundedImage";
-import ApplicantDetailsModal from "./ApplicantDetailsModal";
+import TransferDetailsModal from "./TransferDetailsModal";
 
 const confirm = Modal.confirm;
 
-class RequestsTable extends Component {
+class TransfersTable extends Component {
   state = {
     pagination: {},
     loading: false,
     data: [],
-    selectedUser:{},
+    selectedTrans:{},
     isModalVisible: false
   };
 
   columns = [
+   /* {
+      title: "Identifiant",
+      dataIndex: "id",
+      key: "id",
+      
+    },*/
     {
-      title: "",
-      dataIndex: "photo",
-      key: "photo",
-      render: text => (
+      title: "Emetteur",
+      dataIndex: "emetteur",
+      key: "emetteur",
+      render: text=> (
         <span>
-          <RoundedImage uri={text} height="70%" />
-        </span>
+          <span>
+            {text.nom} {text.prenom}
+          </span>
+          <br/>
+          <span>
+            {text.compte}
+          </span>
+      </span>
       )
     },
     {
-      title: "Nom",
-      dataIndex: "nom",
-      key: "nom"
+      title: "Destinataire",
+      dataIndex: "destinataire",
+      key: "destinataire",
+      render: text=> (
+        <span>
+          <span>
+            {text.nom} {text.prenom}
+          </span>
+          <br/>
+          <span>
+            {text.compte}
+          </span>
+      </span>
+      )
     },
     {
-      title: "Prénom",
-      dataIndex: "prenom",
-      key: "prenom"
-    },
-    {
-      title: "E-mail",
-      dataIndex: "email",
-      key: "email"
+      title: "Montant DZD",
+      dataIndex: "montant",
+      key: "montant"
     },
     {
       title: "Date",
@@ -58,13 +75,13 @@ class RequestsTable extends Component {
             </a>
           </Tooltip>
           <span className="ant-divider" />
-          <Tooltip title="Rejeter la demande">
+          <Tooltip title="Rejeter le virement">
             <a href="#" onClick={() => this.handleConfirmReject(record)}>
               <Icon type="close-circle-o" />
             </a>
           </Tooltip>
           <span className="ant-divider" />
-          <Tooltip title="Accepter la demande">
+          <Tooltip title="Accepter le virement">
             <a href="#" onClick={() => this.handleValidate(record)}>
               <Icon type="check-circle" />
             </a>
@@ -79,12 +96,11 @@ class RequestsTable extends Component {
   }
 
   handleConfirmReject(record) {
-    const { nom, prenom } = record;
     const rejectDemand=this.props.rejectDemand;
     
     confirm({
-      title: "Voulez-vous vraiment rejeter cette demande?",
-      content: `Nom: ${nom} ${prenom}`,
+      title: "Voulez-vous vraiment refuser ce virement?",
+      content: "",
       okText: "Oui",
       okType: "danger",
       cancelText: "Annuler",
@@ -102,18 +118,19 @@ class RequestsTable extends Component {
   }
 
   showDetailsModal(record){
+    console.log(record);
     this.setState({
-      selectedUser:record,
+      selectedTrans:record,
       isModalVisible:true
     })
   } 
 
   handleTableChange = (pagination, filters, sorter) => {
-    const pager = { ...this.state.pagination };
+   /* const pager = { ...this.state.pagination };
     pager.current = pagination.current;
     this.setState({
       pagination: pager
-    });
+    });*/
     this.fetch({
       results: pagination.pageSize,
       page: pagination.current,
@@ -164,10 +181,10 @@ class RequestsTable extends Component {
     return (
       <div>
         <div>{content}</div>
-        <ApplicantDetailsModal handleValidate={this.handleValidate.bind(this)} handleConfirmReject={this.handleConfirmReject.bind(this)} actionState={this.props.actionState} user={this.state.selectedUser} visible={this.state.isModalVisible}
+        <TransferDetailsModal handleValidate={this.handleValidate.bind(this)} handleConfirmReject={this.handleConfirmReject.bind(this)} actionState={this.props.actionState} transfer={this.state.selectedTrans} visible={this.state.isModalVisible}
          onCancel={()=>{
            this.setState({
-             selectedUser:{},
+             selectedTrans:{},
              isModalVisible: false
            })
            }}/>
@@ -175,7 +192,7 @@ class RequestsTable extends Component {
         columns={this.columns}
         rowKey={record => record.registered}
         dataSource={this.props.list}
-        pagination={false/*this.state.pagination*/}
+        pagination={false}//{this.state.pagination}
         loading={this.state.loading}
         onChange={this.handleTableChange}
 /*onRow={(record)=>{
@@ -192,4 +209,4 @@ class RequestsTable extends Component {
   }
 }
 
-export default RequestsTable;
+export default TransfersTable;
