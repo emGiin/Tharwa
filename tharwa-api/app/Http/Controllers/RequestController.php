@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use App\ClientRequest;
+use App\Mail\ClientRequestValidatedMail;
 use App\Manager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -35,11 +37,23 @@ class RequestController extends Controller
             return response($validator->errors(), config('code.BAD_REQUEST'));
         }
 
+//        $nexmo = app('Nexmo\Client');
+//        $nexmo->message()->send([
+//            'to'   => '+213553673740',//$clientInfo['phone'] +213669479443 +213656092713
+//            'from' => '+213553673740',
+//            'text' => 'code pin: '.$pinCode.' valide pour une heure, Tharwa '
+//        ]);
+
+
         if ($request->input('code') === 0){//rejected
 
             $rejectedRequest =ClientRequest::find($request->input('email'));
             $rejectedRequest->validated = true;
             $rejectedRequest->save();
+
+            Mail::to($request->input('email'))
+                ->queue(new ClientRequestValidatedMail($rejectedRequest->firstname.' '.$rejectedRequest->lastname
+                    , $request->input('code')));
 
         }else{//accepted
 
@@ -66,6 +80,10 @@ class RequestController extends Controller
 
                 $acceptedClient->delete();
 
+                Mail::to($request->input('email'))
+                    ->queue(new ClientRequestValidatedMail($acceptedClient->firstname.' '.$acceptedClient->lastname
+                        , $request->input('code')));
+
                 // all good
                 /**commit - no problems **/
                 DB::commit();
@@ -79,6 +97,7 @@ class RequestController extends Controller
 
                 return response(["saved" => false], config('code.UNKNOWN_ERROR'));
             }
+
 
         }
 
