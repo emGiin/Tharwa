@@ -11,14 +11,15 @@ class NewClientRequestMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $clientName;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($clientName)
     {
-        //
+        $this->clientName = $clientName;
     }
 
     /**

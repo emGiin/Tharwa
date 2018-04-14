@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\ClientRequest;
+use App\Mail\NewClientRequestMail;
+use App\Manager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Validator;
 
@@ -66,6 +69,11 @@ class ClientController extends Controller
                 'phone' => \Request::input('phone'),
                 'type' => 'Client', // todo get type related to the num
             ]);
+
+            $banqier = Manager::where('role','Banquier')->first();
+
+            Mail::to($banqier->email)
+                ->queue(new NewClientRequestMail(\Request::input('firstName').' '.\Request::input('lastName')));
 
             // all good
             /**commit - no problems **/
