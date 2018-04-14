@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use App\Http\Middleware\AuthClient;
+use App\Http\Middleware\AuthManager;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,4 +16,7 @@ use App\Http\Middleware\AuthClient;
 //})->name('fallback');
 
 Route::post('/client', 'ClientController@create')->middleware(AuthClient::class);
+
+
+Route::post('/clientRequests', 'RequestController@index')->middleware(AuthManager::class);
 

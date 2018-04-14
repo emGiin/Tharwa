@@ -12,8 +12,8 @@ class AuthManager
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -21,24 +21,25 @@ class AuthManager
         //get token and pin
         $token = $request->header('Authorization');
         $pin = $request->header('Pin');
-        $userInfo = null;
+        $userInfo = false;
+
+        //header validation
+        if (!is_null($token) || strlen($pin) == 4)
+            $userInfo = Token::checkAndGetScope($token, $pin);
 
         //check their validity
-        if (is_null($token) ||
-            is_null($pin) ||
-            !$userInfo = Token::checkAndGetScope($token,$pin)||
-                ($userInfo["scope"] != "Banquier" &&
-                    $userInfo["scope"] != "Gestionnaire")
-        ){
+        if (!$userInfo || ($userInfo["scope"] != "Banquier" &&
+                $userInfo["scope"] != "Gestionnaire")
+        ) {
             return response([
                 "credentials" => false,
                 "headers" => false
-            ],config('code.UNAUTHORIZED'));
+            ], config('code.UNAUTHORIZED'));
         }
 
 
         //create the user singleton
-        App::instance(Manager::class,Manager::find($userInfo['id']));
+        App::instance(Manager::class, Manager::find($userInfo['id']));
 
         return $next($request);
     }

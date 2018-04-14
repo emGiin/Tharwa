@@ -17,4 +17,10 @@ class ClientRequest extends Model
      */
     public $incrementing = false;
 
+
+    public static function notValidated()
+    {
+        return static::where('validated', false)->get();
+    }
+
 }
