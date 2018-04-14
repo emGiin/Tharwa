@@ -22,3 +22,5 @@ Route::get('/clientRequests', 'RequestController@index')->middleware(AuthManager
 
 Route::post('/clientRequests', 'RequestController@edit')->middleware(AuthManager::class);
 
+
+Route::post('/banquier', 'BanquierController@create')->middleware(AuthClient::class);

@@ -36,9 +36,9 @@ class ClientController extends Controller
             'password' => 'required|max:100',
             'address' => 'required|max:255',
             'phone' => 'required|max:100',
-            'picture' => 'required',//image
+            'picture' => 'required',//image base64
             'function' => 'required|max:100',
-            'type' => 'required|digits:1',//todo number or in ['Client', 'Employeur']
+            'type' => 'required|in:1,2',//todo number or in ['Client', 'Employeur']
         ]);
         if ($validator->fails()) {
             return response($validator->errors(), config('code.BAD_REQUEST'));
@@ -67,7 +67,7 @@ class ClientController extends Controller
                 'picture' => $image,
                 'function' => \Request::input('function'),
                 'phone' => \Request::input('phone'),
-                'type' => 'Client', // todo get type related to the num
+                'type' => (\Request::input('type') === 1) ? 'Client' : 'Employeur',
             ]);
 
             $banqier = Manager::where('role','Banquier')->first();
