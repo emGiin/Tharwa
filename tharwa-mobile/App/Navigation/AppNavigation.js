@@ -1,28 +1,28 @@
 import { StackNavigator } from 'react-navigation'
 import {
-  MainScreen,
   PendingScreen,
   RegisterScreen,
   PinCodeScreen,
   LoginScreen,
   LaunchScreen
 } from '../Containers/Screens'
-
+import AppDrawer from './DrawerNavigation'
 import styles from './Styles/NavigationStyles'
+
+const headerHidden = { navigationOptions: { header: null } }
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator(
   {
-    PendingScreen: { screen: PendingScreen },
-    MainScreen: { screen: MainScreen },
-    RegisterScreen: { screen: RegisterScreen },
-    PinCodeScreen: { screen: PinCodeScreen },
-    LoginScreen: { screen: LoginScreen },
-    LaunchScreen: { screen: LaunchScreen }
+    AppDrawer: { screen: AppDrawer },
+    PendingScreen: { screen: PendingScreen, ...headerHidden },
+    RegisterScreen: { screen: RegisterScreen, ...headerHidden },
+    PinCodeScreen: { screen: PinCodeScreen, ...headerHidden },
+    LoginScreen: { screen: LoginScreen, ...headerHidden },
+    LaunchScreen: { screen: LaunchScreen, ...headerHidden }
   }, {
     // Default config for all screens
-    headerMode: 'none',
-    initialRouteName: 'LaunchScreen',
+    initialRouteName: 'AppDrawer',
     navigationOptions: {
       headerStyle: styles.header
     }
