@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table, Icon, Modal } from "antd";
+import { Table, Icon, Modal, message } from "antd";
 
 import RoundedImage from "../Reusable Components/RoundedImage";
 import ApplicantDetailsModal from "./ApplicantDetailsModal";
@@ -136,21 +136,16 @@ class RequestsTable extends Component {
   render() {
     const setDefault=this.props.setDefault;
     this.props.actionState.actionSuccess &&
-      Modal.success({
-          title: "Action réussie!",
-          content: "",
-          onOk(){
-            setDefault();
-          }
-        })
+      message.success( "Action réussie!") && 
+      setTimeout(() => {
+        console.log("tmeout");
+        setDefault()
+      }, 1000);
     this.props.actionState.actionError &&
-        Modal.error({
-            title: "Erreur",
-            content: this.props.actionState.actionError
-          })
-
+      message.error( this.props.actionState.actionError)
+    this.props.actionState.actionFetching &&
+      message.loading("En cours d'exécution...")
     return (
-      this.props.actionState.actionFetching?<LoadingSpinner/>:
       <div>
 
         <ApplicantDetailsModal handleValidate={this.handleValidate.bind(this)} handleConfirmReject={this.handleConfirmReject.bind(this)} actionState={this.props.actionState} user={this.state.selectedUser} visible={this.state.isModalVisible}
