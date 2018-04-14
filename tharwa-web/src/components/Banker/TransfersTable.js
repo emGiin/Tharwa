@@ -62,7 +62,7 @@ class TransfersTable extends Component {
       title: "Date",
       dataIndex: "date",
       key: "date",
-      sorter: true //TODO : Définir la fonction de sort sur les dates
+      //sorter: true //TODO : Définir la fonction de sort sur les dates
     },
     {
       title: "",

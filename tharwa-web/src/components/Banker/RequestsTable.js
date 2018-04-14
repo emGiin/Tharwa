@@ -22,7 +22,7 @@ class RequestsTable extends Component {
       key: "photo",
       render: text => (
         <span>
-          <RoundedImage uri={text} height="70%" />
+          <RoundedImage uri={text} height="50px" />
         </span>
       )
     },
@@ -45,7 +45,7 @@ class RequestsTable extends Component {
       title: "Date",
       dataIndex: "date",
       key: "date",
-      sorter: true //TODO : Définir la fonction de sort sur les dates
+     // sorter: true //TODO : Définir la fonction de sort sur les dates
     },
     {
       title: "",

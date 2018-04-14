@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Button, Icon } from "antd";
+import { Modal, Button, Icon, Row, Col } from "antd";
 
 import RoundedImage from "../Reusable Components/RoundedImage";
 import LoadingSpinner from "../Reusable Components/LoadingSpinner";
@@ -40,11 +40,19 @@ class ApplicantDetailsModal extends Component {
           {loading ? (
             <LoadingSpinner />
           ) : (
-            <div className="modalBody">
-              <RoundedImage uri={record.photo} height="170px" />
-              <h2>
-                {record.nom} {record.prenom}
-              </h2>
+            <div>
+            <Row  type="flex" justify="center">
+              <Col span={9}>
+                <RoundedImage uri={record.photo} height="170px" />
+              </Col>
+            </Row>
+            <Row  type="flex" justify="center">
+              <Col span={6}>
+                <h2>
+                  {record.nom} {record.prenom}
+                </h2>
+              </Col>
+              </Row>
               <h4>E-mail: {record.email}</h4>
               <h4>Tel: {record.tel}</h4>
               <h4>Adresse: {record.adresse}</h4>

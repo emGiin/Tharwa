@@ -49,7 +49,7 @@ class TransferDetailsModal extends Component {
                <Card title="Emetteur" bordered={false}>
                 <h4>{emetteur?emetteur.nom:""} {emetteur?emetteur.prenom:""}</h4>
                 <h4>Compte: {emetteur?emetteur.compte:""}</h4>
-                <h4>Banque: {emetteur?emetteur.compte:""}</h4>
+                <h4>Banque: {emetteur?emetteur.banque:""}</h4>
                 </Card>
               </Col>
               <Col xs={0} md={2}> <Button shape="circle" icon="double-right" disabled/></Col>
@@ -57,7 +57,7 @@ class TransferDetailsModal extends Component {
               <Card title="Destinataire" bordered={false}>
                 <h4>{destinataire?destinataire.nom:""} {destinataire?destinataire.prenom:""}</h4>
                 <h4>Compte: {destinataire?destinataire.compte:""}</h4>
-                <h4>Banque: {destinataire?destinataire.compte:""}</h4>
+                <h4>Banque: {destinataire?destinataire.banque:""}</h4>
                 </Card>
               </Col>
               <Col span={24}>
