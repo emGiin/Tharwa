@@ -17,11 +17,11 @@ const create = (baseURL = API_URL) => {
 
   /**** Inscription requests validation */
   const  getRequestsList= () => {
-    return api.get('newRequests')
+    return api.get('clientRequests')
   }
 
   const inscriptionAction=(body)=>{
-    return api.post('newRequests',body)
+    return api.post('clientRequests',body)
   }
 
   /**** Transfer Validation */

@@ -17,7 +17,7 @@ export const store = createStore();
 ReactDOM.render(
   <Provider store={store}>
   <div className="App">
-    <ValidateTransfer />
+    <ConfirmInscription />
   </div>
 </Provider>, document.getElementById('root'));
 registerServiceWorker();

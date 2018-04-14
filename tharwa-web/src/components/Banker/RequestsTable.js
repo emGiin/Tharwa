@@ -18,8 +18,8 @@ class RequestsTable extends Component {
   columns = [
     {
       title: "",
-      dataIndex: "photo",
-      key: "photo",
+      dataIndex: "picture",
+      key: "picture",
       render: text => (
         <span>
           <RoundedImage uri={text} height="50px" />
@@ -28,13 +28,13 @@ class RequestsTable extends Component {
     },
     {
       title: "Nom",
-      dataIndex: "nom",
-      key: "nom"
+      dataIndex: "lastname",
+      key: "lastname"
     },
     {
       title: "Prénom",
-      dataIndex: "prenom",
-      key: "prenom"
+      dataIndex: "firstname",
+      key: "firstename"
     },
     {
       title: "E-mail",
@@ -43,8 +43,8 @@ class RequestsTable extends Component {
     },
     {
       title: "Date",
-      dataIndex: "date",
-      key: "date",
+      dataIndex: "created_at",
+      key: "created_at",
      // sorter: true //TODO : Définir la fonction de sort sur les dates
     },
     {
@@ -79,17 +79,18 @@ class RequestsTable extends Component {
   }
 
   handleConfirmReject(record) {
-    const { nom, prenom } = record;
+    const { lastname, firstname } = record;
     const rejectDemand=this.props.rejectDemand;
-    
+    const closeModal=this.closeModal.bind(this);
     confirm({
       title: "Voulez-vous vraiment rejeter cette demande?",
-      content: `Nom: ${nom} ${prenom}`,
+      content: `Nom: ${firstname} ${lastname}`,
       okText: "Oui",
       okType: "danger",
       cancelText: "Annuler",
       onOk() {
          rejectDemand(record.email);
+         closeModal();
       },
       onCancel() {
         console.log("Cancel");
@@ -99,8 +100,14 @@ class RequestsTable extends Component {
 
   handleValidate(record) {
     this.props.acceptDemand(record.email);
+    this.closeModal();
   }
 
+  closeModal(){
+    this.setState({
+      isModalVisible:false
+    })
+  }
   showDetailsModal(record){
     this.setState({
       selectedUser:record,

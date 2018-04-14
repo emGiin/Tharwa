@@ -1,3 +1,6 @@
+
+ let trans=require("../fixtures/TransfersList.json");
+ let req=require("../fixtures/RequestsList.json");
 export default {
   setAuthToken: () => {},
   removeAuthToken: () => {},
@@ -45,7 +48,7 @@ export default {
     ) {
       return {
         ok: true,
-        data: require("../fixtures/RequestsList.json")
+        data: req
       };
     } else {
       return {
@@ -55,7 +58,10 @@ export default {
       };
     }
   },
-  inscriptionAction:()=>{
+  inscriptionAction:(body)=>{
+    console.log(body);
+    
+    req=req.filter(e => e.email !== body.email);
     console.log('API');
     if (
       true
@@ -74,7 +80,7 @@ export default {
     }
   },
   getTransfersList:()=>{
-    console.log('API');
+    console.log(trans);
     if (
       true
       //pin === require("../fixtures/realPinCode.json").pinCode &&
@@ -82,7 +88,7 @@ export default {
     ) {
       return {
         ok: true,
-        data: require("../fixtures/TransfersList.json")
+        data: trans//require("../fixtures/TransfersList.json")
       };
     } else {
       return {
@@ -92,8 +98,11 @@ export default {
       };
     }
   },
-  transferAction:()=>{
-    console.log('API');
+  transferAction:(body)=>{
+    trans=trans.filter(e => e.id !== body.id);
+    console.log("action:::");
+    console.log(body);
+    console.log(trans);
     if (
       true
       //data.pin === require("../fixtures/realPinCode.json").pinCode &&

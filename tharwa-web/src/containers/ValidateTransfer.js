@@ -42,9 +42,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getTransList: () => dispatch(ValidateActions.transListRequest()) ,
-    rejectTransfer: (id)=> dispatch(ValidateActions.rejectRequest(id)) ,
-    acceptTransfer: (id)=> dispatch(ValidateActions.validateRequest(id)),
-    setDefault: ()=> dispatch(ValidateActions.setDefault())
+    rejectTransfer: (id)=> dispatch(ValidateActions.rejectTransfer(id)) ,
+    acceptTransfer: (id)=> {console.log("dispatch");console.log(id); dispatch(ValidateActions.validateTransfer(id))},
+    setDefault: ()=> dispatch(ValidateActions.setDefaultTrans())
   };
 };
 

@@ -28,7 +28,7 @@ export function* getTransfersList(api) {
   }
 }
 
-export function* rejectTransfer(api,id){
+export function* rejectTransfer(api,params){
   console.log("start");
   //Headers
   const authToken = yield select(selectAuthToken);
@@ -40,22 +40,22 @@ export function* rejectTransfer(api,id){
     yield call(api.setPinCode, pinCode);
    }
   const body={
-    id:id,
+    id:params.id,
     code: 0
   };
   console.log("1");
   const response = yield call(api.transferAction,body);
   console.log("ok");
   if (response.ok) {
-    yield put(ValidateTransferActions.actionSuccess());
+    yield put(ValidateTransferActions.actionTransSuccess());
     yield put(ValidateTransferActions.transListRequest());
   } else {
-    yield put(ValidateTransferActions.actionFailure("code pin ou token invalide ou expiré!"));
+    yield put(ValidateTransferActions.actionTransFailure("code pin ou token invalide ou expiré!"));
   }
 
 }
 
-export function* acceptTransfer(api,id){
+export function* acceptTransfer(api,params){
   console.log("start");
   //Headers
   const authToken = yield select(selectAuthToken);
@@ -66,18 +66,21 @@ export function* acceptTransfer(api,id){
   if (pinCode) {
     yield call(api.setPinCode, pinCode);
    }
+  console.log("saga");
+  console.log(params.id);
+  
   const body={
-    id:id,
+    id:params.id,
     code: 1
   };
   console.log("1");
   const response = yield call(api.transferAction,body);
   console.log("ok");
   if (response.ok) {
-    yield put(ValidateTransferActions.actionSuccess());
+    yield put(ValidateTransferActions.actionTransSuccess());
     yield put(ValidateTransferActions.transListRequest());
   } else {
-    yield put(ValidateTransferActions.actionFailure("code pin ou token invalide ou expiré!"));
+    yield put(ValidateTransferActions.actionTransFailure("code pin ou token invalide ou expiré!"));
   }
 
 }

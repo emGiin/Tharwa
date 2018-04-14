@@ -3,11 +3,11 @@ import Immutable from "seamless-immutable";
 
 //Actions
 const { Types, Creators } = createActions({
-  setDefault:[],
-  rejectRequest: ["id"],
-  validateRequest: ["id"],
-  actionSuccess:[],
-  actionFailure:["error"],
+  setDefaultTrans:[],
+  rejectTransfer: ["id"],
+  validateTransfer: ["id"],
+  actionTransSuccess:[],
+  actionTransFailure:["error"],
   transListRequest:[],
   transListSuccess:[],
   transListFailure:["error"],
@@ -56,9 +56,9 @@ export const reducer = createReducer(INITIAL_STATE, {
     [Types.TRANS_LIST_SUCCESS]: success,
     [Types.TRANS_LIST_FAILURE]: failure,
     [Types.SAVE_TRANS_LIST]: saveTransList,
-    [Types.REJECT_REQUEST]: actionReq,
-    [Types.VALIDATE_REQUEST]: actionReq,
-    [Types.ACTION_SUCCESS]: actionSuccess,
-    [Types.ACTION_FAILURE]: actionFailure,
-    [Types.SET_DEFAULT]: setDefault
+    [Types.REJECT_TRANSFER]: actionReq,
+    [Types.VALIDATE_TRANSFER]: actionReq,
+    [Types.ACTION_TRANS_SUCCESS]: actionSuccess,
+    [Types.ACTION_TRANS_FAILURE]: actionFailure,
+    [Types.SET_DEFAULT_TRANS]: setDefault
 });

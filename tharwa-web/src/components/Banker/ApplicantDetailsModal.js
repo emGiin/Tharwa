@@ -43,20 +43,20 @@ class ApplicantDetailsModal extends Component {
             <div>
             <Row  type="flex" justify="center">
               <Col span={9}>
-                <RoundedImage uri={record.photo} height="170px" />
+                <RoundedImage uri={record.picture} height="170px" />
               </Col>
             </Row>
             <Row  type="flex" justify="center">
               <Col span={6}>
                 <h2>
-                  {record.nom} {record.prenom}
+                  {record.firstname} {record.lastname}
                 </h2>
               </Col>
               </Row>
               <h4>E-mail: {record.email}</h4>
-              <h4>Tel: {record.tel}</h4>
-              <h4>Adresse: {record.adresse}</h4>
-              <h4>Fonction: {record.fonction}</h4>
+              <h4>Tel: {record.phone}</h4>
+              <h4>Adresse: {record.address}</h4>
+              <h4>Fonction: {record.function}</h4>
             </div>
           )}
         </Modal>

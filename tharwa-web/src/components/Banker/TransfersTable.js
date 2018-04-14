@@ -97,7 +97,7 @@ class TransfersTable extends Component {
 
   handleConfirmReject(record) {
     const rejectDemand=this.props.rejectDemand;
-    
+    const closeModal=this.closeModal.bind(this);
     confirm({
       title: "Voulez-vous vraiment refuser ce virement?",
       content: "",
@@ -105,7 +105,8 @@ class TransfersTable extends Component {
       okType: "danger",
       cancelText: "Annuler",
       onOk() {
-         rejectDemand(record.email);
+         rejectDemand(record.id);
+         closeModal();
       },
       onCancel() {
         console.log("Cancel");
@@ -113,8 +114,14 @@ class TransfersTable extends Component {
     });
   }
 
+  closeModal(){
+    this.setState({
+      isModalVisible:false
+    })
+  }
   handleValidate(record) {
-    this.props.acceptDemand(record.email);
+    this.props.acceptDemand(record.id);
+    this.closeModal();
   }
 
   showDetailsModal(record){

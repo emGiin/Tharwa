@@ -37,9 +37,9 @@ export default function* root() {
     
     takeLatest(ConfirmInscriptionTypes.REJECT_REQUEST,rejectDemand , api_),
 
-    takeLatest(ValidateTransferTypes.REJECT_REQUEST,rejectTransfer , api_),
+    takeLatest(ValidateTransferTypes.REJECT_TRANSFER,rejectTransfer , api_),
 
-    takeLatest(ValidateTransferTypes.VALIDATE_REQUEST,acceptTransfer , api_),
+    takeLatest(ValidateTransferTypes.VALIDATE_TRANSFER,acceptTransfer , api_),
 
     takeLatest(ValidateTransferTypes.TRANS_LIST_REQUEST,getTransfersList , api_),
   ])
