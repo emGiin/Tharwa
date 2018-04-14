@@ -10,6 +10,9 @@ class ClientRequest extends Model
 
     protected $guarded = [];
 
+    protected $visible = ["email","firstname","lastname","address",
+        "phone","picture","function","type","created_at"];
+
     /**
      * Indicates if the IDs are auto-incrementing.
      *
@@ -20,7 +23,7 @@ class ClientRequest extends Model
 
     public static function notValidated()
     {
-        return static::where('validated', false)->get();
+        return static::where('validated', false)->orderBy('created_at')->get();
     }
 
 }
