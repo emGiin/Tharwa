@@ -8,6 +8,8 @@ class ClientRequest extends Model
 {
     protected $table = 'clientRequests';
 
+    protected $primaryKey = 'email';
+
     protected $guarded = [];
 
     protected $visible = ["email","firstname","lastname","address",

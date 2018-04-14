@@ -18,5 +18,7 @@ use App\Http\Middleware\AuthManager;
 Route::post('/client', 'ClientController@create')->middleware(AuthClient::class);
 
 
-Route::post('/clientRequests', 'RequestController@index')->middleware(AuthManager::class);
+Route::get('/clientRequests', 'RequestController@index')->middleware(AuthManager::class);
+
+Route::post('/clientRequests', 'RequestController@edit')->middleware(AuthManager::class);
 
