@@ -40,8 +40,8 @@ export default {
     console.log('API');
     if (
       true
-      //data.pin === require("../fixtures/realPinCode.json").pinCode &&
-      //data.token === require("../fixtures/token.json").token
+      //pin === require("../fixtures/realPinCode.json").pinCode &&
+      //token === require("../fixtures/token.json").token
     ) {
       return {
         ok: true,

@@ -1,7 +1,7 @@
 import { all, takeLatest } from 'redux-saga/effects'
 import AuthAPI from '../services/AuthAPI'
 import FixtureAPI from '../services/FixtureAPI'
-import ConfirmInscriptionAPI from '../services/ConfirmInscriptionAPI'
+import appAPI from '../services/appAPI'
 import {useFixtures} from '../config/DebugConfig'
 
 /* ------------- Types ------------- */
@@ -16,7 +16,7 @@ import { getRequestsList, acceptDemand, rejectDemand } from './ConfirmInscriptio
 
 /* ------------- API ------------- */
 const api = useFixtures ? FixtureAPI : AuthAPI.create()
-const api_= useFixtures ? FixtureAPI : ConfirmInscriptionAPI.create()
+const api_= useFixtures ? FixtureAPI : appAPI.create()
 
 /* ------------- Connect Types To Sagas ------------- */
 export default function* root() {

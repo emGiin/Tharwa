@@ -18,7 +18,7 @@ class ConfirmInscription extends Component {
     console.log('data',this.props.reqList.list);
     return(
       this.props.reqList.fetching? <LoadingSpinner />:
-      <RequestsTable setDefault={this.props.setDefault} actionState={this.props.DemandAction} rejectDemand={this.props.rejectDemand} acceptDemand={this.props.acceptDemand} list={this.props.reqList.list}/>
+      <RequestsTable  setDefault={this.props.setDefault} actionState={this.props.DemandAction} rejectDemand={this.props.rejectDemand} acceptDemand={this.props.acceptDemand} list={this.props.reqList.list}/>
     );
   }
 }
@@ -45,7 +45,7 @@ const mapDispatchToProps = dispatch => {
     getReqList: () => dispatch(ConfirmActions.reqListRequest()) ,
     rejectDemand: (email)=> dispatch(ConfirmActions.rejectRequest(email)) ,
     acceptDemand: (email)=> dispatch(ConfirmActions.validateRequest(email)),
-    setDefault: ()=> dispatch(ConfirmActions.setDefault()),
+    setDefault: ()=> dispatch(ConfirmActions.setDefault())
   };
 };
 

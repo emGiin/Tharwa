@@ -11,7 +11,7 @@ const create = (baseURL = API_URL) => {
   })
 
   const setAuthToken = (userAuth) => api.setHeader('Authorization', 'Bearer ' + userAuth)
-  const setPinCode= (pin) => api.setHeader('code_pin',"1234")//to do **********************
+  const setPinCode= (pin) => api.setHeader('code_pin',pin)
   const removeAuthToken = () => api.setHeader('Authorization', '')
   const removePinCode=() => api.setHeader('code_pin','')
 
