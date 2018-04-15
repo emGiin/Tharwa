@@ -3,10 +3,6 @@ import {Link} from 'react-router-dom';
 import {Button, Avatar, Col, Menu, Dropdown, Icon} from 'antd';
 import './style.css';
 
-import {connect} from 'react-redux';
-import iAmRoot from '../../redux/actions/authActions';
-import {bindActionCreators} from 'redux';
-
  const menuUser = (
         <Menu >
           <Menu.Item key="1">deconnexion</Menu.Item>
@@ -47,9 +43,4 @@ class NavBareTop  extends Component {
     }
 }
 
-function matchDispatchToProps(dispatch){
-    return bindActionCreators({iAmRoot:iAmRoot}, dispatch);
-
-  }
-
-export default connect(matchDispatchToProps)(NavBareTop);
+export default NavBareTop;

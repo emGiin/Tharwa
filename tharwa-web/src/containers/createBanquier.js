@@ -1,10 +1,10 @@
-
-
-
 import React, { Component } from 'react';
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
 import TitlePage from '../components/titlePage/titlePage';
 
+import { connect } from "react-redux";
+
+import BanquierActions from '../redux/banquierRedux';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -56,19 +56,26 @@ class RegistrationForm extends Component {
       prenomValide:false,
       mailValide:false,
       adressValide:false,
-      telValide:false
-    };
+      telValide:false,
+      dataUser:null
+      };
   }
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        //var adrJson  =JSON.stringify(values.adress);
+        var adrStr = values.adress.join(",");  //adrJson.toString();//values.adress[0]+","+values.adress[1]+","+values.adress[2];//
+        values.adress = adrStr;
+        this.state= {dataUser:values};
+        this.props.sendData(this.state.dataUser);
+        console.log('Send data from component ... ');
       }
     });
   }
   handleConfirmBlur = (e) => {
     const value = e.target.value;
+    
     this.setState({ confirmDirty: this.state.confirmDirty || !!value });
   }
   compareToFirstPassword = (rule, value, callback) => {
@@ -131,7 +138,7 @@ class RegistrationForm extends Component {
           label="Nom"
           onKeyPress={this.test}
         >
-          {getFieldDecorator('name',{
+          {getFieldDecorator('firstName',{
             rules: [{
               required: true,message: 'le nom est obligatoire !',
             }],
@@ -144,7 +151,7 @@ class RegistrationForm extends Component {
           {...formItemLayout}
           label="Prenom"
         >
-          {getFieldDecorator('surname',{
+          {getFieldDecorator('lastName',{
             rules: [{
               required: true,message: 'prenom est obligatoire !',
             }],
@@ -200,7 +207,7 @@ class RegistrationForm extends Component {
           {...formItemLayout}
           label="Adresse residence"
         >
-          {getFieldDecorator('adresse', {
+          {getFieldDecorator('adress', {
             initialValue: ['Algerie', 'Alger', 'oued smar'],
             rules: [{ type: 'array', required: true, message: 'selectionez votre lieu de residence svp!' }],
           })(
@@ -222,7 +229,7 @@ class RegistrationForm extends Component {
         
         <div className="g-recaptcha" data-sitekey="6LcNaUoUAAAAAHBjQV-L9Z7zsW3joXPOGQGA3_NT"></div>
         <FormItem {...tailFormItemLayout}>
-          {getFieldDecorator('agreement', {
+          {getFieldDecorator('validate', {
             valuePropName: 'checked',
           })(
             <Checkbox>J ai lu et j accepte tous <a href="">les agreements</a></Checkbox>
@@ -238,19 +245,15 @@ class RegistrationForm extends Component {
   }
 }
 
-const  mapStateToProps = (state, ownProps) => {
-  return {
-    prop: state.prop
-  }
+const  mapStateToProps = (state) => {
+  return {  dataUser: state.dataUser   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch1: () => {
-      dispatch()
-    }
-  }
+    sendData: (dataUser) => dispatch(BanquierActions.createBanquier(dataUser.firstName, dataUser.lassName, dataUser.email, dataUser.password,dataUser.adress,dataUser.phone ))   }
 }
+
 const WrappedRegistrationForm = Form.create()(RegistrationForm);
 
-export default  WrappedRegistrationForm;
+export default connect(mapStateToProps, mapDispatchToProps)(WrappedRegistrationForm);

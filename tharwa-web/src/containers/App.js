@@ -1,58 +1,33 @@
 import React, { Component } from 'react';
-
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
+import { Provider } from 'react-redux';
+import createStore from '../redux';
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import {Col,Row} from 'antd';
-//containers & components
+
 import Login from './Login';
-import RegistrationForm from './createBanquier';
-import NavBareTop from '../components/navBareTop/navBarTop';
-import MenuLeft from '../components/menuLeft/menuLeft';
-
-
-//Actions
-import iAmRoot from '../redux/actions/authActions';
-
-
-
-
+import Admin from './Admin';
 import './Styles/App.css';
 
-
+export const store = createStore()
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-          <Router>
-             <div className="routChild"> 
-                      <NavBareTop />
-                      <div className="page">
-                          <Col span={5}><MenuLeft /></Col>
-                          <Col span={16}>
-                              <div >
-                                <Route path="/login" component={Login} /> 
-                                <Route path="/newBanquier" component={RegistrationForm} />
-                              </div>
-                          </Col>
-                      </div>
+      <Provider store={store}>
+        <div className="App">
+        <Router>
+            <div className="routChild">
+                <div className="AppContent">
+                      <Route path="/" exact component={Admin} />
+                      <Route path="/login" exact   component={Login} />
+                </div>
             </div>
         </Router>
-      </div>
+        </div>
+      </Provider>
     );
   }
 }
 
-function mapStateToProps(state){
-  return {
-      info : state.auths
-  };
-}
-function matchDispatchToProps(dispatch){
-  return bindActionCreators({iAmRoot:iAmRoot}, dispatch);
-}
-
-export default connect(mapStateToProps, matchDispatchToProps)(App);
+export default App;
