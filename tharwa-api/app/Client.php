@@ -28,6 +28,8 @@ class Client extends Model
      */
     public $incrementing = false;
 
+    protected $primaryKey = 'email';
+
     public static function check($userName,$password){
 
         $client = static::where('email', $userName)->first(['password']);
