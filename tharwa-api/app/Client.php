@@ -52,4 +52,9 @@ class Client extends Model
             'scope' => $client->type];
 
     }
+
+    public function accounts()
+    {
+        return $this->hasMany(Account::class);
+    }
 }

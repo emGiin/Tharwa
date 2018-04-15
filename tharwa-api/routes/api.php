@@ -15,12 +15,23 @@ use App\Http\Middleware\AuthManager;
 //    return response()->json(['message' => 'Not Found!'], 404);
 //})->name('fallback');
 
+    /**
+     * mobile client
+     **/
 Route::post('/client', 'ClientController@create')->middleware(AuthClient::class);
 
 
+Route::post('/virment/intern', 'VirmentController@create')->middleware(AuthClient::class);
+
+
+    /**
+     * web managers
+     **/
 Route::get('/clientRequests', 'RequestController@index')->middleware(AuthManager::class);
 
 Route::post('/clientRequests', 'RequestController@edit')->middleware(AuthManager::class);
 
 
 Route::post('/banquier', 'BanquierController@create')->middleware(AuthClient::class);
+
+

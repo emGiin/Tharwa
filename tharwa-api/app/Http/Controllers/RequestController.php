@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
 use App\Client;
 use App\ClientRequest;
 use App\Mail\ClientRequestValidatedMail;
@@ -76,6 +77,14 @@ class RequestController extends Controller
                     'function' => $acceptedClient->function,
                     'phone' => $acceptedClient->phone,
                     'type' => $acceptedClient->type,
+                ]);
+                $accountNb = Client::count();
+                Account::create([
+                    'number' => 'THW'.sprintf("%06d", $accountNb).'DZD', //todo check if it s the best way
+                    'isValid' => true,
+                    'currency_id' => '',
+                    'type_id' => '',
+                    'client_id' => $acceptedClient->email,
                 ]);
 
                 $acceptedClient->delete();
