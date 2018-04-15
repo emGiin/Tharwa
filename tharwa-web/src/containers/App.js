@@ -5,12 +5,10 @@ import {
   Redirect,
   Switch
 } from "react-router-dom";
-import { connect, Provider } from "react-redux";
-import createStore from '../redux'
+import { connect } from "react-redux";
 
 import ConfirmInscription from "./ConfirmInscription";
 
-export const store = createStore()
 class App extends Component {
   render() {
     const isLoggedIn = (({ authToken, pinCode }) => authToken && pinCode)(
@@ -19,13 +17,11 @@ class App extends Component {
     if (!isLoggedIn) return <Redirect to="/login" push />;
     return (
       <Router>
-        <Provider store={store}>
         <div className="App">
           <Switch>
             <Route path="/" component={ConfirmInscription} />
           </Switch>
         </div>
-        </Provider>
       </Router>
     );
   }

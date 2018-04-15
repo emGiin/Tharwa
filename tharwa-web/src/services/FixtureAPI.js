@@ -3,7 +3,9 @@
  let req=require("../fixtures/RequestsList.json");
 export default {
   setAuthToken: () => {},
+  setPinCode: () => {},
   removeAuthToken: () => {},
+  removePinCode: () => {},
   login: authObj => {
     if (
       authObj.username === "user@email.com" &&
