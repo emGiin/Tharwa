@@ -6947,6 +6947,10 @@ react-modal@^3.1.10:
     prop-types "^15.5.10"
     warning "^3.0.0"
 
+react-native-carousel-pager@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/react-native-carousel-pager/-/react-native-carousel-pager-1.4.2.tgz#ceafa10e59855fd4959011d83f4af22a482835c5"
+
 react-native-compat@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-compat/-/react-native-compat-1.0.0.tgz#491dbd8a0105ac061b8d0d926463ce6a3dff33bc"
