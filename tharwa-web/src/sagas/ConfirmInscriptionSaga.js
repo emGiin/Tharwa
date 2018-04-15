@@ -30,7 +30,7 @@ export function* getRequestsList(api) {
   }
 }
 
-export function* rejectDemand(api,params){
+export function* rejectDemand(api,{email}){
   console.log("start");
   //Headers
   const authToken = yield select(selectAuthToken);
@@ -42,7 +42,7 @@ export function* rejectDemand(api,params){
     yield call(api.setPinCode, pinCode);
    }
   const body={
-    email:params.email,
+    email:email,
     code: 0
   };
   console.log("1");
@@ -59,7 +59,7 @@ export function* rejectDemand(api,params){
 
 }
 
-export function* acceptDemand(api,params){
+export function* acceptDemand(api,{email}){
   //Headers
   const authToken = yield select(selectAuthToken);
   if (authToken) {
@@ -70,11 +70,11 @@ export function* acceptDemand(api,params){
     yield call(api.setPinCode, pinCode);
    }
    console.log("rightSaga");
-   console.log(params);
+   console.log(email);
    
    
   const body={
-    email:params.email,
+    email:email,
     code: 1
   };
 
