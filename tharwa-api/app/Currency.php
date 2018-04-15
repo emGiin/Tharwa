@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Commission extends Model
+class Currency extends Model
 {
-    protected $table = 'commissions';
+    protected $table = 'currencies';
 
     protected $guarded = [];
 
     public $incrementing = false;
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'code';
 
 //    protected $visible =
 }
