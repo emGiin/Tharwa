@@ -28,7 +28,7 @@ export function* getTransfersList(api) {
   }
 }
 
-export function* rejectTransfer(api,params){
+export function* rejectTransfer(api,{id}){
   console.log("start");
   //Headers
   const authToken = yield select(selectAuthToken);
@@ -40,7 +40,7 @@ export function* rejectTransfer(api,params){
     yield call(api.setPinCode, pinCode);
    }
   const body={
-    id:params.id,
+    id:id,
     code: 0
   };
   console.log("1");
@@ -55,7 +55,7 @@ export function* rejectTransfer(api,params){
 
 }
 
-export function* acceptTransfer(api,params){
+export function* acceptTransfer(api,{id}){
   console.log("start");
   //Headers
   const authToken = yield select(selectAuthToken);
@@ -67,10 +67,10 @@ export function* acceptTransfer(api,params){
     yield call(api.setPinCode, pinCode);
    }
   console.log("saga");
-  console.log(params.id);
+  console.log(id);
   
   const body={
-    id:params.id,
+    id:id,
     code: 1
   };
   console.log("1");

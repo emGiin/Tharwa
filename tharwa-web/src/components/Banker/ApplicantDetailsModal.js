@@ -4,7 +4,6 @@ import { Modal, Button, Icon, Row, Col,Divider } from "antd";
 import RoundedImage from "../Reusable Components/RoundedImage";
 import LoadingSpinner from "../Reusable Components/LoadingSpinner";
 
-const confirm = Modal.confirm;
 
 class ApplicantDetailsModal extends Component {
   render() {
