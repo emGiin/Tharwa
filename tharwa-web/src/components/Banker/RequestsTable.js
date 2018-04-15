@@ -3,7 +3,6 @@ import { Table, Icon, Modal, message } from "antd";
 
 import RoundedImage from "../Reusable Components/RoundedImage";
 import ApplicantDetailsModal from "./ApplicantDetailsModal";
-import { LoadingSpinner } from "../Reusable Components";
 
 const confirm = Modal.confirm;
 

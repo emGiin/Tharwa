@@ -1,14 +1,8 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch
-} from "react-router-dom";
+import { BrowserRouter as Router, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import ConfirmInscription from "./ConfirmInscription";
-
+import AppLayout from "./AppLayout";
 
 class App extends Component {
   render() {
@@ -19,9 +13,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Switch>
-            <Route path="/" component={ConfirmInscription} />
-          </Switch>
+          <AppLayout />
         </div>
       </Router>
     );
