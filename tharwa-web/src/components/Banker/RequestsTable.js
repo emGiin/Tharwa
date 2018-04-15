@@ -32,6 +32,7 @@ class RequestsTable extends Component {
 
   handleConfirmReject(record) {
     const closeModal = this.closeModal.bind(this);
+    const rejectDemand = this.props.rejectDemand;
     confirm({
       title: "Voulez-vous vraiment rejeter cette demande?",
       content: `Nom: ${record.firstname} ${record.lastname}`,
@@ -39,38 +40,28 @@ class RequestsTable extends Component {
       okType: "danger",
       cancelText: "Annuler",
       onOk() {
-        this.props.rejectDemand(record.email);
+        rejectDemand(record.email);
         closeModal();
       }
     });
   }
 
   render() {
-    let content = null;
-    const setDefault = this.props.setDefault;
+    message.destroy();
     if (this.props.actionState.actionFetching) {
-      message.destroy();
-      content = message.loading("En cours d'exécution...", 0);
+      message.loading("En cours d'exécution...", 0);
     } else {
       if (this.props.actionState.actionSuccess) {
-        content = message.success("Action réussie!");
-        setTimeout(() => {
-          console.log("tmeout");
-          setDefault();
-        }, 1000);
-      } else {
-        if (this.props.actionState.actionError) {
-          message.error(this.props.actionState.actionError);
-          setTimeout(() => {
-            console.log("tmeout");
-            setDefault();
-          }, 1000);
-        }
+        message.success("Action réussie!");
+      } else if (this.props.actionState.actionError) {
+        message.error(this.props.actionState.actionError);
       }
+      setTimeout(this.props.setDefault, 1000);
     }
+
     return (
       <div>
-        <div>{content}</div>
+        {/* <div>{content}</div> */}
         <ApplicantDetailsModal
           handleValidate={this.handleValidate.bind(this)}
           handleConfirmReject={this.handleConfirmReject.bind(this)}
