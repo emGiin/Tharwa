@@ -82,8 +82,8 @@ class RequestController extends Controller
                 Account::create([
                     'number' => 'THW'.sprintf("%06d", $accountNb).'DZD', //todo check if it s the best way
                     'isValid' => true,
-                    'currency_id' => '',
-                    'type_id' => '',
+                    'currency_id' => 'DZD',
+                    'type_id' => 'COUR',
                     'client_id' => $acceptedClient->email,
                 ]);
 

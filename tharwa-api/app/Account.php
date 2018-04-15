@@ -20,4 +20,16 @@ class Account extends Model
     {
         return $this->belongsTo(Client::class);
     }
+
+
+    public function hasEnoughMoney($needed)
+    {
+        return $this->balance >= $needed;
+    }
+
+
+    public function scopeCourant($query)
+    {
+        return $query->where('type_id', 'COUR ');
+    }
 }

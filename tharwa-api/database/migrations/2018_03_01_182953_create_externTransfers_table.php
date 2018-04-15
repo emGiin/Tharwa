@@ -14,7 +14,7 @@ class CreateExternTransfersTable extends Migration
     public function up()
     {
         Schema::create('externTransfers', function (Blueprint $table) {
-            $table->char('code', 12)->primary()->index();;
+            $table->char('code', 36)->primary()->index();;
             $table->double('amount', 20, 8);//todo DOUBLE(size,d)
             $table->string('justification')->nullable();
             $table->string('reason')->nullable();

@@ -18,10 +18,10 @@ use App\Http\Middleware\AuthManager;
     /**
      * mobile client
      **/
-Route::post('/client', 'ClientController@create')->middleware(AuthClient::class);
+Route::post('/client', 'ClientController@create');
 
 
-Route::post('/virment/intern', 'VirmentController@create')->middleware(AuthClient::class);
+Route::post('/virment/intern', 'VirmentController@createIntern')->middleware(AuthClient::class);
 
 
     /**
@@ -32,6 +32,6 @@ Route::get('/clientRequests', 'RequestController@index')->middleware(AuthManager
 Route::post('/clientRequests', 'RequestController@edit')->middleware(AuthManager::class);
 
 
-Route::post('/banquier', 'BanquierController@create')->middleware(AuthClient::class);
+Route::post('/banquier', 'BanquierController@create')->middleware(AuthManager::class);
 
 
