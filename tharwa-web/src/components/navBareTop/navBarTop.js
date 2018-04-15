@@ -8,6 +8,14 @@ import './style.css';
           <Menu.Item key="1">deconnexion</Menu.Item>
         </Menu>
       );
+
+  const menuNotif= (
+    <Menu >
+    <Menu.Item key="1">notif1</Menu.Item>
+    <Menu.Item key="2">notif2</Menu.Item>
+    <Menu.Item key="3">notif3</Menu.Item>
+  </Menu>
+  );
 class NavBareTop  extends Component {
    
       
@@ -16,7 +24,7 @@ class NavBareTop  extends Component {
         return (
                 <ul className="barretop">
                     <li>
-                    <img id="logo" src="logo_web_small.png" alt="non disponible"/>
+                    <img id="logo" style={{height:"48px"}} src="logo_web_small.png" alt="non disponible"/>
                     </li>
                     <Col className="txt_menu" offset={4}>
                         <li >
@@ -31,6 +39,11 @@ class NavBareTop  extends Component {
                     </Col>
                     
                     
+                    <Dropdown overlay={menuNotif}>
+                    <Button shape="circle" type="dashed" className="notif">
+                    <Avatar size="small" icon="bell" /> 
+                    </Button>
+                    </Dropdown>
                     <Dropdown overlay={menuUser}>
                     <Button type="dashed">
                     <Avatar size="small" icon="user" /> Admin <Icon type="down" />

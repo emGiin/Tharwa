@@ -1,7 +1,7 @@
 .barretop{
     display: inline-flex;
 list-style: outside none none;
-background: linear-gradient(330deg, #07c6b9 0%, #0e9cd1 75%);
+background: linear-gradient(330deg, #0790c6 0%, #1890ff 75%);
 width: 100%;
 height: 50px;
 position: fixed;
@@ -10,12 +10,24 @@ display: flex;
 box-shadow: 2px 1px 4px;
 }
 
-.barretop button{
+.barretop button,.barretop .notif{
     position: absolute;
 right: 9px;
 top: 6px;
 background: transparent;
 }
+.barretop .notif{
+    right: 156px!important;
+    border: none;
+}
+.notif span{
+  width: 100%;
+height: 100%;
+padding: 7%;
+border-radius: 50%;
+font-size: 18px!important;
+}
+
 .txt_menu{
     display: inline-flex;
     font-size: 13pt;
