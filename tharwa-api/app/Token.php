@@ -69,4 +69,24 @@ class Token extends Model
 
     }
 
+
+    public static function checkAndGetScope($token, $pincode)
+    {
+        $now = date('Y-m-d H:i:s');
+//todo uncomment for prod
+        $row = static::where('token', $token)
+            ->where('pin_code', $pincode)
+//            ->where('pin_code_expires_at', '>', $now)
+//            ->where('expires_at', '>', $now)
+            ->first();
+
+        if(empty($row))
+            return false;
+
+        return  ["scope" => $row->scopes,
+            "id" => $row->user_id ];
+    }
+
+
+
 }

@@ -14,6 +14,8 @@ class Manager extends Model
      */
     protected $table = 'managers';
 
+    protected $primaryKey = 'email';
+
     protected $guarded = [];
 
     /**

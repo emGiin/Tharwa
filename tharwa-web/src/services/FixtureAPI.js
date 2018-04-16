@@ -35,5 +35,42 @@ export default {
         data: "Invalid pin code"
       };
     }
+  },
+  getRequestsList:()=>{
+    console.log('API');
+    if (
+      true
+      //pin === require("../fixtures/realPinCode.json").pinCode &&
+      //token === require("../fixtures/token.json").token
+    ) {
+      return {
+        ok: true,
+        data: require("../fixtures/RequestsList.json")
+      };
+    } else {
+      return {
+        ok: false,
+        status: 400,
+        data: "Invalid pin code or token"
+      };
+    }
+  },
+  inscriptionAction:()=>{
+    console.log('API');
+    if (
+      true
+      //data.pin === require("../fixtures/realPinCode.json").pinCode &&
+      //data.token === require("../fixtures/token.json").token
+    ) {
+      return {
+        ok: true
+      };
+    } else {
+      return {
+        ok: false,
+        status: 400,
+        data: "Invalid pin code or token"
+      };
+    }
   }
 };

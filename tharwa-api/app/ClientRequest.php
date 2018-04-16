@@ -8,7 +8,12 @@ class ClientRequest extends Model
 {
     protected $table = 'clientRequests';
 
+    protected $primaryKey = 'email';
+
     protected $guarded = [];
+
+    protected $visible = ["email","firstname","lastname","address",
+        "phone","picture","function","type","created_at"];
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -16,5 +21,11 @@ class ClientRequest extends Model
      * @var boolean
      */
     public $incrementing = false;
+
+
+    public static function notValidated()
+    {
+        return static::where('validated', false)->orderBy('created_at')->get();
+    }
 
 }
