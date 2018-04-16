@@ -58,13 +58,15 @@ class MainScreen extends Component {
           ref={ref => this.carousel = ref}
           initialPage={3}
           pageStyle={{ backgroundColor: '#ffffffbb', height: 100 }}>
-          <View key={'page0'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#555', borderRadius: 5 }}>
+          <View key={'page0'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#999', borderRadius: 5 }}>
             <Text style={{ fontSize: 16 }}>COMPTE DEVISE EURO</Text>
             <Text style={{ fontSize: 26, margin: 5 }}>4 705 EURO</Text>
           </View>
-          <View key={'page1'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#555', borderRadius: 5 }}>
-            <Text style={{ fontSize: 16 }}>COMPTE DEVISE DOLLAR</Text>
-            <Text style={{ fontSize: 26, margin: 5 }}>4 705 $</Text>
+          <View key={'page1'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#555', backgroundColor: '#555', borderRadius: 5 }}>
+            <TouchableOpacity>
+              <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center', marginTop: 5, }}>COMPTE DEVISE DOLLAR</Text>
+              <Text style={{ color: '#fff', fontSize: 26, marginBottom: 5, textAlign: 'center' }}>Demander la creation de ce compte</Text>
+            </TouchableOpacity>
           </View>
           <View key={'page2'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#555', borderRadius: 5 }}>
             <Text style={{ fontSize: 16 }}>COMPTE EPARGNE</Text>
