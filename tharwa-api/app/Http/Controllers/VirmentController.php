@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\Client;
+use App\ExternTransfer;
 use App\InternTransfer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -103,21 +104,69 @@ class VirmentController extends Controller
 
     public function validationList()
     {
-        //todo with extern transfers
+        //todo check with extern transfers
+
+        $transferExternNeedValidations = ExternTransfer::needValidation()->get([
+            'amount', 'justification', 'reason',
+            'transferDate', 'extern_account_name', 'extern_account_number',
+            'intern_account_id'
+        ]);
+
+        foreach ($transferExternNeedValidations as $transfer) {
+            if ($transfer->isFromExtern()) {
+                $transfer->source_id = collect(
+                    [
+                        'firstName' => $transfer->extern_account_name,
+                        'lastName' => '',
+                        'account' => $transfer->extern_account_number
+                    ]
+                );
+
+                $receiver = collect(
+                    Account::find($transfer->intern_account_id)
+                        ->client()
+                        ->get(['firstName', 'lastName'])
+                        ->first()
+                );
+                $receiver->put('account', $transfer->intern_account_id);
+                $transfer->destination_id = $receiver;
+            } else {
+                $sender = collect(
+                    Account::find($transfer->intern_account_id)
+                        ->client()
+                        ->get(['firstName', 'lastName'])
+                        ->first()
+                );
+                $sender->put('account', $transfer->intern_account_id);
+                $transfer->source_id = $sender;
+
+                $transfer->destination_id = collect(
+                    [
+                        'firstName' => $transfer->extern_account_name,
+                        'lastName' => '',
+                        'account' => $transfer->extern_account_number
+                    ]
+                );
+            }
+        }
+
+        //todo delete unneeded key in the collection
 
         $transferInternNeedValidations = InternTransfer::needValidation()->get([
             'amount', 'justification', 'reason',
             'transferDate', 'source_id', 'destination_id'
         ]);
 
+//        dd($transferExternNeedValidations);
+
         foreach ($transferInternNeedValidations as $transfer) {
             $sender = collect(
                 Account::find($transfer->source_id)
-                ->client()
-                ->get(['firstName', 'lastName'])
-                ->first()
+                    ->client()
+                    ->get(['firstName', 'lastName'])
+                    ->first()
             );
-            $sender->put('account' ,$transfer->source_id);
+            $sender->put('account', $transfer->source_id);
             $transfer->source_id = $sender;
 
 
@@ -127,9 +176,10 @@ class VirmentController extends Controller
                     ->get(['firstName', 'lastName'])
                     ->first()
             );
-            $receiver->put('account' ,$transfer->destination_id);
+            $receiver->put('account', $transfer->destination_id);
             $transfer->destination_id = $receiver;
         }
+
 
         return response($transferInternNeedValidations);
 
