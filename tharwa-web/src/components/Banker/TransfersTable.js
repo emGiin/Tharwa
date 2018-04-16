@@ -6,13 +6,12 @@ import TransferDetailsModal from "./TransferDetailsModal";
 const confirm = Modal.confirm;
 
 class TransfersTable extends Component {
-  state = {
-    pagination: {},
-    loading: false,
-    data: [],
+  INITIAL_STATE = {
     selectedTrans:{},
     isModalVisible: false
   };
+
+  state=this.INITIAL_STATE;
 
   columns = [
    /* {
@@ -132,62 +131,20 @@ class TransfersTable extends Component {
     })
   } 
 
-  handleTableChange = (pagination, filters, sorter) => {
-   /* const pager = { ...this.state.pagination };
-    pager.current = pagination.current;
-    this.setState({
-      pagination: pager
-    });*/
-    this.fetch({
-      results: pagination.pageSize,
-      page: pagination.current,
-      sortField: sorter.field,
-      sortOrder: sorter.order,
-      ...filters
-    });
-  };
-  fetch = (params = {}) => {
-    this.setState({ loading: true });
-    const pagination = { ...this.state.pagination };
-    //API------
-    //getting records by pages of 20 for example
-    pagination.total = 1; //totalcount of records=data.totalcount
-    this.setState({
-      loading: false,
-      data: this.props.list,
-      pagination
-    });
-  };
-  componentDidMount() {
-    // FETCHING HAPPENS INSIDE REDUX SAGAS AND API SERVICES
-    this.fetch();
-  }
   render() {
-    let content=null;
-    const setDefault=this.props.setDefault;
-    if(this.props.actionState.actionFetching){
-      message.destroy();
-      content=message.loading("En cours d'exécution...",0);
-    }else{
-      if(this.props.actionState.actionSuccess){
-        content=message.success( "Action réussie!");
-        setTimeout(() => {
-          console.log("tmeout");
-          setDefault()
-        }, 1000);
-    }else{
-      if(this.props.actionState.actionError){
-        message.error( this.props.actionState.actionError)
-        setTimeout(() => {
-          console.log("tmeout");
-          setDefault()
-        }, 1000);
+    message.destroy();
+    if (this.props.actionState.actionFetching) {
+      message.loading("En cours d'exécution...", 0);
+    } else {
+      if (this.props.actionState.actionSuccess) {
+        message.success("Action réussie!");
+      } else if (this.props.actionState.actionError) {
+        message.error(this.props.actionState.actionError);
       }
-    }
-  }  
+      setTimeout(this.props.setDefault, 1000);
+    } 
     return (
       <div>
-        <div>{content}</div>
         <TransferDetailsModal handleValidate={this.handleValidate.bind(this)} handleConfirmReject={this.handleConfirmReject.bind(this)} actionState={this.props.actionState} transfer={this.state.selectedTrans} visible={this.state.isModalVisible}
          onCancel={()=>{
            this.setState({

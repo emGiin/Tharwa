@@ -8,6 +8,7 @@ import {
 import { connect } from "react-redux";
 
 import ConfirmInscription from "./ConfirmInscription";
+import ValidateTransfer from "./ValidateTransfer";
 
 class App extends Component {
   render() {
@@ -19,7 +20,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <Switch>
-            <Route path="/" component={ConfirmInscription} />
+            <Route path="/" component={ValidateTransfer} />
           </Switch>
         </div>
       </Router>
