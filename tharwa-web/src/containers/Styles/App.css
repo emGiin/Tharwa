@@ -12,8 +12,8 @@ background: white;
 }
 .page{
     padding-top: 50px;
-    height: 615px;
-overflow: scroll;
+    height: 653px;
+    overflow: scroll;
 }
 button#submit{
   width: 191px;
