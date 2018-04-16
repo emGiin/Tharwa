@@ -23,6 +23,7 @@ const PrimaryNav = StackNavigator(
   }, {
     // Default config for all screens
     initialRouteName: 'AppDrawer',
+    // initialRouteName: 'LaunchScreen',
     navigationOptions: {
       headerStyle: styles.header
     }

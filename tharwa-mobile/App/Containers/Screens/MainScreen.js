@@ -11,6 +11,30 @@ import CarouselPager from 'react-native-carousel-pager';
 import styles from './Styles/MainScreenStyle'
 import { Colors, Images } from '../../Themes'
 
+MainHeader = ({ openDrawer }) => (
+  <Header
+    style={styles.container}
+    backgroundColor={Colors.forground}
+    androidStatusBarColor={Colors.forground}
+  >
+    <TouchableOpacity
+      style={styles.leftButton}
+      onPress={openDrawer}>
+      <Icon size={32} color={Colors.white} name="menu" />
+    </TouchableOpacity>
+
+    <TouchableOpacity
+      style={styles.rightButton}
+      onPress={openDrawer}>
+      <Icon size={32} color={Colors.white} name="bell" />
+      <View
+        style={{ height: 15, width: 15, borderRadius: 20, backgroundColor: "#c0392b", alignItems: 'center', justifyContent: 'center', position: 'absolute', top: 2, right: 0 }}>
+        <Text style={{ fontSize: 10, color: '#fff' }}>2</Text>
+      </View>
+    </TouchableOpacity>
+  </Header>
+)
+
 class MainScreen extends Component {
   state = { refreshing: false }
 
@@ -25,41 +49,29 @@ class MainScreen extends Component {
     this.props.navigation.navigate('DrawerToggle');
   }
 
-  renderHeader = () => (
-    <Header
-      style={styles.container}
-      backgroundColor={Colors.forground}
-      androidStatusBarColor={Colors.forground}
-    >
-      <TouchableOpacity
-        style={styles.leftButton}
-        onPress={this.openDrawer}>
-        <Icon size={32} color={Colors.white} name="menu" />
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.rightButton}
-        onPress={this.openDrawer}>
-        {/* TODO: change it to notification */}
-        <Image style={styles.imagePreview} source={Images.avatar} />
-      </TouchableOpacity>
-    </Header>
-  )
-
   render() {
     return (
       <View style={{ height: '100%', flex: 1, backgroundColor: '#f3f3f3' }}>
-        {this.renderHeader()}
+        <MainHeader openDrawer={this.openDrawer} />
 
         <CarouselPager
           ref={ref => this.carousel = ref}
           initialPage={3}
           pageStyle={{ backgroundColor: '#ffffffbb', height: 100 }}>
-          <View key={'page0'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#555', borderRadius: 5 }}></View>
-          <View key={'page1'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#555', borderRadius: 5 }}></View>
-          <View key={'page2'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#555', borderRadius: 5 }}></View>
+          <View key={'page0'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#555', borderRadius: 5 }}>
+            <Text style={{ fontSize: 16 }}>COMPTE DEVISE EURO</Text>
+            <Text style={{ fontSize: 26, margin: 5 }}>4 705 EURO</Text>
+          </View>
+          <View key={'page1'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#555', borderRadius: 5 }}>
+            <Text style={{ fontSize: 16 }}>COMPTE DEVISE DOLLAR</Text>
+            <Text style={{ fontSize: 26, margin: 5 }}>4 705 $</Text>
+          </View>
+          <View key={'page2'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#555', borderRadius: 5 }}>
+            <Text style={{ fontSize: 16 }}>COMPTE EPARGNE</Text>
+            <Text style={{ fontSize: 26, margin: 5 }}>41 205 DA</Text>
+          </View>
           <View key={'page3'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#555', borderRadius: 5 }}>
-            <Text style={{ fontSize: 16 }}>SOLDE COURANT</Text>
+            <Text style={{ fontSize: 16 }}>COMPTE COURANT</Text>
             <Text style={{ fontSize: 26, margin: 5 }}>80 570,64 DA</Text>
           </View>
         </CarouselPager>
@@ -71,14 +83,14 @@ class MainScreen extends Component {
         <FlatList
           style={{ marginTop: 20 }}
           data={[
-            { key: 'Devin' },
-            { key: 'Jackson' },
-            { key: 'James' },
-            { key: 'Joel' },
-            { key: 'John' },
-            { key: 'Jillian' },
-            { key: 'Jimmy' },
-            { key: 'Julie' },
+            { key: 1, type: 'Compte courant', date: '27/01/2018', time: '10:45 PM', amount: '-5 000 DA' },
+            { key: 2, type: 'Compte epargne', date: '01/02/2018', time: '11:06 AM', amount: '+2 000 DA' },
+            { key: 1, type: 'Compte courant', date: '27/01/2018', time: '10:45 PM', amount: '-5 000 DA' },
+            { key: 2, type: 'Compte epargne', date: '01/02/2018', time: '11:06 AM', amount: '+2 000 DA' },
+            { key: 1, type: 'Compte courant', date: '27/01/2018', time: '10:45 PM', amount: '-5 000 DA' },
+            { key: 2, type: 'Compte epargne', date: '01/02/2018', time: '11:06 AM', amount: '+2 000 DA' },
+            { key: 1, type: 'Compte courant', date: '27/01/2018', time: '10:45 PM', amount: '-5 000 DA' },
+            { key: 2, type: 'Compte epargne', date: '01/02/2018', time: '11:06 AM', amount: '+2 000 DA' },
           ]}
           // TODO: change refresh control style
           refreshControl={
@@ -95,12 +107,12 @@ class MainScreen extends Component {
                   paddingLeft: 10, marginVertical: 5, marginHorizontal: 10, borderLeftWidth: 7, borderLeftColor: '#999', flexDirection: 'row', justifyContent: 'space-between'
                 }}>
                 <View>
-                  <Text>Compte courant</Text>
-                  <Text>-5 000 DA</Text>
+                  <Text>{item.type}</Text>
+                  <Text>{item.amount}</Text>
                 </View>
                 <View>
-                  <Text>27/01/2018</Text>
-                  <Text>10:45 PM</Text>
+                  <Text>{item.date}</Text>
+                  <Text>{item.time}</Text>
                 </View>
               </View>
             </View>
