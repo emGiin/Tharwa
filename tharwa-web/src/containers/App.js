@@ -1,22 +1,32 @@
-import React, { Component } from 'react';
-import { Provider } from 'react-redux'
-import createStore from '../redux'
+import React, { Component } from "react";
+import { BrowserRouter as Router, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
-import Login from './Login';
-import './Styles/App.css';
-
-export const store = createStore()
+import AppLayout from "./AppLayout";
 
 class App extends Component {
   render() {
+    // const isLoggedIn = (({ authToken, pinCode }) => authToken && pinCode)(
+    //   this.props.auth
+    // );
+    const isLoggedIn = true;
+    if (!isLoggedIn) return <Redirect to="/login" push />;
     return (
-      <Provider store={store}>
+      <Router>
         <div className="App">
-            <Login />
+          <AppLayout />
         </div>
-      </Provider>
+      </Router>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  const auth = (({ authToken, pinCode }) => ({
+    authToken,
+    pinCode
+  }))(state.auth);
+  return { auth };
+};
+
+export default connect(mapStateToProps)(App);

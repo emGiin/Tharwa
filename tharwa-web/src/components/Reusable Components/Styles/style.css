@@ -1,0 +1,36 @@
+.justif:hover .buttonJustif{
+  opacity: 1;
+  transform: scale(1.8,1.8);
+  color: white;
+
+}
+.justif{
+  margin-top:"10px";
+  width:"120px";
+  height:"180px"
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.5s ease;
+}
+
+.justif:hover .overlay {
+  display: block;
+  background: rgba(1, 0, 0, 0.575);
+}
+
+.buttonJustif{
+  opacity: 0;
+  position: absolute;
+  top: 40%;
+  left:35%;
+  border: white;
+}
+.buttonJustif:visited{
+  border: white;
+}

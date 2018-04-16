@@ -1,5 +1,5 @@
 import { call, put, select } from "redux-saga/effects";
-import ConfirmInscriptionActions from "../redux/ConfirmInscriptionRedux";
+import ValidateTransferActions from "../redux/ValidateTransferRedux";
 
 
 //get Token from the store
@@ -8,7 +8,7 @@ export const selectAuthToken = state => state.auth.authToken;
 //get Pin code from the store
 export const selectPinCode= state=>state.auth.pinCode;
 
-export function* getRequestsList(api) {
+export function* getTransfersList(api) {
   //Headers
   const authToken = yield select(selectAuthToken);
   if (authToken) {
@@ -18,19 +18,17 @@ export function* getRequestsList(api) {
   if (pinCode) {
     yield call(api.setPinCode, pinCode);
    }
-
-  
-  const response = yield call(api.getRequestsList);
+  const response = yield call(api.getTransfersList);
 
   if (response.ok) {
-    yield put(ConfirmInscriptionActions.reqListSuccess());
-    yield put(ConfirmInscriptionActions.saveReqList(response.data));
+    yield put(ValidateTransferActions.transListSuccess());
+    yield put(ValidateTransferActions.saveTransList(response.data));
   } else {
-    yield put(ConfirmInscriptionActions.reqListFailure("code pin ou token invalide ou expiré!"));
+    yield put(ValidateTransferActions.transListFailure("code pin ou token invalide ou expiré!"));
   }
 }
 
-export function* rejectDemand(api,{email}){
+export function* rejectTransfer(api,{id}){
   console.log("start");
   //Headers
   const authToken = yield select(selectAuthToken);
@@ -42,24 +40,23 @@ export function* rejectDemand(api,{email}){
     yield call(api.setPinCode, pinCode);
    }
   const body={
-    email:email,
+    id:id,
     code: 0
   };
   console.log("1");
-  const response = yield call(api.inscriptionAction,body);
+  const response = yield call(api.transferAction,body);
   console.log("ok");
   if (response.ok) {
-    yield put(ConfirmInscriptionActions.actionSuccess());
-    yield put(ConfirmInscriptionActions.reqListRequest());
-    console.log("fin list req");
-    
+    yield put(ValidateTransferActions.actionTransSuccess());
+    yield put(ValidateTransferActions.transListRequest());
   } else {
-    yield put(ConfirmInscriptionActions.actionFailure("code pin ou token invalide ou expiré!"));
+    yield put(ValidateTransferActions.actionTransFailure("code pin ou token invalide ou expiré!"));
   }
 
 }
 
-export function* acceptDemand(api,{email}){
+export function* acceptTransfer(api,{id}){
+  console.log("start");
   //Headers
   const authToken = yield select(selectAuthToken);
   if (authToken) {
@@ -69,22 +66,22 @@ export function* acceptDemand(api,{email}){
   if (pinCode) {
     yield call(api.setPinCode, pinCode);
    }
-   console.log("rightSaga");
-   console.log(email);
-   
-   
+  console.log("saga");
+  console.log(id);
+  
   const body={
-    email:email,
+    id:id,
     code: 1
   };
-
-  const response = yield call(api.inscriptionAction,body);
-
+  console.log("1");
+  const response = yield call(api.transferAction,body);
+  console.log("ok");
   if (response.ok) {
-    yield put(ConfirmInscriptionActions.actionSuccess());
-    yield put(ConfirmInscriptionActions.reqListRequest());
+    yield put(ValidateTransferActions.actionTransSuccess());
+    yield put(ValidateTransferActions.transListRequest());
   } else {
-    yield put(ConfirmInscriptionActions.actionFailure("code pin ou token invalide ou expiré!"));
+    yield put(ValidateTransferActions.actionTransFailure("code pin ou token invalide ou expiré!"));
   }
 
 }
+

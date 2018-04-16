@@ -3,18 +3,18 @@ import Immutable from "seamless-immutable";
 
 //Actions
 const { Types, Creators } = createActions({
-  setDefault:[],
-  rejectRequest: ["email"],
-  validateRequest:["email"],
-  actionSuccess:[],
-  actionFailure:["error"],
-  reqListRequest:[],
-  reqListSuccess:[],
-  reqListFailure:["error"],
-  saveReqList:["list"]
+  setDefaultTrans:[],
+  rejectTransfer: ["id"],
+  validateTransfer: ["id"],
+  actionTransSuccess:[],
+  actionTransFailure:["error"],
+  transListRequest:[],
+  transListSuccess:[],
+  transListFailure:["error"],
+  saveTransList:["list"]
 });
 
-export const ConfirmInscriptionTypes = Types;
+export const ValidateTransferTypes = Types;
 export default Creators;
 
 //State
@@ -34,12 +34,10 @@ export const setDefault= state=> state.merge({ actionSuccess: false , actionErro
 export const request = state => state.merge({ fetching: true, success: false, error: null });
 
 export const success = state =>{
-  
   return state.merge({ fetching: false, error: null, success: true });
 }
-  
 
-export const saveReqList = (state, { list }) => state.merge({ list });
+export const saveTransList = (state, { list }) => state.merge({ list });
 
 export const failure = (state, { error }) =>
   state.merge({ fetching: false, error });//si code pin expiré popup de code pin
@@ -54,13 +52,13 @@ export const actionFailure = (state, { error }) =>
   state.merge({ actionFetching: false, actionError:error });
 
 export const reducer = createReducer(INITIAL_STATE, {
-    [Types.REQ_LIST_REQUEST]: request,
-    [Types.REQ_LIST_SUCCESS]: success,
-    [Types.REQ_LIST_FAILURE]: failure,
-    [Types.SAVE_REQ_LIST]: saveReqList,
-    [Types.REJECT_REQUEST]: actionReq,
-    [Types.VALIDATE_REQUEST]: actionReq,
-    [Types.ACTION_SUCCESS]: actionSuccess,
-    [Types.ACTION_FAILURE]: actionFailure,
-    [Types.SET_DEFAULT]: setDefault
+    [Types.TRANS_LIST_REQUEST]: request,
+    [Types.TRANS_LIST_SUCCESS]: success,
+    [Types.TRANS_LIST_FAILURE]: failure,
+    [Types.SAVE_TRANS_LIST]: saveTransList,
+    [Types.REJECT_TRANSFER]: actionReq,
+    [Types.VALIDATE_TRANSFER]: actionReq,
+    [Types.ACTION_TRANS_SUCCESS]: actionSuccess,
+    [Types.ACTION_TRANS_FAILURE]: actionFailure,
+    [Types.SET_DEFAULT_TRANS]: setDefault
 });

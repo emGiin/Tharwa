@@ -15,12 +15,21 @@ const create = (baseURL = API_URL) => {
   const removeAuthToken = () => api.setHeader('Authorization', '')
   const removePinCode=() => api.setHeader('code_pin','')
 
+  /**** Inscription requests validation */
   const  getRequestsList= () => {
-    return api.get('newRequests')
+    return api.get('clientRequests')
   }
 
   const inscriptionAction=(body)=>{
-    return api.post('newRequests',body)
+    return api.post('clientRequests',body)
+  }
+
+  /**** Transfer Validation */
+  const  getTransfersList= () => {
+    return api.get('transfers')
+  }
+  const transferAction=(body)=>{
+    return api.post('transfers',body)
   }
   return {
     api,
@@ -29,7 +38,9 @@ const create = (baseURL = API_URL) => {
     setPinCode,
     removeAuthToken,
     removePinCode,
-    inscriptionAction
+    inscriptionAction,
+    transferAction,
+    getTransfersList
   }
 }
 

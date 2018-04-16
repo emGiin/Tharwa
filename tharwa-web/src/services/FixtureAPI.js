@@ -1,6 +1,11 @@
+
+ let trans=require("../fixtures/TransfersList.json");
+ let req=require("../fixtures/RequestsList.json");
 export default {
   setAuthToken: () => {},
+  setPinCode: () => {},
   removeAuthToken: () => {},
+  removePinCode: () => {},
   login: authObj => {
     if (
       authObj.username === "user@email.com" &&
@@ -45,7 +50,7 @@ export default {
     ) {
       return {
         ok: true,
-        data: require("../fixtures/RequestsList.json")
+        data: req
       };
     } else {
       return {
@@ -55,8 +60,51 @@ export default {
       };
     }
   },
-  inscriptionAction:()=>{
+  inscriptionAction:(body)=>{
+    console.log(body);
+    
+    req=req.filter(e => e.email !== body.email);
     console.log('API');
+    if (
+      true
+      //data.pin === require("../fixtures/realPinCode.json").pinCode &&
+      //data.token === require("../fixtures/token.json").token
+    ) {
+      return {
+        ok: true
+      };
+    } else {
+      return {
+        ok: false,
+        status: 400,
+        data: "Invalid pin code or token"
+      };
+    }
+  },
+  getTransfersList:()=>{
+    console.log(trans);
+    if (
+      true
+      //pin === require("../fixtures/realPinCode.json").pinCode &&
+      //token === require("../fixtures/token.json").token
+    ) {
+      return {
+        ok: true,
+        data: trans//require("../fixtures/TransfersList.json")
+      };
+    } else {
+      return {
+        ok: false,
+        status: 400,
+        data: "Invalid pin code or token"
+      };
+    }
+  },
+  transferAction:(body)=>{
+    trans=trans.filter(e => e.id !== body.id);
+    console.log("action:::");
+    console.log(body);
+    console.log(trans);
     if (
       true
       //data.pin === require("../fixtures/realPinCode.json").pinCode &&

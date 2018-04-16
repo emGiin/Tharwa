@@ -11,6 +11,44 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+//        $commissions = DB::table('commissions');
+//        $commissions->insert([
+//            'code' => '',
+//        ]);
+
+        $accountTypes = DB::table('accountTypes');
+        $accountTypes->insert([
+            'code' => 'COUR',
+            'name' => 'courant',
+        ]);
+        $accountTypes->insert([
+            'code' => 'EPAR',
+            'name' => 'épargne',
+        ]);
+        $accountTypes->insert([
+            'code' => 'DVEUR',
+            'name' => 'devise euro',
+        ]);
+        $accountTypes->insert([
+            'code' => 'DVUSD',
+            'name' => 'devise dollar',
+        ]);
+
+
+        $currencies = DB::table('currencies');
+        $currencies->insert([
+            'code' => 'DZD',
+            'name' => 'DINAR ALGERIAN',
+        ]);
+        $currencies->insert([
+            'code' => 'EUR',
+            'name' => 'EURO',
+        ]);
+        $currencies->insert([
+            'code' => 'USD',
+            'name' => 'DOLAR AMERICAN',
+        ]);
+
         $managers = DB::table('managers');
         $managers->insert([
             'email' => 'bl_banquier@Tharwa.com',
@@ -64,5 +102,18 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
 
+        $accounts  = DB::table('accounts');
+        $accounts->insert([
+            'number'=>'THW000001DZD',
+            'currency_id'=>'DZD',
+            'type_id'=>'COUR',
+            'client_id'=>'client@domaine.com',
+        ]);
+        $accounts->insert([
+            'number'=>'THW000002DZD',
+            'currency_id'=>'DZD',
+            'type_id'=>'COUR',
+            'client_id'=>'a@d.c',
+        ]);
     }
 }

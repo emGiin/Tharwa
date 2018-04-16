@@ -11,8 +11,8 @@ export function* confirmPinCode(api, { pinCode }) {
   });
 
   if (response.ok) {
-    yield put(PinCodeActions.pinCodeSuccess());
     yield put(AuthActions.saveAuthToken(response.data.token_, pinCode));
+    yield put(PinCodeActions.pinCodeSuccess());
   } else {
     yield put(
       PinCodeActions.pinCodeFailure(

@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { Table, Icon, Modal, message, Tooltip } from "antd";
 
-import RoundedImage from "../Reusable Components/RoundedImage";
-import ApplicantDetailsModal from "./ApplicantDetailsModal";
+import TransferDetailsModal from "./TransferDetailsModal";
 
 const confirm = Modal.confirm;
 
-class RequestsTable extends Component {
+class TransfersTable extends Component {
   INITIAL_STATE = {
-    selectedUser: {},
+    selectedTrans: {},
     isModalVisible: false
   };
 
@@ -16,7 +15,7 @@ class RequestsTable extends Component {
 
   showModal(record) {
     this.setState({
-      selectedUser: record,
+      selectedTrans: record,
       isModalVisible: true
     });
   }
@@ -26,21 +25,21 @@ class RequestsTable extends Component {
   }
 
   handleValidate(record) {
-    this.props.acceptDemand(record.email);
+    this.props.acceptDemand(record.id);
     this.closeModal();
   }
 
   handleConfirmReject(record) {
-    const closeModal = this.closeModal.bind(this);
     const rejectDemand = this.props.rejectDemand;
+    const closeModal = this.closeModal.bind(this);
     confirm({
-      title: "Voulez-vous vraiment rejeter cette demande?",
-      content: `Nom: ${record.firstname} ${record.lastname}`,
+      title: "Voulez-vous vraiment refuser ce virement?",
+      content: "",
       okText: "Oui",
       okType: "danger",
       cancelText: "Annuler",
       onOk() {
-        rejectDemand(record.email);
+        rejectDemand(record.id);
         closeModal();
       }
     });
@@ -61,17 +60,17 @@ class RequestsTable extends Component {
 
     return (
       <div>
-        <ApplicantDetailsModal
+        <TransferDetailsModal
           handleValidate={this.handleValidate.bind(this)}
           handleConfirmReject={this.handleConfirmReject.bind(this)}
           actionState={this.props.actionState}
-          user={this.state.selectedUser}
+          transfer={this.state.selectedTrans}
           visible={this.state.isModalVisible}
           onCancel={() => this.setState(this.INITIAL_STATE)}
         />
         <Table
           columns={this.columns}
-          rowKey={record => record.email}
+          rowKey={record => record.id}
           dataSource={this.props.list}
           pagination={false}
           loading={this.props.fetching}
@@ -82,35 +81,43 @@ class RequestsTable extends Component {
 
   columns = [
     {
-      title: "",
-      dataIndex: "picture",
-      key: "picture",
+      title: "Emetteur",
+      dataIndex: "emetteur",
+      key: "emetteur",
       render: text => (
         <span>
-          <RoundedImage uri={text} height="50px" />
+          <span>
+            {text.nom} {text.prenom}
+          </span>
+          <br />
+          <span>{text.compte}</span>
         </span>
       )
     },
     {
-      title: "Nom",
-      dataIndex: "lastname",
-      key: "lastname"
+      title: "Destinataire",
+      dataIndex: "destinataire",
+      key: "destinataire",
+      render: text => (
+        <span>
+          <span>
+            {text.nom} {text.prenom}
+          </span>
+          <br />
+          <span>{text.compte}</span>
+        </span>
+      )
     },
     {
-      title: "Prénom",
-      dataIndex: "firstname",
-      key: "firstename"
-    },
-    {
-      title: "E-mail",
-      dataIndex: "email",
-      key: "email"
+      title: "Montant DZD",
+      dataIndex: "montant",
+      key: "montant"
     },
     {
       title: "Date",
-      dataIndex: "created_at",
-      key: "created_at"
-      // sorter: true //TODO : Définir la fonction de sort sur les dates
+      dataIndex: "date",
+      key: "date"
+      //sorter: true //TODO : Définir la fonction de sort sur les dates
     },
     {
       title: "",
@@ -123,13 +130,13 @@ class RequestsTable extends Component {
             </a>
           </Tooltip>
           <span className="ant-divider" />
-          <Tooltip title="Rejeter la demande">
+          <Tooltip title="Rejeter le virement">
             <a onClick={() => this.handleConfirmReject(record)}>
               <Icon type="close-circle-o" />
             </a>
           </Tooltip>
           <span className="ant-divider" />
-          <Tooltip title="Accepter la demande">
+          <Tooltip title="Accepter le virement">
             <a onClick={() => this.handleValidate(record)}>
               <Icon type="check-circle" />
             </a>
@@ -140,4 +147,4 @@ class RequestsTable extends Component {
   ];
 }
 
-export default RequestsTable;
+export default TransfersTable;
