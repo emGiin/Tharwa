@@ -1,22 +1,26 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Icon, Card } from 'antd'
-import CountUp from 'react-countup'
-import styles from './Styles/NumberCard.less'
+import React from "react";
+import PropTypes from "prop-types";
+import { Icon, Card } from "antd";
+import CountUp from "react-countup";
 
-function NumberCard ({
-  icon, color, title, number, countUp,
-}) {
+import "./Styles/NumberCard.css";
+
+function NumberCard({ icon, color, title, number, countUp }) {
   return (
-    <Card className={styles.numberCard} bordered={false} bodyStyle={{ padding: 0 }}>
-      <Icon className={styles.iconWarp} style={{ color }} type={icon} />
-      <div className={styles.content}>
-        <p className={styles.title}>{title || 'No Title'}</p>
-        <p className={styles.number}>
+    <Card
+      className="numberCard"
+      bordered={false}
+      hoverable
+      bodyStyle={{ padding: 0 }}
+    >
+      <Icon className="iconWarp" style={{ color }} type={icon} />
+      <div className="content">
+        <p className={"titles"}> {title || "No Title"}</p>
+        <p className="number">
           <CountUp
             start={0}
             end={number}
-            duration={2.75}
+            duration={3.75}
             useEasing
             useGrouping
             separator=","
@@ -25,7 +29,7 @@ function NumberCard ({
         </p>
       </div>
     </Card>
-  )
+  );
 }
 
 NumberCard.propTypes = {
@@ -33,7 +37,7 @@ NumberCard.propTypes = {
   color: PropTypes.string,
   title: PropTypes.string,
   number: PropTypes.number,
-  countUp: PropTypes.object,
-}
+  countUp: PropTypes.object
+};
 
-export default NumberCard
+export default NumberCard;

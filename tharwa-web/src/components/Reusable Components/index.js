@@ -1,4 +1,4 @@
 import LoadingSpinner from "./LoadingSpinner"
 import RoundedImage from "./RoundedImage"
-
-export {LoadingSpinner, RoundedImage};
+import NumberCard from "./NumberCard"
+export {LoadingSpinner, RoundedImage, NumberCard};
