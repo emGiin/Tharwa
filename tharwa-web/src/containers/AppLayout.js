@@ -67,6 +67,12 @@ class SideBar extends Component {
               <span>Demandes d'inscriptions</span>
             </NavLink>
           </Menu.Item>
+          <Menu.Item key="/virements">
+            <NavLink to="/virements">
+              <Icon type="swap" />
+              <span>Virements</span>
+            </NavLink>
+          </Menu.Item>
         </Menu>
         <Icon
           className="ant-layout-sider-trigger"
@@ -130,9 +136,7 @@ export default class AppLayout extends Component {
             </Menu>
           </Header>
           <Content style={{ margin: "24px 16px" }}>
-            <div style={{ padding: 24, background: "#fff" }}>
               <Routes />
-            </div>
           </Content>
           <Footer
             style={{
