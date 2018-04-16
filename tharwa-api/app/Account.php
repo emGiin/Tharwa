@@ -18,7 +18,7 @@ class Account extends Model
 
     public function client()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Client::class,'client_id');
     }
 
 
@@ -31,5 +31,15 @@ class Account extends Model
     public function scopeCourant($query)
     {
         return $query->where('type_id', 'COUR ');
+    }
+
+    public function internTransfersSender()
+    {
+        return $this->hasMany(InternTransfer::class,'source_id');
+    }
+
+    public function internTransfersReceiver()
+    {
+        return $this->hasMany(InternTransfer::class,'destination_id');
     }
 }

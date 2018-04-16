@@ -101,6 +101,15 @@ class VirmentController extends Controller
 
     }
 
+    public function validationList(Request $request){
+        //todo with extern transfers
+        dd(InternTransfer::find('THW000001DZDTHW000002DZD201804152035')->senderAccount);
+        dd(InternTransfer::find('THW000001DZDTHW000002DZD201804152035')->receiverAccount);
+        dd(Account::find('THW000001DZD')->internTransfersReceiver);
+        dd(Account::find('THW000001DZD')->internTransfersSender);
+        return response(Account::find('THW000001DZD'));
+    }
+
     private function client()
     {
         return resolve(Client::class);

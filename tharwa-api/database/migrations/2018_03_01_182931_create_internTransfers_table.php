@@ -18,7 +18,7 @@ class CreateInternTransfersTable extends Migration
             $table->double('amount', 20, 8);//todo DOUBLE(size,d)
             $table->string('justification')->nullable();
             $table->string('reason')->nullable();
-            $table->dateTime('transferDate')->nullable();;
+            $table->dateTime('transferDate')->nullable();
             $table->dateTime('creationDate');
             $table->enum('status', ['traitement', 'valide' ,'rejete']);
             $table->enum('transfers_type', ['commiss', 'cour_epar','epar_cour','cour_devi','devi_cour','vir_client']);//todo this is caused by tharwa account thr00000dzd  //['commiss', 'cour_epar','epar_cour','cour_devi','devi_cour','vir_client']
