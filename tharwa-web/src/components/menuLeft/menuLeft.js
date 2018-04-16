@@ -42,7 +42,7 @@ export default class MenuLeft extends Component {
             <Menu.Item key="8"><Icon type="pay-circle-o" />Les virements en attente</Menu.Item>
             <Menu.Item key="9"><Link  to="/dashboard"><Icon type="pie-chart" />Tableau de board</Link></Menu.Item>
           </SubMenu>
-          <SubMenu key="sub2" title={<span><Icon type="setting" /><span>Compte THARWA</span></span>}>
+          <SubMenu key="sub2" title={<span><Icon type="setting" /><span>Administration THARWA</span></span>}>
             <Menu.Item key="10"><Link  to="/GestionBanques"><Icon type="bank" />Gestion des banques</Link></Menu.Item>
             <Menu.Item key="11"><Link  to="/ListCommission"><Icon type="bars" />Liste des commissions</Link></Menu.Item>
           </SubMenu>

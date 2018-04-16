@@ -12,6 +12,7 @@ import ListBanquier from './ListeBanquier';
 import NavBareTop from '../components/navBareTop/navBarTop';
 import MenuLeft from '../components/menuLeft/menuLeft';
 import InscriptionRequests from './InscriptionRequests';
+import Dashboard from './Dashboard';
 
 
 import './Styles/App.css';
@@ -31,11 +32,12 @@ class Admin extends Component {
                       <Router>
                           <div className="routChild">
                                 <Col span={5}><MenuLeft /></Col>
-                                <Col span={16}>
+                                <Col span={19}>
                                         <div className="AdminContent">
                                               <Route path="/addBanquier" component={RegistrationForm} /> 
                                               <Route path="/ListBanquier" component={ListBanquier} /> 
                                               <Route path="/InscriptionRequests" component={InscriptionRequests}/>
+                                              <Route path="/dashboard" component={Dashboard}/>
                                         </div>
                                 </Col>
                           </div>

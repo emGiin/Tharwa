@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
 import TitlePage from '../components/titlePage/titlePage';
+import {Modal} from 'antd';
 
 import { connect } from "react-redux";
 
@@ -70,6 +71,11 @@ class RegistrationForm extends Component {
         this.state= {dataUser:values};
         this.props.sendData(this.state.dataUser);
         console.log('Send data from component ... :: '+JSON.stringify(values));
+      }else {
+        Modal.error({
+          title: 'Erreur !',
+          content: 'veuillez verifier que tous les champs sont valides.',
+        });
       }
     });
   }
@@ -131,7 +137,7 @@ class RegistrationForm extends Component {
 
     return (
       <div>
-      <TitlePage title="Ajouter banquier" />
+      <TitlePage title="Ajouter un banquier" />
       <Form onSubmit={this.handleSubmit} className="boite">
       <FormItem
           {...formItemLayout}
@@ -232,7 +238,7 @@ class RegistrationForm extends Component {
           {getFieldDecorator('validate', {
             valuePropName: 'checked',
           })(
-            <Checkbox>J ai lu et j accepte tous <a href="">les agreements</a></Checkbox>
+            <Checkbox>Je confirme que les données sont corrects et corespondent exactement à ce banquier.</Checkbox>
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>

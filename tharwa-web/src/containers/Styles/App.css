@@ -15,3 +15,8 @@ background: white;
     height: 615px;
 overflow: scroll;
 }
+button#submit{
+  width: 191px;
+text-transform: uppercase;
+margin: 0% 1%;
+}
