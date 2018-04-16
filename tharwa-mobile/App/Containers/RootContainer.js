@@ -32,14 +32,14 @@ class RootContainer extends Component {
 
   handleAppStateChange = (nextAppState) => {
     if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-      console.warn('App has come to the foreground!')
+      // console.warn('App has come to the foreground!')
       // TODO show pin code if logged in
     }
     this.setState({ appState: nextAppState });
   }
 
   handleHardwareBackPress = () => {
-    console.warn(this.props.nav);
+    // console.warn(this.props.nav);
 
     if (this.shouldCloseApp()) return false
     this.props.goBack();
