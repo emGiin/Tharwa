@@ -61,7 +61,6 @@ class RequestsTable extends Component {
 
     return (
       <div>
-        {/* <div>{content}</div> */}
         <ApplicantDetailsModal
           handleValidate={this.handleValidate.bind(this)}
           handleConfirmReject={this.handleConfirmReject.bind(this)}
