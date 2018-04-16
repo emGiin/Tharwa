@@ -25,7 +25,7 @@ class AuthManager
 
         //header validation
         if (!is_null($token) || strlen($pin) == 4)
-            $userInfo = Token::checkAndGetScope($token, $pin);
+            $userInfo = Token::checkAndGetScope(substr($token, 7), $pin);
 
         //check their validity
         if (!$userInfo || ($userInfo["scope"] != "Banquier" &&

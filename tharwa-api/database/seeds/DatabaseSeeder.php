@@ -115,5 +115,16 @@ class DatabaseSeeder extends Seeder
             'type_id'=>'COUR',
             'client_id'=>'a@d.c',
         ]);
+
+
+        $banks  = DB::table('banks');
+        $banks->insert([
+            'code'=>'THW',
+            'name'=>'tharwa',
+            'email'=>'tharwa@thrwa.dz',
+            'address'=>'Esi ^^',
+            'created_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);
     }
 }

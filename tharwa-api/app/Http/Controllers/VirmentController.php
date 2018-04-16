@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Account;
+use App\Bank;
 use App\Client;
 use App\ExternTransfer;
 use App\InternTransfer;
@@ -40,7 +41,7 @@ class VirmentController extends Controller
                 ->courant()->first();
 
             //check the amount
-            if (!$senderAccount->hasEnoughMoney(0)) throw new \Exception;////
+            if (!$senderAccount->hasEnoughMoney($amount)) throw new \Exception;
             $hasEnoughMoney = true;
 
             //create the transfer
@@ -107,18 +108,22 @@ class VirmentController extends Controller
         //todo check with extern transfers
 
         $transferExternNeedValidations = ExternTransfer::needValidation()->get([
-            'amount', 'justification', 'reason',
+            'code', 'amount', 'justification', 'reason',
             'transferDate', 'extern_account_name', 'extern_account_number',
             'intern_account_id'
         ]);
 
         foreach ($transferExternNeedValidations as $transfer) {
+            $extenBank = Bank::find(
+                substr($transfer->extern_account_number, 0, 3)
+            )->get()->name;
             if ($transfer->isFromExtern()) {
                 $transfer->source_id = collect(
                     [
                         'firstName' => $transfer->extern_account_name,
                         'lastName' => '',
-                        'account' => $transfer->extern_account_number
+                        'account' => $transfer->extern_account_number,
+                        'bank' => $extenBank
                     ]
                 );
 
@@ -129,6 +134,7 @@ class VirmentController extends Controller
                         ->first()
                 );
                 $receiver->put('account', $transfer->intern_account_id);
+                $receiver->put('bank', "Tharwa");
                 $transfer->destination_id = $receiver;
             } else {
                 $sender = collect(
@@ -138,13 +144,15 @@ class VirmentController extends Controller
                         ->first()
                 );
                 $sender->put('account', $transfer->intern_account_id);
+                $sender->put('bank', "Tharwa");
                 $transfer->source_id = $sender;
 
                 $transfer->destination_id = collect(
                     [
                         'firstName' => $transfer->extern_account_name,
                         'lastName' => '',
-                        'account' => $transfer->extern_account_number
+                        'account' => $transfer->extern_account_number,
+                        'bank' => $extenBank
                     ]
                 );
             }
@@ -153,7 +161,7 @@ class VirmentController extends Controller
         //todo delete unneeded key in the collection
 
         $transferInternNeedValidations = InternTransfer::needValidation()->get([
-            'amount', 'justification', 'reason',
+            'code', 'amount', 'justification', 'reason',
             'transferDate', 'source_id', 'destination_id'
         ]);
 
@@ -166,9 +174,9 @@ class VirmentController extends Controller
                     ->get(['firstName', 'lastName'])
                     ->first()
             );
+            $sender->put('bank', "Tharwa");
             $sender->put('account', $transfer->source_id);
             $transfer->source_id = $sender;
-
 
             $receiver = collect(
                 Account::find($transfer->destination_id)
@@ -176,6 +184,7 @@ class VirmentController extends Controller
                     ->get(['firstName', 'lastName'])
                     ->first()
             );
+            $receiver->put('bank', "Tharwa");
             $receiver->put('account', $transfer->destination_id);
             $transfer->destination_id = $receiver;
         }
