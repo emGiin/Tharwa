@@ -43,6 +43,7 @@
     "prettier": "^1.10.2",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
+    "react-countup": "^3.0.3",
     "react-dom": "^16.2.0",
     "react-image-lightbox": "^4.6.0",
     "react-redux": "^5.0.7",
