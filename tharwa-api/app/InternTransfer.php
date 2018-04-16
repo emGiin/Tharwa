@@ -18,12 +18,17 @@ class InternTransfer extends Model
 
     public function senderAccount()
     {
-        return $this->belongsTo(Account::class,'source_id');
+        return $this->belongsTo(Account::class, 'source_id');
     }
 
     public function receiverAccount()
     {
-        return $this->belongsTo(Account::class,'destination_id');
+        return $this->belongsTo(Account::class, 'destination_id');
     }
-//    public function scope
+
+    public function scopeNeedValidation($query)
+    {
+        return $query->where('amount','>','200000')
+            ->where('status','traitement');
+    }
 }

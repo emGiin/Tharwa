@@ -101,13 +101,49 @@ class VirmentController extends Controller
 
     }
 
-    public function validationList(Request $request){
+    public function validationList()
+    {
         //todo with extern transfers
-        dd(InternTransfer::find('THW000001DZDTHW000002DZD201804152035')->senderAccount);
-        dd(InternTransfer::find('THW000001DZDTHW000002DZD201804152035')->receiverAccount);
-        dd(Account::find('THW000001DZD')->internTransfersReceiver);
-        dd(Account::find('THW000001DZD')->internTransfersSender);
-        return response(Account::find('THW000001DZD'));
+
+        $transferInternNeedValidations = InternTransfer::needValidation()->get([
+            'amount', 'justification', 'reason',
+            'transferDate', 'source_id', 'destination_id'
+        ]);
+
+        foreach ($transferInternNeedValidations as $transfer) {
+            $sender = collect(
+                Account::find($transfer->source_id)
+                ->client()
+                ->get(['firstName', 'lastName'])
+                ->first()
+            );
+            $sender->put('account' ,$transfer->source_id);
+            $transfer->source_id = $sender;
+
+
+            $receiver = collect(
+                Account::find($transfer->destination_id)
+                    ->client()
+                    ->get(['firstName', 'lastName'])
+                    ->first()
+            );
+            $receiver->put('account' ,$transfer->destination_id);
+            $transfer->destination_id = $receiver;
+        }
+
+        return response($transferInternNeedValidations);
+
+//        dd($transferInternNeedValidations);
+//        dd(InternTransfer::needValidation()->get([
+//            'amount', 'justification', 'reason', 'transferDate', 'source_id', 'destination_id'
+//        ])
+//        );
+//
+//        dd(InternTransfer::find('THW000001DZDTHW000002DZD201804152035')->senderAccount);
+//        dd(InternTransfer::find('THW000001DZDTHW000002DZD201804152035')->receiverAccount);
+//        dd(Account::find('THW000001DZD')->internTransfersReceiver);
+//        dd(Account::find('THW000001DZD')->internTransfersSender);
+//        return response(Account::find('THW000001DZD'));
     }
 
     private function client()
