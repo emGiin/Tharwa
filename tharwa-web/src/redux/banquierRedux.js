@@ -4,7 +4,7 @@ import Immutable from "seamless-immutable";
 
 
 const { Types, Creators } = createActions({
-  createBanquier:["nom","prenom","mail","password","adress","phone"],
+  createBanquier:["nom","prenom","email","password","adress","phone"],
   createError:["message"],
   createDone:[]
 });

@@ -10,8 +10,8 @@ const create = (baseURL = URL_CREATE_BANQUIER) => {
     timeout: 10000
   })
 
-  const register_banquier = (nom,prenom,email,password, adress,phone) => api.post('banquierInfo', {
-    nom:nom,prenom:prenom,password:password,adress:adress,phone:phone
+  const register_banquier = (nom) => api.post('banquierInfo', {
+    nom:nom
   })
 
   return {

@@ -15,11 +15,9 @@ export default class MenuLeft extends Component {
   render() {
     return (
       <div style={{  }}>
-      <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 0 }}>
-      <Icon type={this.state.collapsed ? 'double-right' : 'double-left'} />
-    </Button>
+      
         <Menu
-        style={{height: "573px",
+        style={{height: "100%",
         position: "fixed",
         width: "inherit"}}
           defaultSelectedKeys={['1']}

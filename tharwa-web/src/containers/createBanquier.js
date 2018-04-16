@@ -69,7 +69,7 @@ class RegistrationForm extends Component {
         values.adress = adrStr;
         this.state= {dataUser:values};
         this.props.sendData(this.state.dataUser);
-        console.log('Send data from component ... ');
+        console.log('Send data from component ... :: '+JSON.stringify(values));
       }
     });
   }
@@ -251,7 +251,7 @@ const  mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    sendData: (dataUser) => dispatch(BanquierActions.createBanquier(dataUser.firstName, dataUser.lassName, dataUser.email, dataUser.password,dataUser.adress,dataUser.phone ))   }
+    sendData: (dataUser) => dispatch(BanquierActions.createBanquier(dataUser.firstName, dataUser.lastName, dataUser.email, dataUser.password,dataUser.adress,dataUser.phone ))   }
 }
 
 const WrappedRegistrationForm = Form.create()(RegistrationForm);

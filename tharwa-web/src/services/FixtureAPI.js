@@ -35,5 +35,13 @@ export default {
         data: "Invalid pin code"
       };
     }
+  },
+
+
+  register_banquier: nom =>{
+    return {
+      ok: true,
+      data: require("../fixtures/pinCode.json")
+    };
   }
 };
