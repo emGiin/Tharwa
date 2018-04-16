@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Button, Icon } from "antd";
+import { Modal, Button, Icon, Row, Col,Divider } from "antd";
 
 import RoundedImage from "../Reusable Components/RoundedImage";
 import LoadingSpinner from "../Reusable Components/LoadingSpinner";
@@ -12,6 +12,8 @@ class ApplicantDetailsModal extends Component {
     return (
       <div>
         <Modal
+          style={{top:20}}
+          width={400}
           visible={visible}
           title="Détails"
           onCancel={this.props.onCancel}
@@ -39,15 +41,26 @@ class ApplicantDetailsModal extends Component {
           {loading ? (
             <LoadingSpinner />
           ) : (
-            <div className="modalBody">
-              <RoundedImage uri={record.photo} height="170px" />
-              <h2>
-                {record.nom} {record.prenom}
-              </h2>
-              <h4>E-mail: {record.email}</h4>
-              <h4>Tel: {record.tel}</h4>
-              <h4>Adresse: {record.adresse}</h4>
-              <h4>Fonction: {record.fonction}</h4>
+            <div>
+            <Row  type="flex" justify="center">
+              <Col span={12}>
+                <RoundedImage uri={record.picture} height="170px" />
+              </Col>
+            </Row>
+            <Row  type="flex" justify="center">
+              <Col span={7}>
+                <h2>
+                  {record.firstname} {record.lastname}
+                </h2>
+              </Col>
+              </Row>
+              <span><Icon type="mail" style={{marginRight:"20px",fontSize:18}}/> {record.email}</span>
+              <Divider/>
+              <span><Icon type="phone" style={{marginRight:"20px",fontSize:18}}/> {record.phone}</span>
+              <Divider/>
+              <span><Icon type="home" style={{marginRight:"20px",fontSize:18}}/> {record.address}</span>
+              <Divider/>
+              <span><Icon type="idcard" style={{marginRight:"20px",fontSize:18}}/> {record.function}</span>
             </div>
           )}
         </Modal>
