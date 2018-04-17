@@ -1,5 +1,24 @@
-@import '../../../node_modules/antd/dist/antd.css';
 
 body{
   overflow: hidden;
+}
+
+
+.full-logo{
+  background: url('../Ressources/logo_p.png') no-repeat;
+  background-size: contain;
+  height: 40px;
+  margin: 10px 26px;
+}
+
+.small-logo{
+  background: url('../Ressources/logo.png') no-repeat;
+  background-size: contain;
+
+  height: 45px;
+  margin: 14px;
+}
+
+.ant-layout {
+  transition: margin-left .15s ease-in-out
 }

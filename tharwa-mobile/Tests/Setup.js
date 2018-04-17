@@ -24,3 +24,10 @@ jest
       }
     }
   })
+  .mock('react-native-image-picker', () => {
+    return {
+      launchCamera: (options, callback) => {
+        callback({ data: 'picture' })
+      }
+    }
+  })

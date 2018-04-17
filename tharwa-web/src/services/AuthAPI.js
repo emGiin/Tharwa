@@ -12,6 +12,7 @@ const create = (baseURL = AUTH_API_URL) => {
 
   const login = (user) => api.post('pincode', user)
   const confirmPinCode = (data) => api.post('token', data)
+  
 
   return {
     api,

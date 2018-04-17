@@ -12,7 +12,7 @@ describe('PIN CODE SAGA', () => {
     const authObj = {
       username: 'user@email.com',
       password: 'password',
-      confirmation_method: 2,
+      confirmation_method: "sms",
       client_id: '1',
       grant_type: 'password',
     }
@@ -36,7 +36,7 @@ describe('PIN CODE SAGA', () => {
     // Set the auth token on the API
     expect(step(response)).toEqual(put(PinCodeActions.pinCodeSuccess()))
     // Store the auth token in redux
-    expect(step(response)).toEqual(put(AuthActions.saveAuthToken(response.data.token_)))
+    expect(step(response)).toEqual(put(AuthActions.saveAuthToken(response.data.token_, pinCode)))
   })
 
 
@@ -44,7 +44,7 @@ describe('PIN CODE SAGA', () => {
     const authObj = {
       username: 'user@email.com',
       password: 'password',
-      confirmation_method: 'sms',
+      confirmation_method: "sms",
       client_id: '2',
       grant_type: 'password',
     }

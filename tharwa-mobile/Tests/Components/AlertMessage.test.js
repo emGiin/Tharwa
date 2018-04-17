@@ -1,7 +1,7 @@
 import 'react-native'
 import React from 'react'
 import { shallow } from 'enzyme'
-import AlertMessage from '../../App/Components/AlertMessage'
+import { AlertMessage } from '../../App/Components'
 
 describe('AlertMessage component', () => {
   let container, content;

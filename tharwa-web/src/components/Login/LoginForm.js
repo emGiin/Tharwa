@@ -43,7 +43,7 @@ class NormalLoginForm extends Component {
           {getFieldDecorator("remember", {
             valuePropName: "checked",
             initialValue: true
-          })(<Checkbox>Remember me</Checkbox>)}
+          })(<Checkbox>Se souvenir de moi</Checkbox>)}
           {//TODO replace by captcha
           } 
         </FormItem>
@@ -54,7 +54,7 @@ class NormalLoginForm extends Component {
             // onClick={this.props.onNext}
             htmlType="submit"
           >
-            Next
+            Suivant
           </Button>
         </FormItem>
       </Form>

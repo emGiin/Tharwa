@@ -6,10 +6,11 @@ import DebugConfig from '../Config/DebugConfig'
 let globalComponentExamplesRegistry = []
 let globalPluginExamplesRegistry = []
 
-export const addComponentExample = (title, usage = () => {}) => { if (DebugConfig.includeExamples) globalComponentExamplesRegistry.push({title, usage}) } // eslint-disable-line
+export const addComponentExample = /* istanbul ignore next */(title, usage = () => { }) => { if (DebugConfig.includeExamples) globalComponentExamplesRegistry.push({ title, usage }) } // eslint-disable-line
 
-export const addPluginExample = (title, usage = () => {}) => { if (DebugConfig.includeExamples) globalPluginExamplesRegistry.push({title, usage}) } // eslint-disable-line
+export const addPluginExample = /* istanbul ignore next */(title, usage = () => { }) => { if (DebugConfig.includeExamples) globalPluginExamplesRegistry.push({ title, usage }) } // eslint-disable-line
 
+/* istanbul ignore next */
 const renderComponentExample = (example) => {
   return (
     <View key={example.title}>
@@ -21,6 +22,7 @@ const renderComponentExample = (example) => {
   )
 }
 
+/* istanbul ignore next */
 const renderPluginExample = (example) => {
   return (
     <View key={example.title}>
@@ -32,9 +34,9 @@ const renderPluginExample = (example) => {
   )
 }
 
-export const renderComponentExamples = () => R.map(renderComponentExample, globalComponentExamplesRegistry)
+export const renderComponentExamples = /* istanbul ignore next */() => R.map(renderComponentExample, globalComponentExamplesRegistry)
 
-export const renderPluginExamples = () => R.map(renderPluginExample, globalPluginExamplesRegistry)
+export const renderPluginExamples = /* istanbul ignore next */() => R.map(renderPluginExample, globalPluginExamplesRegistry)
 
 // Default for readability
 export default {

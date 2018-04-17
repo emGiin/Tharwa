@@ -1,7 +1,7 @@
 import 'react-native'
 import React from 'react'
 import { shallow } from 'enzyme'
-import FullButton from '../../App/Components/FullButton'
+import { FullButton } from '../../App/Components'
 
 describe('FullButton component', () => {
   let container, content;

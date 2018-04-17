@@ -28,7 +28,7 @@ class PinForm extends Component {
           className="primaryAction"
           onClick={this.done.bind(this)}
         >
-          Done
+          Terminer
           {this.pin}
         </Button>
       </div>

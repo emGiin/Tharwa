@@ -4,7 +4,9 @@ import rootSaga from '../sagas/'
 
 const reducers = combineReducers({
   auth: require('./AuthRedux').reducer,
-  pinCode: require('./PinCodeRedux').reducer
+  pinCode: require('./PinCodeRedux').reducer,
+  confirmInscription:require('./ConfirmInscriptionRedux').reducer,
+  validateTransfer: require('./ValidateTransferRedux').reducer
 });
 
 

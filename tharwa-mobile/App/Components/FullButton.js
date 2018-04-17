@@ -17,14 +17,14 @@ ExamplesRegistry.addComponentExample('Full Button', () =>
   />
 )
 
-export default class FullButton extends Component {
+class FullButton extends Component {
   static propTypes = {
     text: PropTypes.string,
     onPress: PropTypes.func,
     styles: PropTypes.object
   }
 
-  render () {
+  render() {
     return (
       <TouchableOpacity style={[styles.button, this.props.styles]} onPress={this.props.onPress}>
         <Text style={styles.buttonText}>{this.props.text && this.props.text.toUpperCase()}</Text>
@@ -32,3 +32,5 @@ export default class FullButton extends Component {
     )
   }
 }
+
+export { FullButton }

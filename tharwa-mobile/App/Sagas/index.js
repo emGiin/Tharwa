@@ -1,5 +1,6 @@
 import { all, takeLatest } from 'redux-saga/effects'
 import AuthAPI from '../Services/AuthApi'
+import Api from '../Services/Api'
 // import FixtureAPI from '../Services/FixtureApi'
 // import DebugConfig from '../Config/DebugConfig'
 
@@ -8,12 +9,14 @@ import AuthAPI from '../Services/AuthApi'
 import { StartupTypes } from '../Redux/StartupRedux'
 import { AuthTypes } from '../Redux/AuthRedux'
 import { PinCodeTypes } from '../Redux/PinCodeRedux'
+import { SignupTypes } from '../Redux/SignupRedux'
 
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
 import { login, logout, loadToken } from './AuthSaga'
 import { confirmPinCode } from './PinCodeSaga'
+import { signup } from './SignupSaga'
 
 /* ------------- API ------------- */
 
@@ -21,6 +24,7 @@ import { confirmPinCode } from './PinCodeSaga'
 // to the sagas which need it.
 // const api = DebugConfig.useFixtures ? FixtureAPI : API.create()
 const authApi = AuthAPI.create()
+const api = Api.create()
 
 /* ------------- Connect Types To Sagas ------------- */
 
@@ -39,8 +43,8 @@ export default function* root() {
     // Pin Code
     takeLatest(PinCodeTypes.PIN_CODE_REQUEST, confirmPinCode, authApi),
 
-    // // registration
-    // takeLatest(RegisterTypes.REGISTER_REQUEST, register, api),
+    // registration
+    takeLatest(SignupTypes.SIGNUP_REQUEST, signup, api),
 
     // // password update
     // takeLatest(PasswordTypes.CHANGE_PASSWORD_REQUEST, changePassword, api),

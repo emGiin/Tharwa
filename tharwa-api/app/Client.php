@@ -28,6 +28,8 @@ class Client extends Model
      */
     public $incrementing = false;
 
+    protected $primaryKey = 'email';
+
     public static function check($userName,$password){
 
         $client = static::where('email', $userName)->first(['password']);
@@ -50,4 +52,10 @@ class Client extends Model
             'scope' => $client->type];
 
     }
+
+    public function accounts()
+    {
+        return $this->hasMany(Account::class,'client_id');
+    }
+
 }
