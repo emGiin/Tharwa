@@ -31,7 +31,6 @@ export function* getRequestsList(api) {
 }
 
 export function* rejectDemand(api,{email}){
-  console.log("start");
   //Headers
   const authToken = yield select(selectAuthToken);
   if (authToken) {
@@ -45,14 +44,11 @@ export function* rejectDemand(api,{email}){
     email:email,
     code: 0
   };
-  console.log("1");
   const response = yield call(api.inscriptionAction,body);
-  console.log("ok");
+  console.log("OKKKKKKKKK", body);
   if (response.ok) {
     yield put(ConfirmInscriptionActions.actionSuccess());
     yield put(ConfirmInscriptionActions.reqListRequest());
-    console.log("fin list req");
-    
   } else {
     yield put(ConfirmInscriptionActions.actionFailure("code pin ou token invalide ou expiré!"));
   }
@@ -68,10 +64,7 @@ export function* acceptDemand(api,{email}){
   const pinCode = yield select(selectPinCode);
   if (pinCode) {
     yield call(api.setPinCode, pinCode);
-   }
-   console.log("rightSaga");
-   console.log(email);
-   
+   }   
    
   const body={
     email:email,

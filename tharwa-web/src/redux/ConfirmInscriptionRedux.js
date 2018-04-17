@@ -1,17 +1,17 @@
 import { createReducer, createActions } from "reduxsauce";
 import Immutable from "seamless-immutable";
-
+import {CONTENT_BASE_URL} from "../config/AppConfig";
 //Actions
 const { Types, Creators } = createActions({
-  setDefault:[],
+  setDefault: [],
   rejectRequest: ["email"],
-  validateRequest:["email"],
-  actionSuccess:[],
-  actionFailure:["error"],
-  reqListRequest:[],
-  reqListSuccess:[],
-  reqListFailure:["error"],
-  saveReqList:["list"]
+  validateRequest: ["email"],
+  actionSuccess: [],
+  actionFailure: ["error"],
+  reqListRequest: [],
+  reqListSuccess: [],
+  reqListFailure: ["error"],
+  saveReqList: ["list"]
 });
 
 export const ConfirmInscriptionTypes = Types;
@@ -19,48 +19,61 @@ export default Creators;
 
 //State
 const INITIAL_STATE = Immutable({
-  list:[],
+  list: [],
   fetching: false,
   success: false,
   error: null,
   actionSuccess: false,
-  actionError:null,
-  actionFetching:false
+  actionError: null,
+  actionFetching: false
 });
 
 //Functions
-export const setDefault= state=> state.merge({ actionSuccess: false , actionError:null });
+export const setDefault = state =>
+  state.merge({ actionSuccess: false, actionError: null });
 
-export const request = state => state.merge({ fetching: true, success: false, error: null });
+export const request = state =>
+  state.merge({ fetching: true, success: false, error: null });
 
-export const success = state =>{
-  
+export const success = state => {
   return state.merge({ fetching: false, error: null, success: true });
-}
-  
+};
 
-export const saveReqList = (state, { list }) => state.merge({ list });
+export const saveReqList = (state, { list }) =>
+  state.merge({
+    list: list.map(record => {
+      return { ...record, picture: CONTENT_BASE_URL + record.picture };
+    })
+  });
 
 export const failure = (state, { error }) =>
-  state.merge({ fetching: false, error });//si code pin expiré popup de code pin
+  state.merge({ fetching: false, error }); //si code pin expiré popup de code pin
 
-export const actionReq=(state)=>
-  state.merge({actionFetching:true, actionSuccess:false, actionError:null});
+export const actionReq = state =>
+  state.merge({
+    actionFetching: true,
+    actionSuccess: false,
+    actionError: null
+  });
 
-export const actionSuccess=(state)=>
-state.merge({ actionFetching: false, actionError: null, actionSuccess: true });
-  
+export const actionSuccess = state =>
+  state.merge({
+    actionFetching: false,
+    actionError: null,
+    actionSuccess: true
+  });
+
 export const actionFailure = (state, { error }) =>
-  state.merge({ actionFetching: false, actionError:error });
+  state.merge({ actionFetching: false, actionError: error });
 
 export const reducer = createReducer(INITIAL_STATE, {
-    [Types.REQ_LIST_REQUEST]: request,
-    [Types.REQ_LIST_SUCCESS]: success,
-    [Types.REQ_LIST_FAILURE]: failure,
-    [Types.SAVE_REQ_LIST]: saveReqList,
-    [Types.REJECT_REQUEST]: actionReq,
-    [Types.VALIDATE_REQUEST]: actionReq,
-    [Types.ACTION_SUCCESS]: actionSuccess,
-    [Types.ACTION_FAILURE]: actionFailure,
-    [Types.SET_DEFAULT]: setDefault
+  [Types.REQ_LIST_REQUEST]: request,
+  [Types.REQ_LIST_SUCCESS]: success,
+  [Types.REQ_LIST_FAILURE]: failure,
+  [Types.SAVE_REQ_LIST]: saveReqList,
+  [Types.REJECT_REQUEST]: actionReq,
+  [Types.VALIDATE_REQUEST]: actionReq,
+  [Types.ACTION_SUCCESS]: actionSuccess,
+  [Types.ACTION_FAILURE]: actionFailure,
+  [Types.SET_DEFAULT]: setDefault
 });

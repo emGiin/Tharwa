@@ -15,7 +15,7 @@ class ApplicantDetailsModal extends Component {
           style={{top:20}}
           width={400}
           visible={visible}
-          title="Détails"
+          title={`${record.firstname} ${record.lastname}`}
           onCancel={this.props.onCancel}
           footer={[
             <Button
@@ -48,11 +48,7 @@ class ApplicantDetailsModal extends Component {
               </Col>
             </Row>
             <Row  type="flex" justify="center">
-              <Col span={7}>
-                <h2>
-                  {record.firstname} {record.lastname}
-                </h2>
-              </Col>
+              <br/>
               </Row>
               <span><Icon type="mail" style={{marginRight:"20px",fontSize:18}}/> {record.email}</span>
               <Divider/>
@@ -61,6 +57,8 @@ class ApplicantDetailsModal extends Component {
               <span><Icon type="home" style={{marginRight:"20px",fontSize:18}}/> {record.address}</span>
               <Divider/>
               <span><Icon type="idcard" style={{marginRight:"20px",fontSize:18}}/> {record.function}</span>
+              <Divider/>
+              <span><Icon type="tag-o" style={{marginRight:"20px",fontSize:18}}/> {record.type}</span>
             </div>
           )}
         </Modal>

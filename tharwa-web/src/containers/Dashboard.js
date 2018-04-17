@@ -15,7 +15,7 @@ export default class Dashboard extends Component {
                 icon="swap"
                 color="#4BB543"
                 title="Virements"
-                number="4"
+                number={4}
               />
             </NavLink>
           </Col>
@@ -24,8 +24,8 @@ export default class Dashboard extends Component {
               <NumberCard
                 icon="usergroup-add"
                 color="#fa541c"
-                title="Inscription"
-                number="6"
+                title="Inscriptions"
+                number={6}
               />
             </NavLink>
           </Col>

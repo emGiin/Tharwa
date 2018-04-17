@@ -1,8 +1,15 @@
 .loginForms {
   margin: 0 auto;
   max-width: 400px;
-  margin-top: 10%;
+  margin-top: 7%;
   padding: 1em;
+}
+
+.loginForms .logo{
+  background: url('../Ressources/logo_p.png') no-repeat;
+  background-size: contain;
+  height: 85px;
+  margin: 18px 26px;
 }
 
 .stepContent {

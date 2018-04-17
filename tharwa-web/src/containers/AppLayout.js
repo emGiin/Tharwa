@@ -55,10 +55,10 @@ class SideBar extends Component {
               <span>Acceuil</span>
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="/creerBanquier">
-            <NavLink to="/creerBanquier">
-              <Icon type="user-add" />
-              <span>Creer un banquier</span>
+          <Menu.Item key="/notifications">
+            <NavLink to="/notifications">
+              <Icon type="mail" />
+              <span>Notifications</span>
             </NavLink>
           </Menu.Item>
           <Menu.Item key="/demandeInscriptions">
@@ -70,7 +70,7 @@ class SideBar extends Component {
           <Menu.Item key="/virements">
             <NavLink to="/virements">
               <Icon type="swap" />
-              <span>Virements</span>
+              <span>Demandes de Virements</span>
             </NavLink>
           </Menu.Item>
         </Menu>
@@ -145,7 +145,7 @@ export default class AppLayout extends Component {
               width: "100%"
             }}
           >
-            Tharwa ©2018 Created by Ritzy Inc.
+            Tharwa ©2018 Créée par Ritzy Inc.
           </Footer>
         </Layout>
       </Layout>

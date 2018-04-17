@@ -84,6 +84,7 @@ class Login extends Component {
 
     return (
       <div className="loginForms">
+        <div className="logo"/>
         {this.props.pinCode.success && <Redirect to='/'/>}
         {this.state.error && this.state.current===0 && alert(this.state.error)}
         <Steps current={current}>
@@ -92,7 +93,7 @@ class Login extends Component {
           ))}
         </Steps>
 
-        <div className="stepContent">
+        <div className="stepContent">          
           {this.props.auth.fetching || this.props.pinCode.fetching ? (
             <Loading />
           ) : (
