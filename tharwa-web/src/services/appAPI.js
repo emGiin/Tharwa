@@ -11,9 +11,9 @@ const create = (baseURL = API_URL) => {
   })
 
   const setAuthToken = (userAuth) => api.setHeader('Authorization', 'Bearer ' + userAuth)
-  const setPinCode= (pin) => api.setHeader('code_pin',pin)
+  const setPinCode= (pin) => api.setHeader('Pin',pin)
   const removeAuthToken = () => api.setHeader('Authorization', '')
-  const removePinCode=() => api.setHeader('code_pin','')
+  const removePinCode=() => api.setHeader('Pin','')
 
   /**** Inscription requests validation */
   const  getRequestsList= () => {
@@ -26,10 +26,10 @@ const create = (baseURL = API_URL) => {
 
   /**** Transfer Validation */
   const  getTransfersList= () => {
-    return api.get('transfers')
+    return api.get('virement/validations')
   }
   const transferAction=(body)=>{
-    return api.post('transfers',body)
+    return api.post('virement/validations',body)
   }
   return {
     api,

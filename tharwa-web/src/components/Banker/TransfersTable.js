@@ -70,7 +70,7 @@ class TransfersTable extends Component {
         />
         <Table
           columns={this.columns}
-          rowKey={record => record.id}
+          rowKey={record => record.code}
           dataSource={this.props.list}
           pagination={false}
           loading={this.props.fetching}
@@ -82,41 +82,41 @@ class TransfersTable extends Component {
   columns = [
     {
       title: "Emetteur",
-      dataIndex: "emetteur",
-      key: "emetteur",
+      dataIndex: "source_id",
+      key: "source_id",
       render: text => (
         <span>
           <span>
-            {text.nom} {text.prenom}
+          {text.firstname} {text.lastname}
           </span>
           <br />
-          <span>{text.compte}</span>
+          <span>{text.account}</span>
         </span>
       )
     },
     {
       title: "Destinataire",
-      dataIndex: "destinataire",
-      key: "destinataire",
+      dataIndex: "destination_id",
+      key: "destination_id",
       render: text => (
         <span>
           <span>
-            {text.nom} {text.prenom}
+            {text.firstname} {text.lastname}
           </span>
           <br />
-          <span>{text.compte}</span>
+          <span>{text.account}</span>
         </span>
       )
     },
     {
       title: "Montant DZD",
-      dataIndex: "montant",
-      key: "montant"
+      dataIndex: "amount",
+      key: "amount"
     },
     {
       title: "Date",
-      dataIndex: "date",
-      key: "date"
+      dataIndex: "transferdate",
+      key: "transferdate"
       //sorter: true //TODO : Définir la fonction de sort sur les dates
     },
     {
