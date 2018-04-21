@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
-    public function create(Request $request){
+    public function create(Request $request)
+    {
 
         //validation
         $validator = \Validator::make($request->all(), [
@@ -25,7 +26,7 @@ class AccountController extends Controller
         $accsType = $client->accounts()->get(['type_id']);
 
         //the client should not have an acc of the same type
-        if($accsType->contains('type_id', $request->type)){
+        if ($accsType->contains('type_id', $request->type)) {
             return response(["saved" => false], config('code.UNAUTHORIZED'));
         }
 
@@ -43,5 +44,14 @@ class AccountController extends Controller
     private function client()
     {
         return resolve(Client::class);
+    }
+
+    public function validationList()
+    {
+        return response(
+            AccountRequest::notValidated()->with('client')->get()
+            , config('code.OK')
+        );
+
     }
 }
