@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
 use App\ClientRequest;
 use App\Mail\NewClientRequestMail;
 use App\Manager;
@@ -95,4 +96,20 @@ class ClientController extends Controller
 
     }
 
+    public function index(){
+
+        $client = $this->client();
+
+        //get : email, name, img
+
+        //get (amount & 10 last transact) for each account type
+        //todo if accounts are blocked
+        return response($client->accounts()->get());
+
+    }
+
+    private function client()
+    {
+        return resolve(Client::class);
+    }
 }

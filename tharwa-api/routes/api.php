@@ -20,9 +20,11 @@ use App\Http\Middleware\AuthManager;
      **/
 Route::post('/client', 'ClientController@create');
 
+Route::get('/client', 'ClientController@index')->middleware(AuthClient::class);
 
 Route::post('/virement/intern', 'VirmentController@createIntern')->middleware(AuthClient::class);
 
+Route::post('/account', 'AccountController@create')->middleware(AuthClient::class);
 
     /**
      * web managers
@@ -35,5 +37,5 @@ Route::post('/clientRequests', 'RequestController@edit')->middleware(AuthManager
 Route::post('/banquier', 'BanquierController@create')->middleware(AuthManager::class);
 
 
-Route::get('/virement/validations', 'VirmentController@validationList');//->middleware(AuthManager::class);
+Route::get('/virement/validations', 'VirmentController@validationList')->middleware(AuthManager::class);
 

@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\DB;
 class RequestController extends Controller
 {
 
-    public function __construct()
+    private function manager()
     {
-        $this->manager = resolve(Manager::class);
+        return  resolve(Manager::class);
     }
 
     public function index()

@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'courant',
         ]);
         $accountTypes->insert([
-            'code' => 'EPAR',
+            'code' => 'EPARN',
             'name' => 'épargne',
         ]);
         $accountTypes->insert([

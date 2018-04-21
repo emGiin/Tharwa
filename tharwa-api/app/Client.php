@@ -30,6 +30,8 @@ class Client extends Model
 
     protected $primaryKey = 'email';
 
+    protected $visible = ["email","firstname","lastname","type","picture"];
+
     public static function check($userName,$password){
 
         $client = static::where('email', $userName)->first(['password']);
