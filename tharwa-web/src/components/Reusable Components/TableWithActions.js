@@ -8,7 +8,7 @@ class TableWithActions extends Component {
     this.INITIAL_STATE = this.props.initialState;
     this.state = this.INITIAL_STATE;
 
-    this.props.columns.push(this.actionsColumn);
+    this.columns = [...this.props.columns, this.actionsColumn]
   }
 
   render() {
@@ -24,7 +24,7 @@ class TableWithActions extends Component {
           visible={this.state.isModalVisible}
         />
         <Table
-          columns={this.props.columns}
+          columns={this.columns}
           rowKey={record => record.id}
           dataSource={this.props.dataSource}
           pagination={false}
