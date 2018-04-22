@@ -46,7 +46,9 @@ export default props => (
     initialState={INITIAL_STATE}
     modal={ApplicantDetailsModal}
     columns={columns}
-    dataSource={props.list}
+    dataSource={props.list.map(({ email, ...user }) => {
+      return { id: email, email, ...user };
+    })}
     fetching={props.fetching}
     {...props}
   />

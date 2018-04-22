@@ -101,7 +101,7 @@ export default {
     }
   },
   transferAction:(body)=>{
-    trans=trans.filter(e => e.id !== body.id);
+    trans=trans.filter(e => e.code !== body.virement_code);
     console.log("action:::");
     console.log(body);
     console.log(trans);

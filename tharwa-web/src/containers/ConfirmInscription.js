@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { LoadingSpinner } from "../components/Reusable Components";
-
 import ConfirmActions from "../redux/ConfirmInscriptionRedux";
 
 import { RequestsTable } from "../components/Banker";

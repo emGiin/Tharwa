@@ -50,7 +50,9 @@ export default props => (
     initialState={INITIAL_STATE}
     modal={TransferDetailsModal}
     columns={columns}
-    dataSource={props.list}
+    dataSource={props.list.map(({ code, ...transfer }) => {
+      return { id: code, code, ...transfer };
+    })}
     fetching={props.fetching}
     {...props}
   />
