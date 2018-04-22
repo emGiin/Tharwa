@@ -38,7 +38,6 @@ const columns = [
     title: 'Date',
     dataIndex: 'created_at',
     key: 'created_at'
-    // sorter: true //TODO : Définir la fonction de sort sur les dates
   }
 ];
 

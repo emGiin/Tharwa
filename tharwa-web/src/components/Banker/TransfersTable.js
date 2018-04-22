@@ -15,11 +15,9 @@ const columns = [
     key: 'source_id',
     render: text => (
       <span>
-        <span>
-          {text.firstname} {text.lastname}
-        </span>
+        {`${text.firstname} ${text.lastname}`}
         <br />
-        <span>{text.account}</span>
+        {text.account}
       </span>
     )
   },
@@ -29,11 +27,9 @@ const columns = [
     key: 'destination_id',
     render: text => (
       <span>
-        <span>
-          {text.firstname} {text.lastname}
-        </span>
+        {`${text.firstname} ${text.lastname}`}
         <br />
-        <span>{text.account}</span>
+        {text.account}
       </span>
     )
   },
