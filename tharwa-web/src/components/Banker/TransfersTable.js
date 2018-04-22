@@ -4,7 +4,7 @@ import TransferDetailsModal from './TransferDetailsModal';
 import { TableWithActions } from '../Reusable Components';
 
 const INITIAL_STATE = {
-  selectedRecord: {},
+  selectedRecord: {source_id:{},destination_id:{}},
   isModalVisible: false
 };
 
