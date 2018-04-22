@@ -18,7 +18,7 @@ class CreateExternTransfersTable extends Migration
             $table->double('amount', 20, 8);//todo DOUBLE(size,d)
             $table->string('justification')->nullable();
             $table->string('reason')->nullable();
-            $table->dateTime('transferDate')->nullable();
+            $table->dateTime('transferDate')->nullable();//could be seen also as a validating date
             $table->dateTime('creationDate');
             $table->enum('status', ['traitement', 'valide' ,'rejete']);
             $table->double('commission', 20, 8);

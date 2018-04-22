@@ -34,8 +34,8 @@ Route::post('/clientRequests', 'RequestController@edit')->middleware(AuthManager
 
 Route::post('/banquier', 'BanquierController@create')->middleware(AuthManager::class);
 
-
 Route::get('/virement/validations', 'VirmentController@validationList')->middleware(AuthManager::class);
+Route::post('/virement/validations', 'VirmentController@validateVirement')->middleware(AuthManager::class);
 
 Route::get('/account/validations', 'AccountController@validationList')->middleware(AuthManager::class);
 Route::post('/account/validations', 'AccountController@validateAccount')->middleware(AuthManager::class);
