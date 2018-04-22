@@ -1,0 +1,126 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Table, Icon, Modal, message, Tooltip } from 'antd';
+
+class TableWithActions extends Component {
+  constructor(props) {
+    super(props);
+    this.INITIAL_STATE = this.props.initialState;
+    this.state = this.INITIAL_STATE;
+
+    this.props.columns.push(this.actionsColumn);
+  }
+
+  render() {
+    const CustomModal = this.props.modal;
+    return (
+      <div>
+        <CustomModal
+          handleValidate={this.handleValidate.bind(this)}
+          handleConfirmReject={this.handleConfirmReject.bind(this)}
+          onCancel={() => this.setState(this.INITIAL_STATE)}
+          actionState={this.props.actionState}
+          record={this.state.selectedRecord}
+          visible={this.state.isModalVisible}
+        />
+        <Table
+          columns={this.props.columns}
+          rowKey={record => record.id}
+          dataSource={this.props.dataSource}
+          pagination={false}
+          loading={this.props.fetching}
+        />
+      </div>
+    );
+  }
+
+  showModal = record =>
+    this.setState({
+      selectedRecord: record,
+      isModalVisible: true
+    });
+
+  closeModal = () => this.setState(this.INITIAL_STATE);
+
+  handleValidate = record => {
+    this.props.acceptDemand(record.id); //TODO: record must have an ID
+    this.closeModal();
+  };
+
+  notify = () => {
+    message.destroy();
+    if (this.props.actionState.actionFetching) {
+      message.loading("En cours d'exécution...", 0);
+    } else {
+      if (this.props.actionState.actionSuccess) {
+        message.success('Action réussie!');
+      } else if (this.props.actionState.actionError) {
+        message.error(this.props.actionState.actionError);
+      }
+      setTimeout(this.props.setDefault, 1000);
+    }
+  };
+
+  handleConfirmReject(record) {
+    const rejectDemand = this.props.rejectDemand;
+    const closeModal = this.closeModal.bind(this);
+    Modal.confirm({
+      title: 'Voulez-vous vraiment refuser ?', //TODO: this is modal dependent
+      okText: 'Oui',
+      okType: 'danger',
+      cancelText: 'Annuler',
+      onOk() {
+        rejectDemand(record.id);
+        closeModal();
+      }
+    });
+  }
+
+  actionsColumn = {
+    title: '',
+    key: 'action',
+    render: record => (
+      <span>
+        <Tooltip title="Afficher les détails">
+          <a onClick={() => this.showModal(record)}>
+            <Icon type="info-circle" />
+          </a>
+        </Tooltip>
+        <span className="ant-divider" />
+        <Tooltip title="Rejeter la demande">
+          <a onClick={() => this.handleConfirmReject(record)}>
+            <Icon type="close-circle-o" />
+          </a>
+        </Tooltip>
+        <span className="ant-divider" />
+        <Tooltip title="Accepter la demande">
+          <a onClick={() => this.handleValidate(record)}>
+            <Icon type="check-circle" />
+          </a>
+        </Tooltip>
+      </span>
+    )
+  };
+}
+
+TableWithActions.prototypes = {
+  initialState: PropTypes.shape({
+    selectedRecord: PropTypes.object,
+    isModalVisible: PropTypes.bool
+  }).isRequired,
+  modal: PropTypes.node.isRequired,
+  columns: PropTypes.array.isRequired,
+  dataSource: PropTypes.array.isRequired,
+  fetching: PropTypes.bool,
+  actionState: PropTypes.shape({
+    actionFetching: PropTypes.bool,
+    actionSuccess: PropTypes.bool,
+    actionError: PropTypes.bool
+  }).isRequired,
+
+  acceptDemand: PropTypes.func.isRequired,
+  rejectDemand: PropTypes.func.isRequired,
+  setDefault: PropTypes.func.isRequired
+};
+
+export default TableWithActions;
