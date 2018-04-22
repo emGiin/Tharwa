@@ -50,7 +50,7 @@ class AccountController extends Controller
     public function validationList()
     {
         return response(
-            AccountRequest::notValidated()->with('client')->get()
+            AccountRequest::notValidated()->with('client')->get()//todo check with
             , config('code.OK')
         );
 

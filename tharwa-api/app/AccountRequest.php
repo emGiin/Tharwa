@@ -10,11 +10,7 @@ class AccountRequest extends Model
 
     protected $guarded = [];
 
-//    public $incrementing = false;
-
     protected $primaryKey = 'id';
-
-//    protected $visible =
 
     protected $visible = ["id", "created_at", "type_id","client"];
 

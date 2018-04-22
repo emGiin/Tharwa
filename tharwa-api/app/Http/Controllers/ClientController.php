@@ -52,8 +52,8 @@ class ClientController extends Controller
         try {
 
             //save image from 64base
-            $file_name = strtoupper(md5(uniqid(rand(),true))) . ".jpeg";
-            $path = 'pictures/client/'. $file_name;//todo config
+            $file_name = strtoupper(md5(uniqid(rand(), true))) . ".jpeg";
+            $path = 'pictures/client/' . $file_name;//todo config
 
             //save file in disk
             $image = self::base64_to_jpeg(\Request::input('picture'), $path);
@@ -71,10 +71,10 @@ class ClientController extends Controller
                 'type' => (\Request::input('type') === 1) ? 'Client' : 'Employeur',
             ]);
 
-            $banqier = Manager::where('role','Banquier')->first();
+            $banqier = Manager::where('role', 'Banquier')->first();
 
             Mail::to($banqier->email)
-                ->queue(new NewClientRequestMail(\Request::input('firstName').' '.\Request::input('lastName')));
+                ->queue(new NewClientRequestMail(\Request::input('firstName') . ' ' . \Request::input('lastName')));
 
             // all good
             /**commit - no problems **/
@@ -96,16 +96,25 @@ class ClientController extends Controller
 
     }
 
-    public function index(){
-
+    public function index()
+    {
+        //get : email, name, img
         $client = $this->client();
 
-        //get : email, name, img
+        $infos = collect(['infos'=>$client]);
 
         //get (amount & 10 last transact) for each account type
         //todo if accounts are blocked
-        return response($client->accounts()->get());
+        $accounts = $client->accounts()->get();
+        foreach ($accounts as $account){
+            $infos->put(
+                trim($account->type_id),[
+                 'amount' => $account->balance,
+                 'history' => $account->history()->get(),
+                ]);
+        }
 
+        return response($infos);
     }
 
     private function client()

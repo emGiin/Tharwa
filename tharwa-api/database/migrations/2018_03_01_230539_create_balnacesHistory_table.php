@@ -12,10 +12,11 @@ class CreateBalnacesHistoryTable extends Migration
      * @return void
      */
     public function up()
-    {
+    {   //todo add if necesserry ! the status like : transfer rejected !!
         Schema::create('balancesHistory', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('balance', 20, 8);//todo DOUBLE(size,d)
+//            $table->double('balance', 20, 8);//todo DOUBLE(size,d)
+            $table->double('amount', 20, 8);//todo amount or balance
             $table->enum('transaction_type', ['commiss', 'vir_epar','vir_devi','vir_cour','vir_client', 'transf']);//todo
             $table->enum('transaction_direction', ['in', 'out']);//todo
             $table->char('account_id', 12);

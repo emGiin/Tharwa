@@ -21,6 +21,11 @@ class Account extends Model
         return $this->belongsTo(Client::class,'client_id');
     }
 
+    public function history()
+    {
+        return $this->hasMany(BalanceHistory::class,'account_id');
+    }
+
 
     public function hasEnoughMoney($needed)
     {
