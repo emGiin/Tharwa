@@ -25,14 +25,14 @@ const create = (baseURL = API_URL) => {
   //#endregion
 
   const signup = user => api.post('client', user)
-  const profile = () => api.get('profile')
+  const getProfile = () => api.get('profile')
 
   return {
     api,
     setAuthHeaders,
     removeAuthHeaders,
     signup,
-    profile,
+    getProfile,
   }
 }
 

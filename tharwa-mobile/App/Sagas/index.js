@@ -10,6 +10,7 @@ import { StartupTypes } from '../Redux/StartupRedux'
 import { AuthTypes } from '../Redux/AuthRedux'
 import { PinCodeTypes } from '../Redux/PinCodeRedux'
 import { SignupTypes } from '../Redux/SignupRedux'
+import { AccountTypes } from '../Redux/AccountRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -17,6 +18,7 @@ import { startup } from './StartupSagas'
 import { login, logout, loadToken } from './AuthSaga'
 import { confirmPinCode } from './PinCodeSaga'
 import { signup } from './SignupSaga'
+import { getProfile } from './AccountSaga'
 
 /* ------------- API ------------- */
 
@@ -45,6 +47,9 @@ export default function* root() {
 
     // registration
     takeLatest(SignupTypes.SIGNUP_REQUEST, signup, api),
+
+    // account
+    takeLatest(AccountTypes.ACCOUNT_REQUEST, getProfile, api),
 
     // // password update
     // takeLatest(PasswordTypes.CHANGE_PASSWORD_REQUEST, changePassword, api),
