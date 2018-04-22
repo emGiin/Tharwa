@@ -9,7 +9,8 @@ use App\ExternTransfer;
 use App\InternTransfer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+use View;
 use Validator;
 
 class VirmentController extends Controller
@@ -23,7 +24,7 @@ class VirmentController extends Controller
             'amount' => 'required|numeric|min:0',
             'reason' => 'required|max:255',
         ]);
-        $validator->sometimes('justification', 'required', function ($input) {
+        $validator->sometimes('justification', 'required', function ($input) {//todo
             return $input->amount > 200000; // Amount "Depasse" 200 000
         });
         if ($validator->fails()) {
@@ -73,6 +74,114 @@ class VirmentController extends Controller
                 'commission' => $commission,
                 'source_id' => $senderAccount->number,
                 'destination_id' => $request->input('receiver.account'),
+            ]);
+
+
+            //todo send commission to Tharwa account
+            //we retrieve the amount from the sender account
+            $senderAccount->balance = $senderAccount->balance - $commission - $amount;
+            $senderAccount->save();
+
+
+//            Mail::to($request->input('email'))
+//                ->queue(new ClientRequestValidatedMail($acceptedClient->firstname.' '.$acceptedClient->lastname
+//                    , $request->input('code')));
+
+            // all good
+            /**commit - no problems **/
+            DB::commit();
+            return response(["saved" => true], config('code.CREATED'));
+
+        } catch (\Exception $e) {
+
+            // something went wrong
+            /**rollback every thing - problems **/
+            DB::rollback();
+
+            if (!$hasEnoughMoney)
+                return response(["amount" => false], config('code.NOT_FOUND'));
+
+            return response(["saved" => false], config('code.UNKNOWN_ERROR'));
+        }
+
+    }
+
+    public function createExtern(Request $request)
+    {
+        //validation            //todo check if the account is valid not blocked
+        $validator = Validator::make($request->all(), [
+            'receiver.account' => ['required', 'regex:/^[A-Z]{3}[0-9]{6}(DZD|EUR|USD)$/'],
+            'receiver.name' => 'required|max:255',
+            'receiver.bank' => 'required|regex:/^[A-Z]{3}$/|exists:banks,code',
+            'amount' => 'required|numeric|min:0',
+            'reason' => 'required|max:255',
+        ]);
+        $validator->sometimes('justification', 'required', function ($input) {//todo
+            return $input->amount > 200000; // Amount "Depasse" 200 000
+        });
+        if ($validator->fails()) {
+            return response($validator->errors(), config('code.BAD_REQUEST'));
+        }
+
+
+        $amount = $request->input('amount');
+        $hasEnoughMoney = false;
+        /**start transaction**/
+        DB::beginTransaction();
+
+        try {
+
+            $senderAccount = $this->client()->accounts()
+                ->courant()->first();//todo check methode first()
+
+
+            //check the amount
+            if (!$senderAccount->hasEnoughMoney($amount)) throw new \Exception;
+            $hasEnoughMoney = true;
+
+
+            //create the transfer
+            $commission = config('commission.SENDEXTBANK') * $amount;
+            $now = \Carbon\Carbon::now();
+            $virement_code = $senderAccount->number . $request->input('receiver.account') . $now->format('YmdHi');
+            if ($amount > 200000) {
+                $transferDate = null;
+                $creationDate = $now->format('Y-m-d H:i:s');
+                $status = 'traitement';
+            } else {
+                //generate the XML file that will be treated later equivalent to send money
+                $xmlBody = View::make('xml_transfer_template', [
+                    "code" => $virement_code,
+                    "date" => $now->format('YmdHis'),
+                    "senderName" => $this->client()->firstname .' '. $this->client()->lastname,
+                    "senderAccount" => $senderAccount->number,
+                    "receiverName" => $request->input('receiver.name'),
+                    "receiverBank" => $request->input('receiver.bank'),
+                    "receiverAccount" => $request->input('receiver.account'),
+                    "amount" => $amount,
+                    "reason" => $request->input('reason'),
+                ])->render();
+                $xmlBody = '<?xml version="1.0" encoding="utf-8"?>' . $xmlBody;
+
+                Storage::disk('xml_out')->put($virement_code.'.xml', $xmlBody);
+
+                $status = 'valide';
+                $transferDate = $creationDate = $now->format('Y-m-d H:i:s');
+            }
+            ExternTransfer::create([
+                'code' => $virement_code,
+                'amount' => $amount,
+                'justification' => $request->input('justification'),
+                'reason' => $request->input('reason'),
+                'transferDate' => $transferDate,
+                'creationDate' => $creationDate,
+                'status' => $status,
+                'commission' => $commission,
+                'intern_account_id' => $senderAccount->number,
+                'direction' => 'out',
+                'extern_account_name' => $request->input('receiver.name'),
+                'extern_account_number' => $request->input('receiver.account'),
+                'extern_bank' => $request->input('receiver.bank'),
             ]);
 
 
@@ -281,14 +390,15 @@ class VirmentController extends Controller
                     $exterTransfer->save();
 
                     $sender = Account::find($exterTransfer->intern_account_id)
-                        ->client()->get(['firstname','lastname']);
+                        ->client()->get(['firstname', 'lastname']);
                     //send money if valide (genrate the XML file that will be treated later)
                     $xmlBody = View::make('xml_transfer_template', [
                         "code" => $request->virement_code,
                         "date" => $now->format('YmdHis'),
-                        "senderName" => $sender->firstname.' '.$sender->lastname,
+                        "senderName" => $sender->firstname . ' ' . $sender->lastname,
                         "senderAccount" => $exterTransfer->intern_account_id,
                         "receiverName" => $exterTransfer->extern_account_name,
+                        "receiverBank" => $exterTransfer->extern_bank,
                         "receiverAccount" => $exterTransfer->extern_account_number,
                         "amount" => $exterTransfer->amount,
                         "reason" => $exterTransfer->reason,
@@ -296,6 +406,9 @@ class VirmentController extends Controller
                     $xmlBody = '<?xml version="1.0" encoding="utf-8"?>' . $xmlBody;
 
                     dd($xmlBody);
+
+                    Storage::disk('xml_out')->put($request->virement_code.'.xml', $xmlBody);
+
 //                    $receiverAccount = Account::find($exterTransfer->extern_account_name);
 //                    $receiverAccount->balance = $receiverAccount->balance + ;
 //                    $receiverAccount->save();

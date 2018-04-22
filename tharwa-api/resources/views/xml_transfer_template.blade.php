@@ -1,16 +1,17 @@
+
 <virement>
-    <numero>THRW0002DZDBNA4256DZD201802041053</numero>
-    <date>201802041053</date>
+    <numero>{{ $code }}</numero>
+    <date>{{ $date }}</date>
     <titulaire>
-        <nom>Mostefai Mohammed Amine</nom>
+        <nom>{{ $senderName }}</nom>
         <banque>THW</banque>
-        <compte>THW0002DZD</compte>
+        <compte>{{ $senderAccount }}</compte>
     </titulaire>
     <destinataire>
-        <nom>Batata Sofiane</nom>
-        <banque>BNA</banque>
-        <compte>BNA4256DZD</compte>
+        <nom>{{ $receiverName }}</nom>
+        <banque>{{ $receiverBank }}</banque>
+        <compte>{{ $receiverAccount }}</compte>
     </destinataire>
-    <montant>300000</montant>
-    <motif>Pret pour projet immobilier</motif>
+    <montant>{{ $amount }}</montant>
+    <motif>{{ $reason }}</motif>
 </virement>

@@ -23,6 +23,7 @@ Route::post('/client', 'ClientController@create');
 Route::get('/client', 'ClientController@index')->middleware(AuthClient::class);
 
 Route::post('/virement/intern', 'VirmentController@createIntern')->middleware(AuthClient::class);
+Route::post('/virement/extern', 'VirmentController@createExtern')->middleware(AuthClient::class);
 
 Route::post('/account', 'AccountController@create')->middleware(AuthClient::class);
 
@@ -32,7 +33,7 @@ Route::post('/account', 'AccountController@create')->middleware(AuthClient::clas
 Route::get('/clientRequests', 'RequestController@index')->middleware(AuthManager::class);
 Route::post('/clientRequests', 'RequestController@edit')->middleware(AuthManager::class);
 
-Route::post('/banquier', 'BanquierController@create')->middleware(AuthManager::class);
+Route::post('/banquier', 'BanquierController@create');//->middleware(AuthManager::class);
 
 Route::get('/virement/validations', 'VirmentController@validationList')->middleware(AuthManager::class);
 Route::post('/virement/validations', 'VirmentController@validateVirement')->middleware(AuthManager::class);

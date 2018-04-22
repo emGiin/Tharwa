@@ -28,6 +28,8 @@ class CreateExternTransfersTable extends Migration
             $table->enum('direction', ['in', 'out']);
             $table->string('extern_account_name');
             $table->string('extern_account_number');
+            $table->char('extern_bank',3);
+//            $table->foreign('extern_bank')->references('banks')->on('code');
         });
     }
 

@@ -53,7 +53,7 @@ class ClientController extends Controller
 
             //save image from 64base
             $file_name = strtoupper(md5(uniqid(rand(),true))) . ".jpeg";
-            $path = 'pictures/client/'. $file_name;
+            $path = 'pictures/client/'. $file_name;//todo config
 
             //save file in disk
             $image = self::base64_to_jpeg(\Request::input('picture'), $path);

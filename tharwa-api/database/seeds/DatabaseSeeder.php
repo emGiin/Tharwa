@@ -126,5 +126,21 @@ class DatabaseSeeder extends Seeder
             'created_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
+        $banks->insert([
+            'code'=>'BNA',
+            'name'=>'bank bna',
+            'email'=>'bna@bna.dz',
+            'address'=>'Esi ^^',
+            'created_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);
+        $banks->insert([
+            'code'=>'BDL',
+            'name'=>'bank bdl',
+            'email'=>'bdl@bdl.dz',
+            'address'=>'Esi ^^',
+            'created_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);
     }
 }
