@@ -32,6 +32,6 @@ export function* startup(action) {
   }
 
 
-  yield put(AuthActions.tokenLoad())
+  // yield put(AuthActions.tokenLoad())
   // yield put(AccountActions.accountRequest())
 }

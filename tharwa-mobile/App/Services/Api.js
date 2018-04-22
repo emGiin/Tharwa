@@ -13,15 +13,26 @@ const create = (baseURL = API_URL) => {
     timeout: 10000
   })
 
-  const setAuthToken = (userAuth) => api.setHeader('Authorization', 'Bearer ' + userAuth)
-  const removeAuthToken = () => api.setHeader('Authorization', '')
-  const signup = (user) => api.post('client', user)
+  //#region Authorization
+  const setAuthHeaders = (token, pin) => {
+    api.setHeader('Authorization', `Bearer ${token}`)
+    api.setHeader('Pin', pin)
+  }
+  const removeAuthHeaders = () => {
+    api.setHeader('Authorization', '')
+    api.setHeader('Pin', '')
+  }
+  //#endregion
+
+  const signup = user => api.post('client', user)
+  const profile = () => api.get('profile')
 
   return {
     api,
-    setAuthToken,
-    removeAuthToken,
+    setAuthHeaders,
+    removeAuthHeaders,
     signup,
+    profile,
   }
 }
 

@@ -41,7 +41,7 @@ export default function* root() {
     takeLatest(AuthTypes.LOGOUT_REQUEST, logout, authApi),
 
     // Pin Code
-    takeLatest(PinCodeTypes.PIN_CODE_REQUEST, confirmPinCode, authApi),
+    takeLatest(PinCodeTypes.PIN_CODE_REQUEST, confirmPinCode, { authApi, api }),
 
     // registration
     takeLatest(SignupTypes.SIGNUP_REQUEST, signup, api),
