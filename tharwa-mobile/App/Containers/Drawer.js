@@ -39,10 +39,6 @@ class Drawer extends Component {
             {...other}
           />
           <View style={styles.separator}></View>
-          <DrawerItems
-            items={this.filter(items)}
-            {...other}
-          />
         </SafeAreaView>
       </ScrollView>
     );
