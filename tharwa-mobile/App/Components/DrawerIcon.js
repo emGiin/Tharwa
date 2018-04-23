@@ -15,4 +15,4 @@ class DrawerIcon extends Component {
   }
 }
 
-export default DrawerIcon
+export { DrawerIcon }

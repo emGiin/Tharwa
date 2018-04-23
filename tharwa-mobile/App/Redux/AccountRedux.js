@@ -17,13 +17,13 @@ const INITIAL_STATE = Immutable({
   success: false,
   error: null,
   accountType: null,
-  account: null
+  information: null
 })
 
 export const request = state => state.merge({ fetching: true, success: false })
 
-export const success = state => (
-  state.merge({ fetching: false, error: null, success: true })
+export const success = (state, { information }) => (
+  state.merge({ fetching: false, error: null, success: true, information })
 )
 
 export const failure = (state, { error }) => state.merge({ fetching: false, error })
