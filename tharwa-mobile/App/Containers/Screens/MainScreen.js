@@ -35,6 +35,25 @@ MainHeader = ({ openDrawer }) => (
   </Header>
 )
 
+HistoryItem = ({ item }) => (
+  <View key={item.key}>
+    <View style={{ borderWidth: 1, borderColor: '#fff' }} />
+    <View
+      style={{
+        paddingLeft: 10, marginVertical: 5, marginHorizontal: 10, borderLeftWidth: 7, borderLeftColor: '#999', flexDirection: 'row', justifyContent: 'space-between'
+      }}>
+      <View>
+        <Text>{item.type}</Text>
+        <Text>{item.amount}</Text>
+      </View>
+      <View>
+        <Text>{item.date}</Text>
+        <Text>{item.time}</Text>
+      </View>
+    </View>
+  </View>
+)
+
 class MainScreen extends Component {
   state = { refreshing: false }
 
@@ -57,33 +76,33 @@ class MainScreen extends Component {
         <CarouselPager
           ref={ref => this.carousel = ref}
           initialPage={3}
-          pageStyle={{ backgroundColor: '#ffffffbb', height: 100 }}>
-          <View key={'page0'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#999', borderRadius: 5 }}>
-            <Text style={{ fontSize: 16 }}>COMPTE DEVISE EURO</Text>
-            <Text style={{ fontSize: 26, margin: 5 }}>4 705 EURO</Text>
+          pageStyle={styles.pageContainer}>
+          <View key={'page0'} style={styles.page}>
+            <Text style={styles.account}>COMPTE DEVISE EURO</Text>
+            <Text style={styles.amount}>4 705 EURO</Text>
           </View>
-          <View key={'page1'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#555', backgroundColor: '#555', borderRadius: 5 }}>
+          <View key={'page1'} style={styles.page}>
             <TouchableOpacity>
               <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center', marginTop: 5, }}>COMPTE DEVISE DOLLAR</Text>
               <Text style={{ color: '#fff', fontSize: 26, marginBottom: 5, textAlign: 'center' }}>Demander la creation de ce compte</Text>
             </TouchableOpacity>
           </View>
-          <View key={'page2'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#555', borderRadius: 5 }}>
-            <Text style={{ fontSize: 16 }}>COMPTE EPARGNE</Text>
-            <Text style={{ fontSize: 26, margin: 5 }}>41 205 DA</Text>
+          <View key={'page2'} style={styles.page}>
+            <Text style={styles.account}>COMPTE EPARGNE</Text>
+            <Text style={styles.amount}>41 205 DA</Text>
           </View>
-          <View key={'page3'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#555', borderRadius: 5 }}>
-            <Text style={{ fontSize: 16 }}>COMPTE COURANT</Text>
-            <Text style={{ fontSize: 26, margin: 5 }}>80 570,64 DA</Text>
+          <View key={'page3'} style={styles.page}>
+            <Text style={styles.account}>COMPTE COURANT</Text>
+            <Text style={styles.amount}>80 570,64 DA</Text>
           </View>
         </CarouselPager>
 
-        <View style={{ marginTop: -250, borderBottomColor: '#555', borderBottomWidth: 1, marginHorizontal: 20 }}>
-          <Text style={{ color: '#555' }}>Action récentes</Text>
+        <View style={styles.historyTitleContainer}>
+          <Text style={styles.historyTitle}>Action récentes</Text>
         </View>
 
         <FlatList
-          style={{ marginTop: 20 }}
+          style={styles.historyList}
           data={[
             { key: 1, type: 'Compte courant', date: '27/01/2018', time: '10:45 PM', amount: '-5 000 DA' },
             { key: 2, type: 'Compte epargne', date: '01/02/2018', time: '11:06 AM', amount: '+2 000 DA' },
@@ -101,24 +120,7 @@ class MainScreen extends Component {
               onRefresh={this._onRefresh.bind(this)}
             />
           }
-          renderItem={({ item }) => (
-            <View key={item.key}>
-              <View style={{ borderWidth: 1, borderColor: '#fff' }} />
-              <View
-                style={{
-                  paddingLeft: 10, marginVertical: 5, marginHorizontal: 10, borderLeftWidth: 7, borderLeftColor: '#999', flexDirection: 'row', justifyContent: 'space-between'
-                }}>
-                <View>
-                  <Text>{item.type}</Text>
-                  <Text>{item.amount}</Text>
-                </View>
-                <View>
-                  <Text>{item.date}</Text>
-                  <Text>{item.time}</Text>
-                </View>
-              </View>
-            </View>
-          )}
+          renderItem={HistoryItem}
         />
       </View>
     )

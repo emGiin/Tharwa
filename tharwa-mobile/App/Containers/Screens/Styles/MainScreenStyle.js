@@ -24,5 +24,43 @@ export default StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 200
+  },
+  pageContainer: {
+    backgroundColor: '#ffffffbb',
+    height: 100
+  },
+  page: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#999',
+    borderRadius: 5
+  },
+  account: {
+    fontSize: 16
+  },
+  amount: {
+    fontSize: 26,
+    margin: 5
+  },
+  account: {
+    fontSize: 16
+  },
+  amount: {
+    fontSize: 26,
+    margin: 5
+  },
+  historyTitleContainer: {
+    marginTop: -250,
+    borderBottomColor: '#555',
+    borderBottomWidth: 1,
+    marginHorizontal: 20
+  },
+  historyTitle: {
+    color: '#555'
+  },
+  historyList: {
+    marginTop: 20
   }
 })
