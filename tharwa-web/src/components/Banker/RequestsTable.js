@@ -7,13 +7,79 @@ import ApplicantDetailsModal from "./ApplicantDetailsModal";
 const confirm = Modal.confirm;
 
 class RequestsTable extends Component {
-  state = {
-    pagination: {},
-    loading: false,
-    data: [],
-    selectedUser:{},
+  INITIAL_STATE = {
+    selectedUser: {},
     isModalVisible: false
   };
+
+  state = this.INITIAL_STATE;
+
+  showModal(record) {
+    this.setState({
+      selectedUser: record,
+      isModalVisible: true
+    });
+  }
+
+  closeModal() {
+    this.setState(this.INITIAL_STATE);
+  }
+
+  handleValidate(record) {
+    this.props.acceptDemand(record.email);
+    this.closeModal();
+  }
+
+  handleConfirmReject(record) {
+    const closeModal = this.closeModal.bind(this);
+    const rejectDemand = this.props.rejectDemand;
+    confirm({
+      title: "Voulez-vous vraiment rejeter cette demande?",
+      content: `Nom: ${record.firstname} ${record.lastname}`,
+      okText: "Oui",
+      okType: "danger",
+      cancelText: "Annuler",
+      onOk() {
+        rejectDemand(record.email);
+        closeModal();
+      }
+    });
+  }
+
+  render() {
+    message.destroy();
+    if (this.props.actionState.actionFetching) {
+      message.loading("En cours d'exécution...", 0);
+    } else {
+      if (this.props.actionState.actionSuccess) {
+        message.success("Action réussie!");
+      } else if (this.props.actionState.actionError) {
+        message.error(this.props.actionState.actionError);
+      }
+      setTimeout(this.props.setDefault, 1000);
+    }
+
+    return (
+      <div>
+        {/* <div>{content}</div> */}
+        <ApplicantDetailsModal
+          handleValidate={this.handleValidate.bind(this)}
+          handleConfirmReject={this.handleConfirmReject.bind(this)}
+          actionState={this.props.actionState}
+          user={this.state.selectedUser}
+          visible={this.state.isModalVisible}
+          onCancel={() => this.setState(this.INITIAL_STATE)}
+        />
+        <Table
+          columns={this.columns}
+          rowKey={record => record.email}
+          dataSource={this.props.list}
+          pagination={false}
+          loading={this.props.fetching}
+        />
+      </div>
+    );
+  }
 
   columns = [
     {
@@ -44,8 +110,8 @@ class RequestsTable extends Component {
     {
       title: "Date",
       dataIndex: "created_at",
-      key: "created_at",
-     // sorter: true //TODO : Définir la fonction de sort sur les dates
+      key: "created_at"
+      // sorter: true //TODO : Définir la fonction de sort sur les dates
     },
     {
       title: "",
@@ -53,19 +119,19 @@ class RequestsTable extends Component {
       render: record => (
         <span>
           <Tooltip title="Afficher les détails">
-            <a href="#" onClick={() => this.handleClickDetails(record)}>
+            <a onClick={() => this.showModal(record)}>
               <Icon type="info-circle" />
             </a>
           </Tooltip>
           <span className="ant-divider" />
           <Tooltip title="Rejeter la demande">
-            <a href="#" onClick={() => this.handleConfirmReject(record)}>
+            <a onClick={() => this.handleConfirmReject(record)}>
               <Icon type="close-circle-o" />
             </a>
           </Tooltip>
           <span className="ant-divider" />
           <Tooltip title="Accepter la demande">
-            <a href="#" onClick={() => this.handleValidate(record)}>
+            <a onClick={() => this.handleValidate(record)}>
               <Icon type="check-circle" />
             </a>
           </Tooltip>
@@ -73,130 +139,6 @@ class RequestsTable extends Component {
       )
     }
   ];
-
-  handleClickDetails(record) {
-    this.showDetailsModal(record)
-  }
-
-  handleConfirmReject(record) {
-    const { lastname, firstname } = record;
-    const rejectDemand=this.props.rejectDemand;
-    const closeModal=this.closeModal.bind(this);
-    confirm({
-      title: "Voulez-vous vraiment rejeter cette demande?",
-      content: `Nom: ${firstname} ${lastname}`,
-      okText: "Oui",
-      okType: "danger",
-      cancelText: "Annuler",
-      onOk() {
-         rejectDemand(record.email);
-         closeModal();
-      },
-      onCancel() {
-        console.log("Cancel");
-      }
-    });
-  }
-
-  handleValidate(record) {
-    this.props.acceptDemand(record.email);
-    this.closeModal();
-  }
-
-  closeModal(){
-    this.setState({
-      isModalVisible:false
-    })
-  }
-  showDetailsModal(record){
-    this.setState({
-      selectedUser:record,
-      isModalVisible:true
-    })
-  } 
-
-  handleTableChange = (pagination, filters, sorter) => {
-    const pager = { ...this.state.pagination };
-    pager.current = pagination.current;
-    this.setState({
-      pagination: pager
-    });
-    this.fetch({
-      results: pagination.pageSize,
-      page: pagination.current,
-      sortField: sorter.field,
-      sortOrder: sorter.order,
-      ...filters
-    });
-  };
-  fetch = (params = {}) => {
-    this.setState({ loading: true });
-    const pagination = { ...this.state.pagination };
-    //API------
-    //getting records by pages of 20 for example
-    pagination.total = 1; //totalcount of records=data.totalcount
-    this.setState({
-      loading: false,
-      data: this.props.list,
-      pagination
-    });
-  };
-  componentDidMount() {
-    // FETCHING HAPPENS INSIDE REDUX SAGAS AND API SERVICES
-    this.fetch();
-  }
-  render() {
-    let content=null;
-    const setDefault=this.props.setDefault;
-    if(this.props.actionState.actionFetching){
-      message.destroy();
-      content=message.loading("En cours d'exécution...",0);
-    }else{
-      if(this.props.actionState.actionSuccess){
-        content=message.success( "Action réussie!");
-        setTimeout(() => {
-          console.log("tmeout");
-          setDefault()
-        }, 1000);
-    }else{
-      if(this.props.actionState.actionError){
-        message.error( this.props.actionState.actionError)
-        setTimeout(() => {
-          console.log("tmeout");
-          setDefault()
-        }, 1000);
-      }
-    }
-  }  
-    return (
-      <div>
-        <div>{content}</div>
-        <ApplicantDetailsModal handleValidate={this.handleValidate.bind(this)} handleConfirmReject={this.handleConfirmReject.bind(this)} actionState={this.props.actionState} user={this.state.selectedUser} visible={this.state.isModalVisible}
-         onCancel={()=>{
-           this.setState({
-             selectedUser:{},
-             isModalVisible: false
-           })
-           }}/>
-      <Table
-        columns={this.columns}
-        rowKey={record => record.registered}
-        dataSource={this.props.list}
-        pagination={false/*this.state.pagination*/}
-        loading={this.state.loading}
-        onChange={this.handleTableChange}
-/*onRow={(record)=>{
-          
-          return{
-            onClick:()=>{
-             this.showDetailsModal(record)
-            }
-          }
-        }}*/
-      />
-      </div>
-    );
-  }
 }
 
 export default RequestsTable;
