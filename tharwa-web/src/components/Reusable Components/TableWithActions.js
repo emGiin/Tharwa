@@ -49,13 +49,13 @@ class TableWithActions extends Component {
 
   notify = () => {
     message.destroy();
-    if (this.props.actionState.actionFetching) {
+    if (this.props.actionState.fetching) {
       message.loading("En cours d'exécution...", 0);
     } else {
-      if (this.props.actionState.actionSuccess) {
+      if (this.props.actionState.success) {
         message.success('Action réussie!');
-      } else if (this.props.actionState.actionError) {
-        message.error(this.props.actionState.actionError);
+      } else if (this.props.actionState.error) {
+        message.error(this.props.actionState.error);
       }
       setTimeout(this.props.setDefault, 1000);
     }
@@ -113,9 +113,9 @@ TableWithActions.prototypes = {
   dataSource: PropTypes.array.isRequired,
   fetching: PropTypes.bool,
   actionState: PropTypes.shape({
-    actionFetching: PropTypes.bool,
-    actionSuccess: PropTypes.bool,
-    actionError: PropTypes.bool
+    fetching: PropTypes.bool,
+    success: PropTypes.bool,
+    error: PropTypes.bool
   }).isRequired,
 
   acceptDemand: PropTypes.func.isRequired,

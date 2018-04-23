@@ -48,7 +48,7 @@ export function* rejectTransfer(api, { id }) {
   const response = yield call(api.transferAction, body);
   if (response.ok) {
     yield put(ValidateTransferActions.actionTransSuccess());
-    yield put(ValidateTransferActions.transListRequest());
+    yield put(ValidateTransferActions.datasetRequest());
   } else {
     yield put(
       ValidateTransferActions.actionTransFailure(
@@ -76,7 +76,7 @@ export function* acceptTransfer(api, { id }) {
   const response = yield call(api.transferAction, body);
   if (response.ok) {
     yield put(ValidateTransferActions.actionTransSuccess());
-    yield put(ValidateTransferActions.transListRequest());
+    yield put(ValidateTransferActions.datasetRequest());
   } else {
     yield put(
       ValidateTransferActions.actionTransFailure(

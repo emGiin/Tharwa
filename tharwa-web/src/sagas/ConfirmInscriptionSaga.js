@@ -49,7 +49,7 @@ export function* rejectDemand(api, { email }) {
   const response = yield call(api.inscriptionAction, body);
   if (response.ok) {
     yield put(ConfirmInscriptionActions.actionSuccess());
-    yield put(ConfirmInscriptionActions.reqListRequest());
+    yield put(ConfirmInscriptionActions.datasetRequest());
   } else {
     yield put(
       ConfirmInscriptionActions.actionFailure(
@@ -79,7 +79,7 @@ export function* acceptDemand(api, { email }) {
 
   if (response.ok) {
     yield put(ConfirmInscriptionActions.actionSuccess());
-    yield put(ConfirmInscriptionActions.reqListRequest());
+    yield put(ConfirmInscriptionActions.datasetRequest());
   } else {
     yield put(
       ConfirmInscriptionActions.actionFailure(

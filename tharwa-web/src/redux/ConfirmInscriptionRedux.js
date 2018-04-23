@@ -4,11 +4,11 @@ import {CONTENT_BASE_URL} from "../config/AppConfig";
 //Actions
 const { Types, Creators } = createActions({
   setDefault: [],
-  rejectRequest: ["email"],
-  validateRequest: ["email"],
+  rejectDemand: ["email"],
+  acceptDemand: ["email"],
   actionSuccess: [],
   actionFailure: ["error"],
-  reqListRequest: [],
+  datasetRequest: [],
   reqListSuccess: [],
   reqListFailure: ["error"],
   saveReqList: ["list"]
@@ -67,12 +67,12 @@ export const actionFailure = (state, { error }) =>
   state.merge({ actionFetching: false, actionError: error });
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.REQ_LIST_REQUEST]: request,
+  [Types.DATASET_REQUEST]: request,
   [Types.REQ_LIST_SUCCESS]: success,
   [Types.REQ_LIST_FAILURE]: failure,
   [Types.SAVE_REQ_LIST]: saveReqList,
-  [Types.REJECT_REQUEST]: actionReq,
-  [Types.VALIDATE_REQUEST]: actionReq,
+  [Types.REJECT_DEMAND]: actionReq,
+  [Types.ACCEPT_DEMAND]: actionReq,
   [Types.ACTION_SUCCESS]: actionSuccess,
   [Types.ACTION_FAILURE]: actionFailure,
   [Types.SET_DEFAULT]: setDefault

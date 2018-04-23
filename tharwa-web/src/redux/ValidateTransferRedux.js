@@ -3,12 +3,12 @@ import Immutable from "seamless-immutable";
 
 //Actions
 const { Types, Creators } = createActions({
-  setDefaultTrans:[],
-  rejectTransfer: ["id"],
-  validateTransfer: ["id"],
+  setDefault:[],
+  rejectDemand: ["id"],
+  acceptDemand: ["id"],
   actionTransSuccess:[],
   actionTransFailure:["error"],
-  transListRequest:[],
+  datasetRequest:[],
   transListSuccess:[],
   transListFailure:["error"],
   saveTransList:["list"]
@@ -52,13 +52,13 @@ export const actionFailure = (state, { error }) =>
   state.merge({ actionFetching: false, actionError:error });
 
 export const reducer = createReducer(INITIAL_STATE, {
-    [Types.TRANS_LIST_REQUEST]: request,
+    [Types.DATASET_REQUEST]: request,
     [Types.TRANS_LIST_SUCCESS]: success,
     [Types.TRANS_LIST_FAILURE]: failure,
     [Types.SAVE_TRANS_LIST]: saveTransList,
-    [Types.REJECT_TRANSFER]: actionReq,
-    [Types.VALIDATE_TRANSFER]: actionReq,
+    [Types.REJECT_DEMAND]: actionReq,
+    [Types.ACCEPT_DEMAND]: actionReq,
     [Types.ACTION_TRANS_SUCCESS]: actionSuccess,
     [Types.ACTION_TRANS_FAILURE]: actionFailure,
-    [Types.SET_DEFAULT_TRANS]: setDefault
+    [Types.SET_DEFAULT]: setDefault
 });

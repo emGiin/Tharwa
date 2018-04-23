@@ -31,16 +31,16 @@ export default function* root() {
 
     takeLatest(PinCodeTypes.PIN_CODE_REQUEST, confirmPinCode, api),
 
-    takeLatest(ConfirmInscriptionTypes.REQ_LIST_REQUEST,getRequestsList , api_),
+    takeLatest(ConfirmInscriptionTypes.DATASET_REQUEST,getRequestsList , api_),
 
-    takeLatest(ConfirmInscriptionTypes.VALIDATE_REQUEST,acceptDemand , api_),
+    takeLatest(ConfirmInscriptionTypes.ACCEPT_DEMAND,acceptDemand , api_),
     
-    takeLatest(ConfirmInscriptionTypes.REJECT_REQUEST,rejectDemand , api_),
+    takeLatest(ConfirmInscriptionTypes.REJECT_DEMAND,rejectDemand , api_),
 
-    takeLatest(ValidateTransferTypes.REJECT_TRANSFER,rejectTransfer , api_),
+    takeLatest(ValidateTransferTypes.REJECT_DEMAND,rejectTransfer , api_),
 
-    takeLatest(ValidateTransferTypes.VALIDATE_TRANSFER,acceptTransfer , api_),
+    takeLatest(ValidateTransferTypes.ACCEPT_DEMAND,acceptTransfer , api_),
 
-    takeLatest(ValidateTransferTypes.TRANS_LIST_REQUEST,getTransfersList , api_),
+    takeLatest(ValidateTransferTypes.DATASET_REQUEST,getTransfersList , api_),
   ])
 }
