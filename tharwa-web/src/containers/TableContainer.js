@@ -37,14 +37,14 @@ export default (table, Actions, reducer) => {
 
   const mapDispatchToProps = dispatch => {
     return {
-      getDataset: () => dispatch(Actions.dataRequest()),
+      getDataset: () => dispatch(Actions.datasetRequest()),
       rejectDemand: id => dispatch(Actions.rejectDemand(id)),
       acceptDemand: id => dispatch(Actions.acceptDemand(id)),
       setDefault: () => dispatch(Actions.setDefault())
     };
   };
 
-  return connect(mapStateToProps, mapDispatchToProps)(
-    <TableHolder table={table} />
-  );
+  return connect(mapStateToProps, mapDispatchToProps)((props) => (
+    <TableHolder table={table} {...props} />
+  ));
 };
