@@ -1,17 +1,17 @@
-import { createReducer, createActions } from "reduxsauce";
-import Immutable from "seamless-immutable";
-import {CONTENT_BASE_URL} from "../config/AppConfig";
+import { createReducer, createActions } from 'reduxsauce';
+import Immutable from 'seamless-immutable';
+import { CONTENT_BASE_URL } from '../config/AppConfig';
 //Actions
 const { Types, Creators } = createActions({
   setDefault: [],
-  rejectDemand: ["email"],
-  acceptDemand: ["email"],
+  rejectDemand: ['email'],
+  acceptDemand: ['email'],
   actionSuccess: [],
-  actionFailure: ["error"],
+  actionFailure: ['error'],
   datasetRequest: [],
   reqListSuccess: [],
-  reqListFailure: ["error"],
-  saveReqList: ["list"]
+  reqListFailure: ['error'],
+  saveReqList: ['list']
 });
 
 export const ConfirmInscriptionTypes = Types;
@@ -39,12 +39,7 @@ export const success = state => {
   return state.merge({ fetching: false, error: null, success: true });
 };
 
-export const saveReqList = (state, { list }) =>
-  state.merge({
-    list: list.map(record => {
-      return { ...record, picture: CONTENT_BASE_URL + record.picture };
-    })
-  });
+export const saveReqList = (state, { list }) => state.merge({ list });
 
 export const failure = (state, { error }) =>
   state.merge({ fetching: false, error }); //si code pin expiré popup de code pin
