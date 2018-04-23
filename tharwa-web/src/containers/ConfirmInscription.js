@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import ConfirmActions from "../redux/ConfirmInscriptionRedux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import ConfirmActions from '../redux/ConfirmInscriptionRedux';
 
-import { RequestsTable } from "../components/Banker";
+import { RequestsTable } from '../components/Banker';
 
 class ConfirmInscription extends Component {
   componentWillMount() {
@@ -10,7 +10,6 @@ class ConfirmInscription extends Component {
   }
 
   render() {
-    console.log("data", this.props.reqList.list);
     return (
       // this.props.reqList.fetching? <LoadingSpinner />:
       <RequestsTable

@@ -32,7 +32,6 @@ export function* getTransfersList(api) {
 }
 
 export function* rejectTransfer(api, { id }) {
-  console.log('start');
   //Headers
   const authToken = yield select(selectAuthToken);
   if (authToken) {
@@ -46,9 +45,7 @@ export function* rejectTransfer(api, { id }) {
     virement_code: id,
     code: 0
   };
-  console.log('1');
   const response = yield call(api.transferAction, body);
-  console.log('ok');
   if (response.ok) {
     yield put(ValidateTransferActions.actionTransSuccess());
     yield put(ValidateTransferActions.transListRequest());
@@ -62,7 +59,6 @@ export function* rejectTransfer(api, { id }) {
 }
 
 export function* acceptTransfer(api, { id }) {
-  console.log('start');
   //Headers
   const authToken = yield select(selectAuthToken);
   if (authToken) {
@@ -72,16 +68,12 @@ export function* acceptTransfer(api, { id }) {
   if (pinCode) {
     yield call(api.setPinCode, pinCode);
   }
-  console.log('saga');
-  console.log(id);
 
   const body = {
     virement_code: id,
     code: 1
   };
-  console.log('1');
   const response = yield call(api.transferAction, body);
-  console.log('ok');
   if (response.ok) {
     yield put(ValidateTransferActions.actionTransSuccess());
     yield put(ValidateTransferActions.transListRequest());
