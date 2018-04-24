@@ -50,11 +50,32 @@ class VirmentController extends Controller
             //create the transfer
             $commission = config('commission.COUR_COUR') * $amount;
             $now = \Carbon\Carbon::now();
+            $nb = BalanceHistory::count();//todo fix this !all sol tested! re-migrate DB
+            //sender history
+            BalanceHistory::create([
+                'id' => $nb + 1,
+                'amount' => $amount + $commission,//todo put it negative !!
+                'transaction_type' => 'vir_client',
+                'transaction_direction' => 'out',
+                'account_id' => $senderAccount->number,
+                'created_at' => $now->format('Y-m-d H:i:s'),
+                'updated_at' => $now->format('Y-m-d H:i:s')
+            ]);
             if ($amount > 200000) {
                 $transferDate = null;
                 $creationDate = $now->format('Y-m-d H:i:s');
                 $status = 'traitement';
             } else {
+                //receiver history
+                BalanceHistory::create([
+                    'id' => $nb + 2,
+                    'amount' => $amount,
+                    'transaction_type' => 'vir_client',
+                    'transaction_direction' => 'in',
+                    'account_id' => $request->input('receiver.account'),
+                    'created_at' => $now->format('Y-m-d H:i:s'),
+                    'updated_at' => $now->format('Y-m-d H:i:s')
+                ]);
                 //change the amount of the destination client just in case of < 200 000 else till validation
                 $receiverAccount = Account::find($request->input('receiver.account'));
                 $receiverAccount->balance = $receiverAccount->balance + $amount;
@@ -78,30 +99,6 @@ class VirmentController extends Controller
                 'destination_id' => $request->input('receiver.account'),
             ]);
 
-
-            $nb = BalanceHistory::count();//todo fix this !all sol tested! re-migrate DB
-            BalanceHistory::insert([
-                //sender history
-                [
-                    'id' => $nb + 1,
-                    'amount' => $amount + $commission,//todo put it negative !!
-                    'transaction_type' => 'vir_client',
-                    'transaction_direction' => 'out',
-                    'account_id' => $senderAccount->number,
-                    'created_at' => $now->format('Y-m-d H:i:s'),
-                    'updated_at' => $now->format('Y-m-d H:i:s')]
-                ,
-                //receiver history
-                [
-                    'id' => $nb + 2,
-                    'amount' => $amount,
-                    'transaction_type' => 'vir_client',
-                    'transaction_direction' => 'in',
-                    'account_id' => $request->input('receiver.account'),
-                    'created_at' => $now->format('Y-m-d H:i:s'),
-                    'updated_at' => $now->format('Y-m-d H:i:s')]
-            ]);
-
             //todo send commission to Tharwa account
             //we retrieve the amount from the sender account
             $senderAccount->balance = $senderAccount->balance - $commission - $amount;
@@ -118,7 +115,7 @@ class VirmentController extends Controller
             return response(["saved" => true], config('code.CREATED'));
 
         } catch (\Exception $e) {
-            dd($e);
+
             // something went wrong
             /**rollback every thing - problems **/
             DB::rollback();
