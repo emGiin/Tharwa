@@ -10,8 +10,8 @@ import { MainHeader, TransferItem } from '../../Components'
 import styles from './Styles/MainScreenStyle'
 
 
-AccountInfo = ({ key, account, type }) => (
-  <View key={key} style={styles.page}>
+AccountInfo = ({ account, type }) => (
+  <View style={styles.page}>
     {
       account ?
         (
@@ -23,7 +23,7 @@ AccountInfo = ({ key, account, type }) => (
         (
           <TouchableOpacity>
             <Text style={styles.newAccount}>{type}</Text>
-            <Text style={style.newAccountRequest}>
+            <Text style={styles.newAccountRequest}>
               Demander la creation de ce compte
             </Text>
           </TouchableOpacity>
@@ -65,7 +65,10 @@ class MainScreen extends Component {
         <CarouselPager
           ref={ref => this.carousel = ref}
           initialPage={3}
-          pageStyle={styles.pageContainer}>
+          pageStyle={{
+            backgroundColor: '#ffffffbb',
+            height: 100
+          }}>
           {
             this.pages.map(({ key, type }) => <AccountInfo key={key} account={info[key]} type={type} />)
           }

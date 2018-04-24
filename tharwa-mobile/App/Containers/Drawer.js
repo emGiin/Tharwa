@@ -49,8 +49,8 @@ const mapStateToProps = ({ account: { accountType, information: info } }) => {
   return {
     accountType: accountType || 'Client',
     name: (info ? `${info.lastName} ${info.firstName}` : 'John Doe'),
-    picture: (info && info.picture) ? info.picture : Images.avatar,
-    email: info ? info.email : 'john_doe@mail.com'
+    picture: info.picture || Images.avatar,
+    email: info.email || 'john_doe@mail.com'
   };
 }
 
