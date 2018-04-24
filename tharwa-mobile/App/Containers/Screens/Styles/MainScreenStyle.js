@@ -4,19 +4,9 @@ import { ApplicationStyles } from '../../../Themes/'
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
-    width: '100%',
-    position: 'relative',
-    marginBottom: 20
-  },
-  leftButton: {
-    position: 'absolute',
-    left: 10,
-    top: 13
-  },
-  rightButton: {
-    position: 'absolute',
-    right: 10,
-    top: 15
+    height: '100%',
+    flex: 1,
+    backgroundColor: '#f3f3f3'
   },
   imagePreview: {
     // margin: 10,
@@ -44,12 +34,17 @@ export default StyleSheet.create({
     fontSize: 26,
     margin: 5
   },
-  account: {
-    fontSize: 16
+  newAccount: {
+    color: '#fff',
+    fontSize: 16,
+    textAlign: 'center',
+    marginTop: 5
   },
-  amount: {
+  newAccountRequest: {
+    color: '#fff',
     fontSize: 26,
-    margin: 5
+    marginBottom: 5,
+    textAlign: 'center'
   },
   historyTitleContainer: {
     marginTop: -250,
