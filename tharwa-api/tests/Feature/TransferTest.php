@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Account;
+use App\BalanceHistory;
 use App\Client;
 use App\InternTransfer;
 use App\Token;
@@ -14,6 +15,81 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class TransferTest extends TestCase
 {
     use DatabaseTransactions;
+
+    public function testVirementInternAmountNotEnough()
+    {
+        //given : we have 2 client with their 2 "courant" accounts
+        // & the sender has a valid access token and pin
+        Client::create([
+            'email' => 'sender@tharwa.dz',
+            'firstName' => 'cltest',
+            'lastName' => 'cltest',
+            'password' => bcrypt('clientmdp'),
+            'address' => 'oued essamar',
+            'picture' => 'hi.png',
+            'function' => 'teacher',
+            'phone' => '+213553673740',
+            'type' => 'Client',
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);
+        Account::create([
+            'number' => 'THW445566DZD',
+            'isValid' => true,
+            'currency_id' => 'DZD',
+            'type_id' => 'COUR',
+            'client_id' => 'sender@tharwa.dz',
+        ]);
+        Client::create([
+            'email' => 'reciever@tharwa.dz',
+            'firstName' => 'cltest',
+            'lastName' => 'cltest',
+            'password' => bcrypt('clientmdp'),
+            'address' => 'oued essamar',
+            'picture' => 'hi.png',
+            'function' => 'teacher',
+            'phone' => '+213553673740',
+            'type' => 'Client',
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);
+        Account::create([
+            'number' => 'THW112233DZD', //todo check if it s the best way
+            'isValid' => true,
+            'currency_id' => 'DZD',
+            'type_id' => 'COUR',
+            'client_id' => 'reciever@tharwa.dz',
+        ]);
+        $token = 'AZE45454ZRAZERAEZR';
+        $pin = '2222';
+        Token::create([
+            'id' => 'just_a_dummy_temp_token',
+            'user_id' => 'sender@tharwa.dz',
+            'pin_code' => $pin,
+            'pin_code_expires_at' =>
+                \Carbon\Carbon::now()
+                    ->addSeconds(3600)
+                    ->format('Y-m-d H:i:s'),
+            'scopes' => 'Client',
+            'token' => $token,
+        ]);
+
+        //when
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+            'Pin' => $pin,
+        ])->json('POST', '/api/virement/intern', [
+            'receiver' => ['account' => 'THW112233DZD'],
+            'amount' => '200001',
+            'reason' => 'something',
+            'justification' => 'data:image/gif;base64,R0lGODlhAQABAAAAACw==',
+        ]);
+
+        //then
+        $response
+            ->assertStatus(config('code.NOT_FOUND'))
+            ->assertJson(["amount" => false]);
+    }
 
     public function testVirementInternNeedValidationOK()
     {
@@ -96,14 +172,21 @@ class TransferTest extends TestCase
             ->where('commission', 200001 * config('commission.COUR_COUR'))
             ->where('amount', 200001)->get();
 
-        $this->assertNotNull($transferRaw);
+        $this->assertFalse($transferRaw->isEmpty());
+
+        $historySender = BalanceHistory::where('amount', 200001 * config('commission.COUR_COUR') + 200001)
+            ->where('transaction_type', 'vir_client')
+            ->where('transaction_direction', 'out')
+            ->where('account_id', 'THW445566DZD')->get();
+
+        $this->assertFalse($historySender->isEmpty());
 
         $response
             ->assertStatus(config('code.CREATED'))
             ->assertJson(["saved" => true]);
     }
 
-    public function testVirementInternNeedValidationAmountNotEnough()
+    public function testVirementInternOK()
     {
         //given : we have 2 client with their 2 "courant" accounts
         // & the sender has a valid access token and pin
@@ -126,6 +209,7 @@ class TransferTest extends TestCase
             'currency_id' => 'DZD',
             'type_id' => 'COUR',
             'client_id' => 'sender@tharwa.dz',
+            'balance' => '1000000',//one million
         ]);
         Client::create([
             'email' => 'reciever@tharwa.dz',
@@ -167,102 +251,40 @@ class TransferTest extends TestCase
             'Pin' => $pin,
         ])->json('POST', '/api/virement/intern', [
             'receiver' => ['account' => 'THW112233DZD'],
-            'amount' => '200001',
-            'reason' => 'something',
-            'justification' => 'data:image/gif;base64,R0lGODlhAQABAAAAACw==',
-        ]);
-
-        //then
-        $response
-            ->assertStatus(config('code.NOT_FOUND'))
-            ->assertJson(["amount" => false]);
-    }
-
-    public function testValidationVirementInternTTTT()
-    {
-        //given : we have 2 client with their 2 "courant" accounts
-        // & the sender has a valid access token and pin
-        Client::create([
-            'email' => 'sender@tharwa.dz',
-            'firstName' => 'cltest',
-            'lastName' => 'cltest',
-            'password' => bcrypt('clientmdp'),
-            'address' => 'oued essamar',
-            'picture' => 'hi.png',
-            'function' => 'teacher',
-            'phone' => '+213553673740',
-            'type' => 'Client',
-            'created_at' => date("Y-m-d H:i:s"),
-            'updated_at' => date("Y-m-d H:i:s"),
-        ]);
-        Account::create([
-            'number' => 'THW445566DZD',
-            'isValid' => true,
-            'currency_id' => 'DZD',
-            'type_id' => 'COUR',
-            'client_id' => 'sender@tharwa.dz',
-        ]);
-        Client::create([
-            'email' => 'reciever@tharwa.dz',
-            'firstName' => 'cltest',
-            'lastName' => 'cltest',
-            'password' => bcrypt('clientmdp'),
-            'address' => 'oued essamar',
-            'picture' => 'hi.png',
-            'function' => 'teacher',
-            'phone' => '+213553673740',
-            'type' => 'Client',
-            'created_at' => date("Y-m-d H:i:s"),
-            'updated_at' => date("Y-m-d H:i:s"),
-        ]);
-        Account::create([
-            'number' => 'THW112233DZD', //todo check if it s the best way
-            'isValid' => true,
-            'currency_id' => 'DZD',
-            'type_id' => 'COUR',
-            'client_id' => 'reciever@tharwa.dz',
-        ]);
-        $token = 'AZE45454ZRAZERAEZR';
-        $pin = '2222';
-        Token::create([
-            'id' => 'just_a_dummy_temp_token',
-            'user_id' => 'sender@tharwa.dz',
-            'pin_code' => $pin,
-            'pin_code_expires_at' =>
-                \Carbon\Carbon::now()
-                    ->addSeconds(3600)
-                    ->format('Y-m-d H:i:s'),
-            'scopes' => 'Client',
-            'token' => $token,
-        ]);
-
-        $response = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token,
-            'Pin' => $pin,
-        ])->json('POST', '/api/virement/validations', [
-            'receiver.account' => 'THW112233DZD',
-            'amount' => '200001',
-            'reason' => 'something',
+            'amount' => '199999',
+            'reason' => 'somethingTest',
             'justification' => 'data:image/gif;base64,R0lGODlhAQABAAAAACw==',
         ]);
 
 //        dd($this,$response);
+        //then
+        $transferRaw = InternTransfer::where('source_id', 'THW445566DZD')
+            ->where('destination_id', 'THW112233DZD')
+            ->where('reason', 'somethingTest')
+            ->where('transfers_type', 'vir_client')
+            ->where('status', 'valide')
+            ->where('commission', 199999 * config('commission.COUR_COUR'))
+            ->where('amount', 199999)->get();
+
+        $this->assertFalse($transferRaw->isEmpty());
+
+        $historySender = BalanceHistory::where('amount', 199999 * config('commission.COUR_COUR') + 199999)
+            ->where('transaction_type', 'vir_client')
+            ->where('transaction_direction', 'out')
+            ->where('account_id', 'THW445566DZD')->get();
+
+        $this->assertFalse($historySender->isEmpty());
+
+        $historyReceiver = BalanceHistory::where('amount', 199999)
+            ->where('transaction_type', 'vir_client')
+            ->where('transaction_direction', 'in')
+            ->where('account_id', 'THW112233DZD')->get();
+
+        $this->assertFalse($historyReceiver->isEmpty());
+
         $response
-            ->assertStatus(config('code.BAD_REQUEST'))
-            ->assertJson(array(
-                'email' =>
-                    array(
-                        0 => 'The email must be a valid email address.',
-                    ),
-                'password' =>
-                    array(
-                        0 => 'The password field is required.',
-                    ),
-                'type' =>
-                    array(
-                        0 => 'The type must be 1 digits.',
-                    ),
-            ));
+            ->assertStatus(config('code.CREATED'))
+            ->assertJson(["saved" => true]);
     }
 
 }
