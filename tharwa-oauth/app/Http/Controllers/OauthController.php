@@ -53,7 +53,7 @@ class OauthController extends Controller
         $pin_code_expires_at = \Carbon\Carbon::now()->addHours(1)->format('Y-m-d H:i:s');
         if ('sms' == $request->confirmation_method) {
 
-            return 'sms sent';
+//            return 'sms sent';
 
             $nexmo = app('Nexmo\Client');
             $nexmo->message()->send([
