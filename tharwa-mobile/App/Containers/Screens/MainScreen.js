@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { RefreshControl, TouchableOpacity, View, Image, FlatList } from 'react-native'
 import { connect } from 'react-redux'
-import { Header, Button, Text } from 'native-base'
+import { Header, Button, Text, Fab } from 'native-base'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CarouselPager from 'react-native-carousel-pager';
+import ActionButton from 'react-native-action-button';
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
@@ -36,7 +37,8 @@ MainHeader = ({ openDrawer }) => (
 )
 
 class MainScreen extends Component {
-  state = { refreshing: false }
+  
+  state = { refreshing: false}
 
   _onRefresh() {
     this.setState({ refreshing: true });
@@ -120,6 +122,21 @@ class MainScreen extends Component {
             </View>
           )}
         />
+     
+      
+        <ActionButton buttonColor="#25303c" renderIcon={() =>  <Icon name="swap-horizontal" style={styles.actionButtonIcon} />} >
+      
+          <ActionButton.Item buttonColor='#9b59b6' title="Virement vers mon compte" onPress={() => {this.props.navigation.navigate('VirementScreen')}}>
+            <Icon name="swap-horizontal" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+          <ActionButton.Item buttonColor='#3498db' title="Virement vers un autre client tharwa" onPress={() => {this.props.navigation.navigate('VirementScreen')}}>
+            <Icon name="account-switch" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+          <ActionButton.Item buttonColor='#1abc9c' title="Virement à un autre client d'une banque" onPress={() => {this.props.navigation.navigate('VirementScreen')}}>
+            <Icon name="account-multiple" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+        </ActionButton>
+     
       </View>
     )
   }

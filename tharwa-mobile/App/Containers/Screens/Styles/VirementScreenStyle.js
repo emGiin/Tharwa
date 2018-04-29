@@ -18,11 +18,6 @@ export default StyleSheet.create({
     right: 10,
     top: 15
   },
-  actionButtonIcon: {
-    fontSize: 20,
-    height: 22,
-    color: 'white',
-  },
   imagePreview: {
     // margin: 10,
     flex: 1,

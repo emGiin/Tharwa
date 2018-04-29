@@ -6947,6 +6947,12 @@ react-modal@^3.1.10:
     prop-types "^15.5.10"
     warning "^3.0.0"
 
+react-native-action-button@^2.8.4:
+  version "2.8.4"
+  resolved "https://registry.yarnpkg.com/react-native-action-button/-/react-native-action-button-2.8.4.tgz#6c5ef988f6dc129a1e2d65e964dc38373a653b4f"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-carousel-pager@^1.4.2:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/react-native-carousel-pager/-/react-native-carousel-pager-1.4.2.tgz#ceafa10e59855fd4959011d83f4af22a482835c5"

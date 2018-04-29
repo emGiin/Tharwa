@@ -43,6 +43,7 @@
     "ramda": "^0.25.0",
     "react": "16.0.0",
     "react-native": "0.50.4",
+    "react-native-action-button": "^2.8.4",
     "react-native-carousel-pager": "^1.4.2",
     "react-native-confirmation-code-input": "^1.0.4",
     "react-native-i18n": "1.0.0",
