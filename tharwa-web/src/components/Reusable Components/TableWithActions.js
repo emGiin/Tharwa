@@ -8,7 +8,7 @@ class TableWithActions extends Component {
     this.INITIAL_STATE = this.props.initialState;
     this.state = this.INITIAL_STATE;
 
-    this.columns = [...this.props.columns, this.actionsColumn]
+    this.columns = [...this.props.columns, this.actionsColumn];
   }
 
   render() {
@@ -19,7 +19,7 @@ class TableWithActions extends Component {
           handleValidate={this.handleValidate.bind(this)}
           handleConfirmReject={this.handleConfirmReject.bind(this)}
           onCancel={() => this.setState(this.INITIAL_STATE)}
-          actionState={this.props.actionState}
+          loading={this.props.actionState.fetching}
           record={this.state.selectedRecord}
           visible={this.state.isModalVisible}
         />

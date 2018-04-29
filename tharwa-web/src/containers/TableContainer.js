@@ -10,8 +10,8 @@ class TableHolder extends Component {
     const Table = this.props.table;
     return (
       <Table
-        list={this.props.dataSet.list}
-        fetching={this.props.dataSet.fetching}
+        list={this.props.dataset.list}
+        fetching={this.props.dataset.fetching}
         {...this.props}
       />
     );
@@ -20,19 +20,10 @@ class TableHolder extends Component {
 
 export default (table, Actions, reducer) => {
   const mapStateToProps = state => {
-    const dataSet = (({ list, fetching, error, success }) => ({
-      list,
-      fetching,
-      error,
-      success
-    }))(state[reducer]);
-
-    const actionState = (({ actionFetching, actionError, actionSuccess }) => ({
-      fetching: actionFetching,
-      error: actionError,
-      success: actionSuccess
-    }))(state[reducer]);
-    return { dataSet, actionState };
+    return {
+      dataset: state[reducer].dataset,
+      actionState: state[reducer].action
+    };
   };
 
   const mapDispatchToProps = dispatch => {
@@ -44,7 +35,7 @@ export default (table, Actions, reducer) => {
     };
   };
 
-  return connect(mapStateToProps, mapDispatchToProps)((props) => (
+  return connect(mapStateToProps, mapDispatchToProps)(props => (
     <TableHolder table={table} {...props} />
   ));
 };

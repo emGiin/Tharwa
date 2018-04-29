@@ -1,65 +1,87 @@
 import { createReducer, createActions } from 'reduxsauce';
 import Immutable from 'seamless-immutable';
-import { CONTENT_BASE_URL } from '../config/AppConfig';
-//Actions
-const { Types, Creators } = createActions({
-  setDefault: [],
-  rejectDemand: ['email'],
-  acceptDemand: ['email'],
-  actionSuccess: [],
-  actionFailure: ['error'],
-  datasetRequest: [],
-  reqListSuccess: [],
-  reqListFailure: ['error'],
-  saveReqList: ['list']
-});
-
-export const ConfirmInscriptionTypes = Types;
-export default Creators;
 
 //State
 const INITIAL_STATE = Immutable({
-  list: [],
-  fetching: false,
-  success: false,
-  error: null,
-  actionSuccess: false,
-  actionError: null,
-  actionFetching: false
+  dataset: {
+    list: [],
+    fetching: false,
+    success: false,
+    error: null
+  },
+  action: {
+    fetching: false,
+    success: false,
+    error: null
+  }
 });
+
+//Actions
+const { Types, Creators } = createActions(
+  {
+    datasetRequest: [],
+    reqListSuccess: [],
+    reqListFailure: ['error'],
+    saveReqList: ['list'],
+
+    rejectDemand: ['email'],
+    acceptDemand: ['email'],
+    actionSuccess: [],
+    actionFailure: ['error'],
+    setDefault: []
+  },
+  { prefix: 'INSCRIPTIONS_' }
+);
 
 //Functions
 export const setDefault = state =>
-  state.merge({ actionSuccess: false, actionError: null });
+  state.merge({ action: { success: false, error: null } }, { deep: true });
 
 export const request = state =>
-  state.merge({ fetching: true, success: false, error: null });
+  state.merge(
+    { dataset: { fetching: true, success: false, error: null } },
+    { deep: true }
+  );
 
 export const success = state => {
-  return state.merge({ fetching: false, error: null, success: true });
+  return state.merge(
+    { dataset: { fetching: false, error: null, success: true } },
+    { deep: true }
+  );
 };
 
-export const saveReqList = (state, { list }) => state.merge({ list });
+export const saveReqList = (state, { list }) =>
+  state.merge({ dataset: { list } }, { deep: true });
 
 export const failure = (state, { error }) =>
-  state.merge({ fetching: false, error }); //si code pin expiré popup de code pin
+  state.merge({ dataset: { fetching: false, error } }, { deep: true }); //si code pin expiré popup de code pin
 
 export const actionReq = state =>
-  state.merge({
-    actionFetching: true,
-    actionSuccess: false,
-    actionError: null
-  });
+  state.merge(
+    {
+      action: {
+        fetching: true,
+        success: false,
+        error: null
+      }
+    },
+    { deep: true }
+  );
 
 export const actionSuccess = state =>
-  state.merge({
-    actionFetching: false,
-    actionError: null,
-    actionSuccess: true
-  });
+  state.merge(
+    {
+      action: {
+        fetching: false,
+        error: null,
+        success: true
+      }
+    },
+    { deep: true }
+  );
 
 export const actionFailure = (state, { error }) =>
-  state.merge({ actionFetching: false, actionError: error });
+  state.merge({ action: { fetching: false, error } }, { deep: true });
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.DATASET_REQUEST]: request,
@@ -72,3 +94,6 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.ACTION_FAILURE]: actionFailure,
   [Types.SET_DEFAULT]: setDefault
 });
+
+export const ConfirmInscriptionTypes = Types;
+export default Creators;
