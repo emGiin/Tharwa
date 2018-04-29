@@ -20,11 +20,11 @@ export function* getTransfersList(api) {
   const response = yield call(api.getTransfersList);
 
   if (response.ok) {
-    yield put(ValidateTransferActions.transListSuccess());
-    yield put(ValidateTransferActions.saveTransList(response.data));
+    yield put(ValidateTransferActions.datasetSuccess());
+    yield put(ValidateTransferActions.saveDataset(response.data));
   } else {
     yield put(
-      ValidateTransferActions.transListFailure(
+      ValidateTransferActions.datasetFailure(
         'code pin ou token invalide ou expiré!'
       )
     );
@@ -47,11 +47,11 @@ export function* rejectTransfer(api, { id }) {
   };
   const response = yield call(api.transferAction, body);
   if (response.ok) {
-    yield put(ValidateTransferActions.actionTransSuccess());
+    yield put(ValidateTransferActions.actionSuccess());
     yield put(ValidateTransferActions.datasetRequest());
   } else {
     yield put(
-      ValidateTransferActions.actionTransFailure(
+      ValidateTransferActions.actionFailure(
         'code pin ou token invalide ou expiré!'
       )
     );
@@ -75,11 +75,11 @@ export function* acceptTransfer(api, { id }) {
   };
   const response = yield call(api.transferAction, body);
   if (response.ok) {
-    yield put(ValidateTransferActions.actionTransSuccess());
+    yield put(ValidateTransferActions.actionSuccess());
     yield put(ValidateTransferActions.datasetRequest());
   } else {
     yield put(
-      ValidateTransferActions.actionTransFailure(
+      ValidateTransferActions.actionFailure(
         'code pin ou token invalide ou expiré!'
       )
     );
