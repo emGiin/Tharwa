@@ -15,6 +15,7 @@ class TableWithActions extends Component {
     const CustomModal = this.props.modal;
     return (
       <div>
+        {this.notify()}
         <CustomModal
           handleValidate={this.handleValidate.bind(this)}
           handleConfirmReject={this.handleConfirmReject.bind(this)}
@@ -53,11 +54,10 @@ class TableWithActions extends Component {
       message.loading("En cours d'exécution...", 0);
     } else {
       if (this.props.actionState.success) {
-        message.success('Action réussie!');
+        message.success('Action réussie!', this.props.setDefault);
       } else if (this.props.actionState.error) {
-        message.error(this.props.actionState.error);
+        message.error(this.props.actionState.error, this.props.setDefault);
       }
-      setTimeout(this.props.setDefault, 1000);
     }
   };
 
