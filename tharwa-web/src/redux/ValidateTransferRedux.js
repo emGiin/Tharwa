@@ -30,7 +30,7 @@ const { Types, Creators } = createActions(
     actionTransFailure: ['error'],
     setDefault: []
   },
-  { prefix: 'TRANSFERS_' }
+  { prefix: 'TRANSFERS/' }
 );
 
 //Functions

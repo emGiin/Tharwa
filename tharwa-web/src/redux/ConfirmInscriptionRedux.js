@@ -30,7 +30,7 @@ const { Types, Creators } = createActions(
     actionFailure: ['error'],
     setDefault: []
   },
-  { prefix: 'INSCRIPTIONS_' }
+  { prefix: 'INSCRIPTIONS/' }
 );
 
 //Functions
