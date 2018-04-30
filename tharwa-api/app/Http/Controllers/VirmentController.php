@@ -380,6 +380,18 @@ class VirmentController extends Controller
                     $interTransfer->status = 'rejete';
                     $interTransfer->save();
 
+                    $nb = BalanceHistory::count();//todo fix this !all sol tested! re-migrate DB
+                    //sender history
+                    BalanceHistory::create([
+                        'id' => $nb + 1,
+                        'amount' => $interTransfer->amount ,
+                        'transaction_type' => 'vir_client',//todo change it to 'reject' after migration
+                        'transaction_direction' => 'in',
+                        'account_id' => $interTransfer->source_id,
+                        'created_at' => $now->format('Y-m-d H:i:s'),
+                        'updated_at' => $now->format('Y-m-d H:i:s')
+                    ]);
+
                     //return money if rejete
                     $senderAccount = Account::find($interTransfer->source_id);
                     $senderAccount->balance = $senderAccount->balance + $interTransfer->amount;
@@ -388,6 +400,18 @@ class VirmentController extends Controller
                 } else {
                     $interTransfer->status = 'valide';
                     $interTransfer->save();
+
+                    $nb = BalanceHistory::count();//todo fix this !all sol tested! re-migrate DB
+                    //receiver history
+                    BalanceHistory::create([
+                        'id' => $nb + 1,
+                        'amount' => $interTransfer->amount ,
+                        'transaction_type' => 'vir_client',
+                        'transaction_direction' => 'in',
+                        'account_id' => $interTransfer->destination_id,
+                        'created_at' => $now->format('Y-m-d H:i:s'),
+                        'updated_at' => $now->format('Y-m-d H:i:s')
+                    ]);
 
                     //send money if valide
                     $receiverAccount = Account::find($interTransfer->destination_id);
@@ -404,6 +428,18 @@ class VirmentController extends Controller
                 if ($request->code == 0) {
                     $exterTransfer->status = 'rejete';
                     $exterTransfer->save();
+
+                    $nb = BalanceHistory::count();//todo fix this !all sol tested! re-migrate DB
+                    //sender history
+                    BalanceHistory::create([
+                        'id' => $nb + 1,
+                        'amount' => $exterTransfer->amount ,
+                        'transaction_type' => 'vir_client',//todo change it to 'reject' after migration
+                        'transaction_direction' => 'in',
+                        'account_id' => $exterTransfer->source_id,
+                        'created_at' => $now->format('Y-m-d H:i:s'),
+                        'updated_at' => $now->format('Y-m-d H:i:s')
+                    ]);
 
                     //return money if rejete
                     $senderAccount = Account::find($exterTransfer->intern_account_id);

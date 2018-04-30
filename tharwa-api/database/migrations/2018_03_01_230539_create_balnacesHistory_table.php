@@ -17,7 +17,7 @@ class CreateBalnacesHistoryTable extends Migration
             $table->increments('id');
 //            $table->double('balance', 20, 8);//todo DOUBLE(size,d)
             $table->double('amount', 20, 8);//todo amount or balance
-            $table->enum('transaction_type', ['commiss', 'vir_epar','vir_devi','vir_cour','vir_client', 'transf']);//todo add transf_reject
+            $table->enum('transaction_type', ['commiss', 'vir_epar','vir_devi','vir_cour','vir_client', 'transf','reject']);
             $table->enum('transaction_direction', ['in', 'out']);//todo
             $table->char('account_id', 12);
             $table->foreign('account_id')->references('number')->on('accounts');
