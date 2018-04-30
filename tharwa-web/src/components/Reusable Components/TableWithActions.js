@@ -11,6 +11,10 @@ class TableWithActions extends Component {
     this.columns = [...this.props.columns, this.actionsColumn];
   }
 
+  componentWillUnmount(){
+    this.props.setDefault();
+  }
+
   render() {
     const CustomModal = this.props.modal;
     return (
@@ -49,6 +53,10 @@ class TableWithActions extends Component {
   };
 
   notify = () => {
+    message.config({  
+      duration: 2,
+      maxCount: 1,
+    })
     message.destroy();
     if (this.props.actionState.fetching) {
       message.loading("En cours d'exécution...", 0);
