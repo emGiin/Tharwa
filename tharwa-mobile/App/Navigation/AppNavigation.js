@@ -5,7 +5,8 @@ import {
   PinCodeScreen,
   LoginScreen,
   LaunchScreen,
-  VirementScreen
+  VirementScreen,
+  MainScreen
 } from '../Containers/Screens'
 import AppDrawer from './DrawerNavigation'
 import styles from './Styles/NavigationStyles'
@@ -21,7 +22,8 @@ const PrimaryNav = StackNavigator(
     PinCodeScreen: { screen: PinCodeScreen, ...headerHidden },
     LoginScreen: { screen: LoginScreen, ...headerHidden },
     LaunchScreen: { screen: LaunchScreen, ...headerHidden },
-    VirementScreen: { screen: VirementScreen, ...headerHidden }
+    VirementScreen: { screen: VirementScreen, ...headerHidden },
+    MainScreen: {screen: MainScreen, ...headerHidden}
 
   }, {
     // Default config for all screens
