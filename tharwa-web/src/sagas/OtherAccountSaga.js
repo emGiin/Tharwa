@@ -1,6 +1,6 @@
-import ValidateTransferActions from '../redux/ValidateTransferRedux';
+import OtherAccountActions from '../redux/OtherAccountRedux';
 import createSaga from './TableWithActionsSaga';
 
 export let { getDataset, acceptDemand, rejectDamand } = createSaga(
-  ValidateTransferActions, 'virements'
+  OtherAccountActions, 'accounts'
 );

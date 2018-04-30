@@ -4586,6 +4586,10 @@ he@1.1.x:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
 
+highcharts@^5.0.0:
+  version "5.0.15"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-5.0.15.tgz#a9af11538a85b85f300e66f7a0e048a7ef8ab381"
+
 highlight.js@^9.12.0:
   version "9.12.0"
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.12.0.tgz#e6d9dbe57cbefe60751f02af336195870c90c01e"
@@ -4835,6 +4839,10 @@ ignore@^3.3.3, ignore@^3.3.5:
 image-size@~0.5.0:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/image-size/-/image-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
+
+immutable-is@^3.7.6:
+  version "3.7.6"
+  resolved "https://registry.yarnpkg.com/immutable-is/-/immutable-is-3.7.6.tgz#efad8bcf21443392402e10fa08b7aa91b65f6c30"
 
 immutable@^3.7.4, immutable@^3.8.1:
   version "3.8.2"
@@ -5180,6 +5188,10 @@ is-glob@^4.0.0:
 is-hexadecimal@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/is-hexadecimal/-/is-hexadecimal-1.0.1.tgz#6e084bbc92061fbb0971ec58b6ce6d404e24da69"
+
+is-immutable@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/is-immutable/-/is-immutable-1.0.1.tgz#0b72499d2134c0344fd3b4e24f3f0a0125b70148"
 
 is-in-browser@^1.1.3:
   version "1.1.3"
@@ -8142,9 +8154,9 @@ react-docgen@^3.0.0-beta9:
     node-dir "^0.1.10"
     recast "^0.12.6"
 
-react-dom@^16.2.0:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
+react-dom@^16.3.2:
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.2.tgz#cb90f107e09536d683d84ed5d4888e9640e0e4df"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -8203,6 +8215,20 @@ react-inspector@^2.2.2:
   dependencies:
     babel-runtime "^6.26.0"
     is-dom "^1.0.9"
+
+react-jsx-highcharts@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-jsx-highcharts/-/react-jsx-highcharts-2.2.1.tgz#b03f72f06b471c9fe6b890d6e859e75c2bfce881"
+  dependencies:
+    immutable-is "^3.7.6"
+    is-immutable "^1.0.1"
+    lodash "^4.17.4"
+
+react-jsx-highstock@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-jsx-highstock/-/react-jsx-highstock-2.2.1.tgz#813e5de7a4fcfe3d0e27b63793da9735606ab2d6"
+  dependencies:
+    react-jsx-highcharts "^2.2.1"
 
 react-lazy-load@^3.0.12:
   version "3.0.13"
@@ -8424,9 +8450,9 @@ react-treebeard@^2.1.0:
     shallowequal "^0.2.2"
     velocity-react "^1.3.1"
 
-react@^16.2.0:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
+react@^16.3.2:
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.3.2.tgz#fdc8420398533a1e58872f59091b272ce2f91ea9"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
