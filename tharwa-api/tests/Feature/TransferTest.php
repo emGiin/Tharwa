@@ -54,7 +54,7 @@ class TransferTest extends TestCase
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
         Account::create([
-            'number' => 'THW112233DZD', //todo check if it s the best way
+            'number' => 'THW112233DZD',
             'isValid' => true,
             'currency_id' => 'DZD',
             'type_id' => 'COUR',
@@ -130,7 +130,7 @@ class TransferTest extends TestCase
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
         Account::create([
-            'number' => 'THW112233DZD', //todo check if it s the best way
+            'number' => 'THW112233DZD',
             'isValid' => true,
             'currency_id' => 'DZD',
             'type_id' => 'COUR',
@@ -225,7 +225,7 @@ class TransferTest extends TestCase
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
         Account::create([
-            'number' => 'THW112233DZD', //todo check if it s the best way
+            'number' => 'THW112233DZD',
             'isValid' => true,
             'currency_id' => 'DZD',
             'type_id' => 'COUR',

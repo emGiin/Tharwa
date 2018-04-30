@@ -212,6 +212,17 @@ class VirmentController extends Controller
             $senderAccount->balance = $senderAccount->balance - $commission - $amount;
             $senderAccount->save();
 
+            $nb = BalanceHistory::count();//todo fix this !all sol tested! re-migrate DB
+            //sender history
+            BalanceHistory::create([
+                'id' => $nb + 1,
+                'amount' => $amount + $commission,
+                'transaction_type' => 'transf',
+                'transaction_direction' => 'out',
+                'account_id' => $senderAccount->number,
+                'created_at' => $now->format('Y-m-d H:i:s'),
+                'updated_at' => $now->format('Y-m-d H:i:s')
+            ]);
 
 //            Mail::to($request->input('email'))
 //                ->queue(new ClientRequestValidatedMail($acceptedClient->firstname.' '.$acceptedClient->lastname
