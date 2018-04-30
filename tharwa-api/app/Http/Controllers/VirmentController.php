@@ -17,6 +17,127 @@ use Validator;
 class VirmentController extends Controller
 {
 
+    public function createBetweenMyAccounts(Request $request)
+    {
+        //validation//todo check if the account is valid not blocked
+        $validator = Validator::make($request->all(), [
+            'method' => 'required|in:cour_epar,epar_cour,cour_devi_usd,devi_cour_usd,cour_devi_eur,devi_cour_eur',
+            'amount' => 'required|numeric|min:0'
+        ]);
+        if ($validator->fails()) {
+            return response($validator->errors(), config('code.BAD_REQUEST'));
+        }
+
+        $amount = $request->input('amount');
+        $method = $request->input('method');
+        $hasEnoughMoney = false;
+        $hasTheAccount = false;
+
+        /**start transaction**/
+        DB::beginTransaction();
+
+        //todo check if he had this type of account
+
+        try {
+
+            $senderAccount = $this->client()->accounts()
+                ->typeSender($method)->first();//todo check methode first()
+
+            $receiverAccount = $this->client()->accounts()
+                ->typeReceiver($method)->first();//todo check methode first()
+
+            //check has the account
+            if (is_null($receiverAccount)) throw new \Exception;
+            $hasTheAccount = true;
+
+            //check the amount
+            if (!$senderAccount->hasEnoughMoney($amount)) throw new \Exception;
+            $hasEnoughMoney = true;
+
+            //create the transfer
+            $mapMethodeToCommission = ['cour_epar' => 'COUR_EPART', 'epar_cour' => 'EPART_COUR',
+                'cour_devi_usd' => 'COUR_DEV', 'cour_devi_eur' => 'COUR_DEV',
+                'devi_cour_eur' => 'DEV_COUR', 'devi_cour_usd' => 'DEV_COUR'];
+            $str = 'commission.' . $mapMethodeToCommission[$method];
+            $commission = config('commission.' . $mapMethodeToCommission[$method]) * $amount;
+            $now = \Carbon\Carbon::now();
+            $nb = BalanceHistory::count();//todo fix this !all sol tested! re-migrate DB
+            //sender history
+            $mapMethodeToTransactionType = ['cour_epar' => 'vir_epar', 'epar_cour' => 'vir_cour',
+                'cour_devi_usd' => 'vir_devi', 'cour_devi_eur' => 'vir_devi',
+                'devi_cour_eur' => 'vir_cour', 'devi_cour_usd' => 'vir_cour'];
+            BalanceHistory::create([
+                'id' => $nb + 1,
+                'amount' => $amount + $commission,//todo put it negative !!
+                'transaction_type' => $mapMethodeToTransactionType[$method],
+                'transaction_direction' => 'out',
+                'account_id' => $senderAccount->number,
+                'created_at' => $now->format('Y-m-d H:i:s'),
+                'updated_at' => $now->format('Y-m-d H:i:s')
+            ]);
+
+
+            //receiver history
+            BalanceHistory::create([
+                'id' => $nb + 2,
+                'amount' => $amount,
+                'transaction_type' => $mapMethodeToTransactionType[$method],
+                'transaction_direction' => 'in',
+                'account_id' => $receiverAccount->number,
+                'created_at' => $now->format('Y-m-d H:i:s'),
+                'updated_at' => $now->format('Y-m-d H:i:s')
+            ]);
+            //change the amount of the destination client
+            $receiverAccount->balance = $receiverAccount->balance + $amount;
+            $receiverAccount->save();
+
+            $mapMethodeToTransferType = ['cour_epar' => 'cour_epar', 'epar_cour' => 'epar_cour',
+                'cour_devi_usd' => 'cour_devi', 'cour_devi_eur' => 'cour_devi',
+                'devi_cour_eur' => 'devi_cour', 'devi_cour_usd' => 'devi_cour'];
+            InternTransfer::create([
+                'code' => $senderAccount->number . $receiverAccount->number . $now->format('YmdHi'),
+                'amount' => $amount,
+                'transferDate' => $now->format('Y-m-d H:i:s'),
+                'creationDate' => $now->format('Y-m-d H:i:s'),
+                'status' => 'valide',
+                'transfers_type' => $mapMethodeToTransferType[$method],
+                'commission' => $commission,
+                'source_id' => $senderAccount->number,
+                'destination_id' => $receiverAccount->number,
+            ]);
+
+            //todo send commission to Tharwa account
+            //we retrieve the amount from the sender account
+            $senderAccount->balance = $senderAccount->balance - $commission - $amount;
+            $senderAccount->save();
+
+
+//            Mail::to($request->input('email'))
+//                ->queue(new ClientRequestValidatedMail($acceptedClient->firstname.' '.$acceptedClient->lastname
+//                    , $request->input('code')));
+
+            // all good
+            /**commit - no problems **/
+            DB::commit();
+            return response(["saved" => true], config('code.CREATED'));
+
+        } catch (\Exception $e) {
+
+            // something went wrong
+            /**rollback every thing - problems **/
+            DB::rollback();
+
+            if (!$hasTheAccount)
+                return response(["account" => false], config('code.NOT_FOUND'));
+
+            if (!$hasEnoughMoney)
+                return response(["amount" => false], config('code.NOT_FOUND'));
+
+            return response(["saved" => false], config('code.UNKNOWN_ERROR'));
+        }
+
+    }
+
     public function createIntern(Request $request)
     {
         //validation//todo check if the account is valid not blocked
@@ -347,7 +468,6 @@ class VirmentController extends Controller
         return resolve(Client::class);
     }
 
-
     public function validateVirement(Request $request)
     {
         //validation
@@ -384,7 +504,7 @@ class VirmentController extends Controller
                     //sender history
                     BalanceHistory::create([
                         'id' => $nb + 1,
-                        'amount' => $interTransfer->amount ,
+                        'amount' => $interTransfer->amount,
                         'transaction_type' => 'vir_client',//todo change it to 'reject' after migration
                         'transaction_direction' => 'in',
                         'account_id' => $interTransfer->source_id,
@@ -405,7 +525,7 @@ class VirmentController extends Controller
                     //receiver history
                     BalanceHistory::create([
                         'id' => $nb + 1,
-                        'amount' => $interTransfer->amount ,
+                        'amount' => $interTransfer->amount,
                         'transaction_type' => 'vir_client',
                         'transaction_direction' => 'in',
                         'account_id' => $interTransfer->destination_id,
@@ -433,7 +553,7 @@ class VirmentController extends Controller
                     //sender history
                     BalanceHistory::create([
                         'id' => $nb + 1,
-                        'amount' => $exterTransfer->amount ,
+                        'amount' => $exterTransfer->amount,
                         'transaction_type' => 'vir_client',//todo change it to 'reject' after migration
                         'transaction_direction' => 'in',
                         'account_id' => $exterTransfer->source_id,
@@ -485,5 +605,6 @@ class VirmentController extends Controller
         }
 
     }
+
 
 }

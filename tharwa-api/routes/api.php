@@ -22,6 +22,7 @@ Route::post('/client', 'ClientController@create');
 
 Route::get('/client', 'ClientController@index')->middleware(AuthClient::class);
 
+Route::post('/virement/myaccount', 'VirmentController@createBetweenMyAccounts')->middleware(AuthClient::class);
 Route::post('/virement/intern', 'VirmentController@createIntern')->middleware(AuthClient::class);
 Route::post('/virement/extern', 'VirmentController@createExtern')->middleware(AuthClient::class);
 
