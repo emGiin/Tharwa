@@ -28,6 +28,12 @@ const create = (baseURL = API_URL) => {
       api.post('virement/validations', { virement_code: id, code })
   };
 
+  const accounts = {
+    getDataset: () => api.get('account/validations'),
+    action: ({ id, code }) =>
+      api.post('account/validations', { id: id, code })
+  };
+
   return {
     api,
     setAuthToken,
@@ -38,7 +44,9 @@ const create = (baseURL = API_URL) => {
 
     inscriptions,
 
-    virements
+    virements,
+
+    accounts
   };
 };
 

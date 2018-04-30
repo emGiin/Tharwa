@@ -8,12 +8,14 @@ import {useFixtures} from '../config/DebugConfig'
 import { AuthTypes } from '../redux/AuthRedux'
 import { PinCodeTypes } from '../redux/PinCodeRedux'
 import { ConfirmInscriptionTypes } from '../redux/ConfirmInscriptionRedux'
+import { OtherAccountTypes } from '../redux/OtherAccountRedux'
 import { ValidateTransferTypes} from '../redux/ValidateTransferRedux'
 
 /* ------------- Sagas ------------- */
 import { login, logout, loadToken } from './AuthSaga'
 import { confirmPinCode } from './PinCodeSaga'
 import * as confirmInscriptionSaga from './ConfirmInscriptionSaga'
+import * as otherAccountSaga from './OtherAccountSaga'
 import * as validateTransferSaga from './ValidateTransferSaga'
 
 /* ------------- API ------------- */
@@ -43,5 +45,10 @@ export default function* root() {
 
     takeLatest(ValidateTransferTypes.ACCEPT_DEMAND,validateTransferSaga.acceptDemand , mainAPI),
 
+    takeLatest(OtherAccountTypes.DATASET_REQUEST,otherAccountSaga.getDataset , mainAPI),
+
+    takeLatest(OtherAccountTypes.ACCEPT_DEMAND,otherAccountSaga.acceptDemand , mainAPI),
+
+    takeLatest(OtherAccountTypes.REJECT_DEMAND,otherAccountSaga.rejectDamand , mainAPI),
   ])
 }
