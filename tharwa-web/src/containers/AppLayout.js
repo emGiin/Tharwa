@@ -17,7 +17,7 @@ class SideBar extends Component {
   };
 
   componentDidUpdate() {
-    this.props.updateSiderWidth(this.state.collapsed ? 80 : 220);
+    this.props.updateSiderWidth(this.state.collapsed ? 80 : 230);
   }
 
   render() {
@@ -37,7 +37,7 @@ class SideBar extends Component {
           position: 'fixed',
           left: 0
         }}
-        width={220}>
+        width={230}>
         <NavLink to="/">
           <div className={this.state.collapsed ? 'small-logo' : 'full-logo'} />{' '}
         </NavLink>

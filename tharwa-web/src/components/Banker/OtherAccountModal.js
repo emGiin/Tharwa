@@ -26,7 +26,7 @@ const Body = ({ record }) => (
     <Icon type="tag-o" style={{ marginRight: '20px', fontSize: 18 }} />
     {' ' + record.client.type}
     <Divider />
-    <Icon type="tags" style={{ marginRight: '20px', fontSize: 18 }} />
+    <Icon type="plus-square" style={{ marginRight: '20px', fontSize: 18 }} />
     {{
           EPARN: " Epargne",
           DVEUR: " Devise Euro",
