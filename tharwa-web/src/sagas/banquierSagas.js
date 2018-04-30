@@ -9,16 +9,17 @@ export function* register(api, { nom,prenom, email,password, adress, phone }) {
     lastName:prenom,
     password:password,
     email:email,
-    adress:adress,
+    address:adress,
     phone:phone
   };
+  var str = JSON.stringify(body)
 console.log("je suis dans saga avec :data =");
-console.log(body)
+console.log(str)
 
-  const response = yield call(api.register_banquier, body);
+  const response = yield call(api.register_banquier, str);
+const saved = response.data.saved
 
-  if (response.ok) {
-
+  if (saved) {
     Modal.success({
       title: 'Success',
       content: 'le compte banquier est creé avec succès',
@@ -28,11 +29,13 @@ console.log(body)
     console.log("done");
   } else {
     console.log("erreur dans creation , la reponse :");
-    console.log(response);
+    console.log(response.data);
+    var log = 'une erreur s\'est produit:'+response.data
     Modal.error({
       title: 'erreur',
-      content: 'une erreur s\'est produit',
+      content: log,
     });
+    
     yield put(banquierActions.createError("erreur dans la creation "));
   }
 }
