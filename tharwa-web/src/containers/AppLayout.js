@@ -55,10 +55,10 @@ class SideBar extends Component {
               <span>Acceuil</span>
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="/notifications">
-            <NavLink to="/notifications">
-              <Icon type="mail" />
-              <span>Notifications</span>
+          <Menu.Item key="/creerBanquier">
+            <NavLink to="/creerBanquier">
+              <Icon type="user-add" />
+              <span>Creer un banquier</span>
             </NavLink>
           </Menu.Item>
           <Menu.Item key="/demandeInscriptions">

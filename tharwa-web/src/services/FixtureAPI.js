@@ -120,5 +120,12 @@ export default {
         data: "Invalid pin code or token"
       };
     }
+  },
+  register_banquier :(data)=>{
+    return {
+      ok: true,
+      status: 200,
+      data: "testt ok"
+    };
   }
 };

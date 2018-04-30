@@ -2,6 +2,7 @@ import { all, takeLatest } from 'redux-saga/effects'
 import AuthAPI from '../services/AuthAPI'
 import FixtureAPI from '../services/FixtureAPI'
 import appAPI from '../services/appAPI'
+import banquierAPI from '../services/createBanquier'
 import {useFixtures} from '../config/DebugConfig'
 
 /* ------------- Types ------------- */
@@ -9,16 +10,19 @@ import { AuthTypes } from '../redux/AuthRedux'
 import { PinCodeTypes } from '../redux/PinCodeRedux'
 import { ConfirmInscriptionTypes } from '../redux/ConfirmInscriptionRedux'
 import { ValidateTransferTypes} from '../redux/ValidateTransferRedux'
+import { newBanquierTypes} from '../redux/banquierRedux'
 
 /* ------------- Sagas ------------- */
 import { login, logout, loadToken } from './AuthSaga'
 import { confirmPinCode } from './PinCodeSaga'
 import { getRequestsList, acceptDemand, rejectDemand } from './ConfirmInscriptionSaga'
 import { getTransfersList, acceptTransfer, rejectTransfer } from './ValidateTransferSaga'
+import { register } from './banquierSagas'
 
 /* ------------- API ------------- */
 const api = useFixtures ? FixtureAPI : AuthAPI.create()
 const api_= useFixtures ? FixtureAPI : appAPI.create()
+const api_b= useFixtures ? FixtureAPI : banquierAPI.create()
 
 /* ------------- Connect Types To Sagas ------------- */
 export default function* root() {
@@ -42,5 +46,7 @@ export default function* root() {
     takeLatest(ValidateTransferTypes.VALIDATE_TRANSFER,acceptTransfer , api_),
 
     takeLatest(ValidateTransferTypes.TRANS_LIST_REQUEST,getTransfersList , api_),
+
+    takeLatest(newBanquierTypes.CREATE_BANQUIER,register , api_b)
   ])
 }
