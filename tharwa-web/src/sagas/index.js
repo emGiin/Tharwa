@@ -1,7 +1,7 @@
 import { all, takeLatest } from 'redux-saga/effects'
 import AuthAPI from '../services/AuthAPI'
 import FixtureAPI from '../services/FixtureAPI'
-import appAPI from '../services/appAPI'
+import MainAPI from '../services/MainAPI'
 import {useFixtures} from '../config/DebugConfig'
 
 /* ------------- Types ------------- */
@@ -13,34 +13,35 @@ import { ValidateTransferTypes} from '../redux/ValidateTransferRedux'
 /* ------------- Sagas ------------- */
 import { login, logout, loadToken } from './AuthSaga'
 import { confirmPinCode } from './PinCodeSaga'
-import { getRequestsList, acceptDemand, rejectDemand } from './ConfirmInscriptionSaga'
-import { getTransfersList, acceptTransfer, rejectTransfer } from './ValidateTransferSaga'
+import * as confirmInscriptionSaga from './ConfirmInscriptionSaga'
+import * as validateTransferSaga from './ValidateTransferSaga'
 
 /* ------------- API ------------- */
-const api = useFixtures ? FixtureAPI : AuthAPI.create()
-const api_= useFixtures ? FixtureAPI : appAPI.create()
+const authAPI = useFixtures ? FixtureAPI : AuthAPI.create()
+const mainAPI= useFixtures ? FixtureAPI : MainAPI.create()
 
 /* ------------- Connect Types To Sagas ------------- */
 export default function* root() {
   yield all([
-    takeLatest(AuthTypes.TOKEN_LOAD, loadToken, api),
+    takeLatest(AuthTypes.TOKEN_LOAD, loadToken, authAPI),
 
-    takeLatest(AuthTypes.AUTH_REQUEST, login, api),
+    takeLatest(AuthTypes.AUTH_REQUEST, login, authAPI),
     
-    takeLatest(AuthTypes.LOGOUT_REQUEST, logout, api),
+    takeLatest(AuthTypes.LOGOUT_REQUEST, logout, authAPI),
 
-    takeLatest(PinCodeTypes.PIN_CODE_REQUEST, confirmPinCode, api),
+    takeLatest(PinCodeTypes.PIN_CODE_REQUEST, confirmPinCode, authAPI),
 
-    takeLatest(ConfirmInscriptionTypes.DATASET_REQUEST,getRequestsList , api_),
+    takeLatest(ConfirmInscriptionTypes.DATASET_REQUEST,confirmInscriptionSaga.getDataset, mainAPI),
 
-    takeLatest(ConfirmInscriptionTypes.ACCEPT_DEMAND,acceptDemand , api_),
+    takeLatest(ConfirmInscriptionTypes.ACCEPT_DEMAND,confirmInscriptionSaga.acceptDemand , mainAPI),
     
-    takeLatest(ConfirmInscriptionTypes.REJECT_DEMAND,rejectDemand , api_),
+    takeLatest(ConfirmInscriptionTypes.REJECT_DEMAND,confirmInscriptionSaga.rejectDamand , mainAPI),
 
-    takeLatest(ValidateTransferTypes.REJECT_DEMAND,rejectTransfer , api_),
+    takeLatest(ValidateTransferTypes.DATASET_REQUEST,validateTransferSaga.getDataset , mainAPI),
+    
+    takeLatest(ValidateTransferTypes.REJECT_DEMAND,validateTransferSaga.rejectDamand , mainAPI),
 
-    takeLatest(ValidateTransferTypes.ACCEPT_DEMAND,acceptTransfer , api_),
+    takeLatest(ValidateTransferTypes.ACCEPT_DEMAND,validateTransferSaga.acceptDemand , mainAPI),
 
-    takeLatest(ValidateTransferTypes.DATASET_REQUEST,getTransfersList , api_),
   ])
 }
