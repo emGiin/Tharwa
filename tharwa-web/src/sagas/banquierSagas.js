@@ -30,7 +30,7 @@ const saved = response.data.saved
   } else {
     console.log("erreur dans creation , la reponse :");
     console.log(response.data);
-    var log = 'une erreur s\'est produit:'+response.data
+    var log = 'une erreur s\'est produit:'+JSON.stringify(response.data)
     Modal.error({
       title: 'erreur',
       content: log,
