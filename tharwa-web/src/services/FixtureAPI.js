@@ -1,6 +1,44 @@
 let trans = require('../fixtures/TransfersList.json');
 let req = require('../fixtures/RequestsList.json');
 let otherList = require('../fixtures/AccountsList.json');
+
+export const getDatasetTemplate = data => {
+  if (
+    true
+    //pin === require("../fixtures/realPinCode.json").pinCode &&
+    //token === require("../fixtures/token.json").token
+  ) {
+    return {
+      ok: true,
+      data: data
+    };
+  } else {
+    return {
+      ok: false,
+      status: 400,
+      data: 'Invalid pin code or token'
+    };
+  }
+};
+
+export const actionTemplate = () => {
+  if (
+    true
+    //data.pin === require("../fixtures/realPinCode.json").pinCode &&
+    //data.token === require("../fixtures/token.json").token
+  ) {
+    return {
+      ok: true
+    };
+  } else {
+    return {
+      ok: false,
+      status: 400,
+      data: 'Invalid pin code or token'
+    };
+  }
+};
+
 export default {
   setAuthToken: () => {},
   setPinCode: () => {},
@@ -46,124 +84,26 @@ export default {
   },
 
   inscriptions: {
-    getDataset: () => {
-      if (
-        true
-        //pin === require("../fixtures/realPinCode.json").pinCode &&
-        //token === require("../fixtures/token.json").token
-      ) {
-        return {
-          ok: true,
-          data: req
-        };
-      } else {
-        return {
-          ok: false,
-          status: 400,
-          data: 'Invalid pin code or token'
-        };
-      }
-    },
+    getDataset: () => getDatasetTemplate(req),
     action: ({ id, code }) => {
-      const body = { email: id, code };
-      req = req.filter(e => e.email !== body.email);
-      if (
-        true
-        //data.pin === require("../fixtures/realPinCode.json").pinCode &&
-        //data.token === require("../fixtures/token.json").token
-      ) {
-        return {
-          ok: true
-        };
-      } else {
-        return {
-          ok: false,
-          status: 400,
-          data: 'Invalid pin code or token'
-        };
-      }
+      req = req.filter(e => e.email !== id);
+      return actionTemplate();
     }
   },
 
   virements: {
-    getDataset: () => {
-      if (
-        true
-        //pin === require("../fixtures/realPinCode.json").pinCode &&
-        //token === require("../fixtures/token.json").token
-      ) {
-        return {
-          ok: true,
-          data: trans //require("../fixtures/TransfersList.json")
-        };
-      } else {
-        return {
-          ok: false,
-          status: 400,
-          data: 'Invalid pin code or token'
-        };
-      }
-    },
-
+    getDataset: () => getDatasetTemplate(trans),
     action: ({ id, code }) => {
-      const body = { virement_code: id, code };
-      trans = trans.filter(e => e.code !== body.virement_code);
-      if (
-        true
-        //data.pin === require("../fixtures/realPinCode.json").pinCode &&
-        //data.token === require("../fixtures/token.json").token
-      ) {
-        return {
-          ok: true
-        };
-      } else {
-        return {
-          ok: false,
-          status: 400,
-          data: 'Invalid pin code or token'
-        };
-      }
+      trans = trans.filter(e => e.code !== id);
+      return actionTemplate();
     }
   },
 
   accounts: {
-    getDataset: () => {
-      if (
-        true
-        //pin === require("../fixtures/realPinCode.json").pinCode &&
-        //token === require("../fixtures/token.json").token
-      ) {
-        return {
-          ok: true,
-          data: otherList //require("../fixtures/TransfersList.json")
-        };
-      } else {
-        return {
-          ok: false,
-          status: 400,
-          data: 'Invalid pin code or token'
-        };
-      }
-    },
-
+    getDataset: () => getDatasetTemplate(otherList),
     action: ({ id, code }) => {
-      const body = { id, code };
-      otherList = otherList.filter(e => e.id !== body.id);
-      if (
-        true
-        //data.pin === require("../fixtures/realPinCode.json").pinCode &&
-        //data.token === require("../fixtures/token.json").token
-      ) {
-        return {
-          ok: true
-        };
-      } else {
-        return {
-          ok: false,
-          status: 400,
-          data: 'Invalid pin code or token'
-        };
-      }
+      otherList = otherList.filter(e => e.id !== id);
+      return actionTemplate();
     }
   }
 };
