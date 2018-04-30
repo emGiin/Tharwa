@@ -1,5 +1,5 @@
 .title{
-    background: linear-gradient(150deg,#139ac6 25% , #0ccad8);
+   /* background: linear-gradient(150deg,#139ac6 25% , #0ccad8);*/
 padding: 2%;
 margin: 1%;
 border-radius: 3px;
@@ -9,4 +9,5 @@ font-family: century_bold;
 font-size: 20pt;
 color: white;
 text-shadow: 3px 2px 4px #00000080;
+background: #30a7a3;
 }

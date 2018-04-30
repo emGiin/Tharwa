@@ -5,9 +5,9 @@ const create = (baseURL = API_URL) => {
   const api = apisauce.create({
     baseURL,
     headers: {
-     // 'Cache-Control': 'no-cache',
+      'Cache-Control': 'no-cache',
     },
-   // timeout: 10000
+    timeout: 10000
   })
 
   const register_banquier = (body) => {

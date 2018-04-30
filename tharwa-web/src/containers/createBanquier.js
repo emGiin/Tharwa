@@ -99,11 +99,11 @@ class RegistrationForm extends Component {
     }
     callback();
   }
-  test =()=>{
-
-  }
+  
 
   onKeyPress(event) {
+    console.log("alah akbar")
+    
     const charCode = event.which ? event.which : event.keyCode;
     console.log(charCode);
    // if (!(charCode > 31 && (charCode < 48 || charCode > 57))) return true;
@@ -153,7 +153,7 @@ class RegistrationForm extends Component {
       <FormItem
           {...formItemLayout}
           label="Nom"
-          onKeyPress={this.onKeyPress.bind(this)}
+          onKeyPress={this.onKeyPress}
         >
           {getFieldDecorator('firstName',{
             rules: [{
