@@ -1,5 +1,6 @@
 let trans = require('../fixtures/TransfersList.json');
 let req = require('../fixtures/RequestsList.json');
+let otherList = require('../fixtures/AccountsList.json');
 export default {
   setAuthToken: () => {},
   setPinCode: () => {},
@@ -107,6 +108,47 @@ export default {
     action: ({ id, code }) => {
       const body = { virement_code: id, code };
       trans = trans.filter(e => e.code !== body.virement_code);
+      if (
+        true
+        //data.pin === require("../fixtures/realPinCode.json").pinCode &&
+        //data.token === require("../fixtures/token.json").token
+      ) {
+        return {
+          ok: true
+        };
+      } else {
+        return {
+          ok: false,
+          status: 400,
+          data: 'Invalid pin code or token'
+        };
+      }
+    }
+  },
+
+  accounts: {
+    getDataset: () => {
+      if (
+        true
+        //pin === require("../fixtures/realPinCode.json").pinCode &&
+        //token === require("../fixtures/token.json").token
+      ) {
+        return {
+          ok: true,
+          data: otherList //require("../fixtures/TransfersList.json")
+        };
+      } else {
+        return {
+          ok: false,
+          status: 400,
+          data: 'Invalid pin code or token'
+        };
+      }
+    },
+
+    action: ({ id, code }) => {
+      const body = { id, code };
+      otherList = otherList.filter(e => e.id !== body.id);
       if (
         true
         //data.pin === require("../fixtures/realPinCode.json").pinCode &&

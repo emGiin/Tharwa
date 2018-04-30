@@ -31,7 +31,7 @@ const create = (baseURL = API_URL) => {
   const accounts = {
     getDataset: () => api.get('account/validations'),
     action: ({ id, code }) =>
-      api.post('account/validations', { id: id, code })
+      api.post('account/validations', { id, code })
   };
 
   return {

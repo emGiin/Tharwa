@@ -4,18 +4,18 @@ import OtherAccountModal from './OtherAccountModal';//Create a modal
 import { TableWithActions, RoundedImage } from '../Reusable Components';
 
 const INITIAL_STATE = {
-  selectedRecord: {},
+  selectedRecord: {client:{}},
   isModalVisible: false
 };
 
 const columns = [
   {
     title: '',
-    dataIndex: 'picture',
+    dataIndex: 'client',
     key: 'picture',
     render: text => (
       <span>
-        <RoundedImage uri={text} height="50px" />
+        <RoundedImage uri={text.picture} height="50px" />
       </span>
     )
   },
