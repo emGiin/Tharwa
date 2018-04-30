@@ -64,6 +64,12 @@ class SideBar extends Component {
               <span>Demandes d'inscriptions</span>
             </NavLink>
           </Menu.Item>
+          <Menu.Item key="/otherAccount">
+            <NavLink to="/otherAccount">
+              <Icon type="swap" />
+              <span>Demandes d'autres comptes</span>
+            </NavLink>
+          </Menu.Item>
           <Menu.Item key="/virements">
             <NavLink to="/virements">
               <Icon type="swap" />
