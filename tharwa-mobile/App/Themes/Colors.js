@@ -1,6 +1,7 @@
 const colors = {
   background: '#2c3e50',
-  forground: '#25303c',
+  forground: '#00838f',
+  status: '#005662',
   button: '#16a085',
   white: "#fff",
   clear: 'rgba(0,0,0,0)',

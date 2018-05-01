@@ -1,6 +1,7 @@
 import { all, takeLatest } from 'redux-saga/effects'
 import AuthAPI from '../Services/AuthApi'
 import Api from '../Services/Api'
+import VirementApi from '../Services/VirementApi'
 // import FixtureAPI from '../Services/FixtureApi'
 // import DebugConfig from '../Config/DebugConfig'
 
@@ -11,6 +12,7 @@ import { AuthTypes } from '../Redux/AuthRedux'
 import { PinCodeTypes } from '../Redux/PinCodeRedux'
 import { SignupTypes } from '../Redux/SignupRedux'
 import { AccountTypes } from '../Redux/AccountRedux'
+import { VirementTypes } from '../Redux/VirementRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -19,7 +21,7 @@ import { login, logout, loadToken } from './AuthSaga'
 import { confirmPinCode } from './PinCodeSaga'
 import { signup } from './SignupSaga'
 import { getProfile } from './AccountSaga'
-
+import { virement } from './VirementSaga'
 /* ------------- API ------------- */
 
 // The API we use is only used from Sagas, so we create it here and pass along
@@ -27,7 +29,7 @@ import { getProfile } from './AccountSaga'
 // const api = DebugConfig.useFixtures ? FixtureAPI : API.create()
 const authApi = AuthAPI.create()
 const api = Api.create()
-
+const VirementApi = VirementApi.create()
 /* ------------- Connect Types To Sagas ------------- */
 
 export default function* root() {
@@ -50,7 +52,8 @@ export default function* root() {
 
     // account
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getProfile, api),
-
+    // virement
+    takeLatest(VirementTypes.VIREMENT_REQUEST, virement, VirementApi),
     // // password update
     // takeLatest(PasswordTypes.CHANGE_PASSWORD_REQUEST, changePassword, api),
   ])

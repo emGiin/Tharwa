@@ -1,7 +1,13 @@
 
 import React, { Component } from 'react'
-import { Container, Header, Title, Content, Button, Icon, Right, Body, Left, Picker, Form, Text } from "native-base";
+import { Container, Header, Title, Content, Button, Icon, Right, Body, Left, Picker, Form, Text,Item, Input,Label  } from "native-base";
 import PropTypes from 'prop-types'
+import { Colors, Images } from '../../Themes'
+import styles from '../Styles/HeaderStyle'
+
+import I18n from 'react-native-i18n'
+
+
 const items = ['Epargne','Devise'];
 
 var BUTTONS = [
@@ -14,7 +20,7 @@ class VirementFormClientCompte extends Component {
 constructor(props) {
   super(props);
   this.state = {
-    selected2: 'Key0',
+    selected2: 'key0',
     selected3: undefined
   };
   
@@ -40,13 +46,11 @@ onValueChange3(value) {
 render() {
   return (
     <Container>
-      <Header>
-        <Left>
-          <Button transparent onPress={() =>  this.props.navigation.navigate('MainScreen')}>
-            <Icon name="arrow-back" />
-          </Button>
-        </Left>
-        <Body>
+      <Header  style={styles.container}
+    backgroundColor={Colors.forground}
+    androidStatusBarColor={Colors.status} >
+      
+        <Body >
           <Title>Virement</Title>
         </Body>
         <Right />
@@ -92,6 +96,16 @@ render() {
           </Picker>
         </Form>
       </Content>
+      <Content>
+     
+        <Form> 
+          <Item floatingLabel>
+              <Label> Le montant</Label>
+              <Input />
+            </Item>
+            </Form>
+          
+        </Content>
       </Content>
     </Container>
   );

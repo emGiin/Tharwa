@@ -21,11 +21,6 @@ class VirementScreen extends Component {
     }, 1000);
   }
 
-  openDrawer = () => {
-    this.props.navigation.navigate('DrawerToggle');
-  }
-  
-
   render() {
     return (
       <View style={{ height: '100%', flex: 1, backgroundColor: '#f3f3f3' }}>

@@ -7,7 +7,7 @@ import CarouselPager from 'react-native-carousel-pager';
 import ActionButton from 'react-native-action-button';
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
-
+var  backgroundView= '#f3f3f3'
 // Styles
 import styles from './Styles/MainScreenStyle'
 import { Colors, Images } from '../../Themes'
@@ -16,7 +16,7 @@ MainHeader = ({ openDrawer }) => (
   <Header
     style={styles.container}
     backgroundColor={Colors.forground}
-    androidStatusBarColor={Colors.forground}
+    androidStatusBarColor={Colors.status}
   >
     <TouchableOpacity
       style={styles.leftButton}
@@ -53,7 +53,7 @@ class MainScreen extends Component {
 
   render() {
     return (
-      <View style={{ height: '100%', flex: 1, backgroundColor: '#f3f3f3' }}>
+      <View style={{ height: '100%', flex: 1, backgroundColor: backgroundView }}>
         <MainHeader openDrawer={this.openDrawer} />
 
         <CarouselPager
@@ -124,15 +124,15 @@ class MainScreen extends Component {
         />
      
       
-        <ActionButton buttonColor="#25303c" renderIcon={() =>  <Icon name="swap-horizontal" style={styles.actionButtonIcon} />} >
+        <ActionButton buttonColor={Colors.forground} renderIcon={() =>  <Icon name="swap-horizontal" style={styles.actionButtonIcon} />} >
       
-          <ActionButton.Item buttonColor='#9b59b6' title="Virement vers mon compte" onPress={() => {this.props.navigation.navigate('VirementScreen')}}>
+          <ActionButton.Item buttonColor='#9b59b6' title="Virement vers mon compte" titleBgColor='#686464' titleColor='white' onPress={() => {this.props.navigation.navigate('VirementScreen')}}>
             <Icon name="swap-horizontal" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor='#3498db' title="Virement vers un autre client tharwa" onPress={() => {this.props.navigation.navigate('VirementScreen')}}>
+          <ActionButton.Item buttonColor='#3498db' title="Virement vers un autre client tharwa" titleBgColor='#686464' titleColor='white' onPress={() => {this.props.navigation.navigate('VirementScreen')}}>
             <Icon name="account-switch" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor='#1abc9c' title="Virement à un autre client d'une banque" onPress={() => {this.props.navigation.navigate('VirementScreen')}}>
+          <ActionButton.Item buttonColor='#1abc9c' title="Virement à un autre client d'une banque" titleBgColor='#686464' titleColor='white' onPress={() => {this.props.navigation.navigate('VirementScreen')}}>
             <Icon name="account-multiple" style={styles.actionButtonIcon} />
           </ActionButton.Item>
         </ActionButton>
