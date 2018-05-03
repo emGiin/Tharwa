@@ -11,8 +11,6 @@ export default StyleSheet.create({
     shadowColor: Colors.white,
     shadowOpacity: 1,
     elevation: 3,
-    zIndex: 999,
-    // background color must be set
     backgroundColor: Colors.white, // invisible color
     margin: 3
   },
@@ -21,10 +19,6 @@ export default StyleSheet.create({
     height: '100%',
     width: '100%',
     alignItems: 'center',
-    shadowOffset: { width: 10, height: 10, },
-    shadowColor: 'black',
-    shadowOpacity: 1.0,
-    elevation: 1,
   },
   amountContainer: {
     backgroundColor: Colors.button,
