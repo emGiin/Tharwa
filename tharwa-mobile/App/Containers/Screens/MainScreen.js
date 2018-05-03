@@ -16,19 +16,14 @@ import { Colors } from '../../Themes';
 
 
 class MainScreen extends Component {
-  state = { refreshing: false, shownData: [] }
+  state = { refreshing: false, selectedAccount: 'COUR' }
+
   pages = [
     { key: 'DVUSD', type: 'Compte devise Dollar', symbol: 'Dollar' },
     { key: 'DVEUR', type: 'Compte devise Euro', symbol: 'Euro' },
     { key: 'EPARGN', type: 'Compte Epargne', symbol: 'DZD' },
     { key: 'COUR', type: 'Compte courant', symbol: 'DZD' },
   ]
-
-  componentWillReceiveProps({ info }) {
-    // if (info && this.state.shownData.length === 0) {
-    //   this.setState({ shownData: info['COUR'] })
-    // }
-  }
 
   componentWillMount() {
     this.props.getProfile()
@@ -46,17 +41,14 @@ class MainScreen extends Component {
   }
 
   setShownData = page => {
-    const currentPage = this.pages[page].key
-    if (this.props.info && this.props.info[currentPage]) {
-      this.setState({ shownData: this.props.info[currentPage].history })
-    } else {
-      this.setState({ shownData: [] })
-    }
+    this.setState({ selectedAccount: this.pages[page].key })
   }
 
   render() {
-    const { info } = this.props
     const { width } = Dimensions.get('window')
+    const { info } = this.props
+    const selectedAccount = info[this.state.selectedAccount]
+    const accountHistory = selectedAccount && selectedAccount.history || []
 
     return (
       <View style={styles.container}>
@@ -86,7 +78,7 @@ class MainScreen extends Component {
 
         <FlatList
           style={styles.historyList}
-          data={this.state.shownData}
+          data={accountHistory}
           // TODO: change refresh control style
           refreshControl={
             <RefreshControl
