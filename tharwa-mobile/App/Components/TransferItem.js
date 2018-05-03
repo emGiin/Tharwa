@@ -4,7 +4,7 @@ import { Text } from 'native-base'
 import styles from './Styles/TransferItemStyles'
 
 TransferItem = ({ item }) => {
-  const [date, time] = item.date.split(' ')
+  const [date, time] = item.created_at.split(' ')
 
   return (
     <View key={item.key}>

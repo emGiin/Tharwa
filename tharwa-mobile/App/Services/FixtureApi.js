@@ -58,5 +58,11 @@ export default {
         data: 'validation error'
       }
     }
-  }
+  },
+  getProfile: (data) => {
+    return {
+      ok: true,
+      data: require('../Fixtures/profile.json')
+    }
+  },
 }

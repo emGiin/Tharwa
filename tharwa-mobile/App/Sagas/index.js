@@ -1,8 +1,8 @@
 import { all, takeLatest } from 'redux-saga/effects'
 import AuthAPI from '../Services/AuthApi'
 import Api from '../Services/Api'
-// import FixtureAPI from '../Services/FixtureApi'
-// import DebugConfig from '../Config/DebugConfig'
+import FixtureAPI from '../Services/FixtureApi'
+import DebugConfig from '../Config/DebugConfig'
 
 /* ------------- Types ------------- */
 
@@ -24,9 +24,8 @@ import { getProfile } from './AccountSaga'
 
 // The API we use is only used from Sagas, so we create it here and pass along
 // to the sagas which need it.
-// const api = DebugConfig.useFixtures ? FixtureAPI : API.create()
 const authApi = AuthAPI.create()
-const api = Api.create()
+const api = DebugConfig.useFixtures ? FixtureAPI : API.create()
 
 /* ------------- Connect Types To Sagas ------------- */
 

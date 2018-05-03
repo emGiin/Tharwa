@@ -21,7 +21,7 @@ AccountInfo = ({ account, type }) => (
           </TouchableOpacity>
         ) :
         (
-          <TouchableOpacity>
+          <TouchableOpacity style={{ backgroundColor: '#555' }}>
             <Text style={styles.newAccount}>{type}</Text>
             <Text style={styles.newAccountRequest}>
               Demander la creation de ce compte
@@ -33,13 +33,23 @@ AccountInfo = ({ account, type }) => (
 )
 
 class MainScreen extends Component {
-  state = { refreshing: false }
+  state = { refreshing: false, shownData: [] }
   pages = [
-    { key: 'COUR', type: 'Compte courant' },
-    { key: 'EPARGN', type: 'Compte Epargne' },
-    { key: 'DVEUR', type: 'Compte devise Euro' },
     { key: 'DVUSD', type: 'Compte devise Dollar' },
+    { key: 'DVEUR', type: 'Compte devise Euro' },
+    { key: 'EPARGN', type: 'Compte Epargne' },
+    { key: 'COUR', type: 'Compte courant' },
   ]
+
+  componentWillReceiveProps() {
+    const { info } = this.props
+
+    if (info && this.state.shownData.length === 0) {
+      const currentPage = this.pages[3].key
+      console.warn(this.props.info, this.props.info[currentPage]);
+      this.setState({ shownData: this.props.info[currentPage] })
+    }
+  }
 
   componentWillMount() {
     this.props.getProfile()
@@ -56,6 +66,15 @@ class MainScreen extends Component {
     this.props.navigation.navigate('DrawerToggle');
   }
 
+  setShownData = page => {
+    const currentPage = this.pages[page].key
+    if (this.props.info && this.props.info[currentPage]) {
+      this.setState({ shownData: this.props.info[currentPage].history })
+    } else {
+      this.setState({ shownData: [] })
+    }
+  }
+
   render() {
     const { info } = this.props
     return (
@@ -65,10 +84,8 @@ class MainScreen extends Component {
         <CarouselPager
           ref={ref => this.carousel = ref}
           initialPage={3}
-          pageStyle={{
-            backgroundColor: '#ffffffbb',
-            height: 100
-          }}>
+          onPageChange={this.setShownData}
+          pageStyle={{ backgroundColor: '#ffffffbb', height: 100 }}>
           {
             this.pages.map(({ key, type }) => <AccountInfo key={key} account={info[key]} type={type} />)
           }
@@ -80,16 +97,7 @@ class MainScreen extends Component {
 
         <FlatList
           style={styles.historyList}
-          data={[
-            { key: 1, type: 'Compte courant', date: '27/01/2018', time: '10:45 PM', amount: '-5 000 DA' },
-            { key: 2, type: 'Compte epargne', date: '01/02/2018', time: '11:06 AM', amount: '+2 000 DA' },
-            { key: 1, type: 'Compte courant', date: '27/01/2018', time: '10:45 PM', amount: '-5 000 DA' },
-            { key: 2, type: 'Compte epargne', date: '01/02/2018', time: '11:06 AM', amount: '+2 000 DA' },
-            { key: 1, type: 'Compte courant', date: '27/01/2018', time: '10:45 PM', amount: '-5 000 DA' },
-            { key: 2, type: 'Compte epargne', date: '01/02/2018', time: '11:06 AM', amount: '+2 000 DA' },
-            { key: 1, type: 'Compte courant', date: '27/01/2018', time: '10:45 PM', amount: '-5 000 DA' },
-            { key: 2, type: 'Compte epargne', date: '01/02/2018', time: '11:06 AM', amount: '+2 000 DA' },
-          ]}
+          data={this.state.shownData}
           // TODO: change refresh control style
           refreshControl={
             <RefreshControl

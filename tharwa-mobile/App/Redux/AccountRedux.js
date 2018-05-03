@@ -4,7 +4,7 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   accountRequest: [],
   accountFailure: ['error'],
-  accountSuccess: ['account'],
+  accountSuccess: ['data'],
   saveAccountType: ['accountType']
 })
 
@@ -22,8 +22,13 @@ const INITIAL_STATE = Immutable({
 
 export const request = state => state.merge({ fetching: true, success: false })
 
-export const success = (state, { information }) => (
-  state.merge({ fetching: false, error: null, success: true, information })
+export const success = (state, { data }) => (
+  state.merge({
+    fetching: false,
+    error: null,
+    success: true,
+    information: data
+  })
 )
 
 export const failure = (state, { error }) => state.merge({ fetching: false, error })
