@@ -1,54 +1,33 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { RefreshControl, TouchableOpacity, View, FlatList } from 'react-native'
+import {
+  Dimensions,
+  RefreshControl, TouchableOpacity,
+  View, FlatList
+} from 'react-native'
 import { Text } from 'native-base'
-import CarouselPager from 'react-native-carousel-pager';
+import Carousel from 'react-native-snap-carousel';
 import AccountActions from '../../Redux/AccountRedux'
-import { MainHeader, TransferItem } from '../../Components'
+import { MainHeader, TransferItem, AccountInfo } from '../../Components'
 
 // Styles
 import styles from './Styles/MainScreenStyle'
+import { Colors } from '../../Themes';
 
-
-AccountInfo = ({ account, type }) => (
-  <View style={styles.page}>
-    {
-      account ?
-        (
-          <TouchableOpacity>
-            <Text style={styles.account}>{type}</Text>
-            <Text style={styles.amount}>{account.amount}</Text>
-          </TouchableOpacity>
-        ) :
-        (
-          <TouchableOpacity style={{ backgroundColor: '#555' }}>
-            <Text style={styles.newAccount}>{type}</Text>
-            <Text style={styles.newAccountRequest}>
-              Demander la creation de ce compte
-            </Text>
-          </TouchableOpacity>
-        )
-    }
-  </View>
-)
 
 class MainScreen extends Component {
   state = { refreshing: false, shownData: [] }
   pages = [
-    { key: 'DVUSD', type: 'Compte devise Dollar' },
-    { key: 'DVEUR', type: 'Compte devise Euro' },
-    { key: 'EPARGN', type: 'Compte Epargne' },
-    { key: 'COUR', type: 'Compte courant' },
+    { key: 'DVUSD', type: 'Compte devise Dollar', symbol: 'Dollar' },
+    { key: 'DVEUR', type: 'Compte devise Euro', symbol: 'Euro' },
+    { key: 'EPARGN', type: 'Compte Epargne', symbol: 'DZD' },
+    { key: 'COUR', type: 'Compte courant', symbol: 'DZD' },
   ]
 
-  componentWillReceiveProps() {
-    const { info } = this.props
-
-    if (info && this.state.shownData.length === 0) {
-      const currentPage = this.pages[3].key
-      console.warn(this.props.info, this.props.info[currentPage]);
-      this.setState({ shownData: this.props.info[currentPage] })
-    }
+  componentWillReceiveProps({ info }) {
+    // if (info && this.state.shownData.length === 0) {
+    //   this.setState({ shownData: info['COUR'] })
+    // }
   }
 
   componentWillMount() {
@@ -77,22 +56,32 @@ class MainScreen extends Component {
 
   render() {
     const { info } = this.props
+    const { width } = Dimensions.get('window')
+
     return (
       <View style={styles.container}>
         <MainHeader openDrawer={this.openDrawer} />
-
-        <CarouselPager
-          ref={ref => this.carousel = ref}
-          initialPage={3}
-          onPageChange={this.setShownData}
-          pageStyle={{ backgroundColor: '#ffffffbb', height: 100 }}>
-          {
-            this.pages.map(({ key, type }) => <AccountInfo key={key} account={info[key]} type={type} />)
-          }
-        </CarouselPager>
+        <View style={{ height: 160 }}>
+          <Carousel
+            ref={(c) => { this._carousel = c; }}
+            data={this.pages}
+            renderItem={
+              ({ item }) => <AccountInfo {...item}
+                account={info[item.key]}
+              />
+            }
+            sliderWidth={width}
+            firstItem={3}
+            parallax={true}
+            contentContainerCustomStyle={{ height: 150, padding: 0 }}
+            containerCustomStyle={{ height: 250 }}
+            itemWidth={width - 50}
+            onSnapToItem={this.setShownData}
+          />
+        </View>
 
         <View style={styles.historyTitleContainer}>
-          <Text style={styles.historyTitle}>Action récentes</Text>
+          <Text style={styles.historyTitle}>Action récentes </Text>
         </View>
 
         <FlatList
@@ -105,6 +94,7 @@ class MainScreen extends Component {
               onRefresh={this._onRefresh.bind(this)}
             />
           }
+          keyExtractor={(item, index) => index}
           renderItem={TransferItem}
         />
       </View>
