@@ -53,7 +53,6 @@ export default props => (
     dataSource={props.list.map(({ code, ...transfer }) => {
       return { id: code, code, ...transfer };
     })}
-    fetching={props.fetching}
     {...props}
   />
 );
