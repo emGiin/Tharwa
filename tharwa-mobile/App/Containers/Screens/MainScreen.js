@@ -53,7 +53,7 @@ class MainScreen extends Component {
     return (
       <View style={styles.container}>
         <MainHeader openDrawer={this.openDrawer} />
-        <View style={{ height: 160 }}>
+        <View style={styles.carouselContainer}>
           <Carousel
             ref={(c) => { this._carousel = c; }}
             data={this.pages}

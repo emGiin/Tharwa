@@ -8,29 +8,20 @@ export default StyleSheet.create({
     flex: 1,
     // backgroundColor: Colors.background
   },
-  imagePreview: {
-    // margin: 10,
-    flex: 1,
-    width: 30,
-    height: 30,
-    borderRadius: 200
-  },
-  pageContainer: {
-    backgroundColor: '#ffffffbb',
-    height: 100
-  },
-  account: {
-    fontSize: 16
+  carouselContainer: {
+    height: 160,
+    marginVertical: -10
   },
   historyTitleContainer: {
     borderBottomColor: '#555',
     borderBottomWidth: 1,
-    marginHorizontal: 20
+    marginHorizontal: 10
   },
   historyTitle: {
     color: '#555'
   },
   historyList: {
-    marginTop: 20
+    marginTop: 2,
+    marginHorizontal: 10
   }
 })
