@@ -51,8 +51,8 @@ class ContentLoader extends Component {
     return x
   }
   componentDidMount(props) {
-    this.loopAnimation()
     this._mounted = true;
+    this.loopAnimation()
   }
 
   componentWillUnmount() {
@@ -70,7 +70,7 @@ class ContentLoader extends Component {
   }
 
   loopAnimation() {
-
+    if (!this._mounted) return;
     // setup interpolate
     let interpolator = interpolate(this.state, {
       offsetValues: ['1', '1.5', '2']
@@ -93,7 +93,7 @@ class ContentLoader extends Component {
       if (offsetValues[0] !== offsetValues[1] ||
         offsetValues[0] !== offsetValues[2] ||
         offsetValues[1] !== offsetValues[2]) {
-        if (this._mounted) this.setState({ offsets: offsetValues });
+        this._mounted && this.setState({ offsets: offsetValues });
       }
       if (t < 1) {
         requestAnimationFrame(this._animation);
