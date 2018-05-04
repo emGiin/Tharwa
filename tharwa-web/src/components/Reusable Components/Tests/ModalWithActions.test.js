@@ -49,5 +49,11 @@ describe("<ModalWithActions />", () => {
     expect(mockprops.handleConfirmReject).toBeCalledWith(mockprops.record)
     footerWrapper.find("Button").last().simulate("click")
     expect(mockprops.handleValidate).toBeCalledWith(mockprops.record)
+  }); 
+
+  it("should show loading spinner on loading=true", ()=> { 
+    wrapper.setProps({loading: true});
+    expect(wrapper.find("LoadingSpinner")).toHaveLength(1);
   })
+
 });
