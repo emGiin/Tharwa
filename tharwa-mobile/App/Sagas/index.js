@@ -18,7 +18,7 @@ import { startup } from './StartupSagas'
 import { login, logout, loadToken } from './AuthSaga'
 import { confirmPinCode } from './PinCodeSaga'
 import { signup } from './SignupSaga'
-import { getProfile } from './AccountSaga'
+import { getProfile, requestNewAccount } from './AccountSaga'
 
 /* ------------- API ------------- */
 
@@ -49,6 +49,7 @@ export default function* root() {
 
     // account
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getProfile, api),
+    takeLatest(AccountTypes.NEW_ACCOUNT_REQUEST, requestNewAccount, api),
 
     // // password update
     // takeLatest(PasswordTypes.CHANGE_PASSWORD_REQUEST, changePassword, api),

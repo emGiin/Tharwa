@@ -9,9 +9,12 @@ import { Colors } from '../Themes';
 // Styles
 import styles from './Styles/AccountInfoStyles'
 
-export const AccountInfo = ({ account, type, symbol }) => (
+export const AccountInfo = ({ account, type, label, symbol, onPress }) => (
   <View style={styles.page}>
-    <TouchableOpacity activeOpacity={0.9} style={styles.contentContainer}>
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={0.9}
+      style={styles.contentContainer}>
       <View style={styles.amountContainer}>
         <Text style={styles.amount}>
           {
@@ -21,7 +24,7 @@ export const AccountInfo = ({ account, type, symbol }) => (
           }
         </Text>
       </View>
-      <Text style={styles.account}>{type}</Text>
+      <Text style={styles.account}>{label}</Text>
     </TouchableOpacity>
   </View >
 )

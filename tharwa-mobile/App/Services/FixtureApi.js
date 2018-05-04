@@ -59,10 +59,15 @@ export default {
       }
     }
   },
-  getProfile: (data) => {
+  getProfile: data => {
     return {
       ok: true,
       data: require('../Fixtures/profile.json')
     }
   },
+  requestNewAccount: type => {
+    return {
+      ok: true
+    }
+  }
 }
