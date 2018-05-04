@@ -101,17 +101,19 @@ class ClientController extends Controller
         //get : email, name, img
         $client = $this->client();
 
-        $infos = collect(['infos'=>$client]);
+        $infos = collect(['infos' => $client]);
 
         //get (amount & 10 last transact) for each account type
         //todo if accounts are blocked
         $accounts = $client->accounts()->get();
-        foreach ($accounts as $account){
+        foreach ($accounts as $account) {
             $infos->put(
-                trim($account->type_id),[
-                 'amount' => $account->balance,
-                 'history' => $account->history()->get(),
-                ]);
+                trim($account->type_id), [
+                'amount' => $account->balance,
+                'history' => $account->history()->get()->each(function ($item) {
+                    $item->receiver = $item->receiver();
+                }),
+            ]);
         }
 
         return response($infos);

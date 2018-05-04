@@ -21,6 +21,8 @@ class CreateBalnacesHistoryTable extends Migration
             $table->enum('transaction_direction', ['in', 'out']);//todo
             $table->char('account_id', 12);
             $table->foreign('account_id')->references('number')->on('accounts');
+            $table->boolean('isIntern')->nullable(); //added v2 db
+            $table->string('receiver');//added v2 db
             $table->timestamps();
         });
     }
