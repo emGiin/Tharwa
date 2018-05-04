@@ -101,6 +101,10 @@ class ClientController extends Controller
         //get : email, name, img
         $client = $this->client();
 
+        $client->picture =
+            url(config('filesystems.uploaded_file')) . '/'
+            . $client->picture;
+
         $infos = collect(['infos' => $client]);
 
         //get (amount & 10 last transact) for each account type

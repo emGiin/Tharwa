@@ -49,10 +49,15 @@ class AccountController extends Controller
 
     public function validationList()
     {
-        return response(
-            AccountRequest::notValidated()->with('client')->get()//todo check with
-            , config('code.OK')
-        );
+        $res = AccountRequest::notValidated()->with('client')->get();//todo check with
+
+        $res->each(function ($item, $key) {
+            $item->client->picture =
+                url(config('filesystems.uploaded_file')) . '/'
+                . $item->client->picture;
+        });
+
+        return response($res, config('code.OK'));
 
     }
 
@@ -68,9 +73,9 @@ class AccountController extends Controller
         }
 
 
-        if ($request->input('code') === 0){//rejected
+        if ($request->input('code') === 0) {//rejected
 
-            $rejectedAccRequest =AccountRequest::find($request->input('id'));
+            $rejectedAccRequest = AccountRequest::find($request->input('id'));
             $rejectedAccRequest->validated = true;
             $rejectedAccRequest->save();
 
@@ -80,7 +85,7 @@ class AccountController extends Controller
 
             return response(["saved" => true], config('code.CREATED'));
 
-        }else{//accepted
+        } else {//accepted
 
             /**start transaction**/
             DB::beginTransaction();
@@ -88,15 +93,15 @@ class AccountController extends Controller
             try {
 
                 //get the accepted client
-                $acceptedAccount =AccountRequest::find($request->input('id'));
+                $acceptedAccount = AccountRequest::find($request->input('id'));
 
-                $currencies = ['EPARN'=>'DZD','DVEUR'=>'EUR','DVUSD'=>'USD'];
+                $currencies = ['EPARN' => 'DZD', 'DVEUR' => 'EUR', 'DVUSD' => 'USD'];
                 $currency = $currencies[$acceptedAccount->type_id];
                 $accountNb = Account::count() + 1;
 
                 //save to db
                 Account::create([
-                    'number' => 'THW'.sprintf("%06d", $accountNb).$currency, //todo check if it s the best way
+                    'number' => 'THW' . sprintf("%06d", $accountNb) . $currency, //todo check if it s the best way
                     'isValid' => true,
                     'currency_id' => $currency,
                     'type_id' => $acceptedAccount->type_id,

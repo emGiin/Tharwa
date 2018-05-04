@@ -71,4 +71,7 @@ return [
 
     ],
 
+
+    'uploaded_file' => 'public/files'
+
 ];
