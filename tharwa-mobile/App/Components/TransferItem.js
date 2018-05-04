@@ -1,9 +1,11 @@
 import React from 'react'
-import { View, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, Dimensions } from 'react-native'
 import { Text, Icon } from 'native-base'
+import { Circle, Rect } from 'react-native-svg'
 import styles from './Styles/TransferItemStyles'
 import { Colors } from '../Themes';
 import { formatMoney } from '../Transforms';
+import { ContentLoader } from './'
 
 TransferItem = ({ item }) => {
   const [date, time] = item.created_at.split(' ')
@@ -27,4 +29,23 @@ TransferItem = ({ item }) => {
   )
 }
 
-export { TransferItem }
+TransferLoaderItem = () => {
+  const { width } = Dimensions.get('window')
+
+  return (
+    <View style={[styles.container, styles.loaderContainer]}>
+      <ContentLoader
+        primaryColor="#95a5a6"
+        secondaryColor="#7f8c8d"
+        height={50}
+        width={width - 20}
+        duration={1000}>
+        <Rect x="7" y="15" rx="4" ry="4" width="100" height="10" />
+        <Rect x={width - 150} y="20" rx="4" ry="4" width="100" height="12" />
+        <Circle cx={width - 35} cy="25" r="10" />
+        <Rect x="7" y="32" rx="4" ry="4" width="50" height="8" />
+      </ContentLoader>
+    </View>
+  )
+}
+export { TransferItem, TransferLoaderItem }

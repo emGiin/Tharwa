@@ -36,5 +36,10 @@ export default StyleSheet.create({
   rightContainer: {
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  loaderContainer: {
+    backgroundColor: '#ecf0f1',
+    marginHorizontal: 10,
+    padding: 0
   }
 })
