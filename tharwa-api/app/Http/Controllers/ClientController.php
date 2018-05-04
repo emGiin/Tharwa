@@ -110,7 +110,7 @@ class ClientController extends Controller
             $infos->put(
                 trim($account->type_id), [
                 'amount' => $account->balance,
-                'history' => $account->history()->get()->each(function ($item) {
+                'history' => $account->history()->limit(10)->get()->each(function ($item) {
                     $item->receiver = $item->receiver();
                 }),
             ]);
