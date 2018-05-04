@@ -135,14 +135,15 @@ export default class AppLayout extends Component {
               </Menu.SubMenu>
             </Menu>
           </Header>
-          <Content style={{ margin: "24px 16px" }}>
+          <Content style={{ /*margin: "24px 16px" */ "max-height": "563px",overflow: "scroll"}}>
               <Routes />
           </Content>
           <Footer
             style={{
               bottom: 0,
               textAlign: "center",
-              width: "100%"
+              width: "100%",
+              padding:"unset"
             }}
           >
             Tharwa ©2018 Créée par Ritzy Inc.

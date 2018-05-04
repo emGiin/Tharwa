@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Form, Input,  Cascader, Select, Checkbox, Button, AutoComplete } from 'antd';
 import TitlePage from '../components/titlePage/titlePage';
 import {Modal} from 'antd';
 
@@ -9,7 +9,6 @@ import BanquierActions from '../redux/banquierRedux';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
-const AutoCompleteOption = AutoComplete.Option;
 
 const residences = [{
   value: 'Algerie',

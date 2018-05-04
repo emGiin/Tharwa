@@ -1,1 +1,1 @@
-export const useFixtures = false;
+export const useFixtures = true;

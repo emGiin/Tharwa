@@ -9,12 +9,119 @@ import { connect } from "react-redux";
 
 import StatsActions from '../redux/StatsRedux';
 
-// import charts 
-import Highcharts from 'highcharts';
-import {
-  HighchartsChart, Chart, withHighcharts, XAxis, YAxis, Title, Legend, ColumnSeries, SplineSeries, PieSeries
-} from 'react-jsx-highcharts';
 
+//chartJs 
+import {Bar, Line} from 'react-chartjs-2';
+
+
+const data_mois = {
+  labels: ['Jan', 'Fev', 'Mars', 'Avril', 'Mai', 'Juin', 'Juill', 'Aout', 'Sept', 'Oct', 'Nov', 'Dec'],
+  datasets: [
+    {
+      label: 'type1',
+      backgroundColor: 'green',
+      borderColor: 'rgba(255,99,132,1)',
+      borderWidth: 0,
+      
+      data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56]
+    },
+    {
+      label: 'type2',
+      backgroundColor: 'cyan',
+      borderColor: 'rgba(255,99,132,1)',
+      borderWidth: 0,
+      
+      data: [12, 20 , 40, 22, 30 , 32 , 40 , 60, 10, 46, 30, 12]
+    },
+    {
+      label: 'type3',
+      backgroundColor: 'wheat',
+      borderColor: 'rgba(255,99,132,1)',
+      borderWidth: 0,
+      
+      data: [12, 40 ,10, 70, 3 , 50 , 15, 6, 22, 60, 39, 10]
+    }
+  ]
+};
+
+const data = {
+  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  datasets: [
+    {
+      label: 'type1',
+      fill: false,
+      lineTension: 0.1,
+      backgroundColor: 'rgba(75,192,192,0.4)',
+      borderColor: 'rgba(75,192,192,1)',
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: 'gray',
+      pointBackgroundColor: '#fff',
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: 'black',
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data: [65, 59, 80, 81, 56, 55, 40]
+    },
+    {
+      label: 'type2',
+      fill: false,
+      lineTension: 0.1,
+      backgroundColor: 'red',
+      borderColor: 'red',
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: 'gray',
+      pointBackgroundColor: '#fff',
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: 'black',
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data: [15, 49, 50, 21, 76, 15, 20]
+    }
+  ]
+};
+
+//---- 
+
+
+const data_circle = {
+labels: [
+  'en attentes',
+  'Acceptés'
+],
+datasets: [
+  {
+  data: [70, 30],
+  backgroundColor: [
+  '#CCC',
+  '#36A2EB'
+  ],
+  hoverBackgroundColor: [
+  '#FF6384',
+  '#36A2EB'
+  ]
+}]
+
+}
+ const options={
+  legend: {
+      display: false,
+  },
+  elements: {
+		arc: {
+			borderWidth: 0
+		}
+	}
+};
 
 class Dashboard extends Component {
   constructor(props){
@@ -24,34 +131,26 @@ class Dashboard extends Component {
       nbInscr:0
       };
   }
+  
 
   render() {
-    const pieData = [{
-      name: 'Jane',
-      y: 13
-    }, {
-      name: 'John',
-      y: 23
-    }, {
-      name: 'Joe',
-      y: 19
-}];
-
-    return (
+       return (
       <div style={{ padding: 25 }}>
-      <button onClick={this.test}>test me </button>
         <Row gutter={24}>
-          <Col lg={6} md={12}>
+          <Col lg={7} md={12}>
             <NavLink to="virements">
               <NumberCard
                 icon="swap"
                 color="#4BB543"
                 title="Virements"
                 number={this.props.nbV}
+                data= {data_circle}
+                options={options}
               />
-            </NavLink>
+              </NavLink>
           </Col>
-          <Col lg={6} md={12}>
+          
+          <Col lg={7} md={12}>
             <NavLink to="demandeInscriptions">
               <NumberCard
                 icon="usergroup-add"
@@ -62,26 +161,17 @@ class Dashboard extends Component {
             </NavLink>
           </Col>
         </Row>
-
-        <HighchartsChart>
-          <Chart />
-
-          <Title>Combination chart</Title>
-
-          <Legend />
-
-          <XAxis id="x" categories={['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']} />
-
-          <YAxis id="number">
-            <ColumnSeries id="jane" name="Jane" data={[3, 2, 1, 3, 4]} />
-            <ColumnSeries id="john" name="John" data={[2, 3, 5, 7, 6]} />
-            <ColumnSeries id="joe" name="Joe" data={[4, 3, 3, 9, 0]} />
-            <SplineSeries id="average" name="Average" data={[3, 2.67, 3, 6.33, 3.33]} />
-            <PieSeries id="total-consumption" name="Total consumption" data={pieData} center={[100, 80]} size={100} showInLegend={false} />
-          </YAxis>
-</HighchartsChart>
-
-
+<h2>Nombre d opérations par mois :</h2>
+        <Bar
+        data={data_mois}
+        width={100}
+        height={50}
+        options={{
+          maintainAspectRatio: false
+        }}
+/>
+<Line data={data} />
+    
       </div>
     );
   }
