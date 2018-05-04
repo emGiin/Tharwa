@@ -7,8 +7,12 @@ import {
 } from 'react-native'
 import { Text } from 'native-base'
 import Carousel from 'react-native-snap-carousel';
+import { Circle, Rect } from 'react-native-svg'
 import AccountActions from '../../Redux/AccountRedux'
-import { MainHeader, TransferItem, AccountInfo } from '../../Components'
+import {
+  MainHeader, TransferItem,
+  AccountInfo, ContentLoader
+} from '../../Components'
 
 // Styles
 import styles from './Styles/MainScreenStyle'
@@ -76,6 +80,16 @@ class MainScreen extends Component {
           <Text style={styles.historyTitle}>Action récentes </Text>
         </View>
 
+        {/* <ContentLoader
+          primaryColor="#e8f7ff"
+          secondaryColor="#4dadf7"
+          height={300}
+          duration={1000}>
+          <Circle cx="30" cy="30" r="30" />
+          <Rect x="75" y="13" rx="4" ry="4" width="100" height="13" />
+          <Rect x="75" y="37" rx="4" ry="4" width="50" height="8" />
+          <Rect x="0" y="70" rx="5" ry="5" width="400" height="200" />
+        </ContentLoader> */}
         <FlatList
           style={styles.historyList}
           data={accountHistory}

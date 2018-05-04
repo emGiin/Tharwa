@@ -1,17 +1,40 @@
 import { StyleSheet } from 'react-native'
+import { Colors } from '../../Themes';
 
 export default StyleSheet.create({
-  separator:{ 
-    borderWidth: 1, 
+  container: {
+    backgroundColor: Colors.white,
+    marginVertical: 3,
+    padding: 7,
+    elevation: 3,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  separator: {
+    borderWidth: 1,
     borderColor: '#fff'
   },
-  container:{
-    paddingLeft: 10,
-    marginVertical: 5, 
-    marginHorizontal: 10, 
-    borderLeftWidth: 7, 
-    borderLeftColor: '#999', 
-    flexDirection: 'row', 
+  date: {
+    color: '#555',
+    fontSize: 14
+  },
+  target: {
+    color: '#333',
+    fontSize: 18
+  },
+  amount: {
+    fontSize: 15,
+    marginRight: 5
+  },
+  icon: {
+    fontSize: 19
+  },
+  leftContainer: {
+    flexDirection: 'column',
     justifyContent: 'space-between'
-  }   
+  },
+  rightContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  }
 })
