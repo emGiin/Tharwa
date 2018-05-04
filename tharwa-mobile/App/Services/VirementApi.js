@@ -13,13 +13,11 @@ const create = (baseURL = VIREMENT_API_URL) => {
     timeout: 30000
   })
 
-const virement = (type1,type2,montant) => api.post(type1,type2,montant)
-const justification= (justif) => api.post(justif)
+const virement = (method,amount) => api.post('virement',method,amount)
+
   return {
     api,
-    virement,
-    justification
-    
+    virement   
   }
 }
 

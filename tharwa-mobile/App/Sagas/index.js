@@ -29,7 +29,7 @@ import { virement } from './VirementSaga'
 // const api = DebugConfig.useFixtures ? FixtureAPI : API.create()
 const authApi = AuthAPI.create()
 const api = Api.create()
-const VirementApi = VirementApi.create()
+const virementApi = VirementApi.create()
 /* ------------- Connect Types To Sagas ------------- */
 
 export default function* root() {
@@ -53,7 +53,7 @@ export default function* root() {
     // account
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getProfile, api),
     // virement
-    takeLatest(VirementTypes.VIREMENT_REQUEST, virement, VirementApi),
+    takeLatest(VirementTypes.VIREMENT_REQUEST, virement, virementApi),
     // // password update
     // takeLatest(PasswordTypes.CHANGE_PASSWORD_REQUEST, changePassword, api),
   ])

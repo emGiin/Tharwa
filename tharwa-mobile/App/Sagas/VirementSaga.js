@@ -6,12 +6,11 @@ import VirementActions from '../Redux/VirementRedux'
 
 
 // attempts to transfert
-export function* virement(api, { type1, type2, montant }) {
+export function* virement(api, {method, amount}) {
   const transObj = {
-    typeAccount1: type1,
-    typeAccount2: type2,
-    montant: montant,
-    
+    method: method,
+    amount: amount
+  
   }
 
   const response = yield call(api.virement, transObj)
@@ -24,22 +23,4 @@ export function* virement(api, { type1, type2, montant }) {
     yield put(VirementActions.VirementFailure(I18n.t('virementDialogDescriptionErreur')))
   }
 }
-export function* justification(api, { justif }) {
-    const justifObj = {
-      
-      Justif: justif,
-      
-    }
-  
-    const response = yield call(api.justification, justifObj)
-  
-    // success?
-    if (response.ok) {
-      yield put(VirementActions.VirementSuccess())
-      
-    } else {
-      yield put(VirementActions.VirementFailure(I18n.t('virementDialogDescriptionErreur')))
-    }
-  }
-
 
