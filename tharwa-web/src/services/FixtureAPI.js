@@ -127,5 +127,13 @@ export default {
       status: 200,
       data: "testt ok"
     };
+  },
+  getNbV:()=>{
+    return {
+      ok:true,
+      data:{
+        nbV:2004
+      }
+    }
   }
 };

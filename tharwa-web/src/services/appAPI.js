@@ -31,6 +31,12 @@ const create = (baseURL = API_URL) => {
   const transferAction=(body)=>{
     return api.post('virement/validations',body)
   }
+
+
+  /****** STATS */
+  const getNbVirement=()=>{
+    return api.get('nbV')
+  }
   return {
     api,
     getRequestsList,
@@ -40,7 +46,8 @@ const create = (baseURL = API_URL) => {
     removePinCode,
     inscriptionAction,
     transferAction,
-    getTransfersList
+    getTransfersList,
+    getNbVirement
   }
 }
 

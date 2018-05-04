@@ -11,6 +11,7 @@ import { PinCodeTypes } from '../redux/PinCodeRedux'
 import { ConfirmInscriptionTypes } from '../redux/ConfirmInscriptionRedux'
 import { ValidateTransferTypes} from '../redux/ValidateTransferRedux'
 import { newBanquierTypes} from '../redux/banquierRedux'
+import { statsTypes} from '../redux/StatsRedux'
 
 /* ------------- Sagas ------------- */
 import { login, logout, loadToken } from './AuthSaga'
@@ -18,6 +19,7 @@ import { confirmPinCode } from './PinCodeSaga'
 import { getRequestsList, acceptDemand, rejectDemand } from './ConfirmInscriptionSaga'
 import { getTransfersList, acceptTransfer, rejectTransfer } from './ValidateTransferSaga'
 import { register } from './banquierSagas'
+import { get_NbV } from './StatsSagas'
 
 /* ------------- API ------------- */
 const api = useFixtures ? FixtureAPI : AuthAPI.create()
@@ -47,6 +49,8 @@ export default function* root() {
 
     takeLatest(ValidateTransferTypes.TRANS_LIST_REQUEST,getTransfersList , api_),
 
-    takeLatest(newBanquierTypes.CREATE_BANQUIER,register , api_b)
+    takeLatest(newBanquierTypes.CREATE_BANQUIER,register , api_b),
+
+    takeLatest(statsTypes.GET_NB_VIREMENT,get_NbV , api_),
   ])
 }

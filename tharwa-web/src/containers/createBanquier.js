@@ -68,7 +68,7 @@ class RegistrationForm extends Component {
         //var adrJson  =JSON.stringify(values.adress);
         var adrStr = values.adress.join(",");  //adrJson.toString();//values.adress[0]+","+values.adress[1]+","+values.adress[2];//
         values.adress = adrStr;
-        this.state= {dataUser:values};
+        this.setState({dataUser:values});
         this.props.sendData(values);
         console.log('Send data from component ... :: '+JSON.stringify(values));
       }else {
