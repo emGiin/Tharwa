@@ -14,7 +14,7 @@ import StatsActions from '../redux/StatsRedux';
 import {Bar, Line} from 'react-chartjs-2';
 
 
-const data_mois = {
+const data_op_mois = {
   labels: ['Jan', 'Fev', 'Mars', 'Avril', 'Mai', 'Juin', 'Juill', 'Aout', 'Sept', 'Oct', 'Nov', 'Dec'],
   datasets: [
     {
@@ -23,7 +23,7 @@ const data_mois = {
       borderColor: 'rgba(255,99,132,1)',
       borderWidth: 0,
       
-      data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56]
+      data: [65, 59, 30, 21, 56, 55, 40, 65, 59, 10, 41, 56]
     },
     {
       label: 'type2',
@@ -39,12 +39,87 @@ const data_mois = {
       borderColor: 'rgba(255,99,132,1)',
       borderWidth: 0,
       
-      data: [12, 40 ,10, 70, 3 , 50 , 15, 6, 22, 60, 39, 10]
+      data: [12, 40 ,10, 30, 3 , 50 , 15, 6, 22, 60, 39, 10]
+    }
+  ]
+};
+const data_op_trimestre = {
+  labels: ['Trim 01', 'Trim 02', 'Trim 03', 'Trim 04'],
+  datasets: [
+    {
+      label: 'type1',
+      backgroundColor: 'green',
+      borderColor: 'rgba(255,99,132,1)',
+      borderWidth: 0,
+      
+      data: [65, 59, 40, 11]
+    },
+    {
+      label: 'type2',
+      backgroundColor: 'cyan',
+      borderColor: 'rgba(255,99,132,1)',
+      borderWidth: 0,
+      
+      data: [12, 20 , 40, 22]
+    },
+    {
+      label: 'type3',
+      backgroundColor: 'wheat',
+      borderColor: 'rgba(255,99,132,1)',
+      borderWidth: 0,
+      
+      data: [12, 40 ,10, 30]
+    }
+  ]
+};
+const data_op_year = {
+  labels: ['2009','2010', '2011', '2012','2013','2014','2015' ,'2016', '2017','2018'],
+  datasets: [
+    {
+      label: 'type1',
+      backgroundColor: 'green',
+      borderColor: 'rgba(255,99,132,1)',
+      borderWidth: 0,
+      
+      data: [65, 59, 20, 21,65, 50, 10, 31, 52,50]
+    },
+    {
+      label: 'type2',
+      backgroundColor: 'cyan',
+      borderColor: 'rgba(255,99,132,1)',
+      borderWidth: 0,
+      
+      data: [22, 24 , 30, 27, 42, 8 , 10, 22, 11 , 35]
+    },
+    {
+      label: 'type3',
+      backgroundColor: 'wheat',
+      borderColor: 'rgba(255,99,132,1)',
+      borderWidth: 0,
+      
+      data: [42, 10 ,40, 30, 2, 20 ,40, 40, 13 , 22]
+    }
+  ]
+};
+const data_empty = {
+  labels: ['','', '', '', '', '', '', '', '', '', '', '', ''],
+  datasets: [
+    {
+      label: '',
+      data: [0,0,0,0,0,0,0,0,0,0,0,0,0,]
+    },
+    {
+      label: '',
+      data: [0,0,0,0,0,0,0,0,0,0,0,0,0,]
+    },
+    {
+      label: '',
+      data: [0,0,0,0,0,0,0,0,0,0,0,0,0,]
     }
   ]
 };
 
-const data = {
+const data_comm = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
     {
@@ -128,7 +203,8 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       nbV:0,
-      nbInscr:0
+      nbInscr:0,
+      data_operations:data_empty
       };
   }
   
@@ -157,20 +233,28 @@ class Dashboard extends Component {
                 color="#fa541c"
                 title="Inscriptions"
                 number={this.state.nbInscr}
+                data= {data_circle}
+                options={options}
               />
             </NavLink>
           </Col>
         </Row>
-<h2>Nombre d opérations par mois :</h2>
+<h2>Nombre des opérations :</h2>
+<button onClick={this.setOperationMode_trim}>par trimestre</button>  
+<button onClick={this.setOperationMode_mois}>par mois</button>  
+<button onClick={this.setOperationMode_year}>par années</button>  
         <Bar
-        data={data_mois}
+        data={this.state.data_operations}
         width={100}
-        height={50}
+        height={2}
         options={{
           maintainAspectRatio: false
         }}
+
+        style={{heigh:"10px"}}
 />
-<Line data={data} />
+<h2>Revenus des Commissions :</h2>
+<Line data={data_comm} />
     
       </div>
     );
@@ -185,8 +269,17 @@ class Dashboard extends Component {
   componentWillMount = () => {
     console.log('will mount , props :'+this.props.nbV)
     this.props.updateNbV()
+    this.setState({data_operations :data_op_mois})
   }
-  
+  setOperationMode_trim = ()=>{
+      this.setState({data_operations:data_op_trimestre})
+  }
+  setOperationMode_mois = ()=>{
+      this.setState({data_operations:data_op_mois})
+  }
+  setOperationMode_year = ()=>{
+      this.setState({data_operations:data_op_year})
+  }
   test =()=>{
     //this.props.updateNbV()
    // this.setState({nbV:55, nbInscr:12})
