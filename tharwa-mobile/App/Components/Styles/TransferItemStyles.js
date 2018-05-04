@@ -39,7 +39,7 @@ export default StyleSheet.create({
   },
   loaderContainer: {
     backgroundColor: '#ecf0f1',
-    marginHorizontal: 10,
+    // marginHorizontal: 10,
     padding: 0
   }
 })

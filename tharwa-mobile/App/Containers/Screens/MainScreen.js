@@ -48,10 +48,11 @@ class MainScreen extends Component {
   }
 
   render() {
-    const { width } = Dimensions.get('window')
+    const { width, height } = Dimensions.get('window')
     const { info } = this.props
     const selectedAccount = info[this.state.selectedAccount]
-    const accountHistory = selectedAccount && selectedAccount.history || []
+    // TODO: use array fill
+    const accountHistory = selectedAccount && selectedAccount.history || new Array(Math.floor(height / 100));
 
     return (
       <View style={styles.container}>
@@ -78,7 +79,7 @@ class MainScreen extends Component {
         <View style={styles.historyTitleContainer}>
           <Text style={styles.historyTitle}>Action récentes </Text>
         </View>
-        <TransferLoaderItem />
+        {/* <TransferLoaderItem /> */}
         <FlatList
           style={styles.historyList}
           data={accountHistory}
@@ -90,7 +91,7 @@ class MainScreen extends Component {
             />
           }
           keyExtractor={(item, index) => index}
-          renderItem={TransferItem}
+          renderItem={selectedAccount ? TransferItem : TransferLoaderItem}
         />
       </View>
     )

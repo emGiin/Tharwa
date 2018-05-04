@@ -52,6 +52,21 @@ class ContentLoader extends Component {
   }
   componentDidMount(props) {
     this.loopAnimation()
+    this._mounted = true;
+  }
+
+  componentWillUnmount() {
+    this._mounted = false;
+    Animated.sequence([
+      Animated.timing(this._animate, {
+        toValue: 1,
+        duration: this.state.frequence
+      }),
+      Animated.timing(this._animate, {
+        toValue: 0,
+        duration: this.state.frequence
+      })
+    ]).stop()
   }
 
   loopAnimation() {
@@ -78,7 +93,7 @@ class ContentLoader extends Component {
       if (offsetValues[0] !== offsetValues[1] ||
         offsetValues[0] !== offsetValues[2] ||
         offsetValues[1] !== offsetValues[2]) {
-        this.setState({ offsets: offsetValues });
+        if (this._mounted) this.setState({ offsets: offsetValues });
       }
       if (t < 1) {
         requestAnimationFrame(this._animation);
