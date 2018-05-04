@@ -1,16 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import TransferDetailsModal from '../TransferDetailsModal';
+import OtherAccountModal from '../OtherAccountModal';
 
-describe('<TransferDetailsModal />', () => {
+describe('<OtherAccountModal />', () => {
   let wrapper;
   let mockprops = {
-    record: {}
+    record: {client:{}}
   };
 
   beforeAll(() => {
-    wrapper = shallow(<TransferDetailsModal {...mockprops} />);
+    wrapper = shallow(<OtherAccountModal {...mockprops} />);
   });
 
   beforeEach(() => {
