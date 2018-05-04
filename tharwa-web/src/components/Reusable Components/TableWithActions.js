@@ -111,12 +111,12 @@ class TableWithActions extends Component {
   };
 }
 
-TableWithActions.prototypes = {
+TableWithActions.propTypes = {
   initialState: PropTypes.shape({
     selectedRecord: PropTypes.object,
     isModalVisible: PropTypes.bool
   }).isRequired,
-  modal: PropTypes.node.isRequired,
+  modal: PropTypes.any.isRequired,
   columns: PropTypes.array.isRequired,
   dataSource: PropTypes.array.isRequired,
   fetching: PropTypes.bool,
