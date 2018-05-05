@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Row } from "antd";
+import { Col, Row, Tabs, Icon } from "antd";
 import { NavLink } from "react-router-dom";
 
 import { NumberCard } from "../components/Reusable Components";
@@ -13,6 +13,10 @@ import StatsActions from '../redux/StatsRedux';
 //chartJs 
 import {Bar, Line} from 'react-chartjs-2';
 
+
+import './Styles/dashboard.css'
+
+const TabPane = Tabs.TabPane;
 
 const data_op_mois = {
   labels: ['Jan', 'Fev', 'Mars', 'Avril', 'Mai', 'Juin', 'Juill', 'Aout', 'Sept', 'Oct', 'Nov', 'Dec'],
@@ -213,7 +217,7 @@ class Dashboard extends Component {
        return (
       <div style={{ padding: 25 }}>
         <Row gutter={24}>
-          <Col lg={7} md={12}>
+          <Col lg={10} md={12}>
             <NavLink to="virements">
               <NumberCard
                 icon="swap"
@@ -226,7 +230,7 @@ class Dashboard extends Component {
               </NavLink>
           </Col>
           
-          <Col lg={7} md={12}>
+          <Col lg={10} md={12}>
             <NavLink to="demandeInscriptions">
               <NumberCard
                 icon="usergroup-add"
@@ -240,19 +244,42 @@ class Dashboard extends Component {
           </Col>
         </Row>
 <h2>Nombre des opérations :</h2>
-<button onClick={this.setOperationMode_trim}>par trimestre</button>  
-<button onClick={this.setOperationMode_mois}>par mois</button>  
-<button onClick={this.setOperationMode_year}>par années</button>  
+ 
+
+<Tabs defaultActiveKey="2">
+    <TabPane tab={<span className="tabBtn"><Icon type="bar-chart" />Par Trimestre</span>} key="1">
         <Bar
-        data={this.state.data_operations}
+        data={data_op_trimestre}
         width={100}
         height={2}
         options={{
           maintainAspectRatio: false
         }}
+        />
+    </TabPane>
+    <TabPane tab={<span className="tabBtn"><Icon type="bar-chart" />Par Mois</span>} key="2">
+        <Bar
+        data={data_op_mois}
+        width={100}
+        height={2}
+        options={{
+          maintainAspectRatio: false
+        }}
+        />
+    </TabPane>
+    <TabPane tab={<span className="tabBtn"><Icon type="bar-chart" />Par Année</span>} key="3">
+          <Bar
+          data={data_op_year}
+          width={100}
+          height={2}
+          options={{
+            maintainAspectRatio: false
+          }}
+          />
+    </TabPane>
+  </Tabs>
 
-        style={{heigh:"10px"}}
-/>
+        
 <h2>Revenus des Commissions :</h2>
 <Line data={data_comm} />
     

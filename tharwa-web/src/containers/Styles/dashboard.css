@@ -1,0 +1,11 @@
+.ant-tabs-content.ant-tabs-content-animated{
+  height: 300px !important;
+}
+.ant-tabs-tab-active.ant-tabs-tab .tabBtn{
+  padding: 11px;
+  color: black;
+  border-radius: 4px;
+  -webkit-box-shadow: 2px 2px 2px #80808033;
+  box-shadow: 2px 2px 2px #80808033;
+  background: linear-gradient(to bottom right,#30a7a3, #03ffd3);
+}
