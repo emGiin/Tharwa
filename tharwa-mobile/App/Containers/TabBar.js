@@ -23,7 +23,7 @@ class CustomTabBar extends Component {
       items.push(
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => { navigation.navigate(key) }}
+          onPress={() => { navigation.navigate(key, options.params || {}) }}
           style={[styles.tab, { backgroundColor: color }]}
           key={key}
         >
