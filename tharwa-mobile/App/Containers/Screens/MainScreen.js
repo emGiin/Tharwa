@@ -127,13 +127,13 @@ class MainScreen extends Component {
 
         <ActionButton buttonColor={Colors.forground} renderIcon={() => <Icon name="swap-horizontal" style={styles.actionButtonIcon} />} >
 
-          <ActionButton.Item buttonColor='#9b59b6' title="Virement vers mon compte" titleBgColor='#686464' titleColor='white' onPress={() => { this.props.navigation.navigate('VirementScreen') }}>
+          <ActionButton.Item buttonColor='#9b59b6' title="Virement vers mon compte" titleBgColor='#686464' titleColor='white' onPress={() => { this.props.navigation.navigate('TransferScreen') }}>
             <Icon name="swap-horizontal" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor='#3498db' title="Virement vers un autre client tharwa" titleBgColor='#686464' titleColor='white' onPress={() => { this.props.navigation.navigate('VirementScreen') }}>
+          <ActionButton.Item buttonColor='#3498db' title="Virement vers un autre client tharwa" titleBgColor='#686464' titleColor='white' onPress={() => { this.props.navigation.navigate('TransferScreen') }}>
             <Icon name="account-switch" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor='#1abc9c' title="Virement à un autre client d'une banque" titleBgColor='#686464' titleColor='white' onPress={() => { this.props.navigation.navigate('VirementScreen') }}>
+          <ActionButton.Item buttonColor='#1abc9c' title="Virement à un autre client d'une banque" titleBgColor='#686464' titleColor='white' onPress={() => { this.props.navigation.navigate('TransferScreen') }}>
             <Icon name="account-multiple" style={styles.actionButtonIcon} />
           </ActionButton.Item>
         </ActionButton>

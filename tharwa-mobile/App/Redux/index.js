@@ -6,14 +6,15 @@ import { reducer as nav } from './NavigationRedux'
 import { reducer as auth } from './AuthRedux'
 import { reducer as pinCode } from './PinCodeRedux'
 import { reducer as signup } from './SignupRedux'
-import { reducer as virement } from './VirementRedux'
+import { reducer as transfer } from './TransferRedux'
 import { reducer as account } from './AccountRedux'
 
 // saga
 import rootSaga from '../Sagas/'
 
 export const reducers = combineReducers({
-  form, nav, auth, pinCode, signup, virement, account
+  form, nav, auth, pinCode, signup,
+  account, transfer
 });
 
 

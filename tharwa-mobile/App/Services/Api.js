@@ -28,6 +28,9 @@ const create = (baseURL = API_URL) => {
   const getProfile = () => api.get('profile')
   const requestNewAccount = type => api.post('account', { type })
 
+  // transfert
+  const myAccountTransfert = data => api.post('virement/myaccount', data)
+
   return {
     api,
     setAuthHeaders,
@@ -35,6 +38,7 @@ const create = (baseURL = API_URL) => {
     signup,
     getProfile,
     requestNewAccount,
+    myAccountTransfert
   }
 }
 

@@ -69,5 +69,10 @@ export default {
     return {
       ok: true
     }
+  },
+  myAccountTransfer: data => {
+    return {
+      ok: true
+    }
   }
 }
