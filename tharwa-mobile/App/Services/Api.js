@@ -29,7 +29,10 @@ const create = (baseURL = API_URL) => {
   const requestNewAccount = type => api.post('account', { type })
 
   // transfert
-  const myAccountTransfert = data => api.post('virement/myaccount', data)
+  const transferURL = 'virement'
+  const myAccountTransfert = data => api.post(`${transferURL}/myaccount`, data)
+  const tharwaTransfer = data => api.post(`${transferURL}/intern`, data)
+
 
   return {
     api,
@@ -38,7 +41,8 @@ const create = (baseURL = API_URL) => {
     signup,
     getProfile,
     requestNewAccount,
-    myAccountTransfert
+    myAccountTransfert,
+    tharwaTransfer
   }
 }
 

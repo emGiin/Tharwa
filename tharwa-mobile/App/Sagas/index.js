@@ -20,7 +20,7 @@ import { login, logout, loadToken } from './AuthSaga'
 import { confirmPinCode } from './PinCodeSaga'
 import { signup } from './SignupSaga'
 import { getProfile, requestNewAccount } from './AccountSaga'
-import { myAccountTransfer } from './TransferSaga'
+import { myAccountTransfer, tharwaTransfer } from './TransferSaga'
 /* ------------- API ------------- */
 
 // The API we use is only used from Sagas, so we create it here and pass along
@@ -52,7 +52,8 @@ export default function* root() {
     takeLatest(AccountTypes.NEW_ACCOUNT_REQUEST, requestNewAccount, api),
 
     // money transfer
-    takeLatest(TransferTypes.TRANSFER_REQUEST, myAccountTransfer, api),
+    takeLatest(TransferTypes.MY_ACCOUNT_TRANSFER_REQUEST, myAccountTransfer, api),
+    takeLatest(TransferTypes.THARWA_TRANSFER_REQUEST, tharwaTransfer, api),
 
     // // password update
     // takeLatest(PasswordTypes.CHANGE_PASSWORD_REQUEST, changePassword, api),

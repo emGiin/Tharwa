@@ -70,7 +70,7 @@ export default {
       ok: true
     }
   },
-  myAccountTransfer: data => {
+  tharwaTransfer: data => {
     return {
       ok: true
     }

@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import { TransferFormClientAccount } from '../../Components'
 import { TransferForm } from '../Forms'
 
+// Redux
+import TransferActions from '../../Redux/TransferRedux'
+
 // Styles
 import styles from './Styles/TransferScreenStyle'
 import { Colors } from '../../Themes';
@@ -20,7 +23,7 @@ class TransferScreen extends Component {
   }
 
   render() {
-    const { params = { type: 'myAccount' } } = this.props.navigation.state;
+    const { params = { type: 'tharwaAccount' } } = this.props.navigation.state;
     const fetching = false;
     const Form = this.forms[params.type]
 
@@ -32,13 +35,17 @@ class TransferScreen extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-  }
+const mapStateToProps = ({ transfer: { fetching, error, success } }) => {
+  return { fetching, error, success }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    myAccountTransfer: (...data) => 
+      dispatch(TransferActions.myAccountTransferRequest(...data)),
+    tharwaTransfer: (...data) =>
+      dispatch(TransferActions.tharwaTransferRequest(...data)),
+    reset: () => dispatch(TransferActions.reset())
   }
 }
 
