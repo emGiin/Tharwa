@@ -45,12 +45,12 @@ class Drawer extends Component {
   }
 }
 
-const mapStateToProps = ({ account: { accountType, information: info } }) => {
+const mapStateToProps = ({ account: { accountType, information: { infos = {} } } }) => {
   return {
     accountType: accountType || 'Client',
-    name: (info ? `${info.lastName} ${info.firstName}` : 'John Doe'),
-    picture: info.picture || Images.avatar,
-    email: info.email || 'john_doe@mail.com'
+    name: (infos ? `${infos.lastname} ${infos.firstname}` : 'John Doe'),
+    picture: /*infos.picture ||*/ Images.avatar,
+    email: infos.email || 'john_doe@mail.com'
   };
 }
 
