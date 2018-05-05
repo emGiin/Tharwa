@@ -1,6 +1,6 @@
 const colors = {
   background: '#2c3e50',
-  forground: '#00838f',
+  forground: '#25303c',
   status: '#005662',
   button: '#16a085',
   white: "#fff",

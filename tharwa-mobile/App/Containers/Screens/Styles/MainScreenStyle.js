@@ -24,5 +24,10 @@ export default StyleSheet.create({
   historyList: {
     marginTop: 2,
     marginHorizontal: 10
-  }
+  },
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white',
+  },
 })
