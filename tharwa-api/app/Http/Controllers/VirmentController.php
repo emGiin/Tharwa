@@ -116,6 +116,21 @@ class VirmentController extends Controller
             $senderAccount->save();
 
 
+            //Tharwa commission history
+            BalanceHistory::create([
+                'id' => $nb + 3,
+                'amount' => $commission,
+                'transaction_type' => 'commiss',
+                'transaction_direction' => 'in',
+                'account_id' => 'THW000000DZD',
+                'created_at' => $now->format('Y-m-d H:i:s'),
+                'updated_at' => $now->format('Y-m-d H:i:s')
+            ]);
+            //change the amount of the Tharwa account
+            $tharwaAccount = Account::find('THW000000DZD');
+            $tharwaAccount->balance = $tharwaAccount->balance + $commission;
+            $tharwaAccount->save();
+
 //            Mail::to($request->input('email'))
 //                ->queue(new ClientRequestValidatedMail($acceptedClient->firstname.' '.$acceptedClient->lastname
 //                    , $request->input('code')));
@@ -188,6 +203,22 @@ class VirmentController extends Controller
                 'created_at' => $now->format('Y-m-d H:i:s'),
                 'updated_at' => $now->format('Y-m-d H:i:s')
             ]);
+
+            //Tharwa commission history
+            BalanceHistory::create([
+                'id' => $nb + 2,
+                'amount' => $commission,
+                'transaction_type' => 'commiss',
+                'transaction_direction' => 'in',
+                'account_id' => 'THW000000DZD',
+                'created_at' => $now->format('Y-m-d H:i:s'),
+                'updated_at' => $now->format('Y-m-d H:i:s')
+            ]);
+            //change the amount of the Tharwa account
+            $tharwaAccount = Account::find('THW000000DZD');
+            $tharwaAccount->balance = $tharwaAccount->balance + $commission;
+            $tharwaAccount->save();
+
             if ($amount > 200000) {
                 $transferDate = null;
                 $creationDate = $now->format('Y-m-d H:i:s');
@@ -195,7 +226,7 @@ class VirmentController extends Controller
             } else {
                 //receiver history
                 BalanceHistory::create([
-                    'id' => $nb + 2,
+                    'id' => $nb + 3,
                     'amount' => $amount,
                     'transaction_type' => 'vir_client',
                     'transaction_direction' => 'in',
@@ -354,6 +385,21 @@ class VirmentController extends Controller
                 'created_at' => $now->format('Y-m-d H:i:s'),
                 'updated_at' => $now->format('Y-m-d H:i:s')
             ]);
+
+            //Tharwa commission history
+            BalanceHistory::create([
+                'id' => $nb + 2,
+                'amount' => $commission,
+                'transaction_type' => 'commiss',
+                'transaction_direction' => 'in',
+                'account_id' => 'THW000000DZD',
+                'created_at' => $now->format('Y-m-d H:i:s'),
+                'updated_at' => $now->format('Y-m-d H:i:s')
+            ]);
+            //change the amount of the Tharwa account
+            $tharwaAccount = Account::find('THW000000DZD');
+            $tharwaAccount->balance = $tharwaAccount->balance + $commission;
+            $tharwaAccount->save();
 
 //            Mail::to($request->input('email'))
 //                ->queue(new ClientRequestValidatedMail($acceptedClient->firstname.' '.$acceptedClient->lastname
