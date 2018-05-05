@@ -48,5 +48,6 @@
   "registrationSuccessTop": "Votre demande de création de compte Tharwa a été envoyée avec succès.",
   "registrationSuccessBottom": "En attente de la validation de votre compte par nos banquiers.",
   "signupPictureHint": "Veuillez vous prendre en photo pour votre compte bancaire en cliquant sur l'image ci-dessous",
-  "loading": "Chargement en cours"
+  "loading": "Chargement en cours",
+  "accountRequest": "Demander la creation de ce compte"
 }

@@ -26,6 +26,7 @@ const create = (baseURL = API_URL) => {
 
   const signup = user => api.post('client', user)
   const getProfile = () => api.get('profile')
+  const requestNewAccount = type => api.post('account', { type })
 
   return {
     api,
@@ -33,6 +34,7 @@ const create = (baseURL = API_URL) => {
     removeAuthHeaders,
     signup,
     getProfile,
+    requestNewAccount,
   }
 }
 

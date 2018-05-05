@@ -12,3 +12,14 @@ export function* getProfile(api) {
     yield put(AccountActions.accountFailure(I18n.t('accountFetchError')))
   }
 }
+
+export function* requestNewAccount(api, { requestType }) {
+  const response = yield call(api.requestNewAccount, requestType)
+
+  // success? 
+  if (response.ok) {
+    yield put(AccountActions.newAccountSuccess(response.data))
+  } else {
+    yield put(AccountActions.accountFailure(I18n.t('accountFetchError')))
+  }
+}

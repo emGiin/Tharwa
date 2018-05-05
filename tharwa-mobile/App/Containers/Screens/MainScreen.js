@@ -1,46 +1,40 @@
 import React, { Component } from 'react'
-import { RefreshControl, TouchableOpacity, View, Image, FlatList } from 'react-native'
 import { connect } from 'react-redux'
-import { Header, Button, Text, Fab } from 'native-base'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import CarouselPager from 'react-native-carousel-pager';
-import ActionButton from 'react-native-action-button';
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
-var  backgroundView= '#f3f3f3'
+import {
+  Dimensions,
+  RefreshControl, TouchableOpacity,
+  View, FlatList
+} from 'react-native'
+import { Text } from 'native-base'
+import Carousel from 'react-native-snap-carousel';
+import { DialogButton } from 'react-native-popup-dialog'
+import AccountActions from '../../Redux/AccountRedux'
+import {
+  MainHeader, TransferItem,
+  AccountInfo, TransferLoaderItem, LoadingDialog
+} from '../../Components'
+
 // Styles
 import styles from './Styles/MainScreenStyle'
-import { Colors, Images } from '../../Themes'
+import { Colors } from '../../Themes';
 
-MainHeader = ({ openDrawer }) => (
-  <Header
-    style={styles.container}
-    backgroundColor={Colors.forground}
-    androidStatusBarColor={Colors.status}
-  >
-    <TouchableOpacity
-      style={styles.leftButton}
-      onPress={openDrawer}>
-      <Icon size={32} color={Colors.white} name="menu" />
-    </TouchableOpacity>
-
-    <TouchableOpacity
-      style={styles.rightButton}
-      onPress={openDrawer}>
-      <Icon size={32} color={Colors.white} name="bell" />
-      <View
-        style={{ height: 15, width: 15, borderRadius: 20, backgroundColor: "#c0392b", alignItems: 'center', justifyContent: 'center', position: 'absolute', top: 2, right: 0 }}>
-        <Text style={{ fontSize: 10, color: '#fff' }}>2</Text>
-      </View>
-    </TouchableOpacity>
-  </Header>
-)
 
 class MainScreen extends Component {
-  
-  state = { refreshing: false}
+  state = { refreshing: false, selectedAccount: 'COUR' }
+
+  pages = [
+    { type: 'DVUSD', label: 'Compte devise Dollar', symbol: 'Dollar' },
+    { type: 'DVEUR', label: 'Compte devise Euro', symbol: 'Euro' },
+    { type: 'EPARGN', label: 'Compte Epargne', symbol: 'DZD' },
+    { type: 'COUR', label: 'Compte courant', symbol: 'DZD' },
+  ]
+
+  componentWillMount() {
+    this.props.getProfile()
+  }
 
   _onRefresh() {
+    this.props.getProfile()
     this.setState({ refreshing: true });
     setTimeout(() => {
       this.setState({ refreshing: false });
@@ -51,51 +45,73 @@ class MainScreen extends Component {
     this.props.navigation.navigate('DrawerToggle');
   }
 
+  setShownData = page => {
+    this.setState({ selectedAccount: this.pages[page].type })
+  }
+
+  renderConfirmationDialog = ({ fetching, error }, { selectedAccount }) => (
+    <LoadingDialog
+      init={/* istanbul ignore next */dialog => { this.dialog = dialog }}
+      error={error}
+      fetching={fetching}
+      fetchingTitle={"Nouveau Compte"}
+      fetchingMessage={"Creaction du compte est en cours"}
+      defaultTitle={"Nouveau Compte"}
+      defaultMessage={"Etes vous sur de creer un nouveau compte?"}
+    >
+      <View style={{ flex: 1, flexDirection: 'row' }}>
+        <DialogButton disabled={fetching} text={'Confirmer'}
+          onPress={() => {
+            this.props.requestNewAccount(selectedAccount);
+          }} />
+        <DialogButton disabled={fetching} text={'Annuler'}
+          onPress={() => { this.dialog.dismiss() }} />
+      </View>
+    </LoadingDialog>
+  )
+
   render() {
+    console.warn(this.props.fetching);
+    const { width, height } = Dimensions.get('window')
+    const { info } = this.props
+    const selectedAccount = info[this.state.selectedAccount]
+    const accountHistory = selectedAccount && selectedAccount.history || new Array(Math.floor(height / 100));
+
     return (
-      <View style={{ height: '100%', flex: 1, backgroundColor: backgroundView }}>
+      <View style={styles.container}>
         <MainHeader openDrawer={this.openDrawer} />
+        {this.renderConfirmationDialog(this.props, this.state)}
+        <View style={styles.carouselContainer}>
+          <Carousel
+            ref={(c) => { this._carousel = c; }}
+            data={this.pages}
+            renderItem={
+              ({ item }) => <AccountInfo {...item}
+                onPress={
+                  info[item.type] ?
+                    this.showAccountDetails :
+                    () => this.dialog.show()
+                }
+                account={info[item.type]}
+              />
+            }
+            sliderWidth={width}
+            firstItem={3}
+            parallax={true}
+            contentContainerCustomStyle={{ height: 150, padding: 0 }}
+            containerCustomStyle={{ height: 250 }}
+            itemWidth={width - 50}
+            onSnapToItem={this.setShownData}
+          />
+        </View>
 
-        <CarouselPager
-          ref={ref => this.carousel = ref}
-          initialPage={3}
-          pageStyle={{ backgroundColor: '#ffffffbb', height: 100 }}>
-          <View key={'page0'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#999', borderRadius: 5 }}>
-            <Text style={{ fontSize: 16 }}>COMPTE DEVISE EURO</Text>
-            <Text style={{ fontSize: 26, margin: 5 }}>4 705 EURO</Text>
-          </View>
-          <View key={'page1'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#555', backgroundColor: '#555', borderRadius: 5 }}>
-            <TouchableOpacity>
-              <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center', marginTop: 5, }}>COMPTE DEVISE DOLLAR</Text>
-              <Text style={{ color: '#fff', fontSize: 26, marginBottom: 5, textAlign: 'center' }}>Demander la creation de ce compte</Text>
-            </TouchableOpacity>
-          </View>
-          <View key={'page2'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#555', borderRadius: 5 }}>
-            <Text style={{ fontSize: 16 }}>COMPTE EPARGNE</Text>
-            <Text style={{ fontSize: 26, margin: 5 }}>41 205 DA</Text>
-          </View>
-          <View key={'page3'} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#555', borderRadius: 5 }}>
-            <Text style={{ fontSize: 16 }}>COMPTE COURANT</Text>
-            <Text style={{ fontSize: 26, margin: 5 }}>80 570,64 DA</Text>
-          </View>
-        </CarouselPager>
-
-        <View style={{ marginTop: -250, borderBottomColor: '#555', borderBottomWidth: 1, marginHorizontal: 20 }}>
-          <Text style={{ color: '#555' }}>Action récentes</Text>
+        <View style={styles.historyTitleContainer}>
+          <Text style={styles.historyTitle}>Action récentes </Text>
         </View>
 
         <FlatList
-          style={{ marginTop: 20 }}
-          data={[
-            { key: 1, type: 'Compte courant', date: '27/01/2018', time: '10:45 PM', amount: '-5 000 DA' },
-            { key: 2, type: 'Compte epargne', date: '01/02/2018', time: '11:06 AM', amount: '+2 000 DA' },
-            { key: 1, type: 'Compte courant', date: '27/01/2018', time: '10:45 PM', amount: '-5 000 DA' },
-            { key: 2, type: 'Compte epargne', date: '01/02/2018', time: '11:06 AM', amount: '+2 000 DA' },
-            { key: 1, type: 'Compte courant', date: '27/01/2018', time: '10:45 PM', amount: '-5 000 DA' },
-            { key: 2, type: 'Compte epargne', date: '01/02/2018', time: '11:06 AM', amount: '+2 000 DA' },
-            { key: 1, type: 'Compte courant', date: '27/01/2018', time: '10:45 PM', amount: '-5 000 DA' },
-            { key: 2, type: 'Compte epargne', date: '01/02/2018', time: '11:06 AM', amount: '+2 000 DA' },
-          ]}
+          style={styles.historyList}
+          data={accountHistory}
           // TODO: change refresh control style
           refreshControl={
             <RefreshControl
@@ -103,52 +119,38 @@ class MainScreen extends Component {
               onRefresh={this._onRefresh.bind(this)}
             />
           }
-          renderItem={({ item }) => (
-            <View key={item.key}>
-              <View style={{ borderWidth: 1, borderColor: '#fff' }} />
-              <View
-                style={{
-                  paddingLeft: 10, marginVertical: 5, marginHorizontal: 10, borderLeftWidth: 7, borderLeftColor: '#999', flexDirection: 'row', justifyContent: 'space-between'
-                }}>
-                <View>
-                  <Text>{item.type}</Text>
-                  <Text>{item.amount}</Text>
-                </View>
-                <View>
-                  <Text>{item.date}</Text>
-                  <Text>{item.time}</Text>
-                </View>
-              </View>
-            </View>
-          )}
+          keyExtractor={(item, index) => index}
+          renderItem={selectedAccount ? TransferItem : TransferLoaderItem}
         />
-     
-      
-        <ActionButton buttonColor={Colors.forground} renderIcon={() =>  <Icon name="swap-horizontal" style={styles.actionButtonIcon} />} >
-      
-          <ActionButton.Item buttonColor='#9b59b6' title="Virement vers mon compte" titleBgColor='#686464' titleColor='white' onPress={() => {this.props.navigation.navigate('VirementScreen')}}>
+
+
+        <ActionButton buttonColor={Colors.forground} renderIcon={() => <Icon name="swap-horizontal" style={styles.actionButtonIcon} />} >
+
+          <ActionButton.Item buttonColor='#9b59b6' title="Virement vers mon compte" titleBgColor='#686464' titleColor='white' onPress={() => { this.props.navigation.navigate('VirementScreen') }}>
             <Icon name="swap-horizontal" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor='#3498db' title="Virement vers un autre client tharwa" titleBgColor='#686464' titleColor='white' onPress={() => {this.props.navigation.navigate('VirementScreen')}}>
+          <ActionButton.Item buttonColor='#3498db' title="Virement vers un autre client tharwa" titleBgColor='#686464' titleColor='white' onPress={() => { this.props.navigation.navigate('VirementScreen') }}>
             <Icon name="account-switch" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor='#1abc9c' title="Virement à un autre client d'une banque" titleBgColor='#686464' titleColor='white' onPress={() => {this.props.navigation.navigate('VirementScreen')}}>
+          <ActionButton.Item buttonColor='#1abc9c' title="Virement à un autre client d'une banque" titleBgColor='#686464' titleColor='white' onPress={() => { this.props.navigation.navigate('VirementScreen') }}>
             <Icon name="account-multiple" style={styles.actionButtonIcon} />
           </ActionButton.Item>
         </ActionButton>
-     
+
       </View>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-  }
+const mapStateToProps = ({ account: { information: info, fetching, error } }) => {
+
+  return { info, fetching, error }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getProfile: () => dispatch(AccountActions.accountRequest()),
+    requestNewAccount: (...data) => dispatch(AccountActions.newAccountRequest(...data))
   }
 }
 

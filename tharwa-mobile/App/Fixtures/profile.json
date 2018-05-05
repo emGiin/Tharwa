@@ -1,0 +1,74 @@
+{
+  "infos": {
+    "email": "client@domaine.com",
+    "firstname": "cltest",
+    "lastname": "cltest",
+    "picture": "hi.png",
+    "type": "Client"
+  },
+  "COUR": {
+    "amount": "2983954.93",
+    "history": [
+      {
+        "target": "Yassir",
+        "amount": "452000.50",
+        "transaction_direction": "in",
+        "created_at": "2018-04-22 23:00:07"
+      },
+      {
+        "target": "Jumia Food",
+        "amount": "2005.99",
+        "transaction_direction": "out",
+        "created_at": "2018-04-22 23:05:39"
+      },
+      {
+        "target": "Compte Epargne",
+        "amount": "200001",
+        "transaction_direction": "out",
+        "created_at": "2018-04-22 23:00:07"
+      },
+      {
+        "target": "Compte Epargne",
+        "amount": "202000.00",
+        "transaction_direction": "in",
+        "created_at": "2018-04-22 23:35:45"
+      },
+      {
+        "target": "Compte Epargne",
+        "amount": "202001.01",
+        "transaction_direction": "out",
+        "created_at": "2018-04-22 23:00:07"
+      },
+      {
+        "target": "Compte Epargne",
+        "amount": "202001.01",
+        "transaction_direction": "out",
+        "created_at": "2018-04-22 23:05:39"
+      },
+      {
+        "target": "Compte Epargne",
+        "amount": "202001.01",
+        "transaction_direction": "in",
+        "created_at": "2018-04-22 23:00:07"
+      },
+      {
+        "target": "Compte Epargne",
+        "amount": "202001.01",
+        "transaction_direction": "out",
+        "created_at": "2018-04-22 23:35:45"
+      },
+      {
+        "target": "Compte Epargne",
+        "amount": "202001.01",
+        "transaction_direction": "out",
+        "created_at": "2018-04-22 23:00:07"
+      },
+      {
+        "target": "Compte Epargne",
+        "amount": "202001.01",
+        "transaction_direction": "out",
+        "created_at": "2018-04-22 23:05:39"
+      }
+    ]
+  }
+}

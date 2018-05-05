@@ -18,5 +18,19 @@ export default StyleSheet.create({
     height: 100,
     width: 100,
     borderRadius: 50,
+  },
+  text: {
+    marginLeft: 10,
+    color: '#555'
+  },
+  name: {
+    fontSize: 16
+  },
+  info: {
+    flexDirection: 'column'
+  },
+  separator: {
+    borderTopWidth: 1,
+    borderTopColor: '#ddd'
   }
 })

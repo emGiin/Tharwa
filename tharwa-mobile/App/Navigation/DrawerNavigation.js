@@ -4,8 +4,8 @@ import { Icon } from 'native-base'
 import { DrawerNavigator } from 'react-navigation'
 import { MainScreen } from '../Containers/Screens'
 import { Header } from '../Components'
-import Drawer from './DrawerComponent'
-import DrawerIcon from './DrawerIcon'
+import { DrawerIcon } from '../Components'
+import Drawer from '../Containers/Drawer'
 
 const AppDrawer = DrawerNavigator({
   MainScreen: {
