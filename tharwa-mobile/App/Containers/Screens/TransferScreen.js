@@ -10,7 +10,6 @@ import TransferActions from '../../Redux/TransferRedux'
 
 // Styles
 import styles from './Styles/TransferScreenStyle'
-import { Colors } from '../../Themes';
 
 class TransferScreen extends Component {
   forms = {

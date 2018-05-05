@@ -20,7 +20,6 @@ class Drawer extends Component {
 
   render() {
     const { email, name, picture, items, ...other } = this.props
-    const getVisible = item => !contains(item.key, visibleItems);
 
     return (
       <ScrollView>

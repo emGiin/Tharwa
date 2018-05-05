@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import {
-  View, TouchableOpacity,
-  Text, Dimensions
-} from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import styles from './Styles/TabBarStyles'
 import { Colors } from '../Themes';
-
-const { width } = Dimensions.get('window');
 
 class CustomTabBar extends Component {
 

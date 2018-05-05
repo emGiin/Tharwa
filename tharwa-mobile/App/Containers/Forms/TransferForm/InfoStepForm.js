@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Container, Content, Text } from 'native-base'
 import { reduxForm, Field } from 'redux-form'
 import I18n from 'react-native-i18n'
-import { PickerField, InputField, NextPrevious } from "../../../Components";
+import { InputField, NextPrevious } from "../../../Components";
 import {
   nameValidators
 } from '../../../Helpers/validators'
@@ -17,7 +17,7 @@ export class InfoStepForm extends Component {
   }
 
   render() {
-    const { editable, handleSubmit, previousPage, nextPage } = this.props;
+    const { editable, handleSubmit, previousPage } = this.props;
     return (
       <Container style={styles.mainformContainer}>
         <Content style={styles.inputContainer} >

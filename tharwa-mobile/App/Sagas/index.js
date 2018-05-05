@@ -1,6 +1,6 @@
 import { all, takeLatest } from 'redux-saga/effects'
 import AuthAPI from '../Services/AuthApi'
-import Api from '../Services/Api'
+import API from '../Services/Api'
 import FixtureAPI from '../Services/FixtureApi'
 import DebugConfig from '../Config/DebugConfig'
 

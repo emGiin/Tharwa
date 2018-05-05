@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import styles from './Styles/MainHeaderStyles'
 import { Colors } from '../Themes'
 
-MainHeader = ({ openDrawer, notificationsCount = 0 }) => (
+const MainHeader = ({ openDrawer, notificationsCount = 0 }) => (
   <Header
     style={styles.container}
     backgroundColor={Colors.forground}

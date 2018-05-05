@@ -4,7 +4,7 @@ import {
   Dimensions, View,
   FlatList, RefreshControl
 } from 'react-native'
-import { Button, Text } from 'native-base'
+import { Text } from 'native-base'
 import Carousel from 'react-native-snap-carousel';
 import { DialogButton } from 'react-native-popup-dialog'
 import {
@@ -17,7 +17,6 @@ import AccountActions from '../../Redux/AccountRedux'
 
 // Styles
 import styles from './Styles/MainScreenStyle'
-import { Colors } from '../../Themes';
 
 
 class MainScreen extends Component {
@@ -75,7 +74,7 @@ class MainScreen extends Component {
     const { width, height } = Dimensions.get('window')
     const { info } = this.props
     const selectedAccount = info[this.state.selectedAccount]
-    const accountHistory = selectedAccount && selectedAccount.history || new Array(Math.floor(height / 100));
+    const accountHistory = (selectedAccount && selectedAccount.history) || new Array(Math.floor(height / 100));
 
     return (
       <View style={styles.container}>

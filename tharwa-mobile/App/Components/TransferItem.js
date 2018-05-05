@@ -3,11 +3,10 @@ import { View, TouchableOpacity, Dimensions } from 'react-native'
 import { Text, Icon } from 'native-base'
 import { Circle, Rect } from 'react-native-svg'
 import styles from './Styles/TransferItemStyles'
-import { Colors } from '../Themes';
 import { formatMoney } from '../Transforms';
 import { ContentLoader } from './'
 
-TransferItem = ({ item }) => {
+const TransferItem = ({ item }) => {
   const [date, time] = item.created_at.split(' ')
   const type = item.transaction_direction === 'out'
   const color = type ? "#e74c3c" : "#218c74"
@@ -29,7 +28,7 @@ TransferItem = ({ item }) => {
   )
 }
 
-TransferLoaderItem = () => {
+const TransferLoaderItem = () => {
   const { width } = Dimensions.get('window')
 
   return (

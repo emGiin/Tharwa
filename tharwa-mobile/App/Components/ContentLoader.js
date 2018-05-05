@@ -1,22 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-import { View, StyleSheet, Animated } from 'react-native';
+import { View, Animated } from 'react-native';
 
 import Svg, {
-  Circle,
-  Ellipse,
   G,
   LinearGradient,
-  RadialGradient,
-  Line,
-  Path,
-  Polygon,
-  Polyline,
   Rect,
-  Symbol,
   ClipPath,
-  Text,
-  Use,
   Defs,
   Stop
 } from 'react-native-svg';

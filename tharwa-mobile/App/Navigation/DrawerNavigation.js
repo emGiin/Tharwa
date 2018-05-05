@@ -1,9 +1,6 @@
 import React from 'react';
-import I18n from 'react-native-i18n'
-import { Icon } from 'native-base'
 import { DrawerNavigator } from 'react-navigation'
 import { MainScreen } from '../Containers/Screens'
-import { Header } from '../Components'
 import { DrawerIcon } from '../Components'
 import AppTabBar from './TabNavigation'
 import Drawer from '../Containers/Drawer'
