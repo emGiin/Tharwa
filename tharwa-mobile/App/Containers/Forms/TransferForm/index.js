@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import I18n from 'react-native-i18n'
+import { connect } from 'react-redux'
+import { reduxForm, Field, formValueSelector } from 'redux-form'
 import styles from '../Styles/SignupFormStyle'
 import { Header } from '../../../Components'
 import InfoStepForm from './InfoStepForm'
@@ -11,7 +13,6 @@ import { Colors } from '../../../Themes';
 class TransferForm extends Component {
   formSteps = [
     InfoStepForm,
-    ProofStepForm,
     ProgressStepForm
   ]
 
@@ -20,6 +21,13 @@ class TransferForm extends Component {
     this.state = { currentPage: 1 }
     this.nextPage = this.nextPage.bind(this)
     this.previousPage = this.previousPage.bind(this)
+  }
+
+  componentWillReceiveProps({ amount }) {
+    if (amount >= 200000) {
+      this.formSteps.pop()
+      this.formSteps.push(ProofStepForm, ProgressStepForm)
+    }
   }
 
   nextPage() {
@@ -54,5 +62,18 @@ class TransferForm extends Component {
   }
 }
 
+let Form = reduxForm({
+  form: 'transfer',
+  destroyOnUnmount: false,
+  forceUnregisterOnUnmount: true,
+})(TransferForm);
 
-export default TransferForm;
+// connect our component again to get some additional state
+Form = connect(
+  /* istanbul ignore next */
+  state => ({
+    amount: formValueSelector('transfer')(state, 'amount')
+  })
+)(Form)
+
+export default Form

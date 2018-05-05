@@ -17,7 +17,7 @@ export class InfoStepForm extends Component {
   }
 
   render() {
-    const { editable, handleSubmit, previousPage } = this.props;
+    const { editable, handleSubmit, previousPage, nextPage } = this.props;
     return (
       <Container style={styles.mainformContainer}>
         <Content style={styles.inputContainer} >
