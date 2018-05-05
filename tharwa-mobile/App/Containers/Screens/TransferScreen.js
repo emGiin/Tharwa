@@ -5,11 +5,12 @@ import { TransferFormClientAccount } from '../../Components'
 
 // Styles
 import styles from './Styles/TransferScreenStyle'
+import { Colors } from '../../Themes';
 
 class TransferScreen extends Component {
   render() {
     return (
-      <View style={{ height: '100%', flex: 1, backgroundColor: '#f3f3f3' }}>
+      <View style={{ height: '100%', flex: 1, backgroundColor: '#c9d0de'}}>
         <TransferFormClientAccount />
       </View>
     )

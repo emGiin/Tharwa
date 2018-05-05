@@ -8,7 +8,7 @@ import styles from '../Styles/HeaderStyle'
 import I18n from 'react-native-i18n'
 
 
-const items = ['Epargne', 'Devise'];
+const items = ['Epargne', 'Devise USD','Devise EUR'];
 
 var BUTTONS = [
   'Courant',
@@ -51,34 +51,46 @@ class TransferFormClientAccount extends Component {
           androidStatusBarColor={Colors.forground} >
 
           <Body >
-            <Title>Virement</Title>
+            <Title >Virement</Title>
           </Body>
-          <Right />
+         
         </Header>
-        <Content>
-          <Content>
-            <Text> Choisir le compte </Text>
-            <Form>
+        <Content style={{marginLeft:20, marginTop:10, marginBottom:50,marginRight:20, shadowOffset: { width: 5, height: 5 },
+    shadowColor: Colors.white,
+    shadowOpacity: 1,
+    elevation: 5,
+    backgroundColor: Colors.white}}>
+          <Content >
+            <Text  style={{marginBottom:10,  fontSize: 18, color: Colors.forground, textAlign: 'center', backgroundColor: Colors.button}}> Choisir le compte </Text>
+            <Form  style={{marginBottom:20}}>
               <Picker
                 mode="dropdown"
                 iosIcon={<Icon name="ios-arrow-down-outline" />}
                 placeholder="Selectionner votre compte"
                 placeholderStyle={{ color: "#bfc6ea" }}
                 placeholderIconColor="#007aff"
+                textStyle={{ color: "#5cb85c" }}
+                itemStyle={{
+                  backgroundColor: "#5cb85c",
+                  marginLeft: 0,
+                  paddingLeft: 10
+                }}
+                itemTextStyle={{ color: '#788ad2' }}
                 style={{ width: undefined }}
                 selectedValue={this.state.selected2}
                 onValueChange={this.onValueChange2.bind(this)}
               >
                 <Picker.Item label="Courant" value="key0" />
-                <Picker.Item label="Devise" value="key1" />
-                <Picker.Item label="épargne" value="key2" />
+                <Picker.Item label="Epargne" value="key1" />
+                <Picker.Item label="Devise USD" value="key2" />
+                <Picker.Item label="Devise EUR" value="key3" />
 
               </Picker>
             </Form>
           </Content>
           <Content>
-            <Text> Virer Vers </Text>
-            <Form>
+            <Text style={{marginBottom:10,  fontSize: 18, color: Colors.forground, textAlign: 'center', backgroundColor: Colors.button}}> Virer Vers </Text>
+            <Form style={{marginBottom:20}}>
               <Picker
                 mode="dropdown"
                 iosIcon={<Icon name="ios-arrow-down-outline" />}
@@ -97,15 +109,27 @@ class TransferFormClientAccount extends Component {
             </Form>
           </Content>
           <Content>
-
+          <Text  style={{marginBottom:10,  fontSize: 18, color: Colors.forground, textAlign: 'center', backgroundColor: Colors.button}}> Introduire le montant </Text>
             <Form>
-              <Item floatingLabel>
-                <Label> Le montant</Label>
-                <Input />
+              <Item>
+             
+              <Input  keyboardType='numeric'>
+              </Input>
+              <Icon active name='swap' />
               </Item>
             </Form>
-
+          
           </Content>
+          <Button style={ {alignSelf: 'center',
+    height: 40,
+    
+    marginTop: 70,
+    borderColor: Colors.button,
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: Colors.button}}>
+        <Text style={{ color: '#c9d0de', textAlign: 'center' }}>Envoyer</Text>
+      </Button>
         </Content>
       </Container>
     );
