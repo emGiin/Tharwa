@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Content } from 'native-base'
+import { Container, Content, Text } from 'native-base'
 import { reduxForm, Field } from 'redux-form'
 import I18n from 'react-native-i18n'
 import { PickerField, InputField, NextPrevious } from "../../../Components";
@@ -7,6 +7,7 @@ import {
   nameValidators
 } from '../../../Helpers/validators'
 import styles from '../Styles/SignupFormStyle'
+import { Colors } from '../../../Themes';
 
 export class InfoStepForm extends Component {
   focusOn = (field) => {
@@ -20,6 +21,7 @@ export class InfoStepForm extends Component {
     return (
       <Container style={styles.mainformContainer}>
         <Content style={styles.inputContainer} >
+          <Text style={{ color: Colors.white }}>{I18n.t('recieverInformation')}</Text>
           <Field
             name={'accountNumber'}
             withRef
@@ -43,7 +45,7 @@ export class InfoStepForm extends Component {
             onEnter={() => this.focusOn('firstName')}
             component={InputField}
             editable={editable}
-            validate={nameValidators}
+            // validate={nameValidators}
             returnKeyType={'next'}
             placeholder={I18n.t('lastName')}
           />
@@ -57,7 +59,7 @@ export class InfoStepForm extends Component {
             name={'firstName'}
             component={InputField}
             editable={editable}
-            validate={nameValidators}
+            // validate={nameValidators}
             returnKeyType={'next'}
             placeholder={I18n.t('firstName')}
           />

@@ -49,5 +49,11 @@
   "registrationSuccessBottom": "En attente de la validation de votre compte par nos banquiers.",
   "signupPictureHint": "Veuillez vous prendre en photo pour votre compte bancaire en cliquant sur l'image ci-dessous",
   "loading": "Chargement en cours",
-  "accountRequest": "Demander la creation de ce compte"
+  "accountRequest": "Demander la creation de ce compte",
+  "transferProofPicture": "Veuillez prendre une photo du document justifiant votre transfert supérieur à 200 000 DA",
+  "amount": "Montant",
+  "reason": "Motif",
+  "accountNumber": "Numéro du compte",
+  "transfer": "Virement Bancaire",
+  "recieverInformation": "Information du destinataire"
 }
