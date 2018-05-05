@@ -18,21 +18,24 @@ const screens = {
     screen: TransferScreen,
     navigationOptions: {
       tabBarLabel: 'Compte Virement',
-      tabBarIcon: props => <TabIcon {...props} icon='swap-horizontal' unselectedIcon='swap-horizontal' />
+      tabBarIcon: props => <TabIcon {...props} icon='swap-horizontal' unselectedIcon='swap-horizontal' />,
+      params: { type: 'myAccount' }
     }
   },
-  Transaction1Screen: {
+  TharwaTransactionScreen: {
     screen: TransferScreen,
     navigationOptions: {
       tabBarLabel: 'Virement Tharwa',
-      tabBarIcon: props => <TabIcon {...props} icon='account-switch' unselectedIcon='account-switch' />
+      tabBarIcon: props => <TabIcon {...props} icon='transfer' unselectedIcon='transfer' />,
+      params: { type: 'tharwaAccount' }
     }
   },
-  Transaction2Screen: {
+  ExternalTransactionScreen: {
     screen: TransferScreen,
     navigationOptions: {
       tabBarLabel: 'Virement externe',
-      tabBarIcon: props => <TabIcon {...props} icon='account-multiple' unselectedIcon='account-multiple' />
+      tabBarIcon: props => <TabIcon {...props} icon='bank' unselectedIcon='bank' />,
+      params: { type: 'externalAccount' }
     }
   },
   TransactionOrderScreen: {
@@ -52,7 +55,7 @@ const screens = {
 }
 
 const AppTabs = TabNavigator(screens, {
-  initialRouteName: 'MainScreen',
+  initialRouteName: 'TharwaTransactionScreen',
   tabBarOptions: {
     activeTintColor: 'tomato',
     inactiveTintColor: 'gray',

@@ -5,9 +5,16 @@ import { DrawerNavigator } from 'react-navigation'
 import { MainScreen } from '../Containers/Screens'
 import { Header } from '../Components'
 import { DrawerIcon } from '../Components'
+import AppTabBar from './TabNavigation'
 import Drawer from '../Containers/Drawer'
 
 const AppDrawer = DrawerNavigator({
+  AppTabBar: {
+    screen: AppTabBar,
+    navigationOptions: {
+      drawerLabel: () => null
+    }
+  },
   MainScreen: {
     screen: MainScreen,
     navigationOptions: {
@@ -59,7 +66,7 @@ const AppDrawer = DrawerNavigator({
     }
   }
 }, {
-    initialRouteName: 'MainScreen',
+    initialRouteName: 'AppTabBar',
     contentComponent: Drawer
   }
 );
