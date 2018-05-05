@@ -34,7 +34,7 @@ export class ProofStepForm extends Component {
             buttonComponent={/* istanbul ignore next */() => <Image style={styles.imagePreview} source={imageSrc} />}
           />
         </View>
-        <NextPrevious onPrevious={previousPage} onSubmit={handleSubmit} />
+        <NextPrevious isFinal onPrevious={previousPage} onSubmit={handleSubmit} />
       </Container>
     )
   }

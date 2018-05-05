@@ -55,5 +55,7 @@
   "reason": "Motif",
   "accountNumber": "Numéro du compte",
   "transfer": "Virement Bancaire",
-  "recieverInformation": "Information du destinataire"
+  "recieverInformation": "Information du destinataire",
+  "transferInProgress": "Transfert en cours, veuiller patienter",
+  "confirmTransfer": "Confimer le transfer en cliquant sur le boutton ci-dessous"
 }

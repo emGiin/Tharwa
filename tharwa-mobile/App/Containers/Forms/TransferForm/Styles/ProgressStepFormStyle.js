@@ -2,32 +2,32 @@ import { StyleSheet } from 'react-native'
 import Dimensions from 'Dimensions'
 import { Colors } from '../../../../Themes'
 
-const size = Dimensions.get('window').width / 1.5
+const size = Dimensions.get('window').width / 2
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    width: '100%',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
   },
   detailsText: {
-    color: Colors.white,
     marginTop: 50,
-    marginBottom: 30,
-    paddingHorizontal: 40,
-    textAlign: 'center'
+    color: Colors.white,
+    textAlign: 'center',
+    fontSize: 18,
+    paddingHorizontal: 40
   },
-  buttonContainer: {
+  amount: {
+    color: Colors.white,
+    textAlign: 'center',
+    paddingHorizontal: 5
+  },
+  button: {
+    width: size,
     height: size,
-    width: size
-  },
-  imagePreview: {
-    margin: 10,
-    flex: 1,
-    width: null,
-    height: '100%',
-    borderRadius: 200
+    borderRadius: size,
+    backgroundColor: Colors.button,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
