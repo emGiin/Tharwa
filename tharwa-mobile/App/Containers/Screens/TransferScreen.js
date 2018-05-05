@@ -20,14 +20,11 @@ class TransferScreen extends Component {
   }
 
   render() {
-    const { params = { type: 'tharwaAccount' } } = this.props.navigation.state;
+    const { params = { type: 'myAccount' } } = this.props.navigation.state;
     const fetching = false;
     const Form = this.forms[params.type]
 
     return (
-      <View style={{ height: '100%', flex: 1, backgroundColor: '#c9d0de'}}>
-        <TransferFormClientAccount />
-        </View>
       <View style={{ height: '100%', flex: 1, backgroundColor: '#f3f3f3' }}>
         <Form onSubmit={this.submit} editable={!fetching} />
       </View>
