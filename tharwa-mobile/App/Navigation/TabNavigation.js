@@ -1,0 +1,70 @@
+import React from 'react';
+import I18n from 'react-native-i18n'
+import { Icon } from 'native-base'
+import { TabNavigator, TabBarBottom } from 'react-navigation'
+import { MainScreen, TransferScreen } from '../Containers/Screens'
+import { DrawerIcon as TabIcon } from '../Components'
+import TabBar from '../Containers/TabBar'
+
+const screens = {
+  MainScreen: {
+    screen: MainScreen,
+    navigationOptions: {
+      tabBarLabel: 'Acceuil',
+      tabBarIcon: props => <TabIcon {...props} icon='home' />
+    }
+  },
+  TransactionScreen: {
+    screen: TransferScreen,
+    navigationOptions: {
+      tabBarLabel: 'Compte Virement',
+      tabBarIcon: props => <TabIcon {...props} icon='swap-horizontal' unselectedIcon='swap-horizontal' />
+    }
+  },
+  Transaction1Screen: {
+    screen: TransferScreen,
+    navigationOptions: {
+      tabBarLabel: 'Virement Tharwa',
+      tabBarIcon: props => <TabIcon {...props} icon='account-switch' unselectedIcon='account-switch' />
+    }
+  },
+  Transaction2Screen: {
+    screen: TransferScreen,
+    navigationOptions: {
+      tabBarLabel: 'Virement externe',
+      tabBarIcon: props => <TabIcon {...props} icon='account-multiple' unselectedIcon='account-multiple' />
+    }
+  },
+  TransactionOrderScreen: {
+    screen: TransferScreen,
+    navigationOptions: {
+      tabBarLabel: 'Ordres de virement',
+      tabBarIcon: props => <TabIcon {...props} icon='reorder-horizontal' unselectedIcon='reorder-horizontal' />
+    }
+  },
+  ExchangeRateScreen: {
+    screen: TransferScreen,
+    navigationOptions: {
+      tabBarLabel: 'Taux de change',
+      tabBarIcon: props => <TabIcon {...props} icon='currency-gbp' unselectedIcon='currency-gbp' />
+    }
+  }
+}
+
+const AppTabs = TabNavigator(screens, {
+  initialRouteName: 'MainScreen',
+  tabBarOptions: {
+    activeTintColor: 'tomato',
+    inactiveTintColor: 'gray',
+  },
+  tabBarComponent: props => <TabBar screens={screens} {...props} />,
+  tabBarPosition: 'bottom',
+  animationEnabled: false,
+  swipeEnabled: false,
+});
+
+AppTabs.navigationOptions = {
+  header: null
+};
+
+export default AppTabs

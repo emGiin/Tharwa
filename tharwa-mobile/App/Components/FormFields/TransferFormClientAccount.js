@@ -47,8 +47,8 @@ class TransferFormClientAccount extends Component {
     return (
       <Container>
         <Header style={styles.container}
-          backgroundColor={Colors.forground}
-          androidStatusBarColor={Colors.status} >
+          backgroundColor={Colors.background}
+          androidStatusBarColor={Colors.forground} >
 
           <Body >
             <Title>Virement</Title>

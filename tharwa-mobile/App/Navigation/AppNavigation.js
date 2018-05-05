@@ -8,6 +8,7 @@ import {
   TransferScreen
 } from '../Containers/Screens'
 import AppDrawer from './DrawerNavigation'
+import AppTabBar from './TabNavigation'
 import styles from './Styles/NavigationStyles'
 
 const headerHidden = { navigationOptions: { header: null } }
@@ -16,6 +17,7 @@ const headerHidden = { navigationOptions: { header: null } }
 const PrimaryNav = StackNavigator(
   {
     AppDrawer: { screen: AppDrawer },
+    AppTabBar: { screen: AppTabBar },
     PendingScreen: { screen: PendingScreen, ...headerHidden },
     RegisterScreen: { screen: RegisterScreen, ...headerHidden },
     PinCodeScreen: { screen: PinCodeScreen, ...headerHidden },
@@ -24,7 +26,7 @@ const PrimaryNav = StackNavigator(
     TransferScreen: { screen: TransferScreen, ...headerHidden },
   }, {
     // Default config for all screens
-    initialRouteName: 'AppDrawer',
+    initialRouteName: 'AppTabBar',
     // initialRouteName: 'LaunchScreen',
     navigationOptions: {
       headerStyle: styles.header

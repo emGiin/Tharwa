@@ -1,20 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
-  Dimensions,
-  RefreshControl, TouchableOpacity,
-  View, FlatList
+  Dimensions, View,
+  FlatList, RefreshControl
 } from 'react-native'
-import { Header, Button, Text, Fab } from 'native-base'
+import { Button, Text } from 'native-base'
 import Carousel from 'react-native-snap-carousel';
 import { DialogButton } from 'react-native-popup-dialog'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import ActionButton from 'react-native-action-button';
-import AccountActions from '../../Redux/AccountRedux'
 import {
   MainHeader, TransferItem,
   AccountInfo, TransferLoaderItem, LoadingDialog
 } from '../../Components'
+
+// Redux
+import AccountActions from '../../Redux/AccountRedux'
 
 // Styles
 import styles from './Styles/MainScreenStyle'
@@ -35,7 +34,7 @@ class MainScreen extends Component {
     this.props.getProfile()
   }
 
-  _onRefresh() {
+  onRefresh() {
     this.props.getProfile()
     this.setState({ refreshing: true });
     setTimeout(() => {
@@ -117,41 +116,28 @@ class MainScreen extends Component {
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
-              onRefresh={this._onRefresh.bind(this)}
+              onRefresh={this.onRefresh.bind(this)}
             />
           }
           keyExtractor={(item, index) => index}
           renderItem={selectedAccount ? TransferItem : TransferLoaderItem}
         />
-
-
-        <ActionButton buttonColor={Colors.forground} renderIcon={() => <Icon name="swap-horizontal" style={styles.actionButtonIcon} />} >
-
-          <ActionButton.Item buttonColor='#9b59b6' title="Virement vers mon compte" titleBgColor='#686464' titleColor='white' onPress={() => { this.props.navigation.navigate('TransferScreen') }}>
-            <Icon name="swap-horizontal" style={styles.actionButtonIcon} />
-          </ActionButton.Item>
-          <ActionButton.Item buttonColor='#3498db' title="Virement vers un autre client tharwa" titleBgColor='#686464' titleColor='white' onPress={() => { this.props.navigation.navigate('TransferScreen') }}>
-            <Icon name="account-switch" style={styles.actionButtonIcon} />
-          </ActionButton.Item>
-          <ActionButton.Item buttonColor='#1abc9c' title="Virement à un autre client d'une banque" titleBgColor='#686464' titleColor='white' onPress={() => { this.props.navigation.navigate('TransferScreen') }}>
-            <Icon name="account-multiple" style={styles.actionButtonIcon} />
-          </ActionButton.Item>
-        </ActionButton>
-
       </View>
     )
   }
 }
 
-const mapStateToProps = ({ account: { information: info, fetching, error } }) => {
-
+const mapStateToProps = ({
+  account: { information: info, fetching, error }
+}) => {
   return { info, fetching, error }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getProfile: () => dispatch(AccountActions.accountRequest()),
-    requestNewAccount: (...data) => dispatch(AccountActions.newAccountRequest(...data))
+    requestNewAccount: (...data) =>
+      dispatch(AccountActions.newAccountRequest(...data))
   }
 }
 
