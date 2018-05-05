@@ -15,14 +15,14 @@ class CreateAccountsTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->char('number', 12)->primary()->index();
-            $table->double('balance', 20, 8)->default(0);//todo DOUBLE(size,d)
+            $table->double('balance', 20, 8)->default(0);
             $table->boolean('isValid')->default(false);
             $table->timestamps();
             $table->char('currency_id',3);
             $table->foreign('currency_id')->references('code')->on('currencies');
             $table->char('type_id',5);
-            $table->string('client_id',55);
-            $table->foreign('client_id')->references('email')->on('clients');
+            $table->string('client_id',55)->nullable();
+//            $table->foreign('client_id')->references('email')->on('clients');//todo cause of tharwa acc
         });
     }
 

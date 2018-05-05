@@ -41,3 +41,5 @@ Route::post('/virement/validations', 'VirmentController@validateVirement')->midd
 
 Route::get('/account/validations', 'AccountController@validationList')->middleware(AuthManager::class);
 Route::post('/account/validations', 'AccountController@validateAccount')->middleware(AuthManager::class);
+
+Route::get('/dashboard', 'DashboardController@index')->middleware(AuthManager::class);

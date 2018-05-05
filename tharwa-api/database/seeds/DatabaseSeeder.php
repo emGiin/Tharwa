@@ -104,6 +104,12 @@ class DatabaseSeeder extends Seeder
 
         $accounts  = DB::table('accounts');
         $accounts->insert([
+            'number'=>'THW000000DZD',
+            'currency_id'=>'DZD',
+            'type_id'=>'COUR',
+            'client_id'=>'gestionnaire@tharwa.com',
+        ]);
+        $accounts->insert([
             'number'=>'THW000001DZD',
             'currency_id'=>'DZD',
             'type_id'=>'COUR',
