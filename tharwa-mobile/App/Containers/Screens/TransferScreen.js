@@ -19,7 +19,7 @@ class TransferScreen extends Component {
   }
 
   render() {
-    const { params = { type: 'myAccount' } } = this.props.navigation.state;
+    const { params = { type: 'tharwaAccount' } } = this.props.navigation.state;
     const fetching = false;
     const Form = this.forms[params.type]
 

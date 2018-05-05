@@ -17,7 +17,8 @@ export class ProofStepForm extends Component {
 
   render() {
     const { previousPage, handleSubmit } = this.props;
-    const imageSrc = this.state.picture ? { uri: this.state.picture } : Images.avatar
+    const imageSrc = Images.avatar
+
     return (
       <Container style={fomrsStyles.mainformContainer}>
         <View style={styles.container}>

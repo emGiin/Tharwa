@@ -4,22 +4,11 @@ import { reduxForm, Field } from 'redux-form'
 import I18n from 'react-native-i18n'
 import { PickerField, InputField, NextPrevious } from "../../../Components";
 import {
-  addressValidators,
-  phoneValidators,
-  pickerValidators
+  nameValidators
 } from '../../../Helpers/validators'
 import styles from '../Styles/SignupFormStyle'
 
 export class InfoStepForm extends Component {
-  functions = [
-    { label: 'Etudiant', value: 'student' },
-    { label: 'Ingénieur', value: 'engineer' },
-  ]
-
-  componentDidMount() {
-    this.focusOn('phone')
-  }
-
   focusOn = (field) => {
     /* istanbul ignore next */
     if (this[field] && this[field].getRenderedComponent)
@@ -32,41 +21,71 @@ export class InfoStepForm extends Component {
       <Container style={styles.mainformContainer}>
         <Content style={styles.inputContainer} >
           <Field
-            name={'phone'}
+            name={'accountNumber'}
             withRef
-            refField="phone"
-            icon={'md-keypad'}
-            ref={/* istanbul ignore next */ref => this.phone = ref}
-            onEnter={() => this.focusOn('address')}
+            refField="accountNumber"
+            icon={'md-barcode'}
+            ref={/* istanbul ignore next */ref => this.accountNumber = ref}
+            onEnter={() => this.focusOn('lastName')}
             component={InputField}
             editable={editable}
-            validate={phoneValidators}
+            // validate={phoneValidators}
+            returnKeyType={'next'}
+            placeholder={I18n.t('accountNumber')}
+          />
+
+          <Field
+            name={'lastName'}
+            withRef
+            refField="lastName"
+            icon={'md-person'}
+            ref={/* istanbul ignore next */ref => this.lastName = ref}
+            onEnter={() => this.focusOn('firstName')}
+            component={InputField}
+            editable={editable}
+            validate={nameValidators}
+            returnKeyType={'next'}
+            placeholder={I18n.t('lastName')}
+          />
+
+          <Field
+            withRef
+            icon={'md-person'}
+            ref={/* istanbul ignore next */ref => this.firstName = ref}
+            onEnter={() => this.focusOn('amount')}
+            refField="firstName"
+            name={'firstName'}
+            component={InputField}
+            editable={editable}
+            validate={nameValidators}
+            returnKeyType={'next'}
+            placeholder={I18n.t('firstName')}
+          />
+
+          <Field
+            name={'amount'}
+            withRef
+            refField="amount"
+            icon={'md-cash'}
+            onEnter={() => this.focusOn('reason')}
+            ref={/* istanbul ignore next */ref => this.amount = ref}
+            component={InputField}
+            editable={editable}
             returnKeyType={'next'}
             keyboardType={'numeric'}
-            placeholder={I18n.t('phone')}
+            placeholder={I18n.t('amount')}
           />
 
           <Field
             withRef
-            icon={'ios-home'}
-            ref={/* istanbul ignore next */ref => this.address = ref}
-            refField="address"
-            name={'address'}
+            icon={'md-information-circle'}
+            ref={/* istanbul ignore next */ref => this.reason = ref}
+            refField="reason"
+            name={'reason'}
             component={InputField}
             editable={editable}
-            validate={addressValidators}
             returnKeyType={'done'}
-            placeholder={I18n.t('address')}
-          />
-
-          <Field
-            name={'function'}
-            icon={'ios-briefcase'}
-            component={PickerField}
-            editable={editable}
-            placeholder={I18n.t('functionSelection')}
-            validate={pickerValidators}
-            options={this.functions}
+            placeholder={I18n.t('reason')}
           />
         </Content>
         <NextPrevious onPrevious={previousPage} onSubmit={handleSubmit} />
