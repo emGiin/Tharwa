@@ -6,6 +6,7 @@ import { Header } from '../../../Components'
 import InfoStepForm from './InfoStepForm'
 import ProofStepForm from './ProofStepForm'
 import ProgressStepForm from './ProgressStepForm'
+import { Colors } from '../../../Themes';
 
 class TransferForm extends Component {
   formSteps = [
@@ -43,7 +44,9 @@ class TransferForm extends Component {
   render() {
     const { CurrentFormComponent, formStepProps } = this.getNextComponent(this.state.currentPage)
     return (
-      <View style={styles.mainformContainer}>
+      <View style={[styles.mainformContainer, {
+        backgroundColor: Colors.background
+      }]}>
         <Header icon={'md-arrow-round-back'} text={I18n.t('transfer')} />
         <CurrentFormComponent {...formStepProps} />
       </View>

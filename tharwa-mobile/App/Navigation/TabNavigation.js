@@ -26,7 +26,7 @@ const screens = {
     screen: TransferScreen,
     navigationOptions: {
       tabBarLabel: 'Virement Tharwa',
-      tabBarIcon: props => <TabIcon {...props} icon='account-switch' unselectedIcon='account-switch' />,
+      tabBarIcon: props => <TabIcon {...props} icon='transfer' unselectedIcon='transfer' />,
       params: { type: 'tharwaAccount' }
     }
   },
@@ -34,7 +34,7 @@ const screens = {
     screen: TransferScreen,
     navigationOptions: {
       tabBarLabel: 'Virement externe',
-      tabBarIcon: props => <TabIcon {...props} icon='account-multiple' unselectedIcon='account-multiple' />,
+      tabBarIcon: props => <TabIcon {...props} icon='bank' unselectedIcon='bank' />,
       params: { type: 'externalAccount' }
     }
   },
