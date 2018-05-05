@@ -22,7 +22,7 @@ class CreateBalnacesHistoryTable extends Migration
             $table->char('account_id', 12);
             $table->foreign('account_id')->references('number')->on('accounts');
             $table->boolean('isIntern')->nullable(); //added v2 db
-            $table->string('receiver');//added v2 db
+            $table->string('target');//added v2 db [is the one who receive or send the money , nb acc or name]
             $table->timestamps();
         });
     }

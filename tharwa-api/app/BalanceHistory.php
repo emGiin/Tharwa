@@ -12,18 +12,18 @@ class BalanceHistory extends Model
 
     protected $primaryKey = 'id';
 
-    protected $visible = ['amount', 'transaction_direction', 'created_at', 'receiver'];
+    protected $visible = ['amount', 'transaction_direction', 'created_at', 'target'];
 
 
-    public function receiver()
+    public function target()
     {
         if ($this->isintern == '1') {
-            return Account::find($this->receiver)
+            return Account::find($this->target)
                 ->client()
                 ->first()
                 ->name();
         } else {
-            return $this->receiver;
+            return $this->target;
         }
     }
 

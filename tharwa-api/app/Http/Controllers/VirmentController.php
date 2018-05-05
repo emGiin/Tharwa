@@ -71,6 +71,8 @@ class VirmentController extends Controller
                 'amount' => $amount + $commission,//todo put it negative !!
                 'transaction_type' => $mapMethodeToTransactionType[$method],
                 'transaction_direction' => 'out',
+                'isIntern' => true,
+                'target' => $receiverAccount->number,
                 'account_id' => $senderAccount->number,
                 'created_at' => $now->format('Y-m-d H:i:s'),
                 'updated_at' => $now->format('Y-m-d H:i:s')
@@ -83,6 +85,8 @@ class VirmentController extends Controller
                 'amount' => $amount,
                 'transaction_type' => $mapMethodeToTransactionType[$method],
                 'transaction_direction' => 'in',
+                'isIntern' => true,
+                'target' => $senderAccount->number,
                 'account_id' => $receiverAccount->number,
                 'created_at' => $now->format('Y-m-d H:i:s'),
                 'updated_at' => $now->format('Y-m-d H:i:s')
@@ -178,6 +182,8 @@ class VirmentController extends Controller
                 'amount' => $amount + $commission,//todo put it negative !!
                 'transaction_type' => 'vir_client',
                 'transaction_direction' => 'out',
+                'isIntern' => true,
+                'target' => $request->input('receiver.account'),
                 'account_id' => $senderAccount->number,
                 'created_at' => $now->format('Y-m-d H:i:s'),
                 'updated_at' => $now->format('Y-m-d H:i:s')
@@ -193,6 +199,8 @@ class VirmentController extends Controller
                     'amount' => $amount,
                     'transaction_type' => 'vir_client',
                     'transaction_direction' => 'in',
+                    'isIntern' => true,
+                    'target' => $senderAccount->number,
                     'account_id' => $request->input('receiver.account'),
                     'created_at' => $now->format('Y-m-d H:i:s'),
                     'updated_at' => $now->format('Y-m-d H:i:s')
@@ -340,6 +348,8 @@ class VirmentController extends Controller
                 'amount' => $amount + $commission,
                 'transaction_type' => 'transf',
                 'transaction_direction' => 'out',
+                'isIntern' => false,
+                'target' => $request->input('receiver.name'),
                 'account_id' => $senderAccount->number,
                 'created_at' => $now->format('Y-m-d H:i:s'),
                 'updated_at' => $now->format('Y-m-d H:i:s')
@@ -507,6 +517,8 @@ class VirmentController extends Controller
                         'amount' => $interTransfer->amount,
                         'transaction_type' => 'vir_client',//todo change it to 'reject' after migration
                         'transaction_direction' => 'in',
+                        //'isIntern' => null,
+                        'target' => "Tharwa reject your intern transfer",
                         'account_id' => $interTransfer->source_id,
                         'created_at' => $now->format('Y-m-d H:i:s'),
                         'updated_at' => $now->format('Y-m-d H:i:s')
@@ -528,6 +540,8 @@ class VirmentController extends Controller
                         'amount' => $interTransfer->amount,
                         'transaction_type' => 'vir_client',
                         'transaction_direction' => 'in',
+                        'isIntern' => true,
+                        'target' => $interTransfer->source_id,
                         'account_id' => $interTransfer->destination_id,
                         'created_at' => $now->format('Y-m-d H:i:s'),
                         'updated_at' => $now->format('Y-m-d H:i:s')
@@ -556,6 +570,8 @@ class VirmentController extends Controller
                         'amount' => $exterTransfer->amount,
                         'transaction_type' => 'vir_client',//todo change it to 'reject' after migration
                         'transaction_direction' => 'in',
+                        //'isIntern' => null,
+                        'target' => "Tharwa reject your extern transfer",
                         'account_id' => $exterTransfer->source_id,
                         'created_at' => $now->format('Y-m-d H:i:s'),
                         'updated_at' => $now->format('Y-m-d H:i:s')
