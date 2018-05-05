@@ -4,7 +4,8 @@ import { reduxForm, Field } from 'redux-form'
 import I18n from 'react-native-i18n'
 import { InputField, NextPrevious } from "../../../Components";
 import {
-  nameValidators
+  nameValidators, accountValidators,
+  requiredValidator, amountValidators
 } from '../../../Helpers/validators'
 import styles from '../Styles/SignupFormStyle'
 import { Colors } from '../../../Themes';
@@ -31,7 +32,7 @@ export class InfoStepForm extends Component {
             onEnter={() => this.focusOn('lastName')}
             component={InputField}
             editable={editable}
-            // validate={phoneValidators}
+            validate={accountValidators}
             returnKeyType={'next'}
             placeholder={I18n.t('accountNumber')}
           />
@@ -45,7 +46,7 @@ export class InfoStepForm extends Component {
             onEnter={() => this.focusOn('firstName')}
             component={InputField}
             editable={editable}
-            // validate={nameValidators}
+            validate={nameValidators}
             returnKeyType={'next'}
             placeholder={I18n.t('lastName')}
           />
@@ -59,7 +60,7 @@ export class InfoStepForm extends Component {
             name={'firstName'}
             component={InputField}
             editable={editable}
-            // validate={nameValidators}
+            validate={nameValidators}
             returnKeyType={'next'}
             placeholder={I18n.t('firstName')}
           />
@@ -73,6 +74,7 @@ export class InfoStepForm extends Component {
             ref={/* istanbul ignore next */ref => this.amount = ref}
             component={InputField}
             editable={editable}
+            validate={amountValidators}
             returnKeyType={'next'}
             keyboardType={'numeric'}
             placeholder={I18n.t('amount')}
@@ -86,6 +88,7 @@ export class InfoStepForm extends Component {
             name={'reason'}
             component={InputField}
             editable={editable}
+            validate={[requiredValidator]}
             returnKeyType={'done'}
             placeholder={I18n.t('reason')}
           />

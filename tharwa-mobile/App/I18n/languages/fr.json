@@ -57,5 +57,7 @@
   "transfer": "Virement Bancaire",
   "recieverInformation": "Information du destinataire",
   "transferInProgress": "Transfert en cours, veuiller patienter",
-  "confirmTransfer": "Confimer le transfer en cliquant sur le boutton ci-dessous"
+  "confirmTransfer": "Confimer le transfer en cliquant sur le boutton ci-dessous",
+  "invalidAccountError": "Numéro de compte invalide",
+  "invalidAmountError": "La montant est invalide"
 }
