@@ -17,7 +17,7 @@ class CustomTabBar extends Component {
     const currentRoute = routes[index].key
 
     for (let [key, { navigationOptions: options }] of Object.entries(screens)) {
-      const color = (currentRoute === key) ? Colors.button : Colors.background;
+      const color = (currentRoute === key) ? Colors.button : Colors.forground;
       const isFocused = currentRoute === key;
 
       items.push(

@@ -5,8 +5,7 @@ export default StyleSheet.create({
   tabContainer: {
     flexDirection: 'row',
     width: '100%',
-    elevation: 5,
-    backgroundColor: Colors.background
+    elevation: 5
   },
   tab: {
     flex: 1,
