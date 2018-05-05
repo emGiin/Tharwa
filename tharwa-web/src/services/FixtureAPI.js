@@ -128,12 +128,11 @@ export default {
       data: "testt ok"
     };
   },
-  getNbV:()=>{
+  stats:()=>{
     return {
       ok:true,
-      data:{
-        nbV:2004
-      }
+      data:  require("../fixtures/stats.json")
+      
     }
   }
 };

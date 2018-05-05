@@ -105,23 +105,7 @@ const data_op_year = {
     }
   ]
 };
-const data_empty = {
-  labels: ['','', '', '', '', '', '', '', '', '', '', '', ''],
-  datasets: [
-    {
-      label: '',
-      data: [0,0,0,0,0,0,0,0,0,0,0,0,0,]
-    },
-    {
-      label: '',
-      data: [0,0,0,0,0,0,0,0,0,0,0,0,0,]
-    },
-    {
-      label: '',
-      data: [0,0,0,0,0,0,0,0,0,0,0,0,0,]
-    }
-  ]
-};
+
 
 const data_comm = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -179,7 +163,7 @@ labels: [
 ],
 datasets: [
   {
-  data: [70, 30],
+  data: [50, 30],
   backgroundColor: [
   '#CCC',
   '#36A2EB'
@@ -208,7 +192,9 @@ class Dashboard extends Component {
     this.state = {
       nbV:0,
       nbInscr:0,
-      data_operations:data_empty
+      data_op_mois:data_op_mois,
+      data_op_trimestre:data_op_trimestre,
+      data_op_year:data_op_year,
       };
   }
   
@@ -281,7 +267,21 @@ class Dashboard extends Component {
 
         
 <h2>Revenus des Commissions :</h2>
-<Line data={data_comm} />
+<Tabs defaultActiveKey="2">
+    <TabPane tab={<span className="tabBtn"><Icon type="dot-chart" />Par Jour</span>} key="1">
+        <Line data={data_comm} />
+    </TabPane>
+    <TabPane tab={<span className="tabBtn"><Icon type="dot-chart" />Par Mois</span>} key="2">
+        <Line data={data_comm} />
+    </TabPane>
+    <TabPane tab={<span className="tabBtn"><Icon type="bar-chart" />Par Trimestre</span>} key="3">
+        <Line data={data_comm} />
+    </TabPane>
+    <TabPane tab={<span className="tabBtn"><Icon type="dot-chart" />Par Année</span>} key="4">
+        <Line data={data_comm} />
+    </TabPane>
+  </Tabs>
+
     
       </div>
     );

@@ -13,7 +13,8 @@ export default Creators;
 
 const INITIAL_STATE = Immutable({
   featching:true,
-  nbV:9
+  nbV:9,
+  stats:null
 });
 
 export const getNbV = state =>{
@@ -24,6 +25,11 @@ return temp
 
 export const setNbV = (state,{nb}) => {
 var tmp =   state.merge({ nbV:nb })
+
+return tmp
+}
+export const setStats = (state,{stats}) => {
+var tmp =   state.merge({ stats })
 console.log('hello status redux')
 return tmp
 }
