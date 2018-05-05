@@ -27,16 +27,17 @@ class TransferScreen extends Component {
     return (
       <View style={{ height: '100%', flex: 1, backgroundColor: '#c9d0de'}}>
         <TransferFormClientAccount />
-     
+        </View>
+      <View style={{ height: '100%', flex: 1, backgroundColor: '#f3f3f3' }}>
+        <Form onSubmit={this.submit} editable={!fetching} />
       </View>
     )
   }
 }
 
-const mapStateToProps = ({ transfert: { fetching, error, success } }) => {
+const mapStateToProps = (state) => {
   return {
-    fetching, error, success
-  };
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
