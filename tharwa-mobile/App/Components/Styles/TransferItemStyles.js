@@ -6,7 +6,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.white,
     marginVertical: 3,
     padding: 7,
-    elevation: 3,
+    elevation: 2,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },

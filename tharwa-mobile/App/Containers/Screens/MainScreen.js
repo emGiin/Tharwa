@@ -5,9 +5,11 @@ import {
   RefreshControl, TouchableOpacity,
   View, FlatList
 } from 'react-native'
-import { Text } from 'native-base'
+import { Header, Button, Text, Fab } from 'native-base'
 import Carousel from 'react-native-snap-carousel';
 import { DialogButton } from 'react-native-popup-dialog'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ActionButton from 'react-native-action-button';
 import AccountActions from '../../Redux/AccountRedux'
 import {
   MainHeader, TransferItem,
@@ -71,7 +73,6 @@ class MainScreen extends Component {
   )
 
   render() {
-    console.warn(this.props.fetching);
     const { width, height } = Dimensions.get('window')
     const { info } = this.props
     const selectedAccount = info[this.state.selectedAccount]

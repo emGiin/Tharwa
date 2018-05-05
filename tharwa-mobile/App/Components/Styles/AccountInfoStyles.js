@@ -10,7 +10,7 @@ export default StyleSheet.create({
     shadowOffset: { width: 5, height: 5 },
     shadowColor: Colors.white,
     shadowOpacity: 1,
-    elevation: 10,
+    elevation: 5,
     backgroundColor: Colors.white, // invisible color
     margin: 3
   },
