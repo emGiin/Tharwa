@@ -15,18 +15,6 @@ use Validator;
 class ClientController extends Controller
 {
 
-    static function base64_to_jpeg($base64_string, $output_file)
-    {
-        // split the string on commas
-        // $data[ 0 ] == "data:image/png;base64"
-        // $data[ 1 ] == <actual base64 string>
-        $data = explode(',', $base64_string);
-
-        Storage::put($output_file, base64_decode($data[1]));
-
-        return $output_file;
-    }
-
     public function create(Request $request)
     {
         //validation

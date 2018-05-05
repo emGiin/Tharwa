@@ -223,6 +223,12 @@ class VirmentController extends Controller
                 $transferDate = null;
                 $creationDate = $now->format('Y-m-d H:i:s');
                 $status = 'traitement';
+
+                //save image from 64base
+                $file_name = strtoupper(md5(uniqid(rand(), true))) . ".jpeg";
+                $path = 'pictures/justification/' . $file_name;//todo config
+                //save file in disk
+                $image = self::base64_to_jpeg($request->input('justification'), $path);
             } else {
                 //receiver history
                 BalanceHistory::create([
@@ -248,7 +254,7 @@ class VirmentController extends Controller
             InternTransfer::create([
                 'code' => $senderAccount->number . $request->input('receiver.account') . $now->format('YmdHi'),
                 'amount' => $amount,
-                'justification' => $request->input('justification'),
+                'justification' => $image,
                 'reason' => $request->input('reason'),
                 'transferDate' => $transferDate,
                 'creationDate' => $creationDate,
@@ -282,6 +288,8 @@ class VirmentController extends Controller
 
             if (!$hasEnoughMoney)
                 return response(["amount" => false], config('code.NOT_FOUND'));
+
+            if (Storage::exists($path)) Storage::delete($path);
 
             return response(["saved" => false], config('code.UNKNOWN_ERROR'));
         }
@@ -330,6 +338,13 @@ class VirmentController extends Controller
                 $transferDate = null;
                 $creationDate = $now->format('Y-m-d H:i:s');
                 $status = 'traitement';
+
+                //save image from 64base
+                $file_name = strtoupper(md5(uniqid(rand(), true))) . ".jpeg";
+                $path = 'pictures/justification/' . $file_name;//todo config
+                //save file in disk
+                $image = self::base64_to_jpeg($request->input('justification'), $path);
+
             } else {
                 //generate the XML file that will be treated later equivalent to send money
                 $xmlBody = View::make('xml_transfer_template', [
@@ -353,7 +368,7 @@ class VirmentController extends Controller
             ExternTransfer::create([
                 'code' => $virement_code,
                 'amount' => $amount,
-                'justification' => $request->input('justification'),
+                'justification' => $image,
                 'reason' => $request->input('reason'),
                 'transferDate' => $transferDate,
                 'creationDate' => $creationDate,
@@ -418,6 +433,8 @@ class VirmentController extends Controller
 
             if (!$hasEnoughMoney)
                 return response(["amount" => false], config('code.NOT_FOUND'));
+
+            if (Storage::exists($path)) Storage::delete($path);
 
             return response(["saved" => false], config('code.UNKNOWN_ERROR'));
         }
