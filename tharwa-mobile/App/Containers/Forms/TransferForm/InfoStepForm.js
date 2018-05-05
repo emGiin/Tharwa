@@ -23,7 +23,7 @@ export class InfoStepForm extends Component {
         <Content style={styles.inputContainer} >
           <Text style={{ color: Colors.white }}>{I18n.t('recieverInformation')}</Text>
           <Field
-            name={'accountNumber'}
+            name={'receiver.account'}
             withRef
             refField="accountNumber"
             icon={'md-barcode'}

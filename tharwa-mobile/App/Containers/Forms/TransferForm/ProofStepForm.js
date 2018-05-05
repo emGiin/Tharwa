@@ -26,7 +26,7 @@ export class ProofStepForm extends Component {
             {I18n.t('transferProofPicture')}
           </Text>
           <Field
-            name={'picture'}
+            name={'justification'}
             component={CameraPicker}
             onCapture={this.capturePicture.bind(this)}
             previousPage={previousPage}

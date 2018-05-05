@@ -12,12 +12,10 @@ import { Colors } from '../../../Themes';
 import { formatMoney } from '../../../Transforms';
 
 export class ProgressStepForm extends Component {
-  state = { confirmed: false }
-
   render() {
     const { editable, handleSubmit, previousPage } = this.props;
     const size = Dimensions.get('window').width / 2;
-    const { confirmed } = this.state
+    const { confirmed } = !editable
     return (
       <Container style={formStyles.mainformContainer}>
         <Text style={styles.detailsText}>
@@ -30,7 +28,7 @@ export class ProgressStepForm extends Component {
           <TouchableOpacity style={styles.button}
             disabled={confirmed}
             activeOpacity={0.8}
-            onPress={() => this.setState({ confirmed: true })}>
+            onPress={handleSubmit}>
             <Text
               adjustsFontSizeToFit
               numberOfLines={1}
