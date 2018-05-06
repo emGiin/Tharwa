@@ -16,6 +16,34 @@ use Validator;
 
 class VirmentController extends Controller
 {
+    private function getConversionRate($method)
+    {
+        if ($method == 'cour_epar' || $method == 'epar_cour')
+            return 1;
+
+        $mapMethodeToCurrencies = ['cour_devi_usd' => 'DZD_USD',
+            'devi_cour_usd' => 'USD_DZD',
+            'cour_devi_eur' => 'DZD_EUR',
+            'devi_cour_eur' => 'EUR_DZD'];
+
+        $currencies = $mapMethodeToCurrencies[$method];
+
+        $api = new \GuzzleHttp\Client();
+        $res = $api->get('http://free.currencyconverterapi.com/api/v5/convert?q=' . $currencies . '&compact=y')
+            ->getBody();
+
+        $res = json_decode($res);
+
+        return $res->$currencies->val;
+    }
+
+    private function toDZD($amount, $conversionRate, $method)
+    {
+        if (in_array($method, ['cour_epar', 'epar_cour', 'cour_devi_usd', 'cour_devi_eur']))
+            return $amount;
+
+        return $amount * $conversionRate;
+    }
 
     public function createBetweenMyAccounts(Request $request)
     {
@@ -36,8 +64,6 @@ class VirmentController extends Controller
         /**start transaction**/
         DB::beginTransaction();
 
-        //todo check if he had this type of account
-
         try {
 
             $senderAccount = $this->client()->accounts()
@@ -46,8 +72,8 @@ class VirmentController extends Controller
             $receiverAccount = $this->client()->accounts()
                 ->typeReceiver($method)->first();//todo check methode first()
 
-            //check has the account
-            if (is_null($receiverAccount)) throw new \Exception;
+            //check has the two accounts
+            if (is_null($senderAccount) || is_null($receiverAccount)) throw new \Exception;
             $hasTheAccount = true;
 
             //check the amount
@@ -58,8 +84,8 @@ class VirmentController extends Controller
             $mapMethodeToCommission = ['cour_epar' => 'COUR_EPART', 'epar_cour' => 'EPART_COUR',
                 'cour_devi_usd' => 'COUR_DEV', 'cour_devi_eur' => 'COUR_DEV',
                 'devi_cour_eur' => 'DEV_COUR', 'devi_cour_usd' => 'DEV_COUR'];
-            $str = 'commission.' . $mapMethodeToCommission[$method];
             $commission = config('commission.' . $mapMethodeToCommission[$method]) * $amount;
+            $conversionRate = $this->getConversionRate($method);
             $now = \Carbon\Carbon::now();
             $nb = BalanceHistory::count();//todo fix this !all sol tested! re-migrate DB
             //sender history
@@ -68,7 +94,7 @@ class VirmentController extends Controller
                 'devi_cour_eur' => 'vir_cour', 'devi_cour_usd' => 'vir_cour'];
             BalanceHistory::create([
                 'id' => $nb + 1,
-                'amount' => $amount + $commission,//todo put it negative !!
+                'amount' => $amount + $commission,//without conversion rate
                 'transaction_type' => $mapMethodeToTransactionType[$method],
                 'transaction_direction' => 'out',
                 'isIntern' => true,
@@ -82,7 +108,7 @@ class VirmentController extends Controller
             //receiver history
             BalanceHistory::create([
                 'id' => $nb + 2,
-                'amount' => $amount,
+                'amount' => $amount * $conversionRate,//use conversion rate
                 'transaction_type' => $mapMethodeToTransactionType[$method],
                 'transaction_direction' => 'in',
                 'isIntern' => true,
@@ -92,25 +118,27 @@ class VirmentController extends Controller
                 'updated_at' => $now->format('Y-m-d H:i:s')
             ]);
             //change the amount of the destination client
-            $receiverAccount->balance = $receiverAccount->balance + $amount;
+            $receiverAccount->balance = $receiverAccount->balance + ($amount * $conversionRate);
             $receiverAccount->save();
 
             $mapMethodeToTransferType = ['cour_epar' => 'cour_epar', 'epar_cour' => 'epar_cour',
                 'cour_devi_usd' => 'cour_devi', 'cour_devi_eur' => 'cour_devi',
                 'devi_cour_eur' => 'devi_cour', 'devi_cour_usd' => 'devi_cour'];
+            $commissionDZD = $this->toDZD($commission, $conversionRate, $method);
+            $amountDZD = $this->toDZD($amount, $conversionRate, $method);
             InternTransfer::create([
                 'code' => $senderAccount->number . $receiverAccount->number . $now->format('YmdHi'),
-                'amount' => $amount,
+                'amount' => $amountDZD,
                 'transferDate' => $now->format('Y-m-d H:i:s'),
                 'creationDate' => $now->format('Y-m-d H:i:s'),
                 'status' => 'valide',
                 'transfers_type' => $mapMethodeToTransferType[$method],
-                'commission' => $commission,
+                'commission' => $commissionDZD,
+                'conversionRate' => $conversionRate,
                 'source_id' => $senderAccount->number,
                 'destination_id' => $receiverAccount->number,
             ]);
 
-            //todo send commission to Tharwa account
             //we retrieve the amount from the sender account
             $senderAccount->balance = $senderAccount->balance - $commission - $amount;
             $senderAccount->save();
@@ -119,7 +147,7 @@ class VirmentController extends Controller
             //Tharwa commission history
             BalanceHistory::create([
                 'id' => $nb + 3,
-                'amount' => $commission,
+                'amount' => $commissionDZD,
                 'transaction_type' => 'commiss',
                 'transaction_direction' => 'in',
                 'account_id' => 'THW000000DZD',
@@ -128,7 +156,7 @@ class VirmentController extends Controller
             ]);
             //change the amount of the Tharwa account
             $tharwaAccount = Account::find('THW000000DZD');
-            $tharwaAccount->balance = $tharwaAccount->balance + $commission;
+            $tharwaAccount->balance = $tharwaAccount->balance + $commissionDZD;
             $tharwaAccount->save();
 
 //            Mail::to($request->input('email'))
