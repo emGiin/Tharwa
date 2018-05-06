@@ -21,9 +21,16 @@ class PickerField extends Component {
       editable, placeholder
     } = this.props;
     const error = meta.invalid && (input.value === 'placeholder' || meta.touched);
+    const hasValue = !!input.value
     return (
       <View>
-        <Item style={[styles.inputTxt, { paddingLeft: 10 }]}>
+        {
+          hasValue &&
+          <Text style={styles.placeholder}>
+            {placeholder}
+          </Text>
+        }
+        <Item style={[styles.inputTxt, { paddingLeft: 10 }, !hasValue && { marginTop: 10 }]}>
           <Icon name={icon} style={styles.inputIcon} />
           <Picker
             style={{ flex: 1, color: '#fff' }}
