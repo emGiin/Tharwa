@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { View } from 'react-native'
 import { connect } from 'react-redux'
 import { reset } from 'redux-form';
-import { TransferFormClientAccount } from '../../Components'
+import TransferFormClientAccount from '../Forms/TransferFormClientAccount'
 import { TransferForm } from '../Forms'
-
+import { Colors} from '../../Themes'
 // Redux
 import TransferActions from '../../Redux/TransferRedux'
 
@@ -33,7 +33,7 @@ class TransferScreen extends Component {
     const Form = this.forms[params.type]
 
     return (
-      <View style={{ height: '100%', flex: 1, backgroundColor: '#f3f3f3' }}>
+      <View style={{ height: '100%', flex: 1, backgroundColor: Colors.white }}>
         <Form.component onSubmit={Form.submit} editable={!fetching} />
       </View>
     )

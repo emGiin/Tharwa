@@ -55,7 +55,7 @@ class MainScreen extends Component {
       error={error}
       fetching={fetching}
       fetchingTitle={"Nouveau Compte"}
-      fetchingMessage={"Creaction du compte est en cours"}
+      fetchingMessage={"Creation du compte est en cours"}
       defaultTitle={"Nouveau Compte"}
       defaultMessage={"Etes vous sur de creer un nouveau compte?"}
     >

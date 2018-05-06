@@ -3,8 +3,12 @@ import I18n from 'react-native-i18n'
 import TransferActions from '../Redux/TransferRedux'
 
 // attempts to transfert
-export function* myAccountTransfer(api, data) {
-  const response = yield call(api.myAccountTransfer, data)
+export function* myAccountTransfer(api, { data }) {
+  const request = {
+    method: `${data.from}_${data.to}`,
+    amount: data.amount
+  }
+  const response = yield call(api.myAccountTransfer, request)
 
   // success?
   if (response.ok) {
