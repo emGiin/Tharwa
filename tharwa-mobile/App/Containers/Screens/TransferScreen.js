@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { reset } from 'redux-form';
 import TransferFormClientAccount from '../Forms/TransferFormClientAccount'
 import { TransferForm } from '../Forms'
-import { Colors} from '../../Themes'
+import { Colors } from '../../Themes'
 // Redux
 import TransferActions from '../../Redux/TransferRedux'
 import BankActions from '../../Redux/BankRedux'
@@ -40,10 +40,6 @@ class TransferScreen extends Component {
     const Form = this.forms[params.type]
 
     return (
-<<<<<<< HEAD
-      <View style={{ height: '100%', flex: 1, backgroundColor: Colors.background }}>
-        <Form.component onSubmit={Form.submit} editable={!fetching} />
-=======
       <View style={styles.container}>
         <Form.component
           banks={banks}
@@ -51,7 +47,6 @@ class TransferScreen extends Component {
           transferType={params.type}
           onSubmit={Form.submit}
           editable={!fetching} />
->>>>>>> 6b8d26dc170d27d9e832b36c304264afd88772c0
       </View>
     )
   }
