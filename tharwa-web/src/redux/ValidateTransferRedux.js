@@ -1,6 +1,8 @@
 import createReducer from './TableWithActionsRedux';
 
-const {reducer, Types, Creators} = createReducer('TRANSFERS');
+
+export const prefix = 'TRANSFERS'
+const {reducer, Types, Creators} = createReducer(prefix);
 
 export {reducer , Types as ValidateTransferTypes};
 export default Creators;
