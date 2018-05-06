@@ -1,7 +1,7 @@
 export default {
   // auth fixtures
-  setAuthToken: () => { },
-  removeAuthToken: () => { },
+  setAuthHeaders: () => { },
+  removeAuthHeaders: () => { },
   login: (authObj) => {
     if (
       authObj.username === 'user@email.com' &&
