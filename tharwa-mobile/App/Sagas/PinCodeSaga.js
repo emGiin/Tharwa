@@ -16,10 +16,10 @@ export function* confirmPinCode({ authApi, api }, { pinCode }) {
 
   // success? 
   if (response.ok) {
+    yield call(api.setAuthHeaders, response.data.token_, pinCode)
     yield put(PinCodeActions.pinCodeSuccess())
     yield put(AuthActions.saveAuthToken(response.data.token_))
     yield put(AccountActions.saveAccountType(response.data.client_type))
-    yield call(api.setAuthHeaders, pinCode, response.data.token_)
   } else {
     yield put(PinCodeActions.pinCodeFailure(I18n.t('pinCodeDescriptionErreur')))
   }

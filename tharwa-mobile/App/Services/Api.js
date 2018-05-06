@@ -25,7 +25,7 @@ const create = (baseURL = API_URL) => {
   //#endregion
 
   const signup = user => api.post('client', user)
-  const getProfile = () => api.get('profile')
+  const getProfile = () => api.get('client')
   const requestNewAccount = type => api.post('account', { type })
 
   // transfert
