@@ -1,6 +1,8 @@
 import createReducer from './TableWithActionsRedux';
 
-const {reducer, Types, Creators} = createReducer('INSCRIPTIONS');
+
+export const prefix = 'INSCRIPTIONS'
+const {reducer, Types, Creators} = createReducer(prefix);
 
 export {reducer , Types as ConfirmInscriptionTypes};
 export default Creators;
