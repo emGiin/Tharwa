@@ -12,6 +12,7 @@ import { PinCodeTypes } from '../Redux/PinCodeRedux'
 import { SignupTypes } from '../Redux/SignupRedux'
 import { AccountTypes } from '../Redux/AccountRedux'
 import { TransferTypes } from '../Redux/TransferRedux'
+import { BankTypes } from '../Redux/BankRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -21,6 +22,7 @@ import { confirmPinCode } from './PinCodeSaga'
 import { signup } from './SignupSaga'
 import { getProfile, requestNewAccount } from './AccountSaga'
 import { myAccountTransfer, tharwaTransfer } from './TransferSaga'
+import { getBanks } from './BankSaga'
 /* ------------- API ------------- */
 
 // The API we use is only used from Sagas, so we create it here and pass along
@@ -50,6 +52,9 @@ export default function* root() {
     // account
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getProfile, api),
     takeLatest(AccountTypes.NEW_ACCOUNT_REQUEST, requestNewAccount, api),
+
+    // banks
+    takeLatest(BankTypes.BANK_REQUEST, getBanks, api),
 
     // money transfer
     takeLatest(TransferTypes.MY_ACCOUNT_TRANSFER_REQUEST, myAccountTransfer, api),

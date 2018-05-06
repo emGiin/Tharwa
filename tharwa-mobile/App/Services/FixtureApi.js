@@ -74,5 +74,11 @@ export default {
     return {
       ok: true
     }
-  }
+  },
+  getBanks: () => {
+    return {
+      ok: true,
+      data: require('../Fixtures/banks.json')
+    }
+  },
 }

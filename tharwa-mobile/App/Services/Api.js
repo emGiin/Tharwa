@@ -28,10 +28,14 @@ const create = (baseURL = API_URL) => {
   const getProfile = () => api.get('client')
   const requestNewAccount = type => api.post('account', { type })
 
+  // banks
+  const getBanks = () => api.get('bank')
+
   // transfert
   const transferURL = 'virement'
   const myAccountTransfert = data => api.post(`${transferURL}/myaccount`, data)
   const tharwaTransfer = data => api.post(`${transferURL}/intern`, data)
+  const externalTransfer = data => api.post(`${transferURL}/extern`, data)
 
 
   return {
@@ -42,7 +46,9 @@ const create = (baseURL = API_URL) => {
     getProfile,
     requestNewAccount,
     myAccountTransfert,
-    tharwaTransfer
+    tharwaTransfer,
+    getBanks,
+    externalTransfer
   }
 }
 
