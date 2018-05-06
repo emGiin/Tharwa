@@ -28,6 +28,8 @@ Route::post('/virement/extern', 'VirmentController@createExtern')->middleware(Au
 
 Route::post('/account', 'AccountController@create')->middleware(AuthClient::class);
 
+Route::get('/bank', 'BankController@index')->middleware(AuthClient::class);
+
     /**
      * web managers
      **/
