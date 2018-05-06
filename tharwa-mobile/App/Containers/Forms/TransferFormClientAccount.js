@@ -94,7 +94,7 @@ class TransferFormClientAccount extends Component {
           text={'Virement'}
         />
         <Content style={{
-          marginLeft: 20, marginTop: 10, marginBottom: 50, marginRight: 20, shadowOffset: { width: 5, height: 5 },
+          marginLeft: 30, marginTop: 70, marginBottom: 130, marginRight: 30, shadowOffset: { width: 5, height: 5 },
           shadowColor: Colors.white,
           shadowOpacity: 1,
           elevation: 5,
@@ -102,13 +102,13 @@ class TransferFormClientAccount extends Component {
         }}>
           <Content >
 
-            <Text style={{ marginBottom: 10, fontSize: 18, color: Colors.white, textAlign: 'center' }}> Choisir le compte </Text>
+            {/* <Text style={{ marginBottom: 10, fontSize: 18, color: Colors.white, textAlign: 'center' }}> Choisir le compte </Text>*/}
             <Field
               name={'from'}
               icon={'ios-briefcase'}
               component={PickerField}
               editable={editable}
-              placeholder={I18n.t('functionSelection')}
+              placeholder={I18n.t('accountFromSelection')}
               options={itemsAccountTypeClient}
               onChange={(value) => { this.onValueChange(value) }}
 
@@ -117,20 +117,20 @@ class TransferFormClientAccount extends Component {
 
           </Content>
           <Content>
-            <Text style={{ marginBottom: 10, fontSize: 18, color: Colors.white, textAlign: 'center' }}> Virer Vers </Text>
+            {/*<Text style={{ marginBottom: 10,marginTop: 10, fontSize: 18, color: Colors.white, textAlign: 'center' }}> Virer Vers </Text>*/}
             <Field
               name={'to'}
               icon={'ios-briefcase'}
               component={PickerField}
               editable={editable}
-              placeholder={I18n.t('functionSelection')}
+              placeholder={I18n.t('accountToSelection')}
               options={this.getItems()}
 
             />
           </Content>
           <Content>
-
-            <Form style={{ marginTop: 30 }}>
+            {/*<Text style={{ marginBottom: 10,marginTop: 10, fontSize: 18, color: Colors.white, textAlign: 'center' }}> Introduire le montant </Text>*/}
+            <Form>
               <Field
                 name={'amount'}
                 withRef
@@ -142,7 +142,7 @@ class TransferFormClientAccount extends Component {
                 editable={editable}
                 validate={amountValidators}
                 keyboardType={'numeric'}
-                placeholder={I18n.t('amount')}
+                placeholder={I18n.t('transfertamount')}
               />
             </Form>
 
@@ -150,8 +150,7 @@ class TransferFormClientAccount extends Component {
           <Button style={{
             alignSelf: 'center',
             height: 40,
-
-            marginTop: 70,
+            marginTop: 20,
             borderColor: Colors.button,
             borderWidth: 1,
             borderRadius: 5,
