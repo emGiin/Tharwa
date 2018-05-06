@@ -13,7 +13,7 @@ const NextPrevious = ({
     <View style={styles.nextBtnContainer}>
       {
         onPrevious ?
-          <Button transparent iconLeft onPress={disablePrevious ? () => { } : onPrevious} >
+          <Button transparent iconLeft onPress={onPrevious} >
             <Icon style={styles.button} name='ios-arrow-back-outline' />
             <Text style={styles.button} >{I18n.t('previous')}</Text>
           </Button>
