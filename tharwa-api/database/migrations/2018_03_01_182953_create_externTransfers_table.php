@@ -18,16 +18,18 @@ class CreateExternTransfersTable extends Migration
             $table->double('amount', 20, 8);//todo DOUBLE(size,d)
             $table->string('justification')->nullable();
             $table->string('reason')->nullable();
-            $table->dateTime('transferDate');
+            $table->dateTime('transferDate')->nullable();//could be seen also as a validating date
             $table->dateTime('creationDate');
             $table->enum('status', ['traitement', 'valide' ,'rejete']);
             $table->double('commission', 20, 8);
-            $table->double('conversionRate', 20, 8);
+            $table->double('conversionRate', 20, 8)->default(1);
             $table->char('intern_account_id', 12);
             $table->foreign('intern_account_id')->references('number')->on('accounts');
             $table->enum('direction', ['in', 'out']);
             $table->string('extern_account_name');
             $table->string('extern_account_number');
+            $table->char('extern_bank',3);
+//            $table->foreign('extern_bank')->references('banks')->on('code');
         });
     }
 

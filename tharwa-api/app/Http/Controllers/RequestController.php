@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\DB;
 class RequestController extends Controller
 {
 
-    public function __construct()
+    private function manager()
     {
-        $this->manager = resolve(Manager::class);
+        return  resolve(Manager::class);
     }
 
     public function index()
@@ -56,6 +56,8 @@ class RequestController extends Controller
                 ->queue(new ClientRequestValidatedMail($rejectedRequest->firstname.' '.$rejectedRequest->lastname
                     , $request->input('code')));
 
+            return response(["saved" => true], config('code.CREATED'));
+
         }else{//accepted
 
             /**start transaction**/
@@ -78,7 +80,7 @@ class RequestController extends Controller
                     'phone' => $acceptedClient->phone,
                     'type' => $acceptedClient->type,
                 ]);
-                $accountNb = Client::count();
+                $accountNb = Account::count() + 1;
                 Account::create([
                     'number' => 'THW'.sprintf("%06d", $accountNb).'DZD', //todo check if it s the best way
                     'isValid' => true,

@@ -63,6 +63,12 @@ return [
             'bucket' => env('AWS_BUCKET'),
         ],
 
+        'xml_out' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/xml_out'),
+        ],
+
+
     ],
 
 ];
