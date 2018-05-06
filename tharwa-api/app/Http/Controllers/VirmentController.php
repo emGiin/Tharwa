@@ -138,7 +138,11 @@ class VirmentController extends Controller
             // all good
             /**commit - no problems **/
             DB::commit();
-            return response(["saved" => true], config('code.CREATED'));
+
+            return response([
+                "saved" => true,
+                "commission" => $commission
+            ], config('code.CREATED'));
 
         } catch (\Exception $e) {
 
@@ -280,7 +284,11 @@ class VirmentController extends Controller
             // all good
             /**commit - no problems **/
             DB::commit();
-            return response(["saved" => true], config('code.CREATED'));
+
+            return response([
+                "saved" => true,
+                "commission" => $commission
+            ], config('code.CREATED'));
 
         } catch (\Exception $e) {
 
@@ -427,7 +435,11 @@ class VirmentController extends Controller
             // all good
             /**commit - no problems **/
             DB::commit();
-            return response(["saved" => true], config('code.CREATED'));
+
+            return response([
+                "saved" => true,
+                "commission" => $commission
+            ], config('code.CREATED'));
 
         } catch (\Exception $e) {
 
