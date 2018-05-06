@@ -38,7 +38,7 @@ export class InfoStepForm extends Component {
           />
 
           <Field
-            name={'lastName'}
+            name={'receiver.lastName'}
             withRef
             refField="lastName"
             icon={'md-person'}
@@ -57,7 +57,7 @@ export class InfoStepForm extends Component {
             ref={/* istanbul ignore next */ref => this.firstName = ref}
             onEnter={() => this.focusOn('amount')}
             refField="firstName"
-            name={'firstName'}
+            name={'receiver.firstName'}
             component={InputField}
             editable={editable}
             validate={nameValidators}

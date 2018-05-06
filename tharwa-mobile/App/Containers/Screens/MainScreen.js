@@ -74,7 +74,7 @@ class MainScreen extends Component {
     const { width, height } = Dimensions.get('window')
     const { info } = this.props
     const selectedAccount = info[this.state.selectedAccount]
-    const accountHistory = (selectedAccount && selectedAccount.history) || new Array(Math.floor(height / 100));
+    const accountHistory = (selectedAccount && selectedAccount.history) || new Array(3);
 
     return (
       <View style={styles.container}>

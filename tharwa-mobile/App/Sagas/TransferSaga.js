@@ -14,7 +14,7 @@ export function* myAccountTransfer(api, data) {
   }
 }
 
-export function* tharwaTransfer(api, data) {
+export function* tharwaTransfer(api, { data }) {
   const response = yield call(api.tharwaTransfer, data)
 
   // success?
