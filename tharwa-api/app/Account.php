@@ -73,4 +73,14 @@ class Account extends Model
     {
         return $this->hasMany(InternTransfer::class, 'destination_id');
     }
+
+    public function scopeValid($query)
+    {
+        return $query->where('isValid', true);
+    }
+
+    public function scopeBlocked($query)
+    {
+        return $query->where('isValid', false);
+    }
 }

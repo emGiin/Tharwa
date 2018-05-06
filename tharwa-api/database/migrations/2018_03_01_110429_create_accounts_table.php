@@ -16,7 +16,7 @@ class CreateAccountsTable extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->char('number', 12)->primary()->index();
             $table->double('balance', 20, 8)->default(0);
-            $table->boolean('isValid')->default(false);
+            $table->boolean('isValid')->default(true);
             $table->timestamps();
             $table->char('currency_id',3);
             $table->foreign('currency_id')->references('code')->on('currencies');

@@ -28,7 +28,7 @@ class AccountController extends Controller
 
         //the client should not have an acc of the same type
         if ($accsType->contains('type_id', $request->type)) {
-            return response(["saved" => false], config('code.UNAUTHORIZED'));
+            return response(["saved" => false, "account" => "already exist"], config('code.UNAUTHORIZED'));
         }
 
         //save to db

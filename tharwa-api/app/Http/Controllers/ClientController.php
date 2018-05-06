@@ -96,20 +96,39 @@ class ClientController extends Controller
         $infos = collect(['infos' => $client]);
 
         //get (amount & 10 last transact) for each account type
-        //todo if accounts are blocked
-        $accounts = $client->accounts()->get();
+        $accounts = $client->accounts()->valid()->get();
         foreach ($accounts as $account) {
             $infos->put(
                 trim($account->type_id), [
                 'amount' => $account->balance,
                 'history' => $account->history()
-                    ->orderBy('created_at','desc')
+                    ->orderBy('created_at', 'desc')
                     ->limit(10)
                     ->get()
                     ->each(function ($item) {
                         $item->target = $item->target();
                     }),
             ]);
+        }
+
+        //the Account are requested //todo if the case of the account was rejected
+        $accountRequests = $client->accountRequests()->get(["created_at", "type_id"]);
+        foreach ($accountRequests as $accountRequest) {
+            $infos->put(trim($accountRequest->type_id), [
+                    "status" => "requested",
+                    "at" => "".$accountRequest["created_at"],
+                ]
+            );
+        }
+
+        //the blocked accounts
+        $blockedAccounts = $client->accounts()->blocked()->get(["updated_at", "type_id"]);
+        foreach ($blockedAccounts as $blockedAccount) {
+            $infos->put(trim($blockedAccount->type_id), [
+                    "status" => "blocked",
+                    "at" => "".$blockedAccount["updated_at"],
+                ]
+            );
         }
 
         return response($infos);

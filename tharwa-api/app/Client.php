@@ -62,6 +62,11 @@ class Client extends Model
         return $this->hasMany(Account::class,'client_id');
     }
 
+    public function accountRequests()
+    {
+        return $this->hasMany(AccountRequest::class,'client_id');
+    }
+
     public function name(){
         return $this->firstname.' '.$this->lastname;
     }
