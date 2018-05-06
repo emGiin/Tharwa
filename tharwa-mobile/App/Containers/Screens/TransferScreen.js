@@ -7,11 +7,14 @@ import { TransferForm } from '../Forms'
 import { Colors} from '../../Themes'
 // Redux
 import TransferActions from '../../Redux/TransferRedux'
+import BankActions from '../../Redux/BankRedux'
 
 // Styles
 import styles from './Styles/TransferScreenStyle'
 
 class TransferScreen extends Component {
+  state = { key: 0 }
+
   forms = {
     "myAccount": {
       component: TransferFormClientAccount,
@@ -23,25 +26,44 @@ class TransferScreen extends Component {
     },
     "externalAccount": {
       component: TransferForm,
-      submit: this.props.tharwaTransfer
+      submit: this.props.externalTransfer
     }
   }
 
+  componentWillMount() {
+    if (this.props.banks.length === 0) this.props.getBanks()
+  }
+
   render() {
-    const { params = { type: 'tharwaAccount' } } = this.props.navigation.state;
-    const { fetching } = this.props;
+    const { params = { type: 'externalAccount' } } = this.props.navigation.state;
+    const { fetching, banks } = this.props;
     const Form = this.forms[params.type]
 
     return (
+<<<<<<< HEAD
       <View style={{ height: '100%', flex: 1, backgroundColor: Colors.background }}>
         <Form.component onSubmit={Form.submit} editable={!fetching} />
+=======
+      <View style={styles.container}>
+        <Form.component
+          banks={banks}
+          key={this.state.key}
+          transferType={params.type}
+          onSubmit={Form.submit}
+          editable={!fetching} />
+>>>>>>> 6b8d26dc170d27d9e832b36c304264afd88772c0
       </View>
     )
   }
 }
 
-const mapStateToProps = ({ transfer: { fetching, error, success } }) => {
-  return { fetching, error, success }
+const mapStateToProps = ({
+  transfer: { fetching, error, success }, bank: { banks }
+}) => {
+  return {
+    fetching, error, success,
+    banks: banks.map(({ code, name }) => ({ label: name, value: code }))
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -50,10 +72,13 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(TransferActions.myAccountTransferRequest(...data)),
     tharwaTransfer: (...data) =>
       dispatch(TransferActions.tharwaTransferRequest(...data)),
+    externalTransfer: (...data) =>
+      dispatch(TransferActions.externalTransferRequest(...data)),
     reset: () => {
       dispatch(TransferActions.reset())
       dispatch(reset('transfer'));
-    }
+    },
+    getBanks: () => dispatch(BankActions.bankRequest())
   }
 }
 

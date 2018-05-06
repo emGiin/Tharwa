@@ -44,10 +44,12 @@ class TransferForm extends Component {
   }
 
   getNextComponent = (currentPage) => {
-    const { fetching, onSubmit } = this.props;
+    const { fetching, onSubmit, transferType, banks } = this.props;
     const formStepProps = {
       editable: !fetching,
       onSubmit: currentPage !== this.formSteps.length ? this.nextPage : onSubmit,
+      transferType,
+      banks
     };
     if (currentPage !== 1) formStepProps.previousPage = this.previousPage;
     const CurrentFormComponent = this.formSteps[currentPage - 1];

@@ -3,16 +3,23 @@ import { View } from 'react-native'
 import { Text, Item, Input, Icon } from 'native-base'
 import styles from '../Styles/FormFieldStyles'
 
+
 class InputField extends Component {
   render() {
     const {
       input, meta, refField, onEnter, icon,
       editable, placeholder, returnKeyType, keyboardType
     } = this.props;
-
+    const hasValue = !!input.value
     return (
       <View>
-        <Item regular style={styles.inputTxt}>
+        {
+          hasValue &&
+          <Text style={styles.placeholder}>
+            {placeholder}
+          </Text>
+        }
+        <Item regular style={[styles.inputTxt, !hasValue && { marginTop: 10 }]}>
           <Icon name={icon} style={styles.inputIcon} />
           <Input
             ref={refField}
