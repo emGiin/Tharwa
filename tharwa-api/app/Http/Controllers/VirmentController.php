@@ -173,6 +173,8 @@ class VirmentController extends Controller
         }
 
 
+        $path = '';
+        $image = '';
         $amount = $request->input('amount');
         $hasEnoughMoney = false;
         /**start transaction**/
@@ -314,6 +316,8 @@ class VirmentController extends Controller
         }
 
 
+        $path = '';
+        $image = '';
         $amount = $request->input('amount');
         $hasEnoughMoney = false;
         /**start transaction**/
