@@ -101,7 +101,8 @@ class VirmentController extends Controller
                 'target' => $receiverAccount->number,
                 'account_id' => $senderAccount->number,
                 'created_at' => $now->format('Y-m-d H:i:s'),
-                'updated_at' => $now->format('Y-m-d H:i:s')
+                'updated_at' => $now->format('Y-m-d H:i:s'),
+                'transfer_code' => $senderAccount->number . $receiverAccount->number . $now->format('YmdHi'),
             ]);
 
 
@@ -115,7 +116,8 @@ class VirmentController extends Controller
                 'target' => $senderAccount->number,
                 'account_id' => $receiverAccount->number,
                 'created_at' => $now->format('Y-m-d H:i:s'),
-                'updated_at' => $now->format('Y-m-d H:i:s')
+                'updated_at' => $now->format('Y-m-d H:i:s'),
+                'transfer_code' => $senderAccount->number . $receiverAccount->number . $now->format('YmdHi'),
             ]);
             //change the amount of the destination client
             $receiverAccount->balance = $receiverAccount->balance + ($amount * $conversionRate);
@@ -172,7 +174,7 @@ class VirmentController extends Controller
                 "commission" => $commission
             ], config('code.CREATED'));
 
-        } catch (\Exception $e) {
+        } catch (\Exception $e) {dd($e);
 
             // something went wrong
             /**rollback every thing - problems **/
@@ -235,7 +237,8 @@ class VirmentController extends Controller
                 'target' => $request->input('receiver.account'),
                 'account_id' => $senderAccount->number,
                 'created_at' => $now->format('Y-m-d H:i:s'),
-                'updated_at' => $now->format('Y-m-d H:i:s')
+                'updated_at' => $now->format('Y-m-d H:i:s'),
+                'transfer_code' => $senderAccount->number . $request->input('receiver.account') . $now->format('YmdHi'),
             ]);
 
             //Tharwa commission history
@@ -246,7 +249,7 @@ class VirmentController extends Controller
                 'transaction_direction' => 'in',
                 'account_id' => 'THW000000DZD',
                 'created_at' => $now->format('Y-m-d H:i:s'),
-                'updated_at' => $now->format('Y-m-d H:i:s')
+                'updated_at' => $now->format('Y-m-d H:i:s'),
             ]);
             //change the amount of the Tharwa account
             $tharwaAccount = Account::find('THW000000DZD');
@@ -274,7 +277,8 @@ class VirmentController extends Controller
                     'target' => $senderAccount->number,
                     'account_id' => $request->input('receiver.account'),
                     'created_at' => $now->format('Y-m-d H:i:s'),
-                    'updated_at' => $now->format('Y-m-d H:i:s')
+                    'updated_at' => $now->format('Y-m-d H:i:s'),
+                    'transfer_code' => $senderAccount->number . $request->input('receiver.account') . $now->format('YmdHi'),
                 ]);
                 //change the amount of the destination client just in case of < 200 000 else till validation
                 $receiverAccount = Account::find($request->input('receiver.account'));
@@ -299,7 +303,7 @@ class VirmentController extends Controller
                 'destination_id' => $request->input('receiver.account'),
             ]);
 
-            //todo send commission to Tharwa account
+
             //we retrieve the amount from the sender account
             $senderAccount->balance = $senderAccount->balance - $commission - $amount;
             $senderAccount->save();
@@ -422,7 +426,6 @@ class VirmentController extends Controller
             ]);
 
 
-            //todo send commission to Tharwa account
             //we retrieve the amount from the sender account
             $senderAccount->balance = $senderAccount->balance - $commission - $amount;
             $senderAccount->save();
@@ -438,7 +441,8 @@ class VirmentController extends Controller
                 'target' => $request->input('receiver.name'),
                 'account_id' => $senderAccount->number,
                 'created_at' => $now->format('Y-m-d H:i:s'),
-                'updated_at' => $now->format('Y-m-d H:i:s')
+                'updated_at' => $now->format('Y-m-d H:i:s'),
+                'transfer_code' => $virement_code,
             ]);
 
             //Tharwa commission history
@@ -628,7 +632,8 @@ class VirmentController extends Controller
                         'target' => "Tharwa reject your intern transfer",
                         'account_id' => $interTransfer->source_id,
                         'created_at' => $now->format('Y-m-d H:i:s'),
-                        'updated_at' => $now->format('Y-m-d H:i:s')
+                        'updated_at' => $now->format('Y-m-d H:i:s'),
+                        'transfer_code' => $request->virement_code,
                     ]);
 
                     //return money if rejete
@@ -651,7 +656,8 @@ class VirmentController extends Controller
                         'target' => $interTransfer->source_id,
                         'account_id' => $interTransfer->destination_id,
                         'created_at' => $now->format('Y-m-d H:i:s'),
-                        'updated_at' => $now->format('Y-m-d H:i:s')
+                        'updated_at' => $now->format('Y-m-d H:i:s'),
+                        'transfer_code' => $request->virement_code,
                     ]);
 
                     //send money if valide
@@ -681,7 +687,8 @@ class VirmentController extends Controller
                         'target' => "Tharwa reject your extern transfer",
                         'account_id' => $exterTransfer->source_id,
                         'created_at' => $now->format('Y-m-d H:i:s'),
-                        'updated_at' => $now->format('Y-m-d H:i:s')
+                        'updated_at' => $now->format('Y-m-d H:i:s'),
+                        'transfer_code' => $request->virement_code,
                     ]);
 
                     //return money if rejete
