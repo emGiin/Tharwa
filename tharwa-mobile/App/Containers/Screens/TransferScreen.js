@@ -26,7 +26,7 @@ class TransferScreen extends Component {
     },
     "externalAccount": {
       component: TransferForm,
-      submit: this.props.tharwaTransfer
+      submit: this.props.externalTransfer
     }
   }
 
@@ -67,6 +67,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(TransferActions.myAccountTransferRequest(...data)),
     tharwaTransfer: (...data) =>
       dispatch(TransferActions.tharwaTransferRequest(...data)),
+    externalTransfer: (...data) =>
+      dispatch(TransferActions.externalTransferRequest(...data)),
     reset: () => {
       dispatch(TransferActions.reset())
       dispatch(reset('transfer'));

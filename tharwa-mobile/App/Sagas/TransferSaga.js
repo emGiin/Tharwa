@@ -25,3 +25,13 @@ export function* tharwaTransfer(api, { data }) {
   }
 }
 
+export function* externalTransfer(api, { data }) {
+  const response = yield call(api.externalTransfer, data)
+
+  // success?
+  if (response.ok) {
+    yield put(TransferActions.transferSuccess())
+  } else {
+    yield put(TransferActions.transferFailure(I18n.t('transferDialogDescriptionErreur')))
+  }
+}

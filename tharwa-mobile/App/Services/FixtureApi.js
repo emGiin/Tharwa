@@ -75,6 +75,11 @@ export default {
       ok: true
     }
   },
+  externalTransfer: data => {
+    return {
+      ok: true
+    }
+  },
   getBanks: () => {
     return {
       ok: true,
