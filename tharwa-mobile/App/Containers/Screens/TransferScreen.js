@@ -40,18 +40,8 @@ class TransferScreen extends Component {
     const Form = this.forms[params.type]
 
     return (
-<<<<<<< HEAD
       <View style={{ height: '100%', flex: 1, backgroundColor: Colors.background }}>
         <Form.component onSubmit={Form.submit} editable={!fetching} />
-=======
-      <View style={styles.container}>
-        <Form.component
-          banks={banks}
-          key={this.state.key}
-          transferType={params.type}
-          onSubmit={Form.submit}
-          editable={!fetching} />
->>>>>>> 6b8d26dc170d27d9e832b36c304264afd88772c0
       </View>
     )
   }

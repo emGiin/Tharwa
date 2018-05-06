@@ -13,52 +13,42 @@ import { connect } from 'react-redux'
 
 import I18n from 'react-native-i18n'
 
-const items = []
-const itemsAll = [
-  { label: 'Courant', value: 'cour' },
-  /*{ label: 'Epargne', key: 'epar' },
-  { label: 'Devise USD', key: 'devi_usd' },
-  { label: 'Devise EUR', key: 'devi_eur' }*/
-
-]
-var BUTTONS = [
-  { label: 'Courant', value: 'cour' },
-];
 
 class TransferFormClientAccount extends Component {
+
 
 
 
   constructor(props) {
     super(props);
     this.state = {
-      selected2: undefined,
-      selected3: undefined
+      ItemAccountTypeSelected: undefined,
+
     };
 
   }
 
   componentWillReceiveProps({ info }) {
     if (info) {
-     this.setAccountType(info)
+      this.props.info = info
     }
   }
 
   setAccountType(info) {
     if (info['EPARGN']) {
       const epargne = { label: 'Epargne', value: 'epar' }
-      items.push(epargne)
-      itemsAll.push(epargne)
+      itemsAccountTypeFrom.push(epargne)
+      itemsAccountTypeClient.push(epargne)
     }
     if (info['DVUSD']) {
       const deviseusd = { label: 'Devise USD', value: 'devi_usd' }
-      items.push(deviseusd)
-      itemsAll.push(deviseusd)
+      itemsAccountTypeFrom.push(deviseusd)
+      itemsAccountTypeClient.push(deviseusd)
     }
     if (info['DVEUR']) {
       const devisereur = { label: 'Devise EUR', value: 'devi_eur' }
-      items.push(devisereur)
-      itemsAll.push(devisereur)
+      itemsAccountTypeFrom.push(devisereur)
+      itemsAccountTypeClient.push(devisereur)
     }
 
   }
@@ -70,27 +60,34 @@ class TransferFormClientAccount extends Component {
       this[field].getRenderedComponent().refs[field]._root.focus()
   }
   getItems() {
-    if (this.state.selected2 === 'cour') {
-      return items;
+    if (this.state.ItemAccountTypeSelected === 'cour') {
+      return itemsAccountTypeFrom;
     }
     else {
-      return BUTTONS;
+      return itemsAccountTypeTo;
     }
   }
-  onValueChange2(value) {
+  onValueChange(value) {
     this.setState({
-      selected2: value
+      ItemAccountTypeSelected: value
     });
   }
-  onValueChange3(value) {
-    this.setState({
-      selected3: value
-    });
-  }
+
   render() {
     const { editable, handleSubmit } = this.props
-    const { info }= this.props
+    const { info } = this.props
+    itemsAccountTypeFrom = []
+    itemsAccountTypeClient = [
+      { label: 'Courant', value: 'cour' },
+      /*{ label: 'Epargne', key: 'epar' },
+      { label: 'Devise USD', key: 'devi_usd' },
+      { label: 'Devise EUR', key: 'devi_eur' }*/
 
+    ]
+    itemsAccountTypeTo = [
+      { label: 'Courant', value: 'cour' },
+    ];
+    this.setAccountType(info)
     return (
       <Container>
         <Header
@@ -112,9 +109,9 @@ class TransferFormClientAccount extends Component {
               component={PickerField}
               editable={editable}
               placeholder={I18n.t('functionSelection')}
-              options={itemsAll}
-              onChange= {(value) => {this.onValueChange2(value)}}
-             
+              options={itemsAccountTypeClient}
+              onChange={(value) => { this.onValueChange(value) }}
+
             />
 
 
@@ -128,7 +125,7 @@ class TransferFormClientAccount extends Component {
               editable={editable}
               placeholder={I18n.t('functionSelection')}
               options={this.getItems()}
-            
+
             />
           </Content>
           <Content>
