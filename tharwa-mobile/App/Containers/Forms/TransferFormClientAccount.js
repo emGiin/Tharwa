@@ -13,22 +13,16 @@ import { connect } from 'react-redux'
 
 import I18n from 'react-native-i18n'
 
-const pages = [
-  { type: 'DVUSD', label: 'Compte devise Dollar', symbol: 'Dollar' },
-  { type: 'DVEUR', label: 'Compte devise Euro', symbol: 'Euro' },
-  { type: 'EPARGN', label: 'Compte Epargne', symbol: 'DZD' },
-  { type: 'COUR', label: 'Compte courant', symbol: 'DZD' },
-]
 const items = []
 const itemsAll = [
-  { label: 'Courant', key: 'cour' },
+  { label: 'Courant', value: 'cour' },
   /*{ label: 'Epargne', key: 'epar' },
   { label: 'Devise USD', key: 'devi_usd' },
   { label: 'Devise EUR', key: 'devi_eur' }*/
 
 ]
 var BUTTONS = [
-  { label: 'Courant', key: 'cour' },
+  { label: 'Courant', value: 'cour' },
 ];
 
 class TransferFormClientAccount extends Component {
@@ -38,7 +32,7 @@ class TransferFormClientAccount extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected2: 'cour',
+      selected2: undefined,
       selected3: undefined
     };
 
@@ -46,28 +40,27 @@ class TransferFormClientAccount extends Component {
 
   componentWillReceiveProps({ info }) {
     if (info) {
-      this.setAccountType(info)
+     this.setAccountType(info)
     }
   }
 
   setAccountType(info) {
     if (info['EPARGN']) {
-      const epargne = { label: 'Epargne', key: 'epar' }
+      const epargne = { label: 'Epargne', value: 'epar' }
       items.push(epargne)
       itemsAll.push(epargne)
     }
     if (info['DVUSD']) {
-      const epargne = { label: 'Devise USD', key: 'devi_usd' }
-      items.push(epargne)
-      itemsAll.push(epargne)
+      const deviseusd = { label: 'Devise USD', value: 'devi_usd' }
+      items.push(deviseusd)
+      itemsAll.push(deviseusd)
     }
     if (info['DVEUR']) {
-      const epargne = { label: 'Devise EUR', key: 'devi_eur' }
-      items.push(epargne)
-      itemsAll.push(epargne)
+      const devisereur = { label: 'Devise EUR', value: 'devi_eur' }
+      items.push(devisereur)
+      itemsAll.push(devisereur)
     }
 
-    return itemsAll;
   }
 
 
@@ -96,7 +89,7 @@ class TransferFormClientAccount extends Component {
   }
   render() {
     const { editable, handleSubmit } = this.props
-    const { info } = this.props
+    const { info }= this.props
 
     return (
       <Container>
@@ -119,8 +112,8 @@ class TransferFormClientAccount extends Component {
               component={PickerField}
               editable={editable}
               placeholder={I18n.t('functionSelection')}
-              options={this.setAccountType(info)}
-              
+              options={itemsAll}
+              onChange= {(value) => {this.onValueChange2(value)}}
              
             />
 
@@ -134,7 +127,7 @@ class TransferFormClientAccount extends Component {
               component={PickerField}
               editable={editable}
               placeholder={I18n.t('functionSelection')}
-              options={this.getItems(this.state.selected2)}
+              options={this.getItems()}
             
             />
           </Content>

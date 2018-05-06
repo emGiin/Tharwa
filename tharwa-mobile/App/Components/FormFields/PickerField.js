@@ -14,6 +14,7 @@ class PickerField extends Component {
     this.setState({ itemValue });
     this.props.input.onChange(itemValue);
     this.props.onChange && this.props.onChange(itemValue)
+  
   }
 
   render() {

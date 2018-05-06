@@ -33,7 +33,7 @@ class TransferScreen extends Component {
     const Form = this.forms[params.type]
 
     return (
-      <View style={{ height: '100%', flex: 1, backgroundColor: Colors.white }}>
+      <View style={{ height: '100%', flex: 1, backgroundColor: Colors.background }}>
         <Form.component onSubmit={Form.submit} editable={!fetching} />
       </View>
     )
