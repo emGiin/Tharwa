@@ -40,8 +40,9 @@ class LoadingDialog extends Component {
 
   close = () => {
     this.dialog.dismiss();
-    const { reset } = this.props
+    const { reset, success, onSuccess } = this.props
     reset && reset()
+    success && onSuccess && onSuccess()
   }
 
   renderCloseButton = () => (
@@ -66,7 +67,7 @@ class LoadingDialog extends Component {
       dialogContent = this.renderCloseButton();
     } else if (this.props.success) {
       dialogTitle = this.props.successTitle;
-      dialogMessage = this.props.success;
+      dialogMessage = this.props.successMessage;
       dialogContent = this.renderCloseButton();
     } else {
       dialogTitle = this.props.defaultTitle;
