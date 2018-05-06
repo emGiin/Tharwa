@@ -5,6 +5,7 @@ const { Types, Creators } = createActions({
   pinCodeRequest: ['pinCode'],
   pinCodeSuccess: [],
   pinCodeFailure: ['error'],
+  pinCodeReset: [],
   savePinCodeToken: ['token', 'code']
 })
 
@@ -31,9 +32,12 @@ export const success = (state) => (
 export const save = (state, { token, code }) =>
   state.merge({ token, code })
 
+export const reset = state => state.merge(INITIAL_STATE)
+
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.PIN_CODE_REQUEST]: request,
   [Types.PIN_CODE_SUCCESS]: success,
   [Types.PIN_CODE_FAILURE]: failure,
+  [Types.PIN_CODE_RESET]: reset,
   [Types.SAVE_PIN_CODE_TOKEN]: save,
 });

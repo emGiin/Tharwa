@@ -1,7 +1,7 @@
 export default {
   // auth fixtures
-  setAuthToken: () => { },
-  removeAuthToken: () => { },
+  setAuthHeaders: () => { },
+  removeAuthHeaders: () => { },
   login: (authObj) => {
     if (
       authObj.username === 'user@email.com' &&
@@ -74,5 +74,11 @@ export default {
     return {
       ok: true
     }
-  }
+  },
+  getBanks: () => {
+    return {
+      ok: true,
+      data: require('../Fixtures/banks.json')
+    }
+  },
 }
