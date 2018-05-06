@@ -21,15 +21,19 @@ class AccountController extends Controller
         }
 
 
-        //todo check if he already did the same acc type request !
-
         $client = $this->client();
         $accsType = $client->accounts()->get(['type_id']);
-
         //the client should not have an acc of the same type
         if ($accsType->contains('type_id', $request->type)) {
             return response(["saved" => false, "account" => "already exist"], config('code.UNAUTHORIZED'));
         }
+
+        $accsType = $client->accountRequests()->get(['type_id']);
+        //the client should not have made a request for same acc type
+        if ($accsType->contains('type_id', $request->type)) {
+            return response(["saved" => false, "account_request" => "already exist"], config('code.UNAUTHORIZED'));
+        }
+
 
         //save to db
         AccountRequest::create([

@@ -111,7 +111,7 @@ class ClientController extends Controller
             ]);
         }
 
-        //the Account are requested //todo if the case of the account was rejected
+        //the Account are requested //todo if the case of the account req was rejected
         $accountRequests = $client->accountRequests()->get(["created_at", "type_id"]);
         foreach ($accountRequests as $accountRequest) {
             $infos->put(trim($accountRequest->type_id), [
