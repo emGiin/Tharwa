@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { Container, Content, Text } from 'native-base'
-import { reduxForm, Field } from 'redux-form'
+import { View } from 'react-native'
+import { connect } from 'react-redux'
+import { Container, Content, Text, Icon } from 'native-base'
+import { reduxForm, Field, formValueSelector } from 'redux-form'
 import I18n from 'react-native-i18n'
-import { InputField, NextPrevious, PickerField } from "../../../Components";
+import { InputField, NextPrevious, PickerField, AccountField } from "../../../Components";
 import {
   nameValidators, accountValidators,
   requiredValidator, amountValidators,
@@ -20,6 +22,8 @@ export class InfoStepForm extends Component {
 
   render() {
     const { editable, handleSubmit, previousPage, banks } = this.props;
+    let { selectedBank } = this.props
+    if (!selectedBank || selectedBank === 'placeholder') selectedBank = "_ _ _"
     return (
       <Container style={styles.mainformContainer}>
         <Content style={styles.inputContainer} >
@@ -41,14 +45,14 @@ export class InfoStepForm extends Component {
             name={'receiver.account'}
             withRef
             refField="accountNumber"
-            icon={'md-barcode'}
             ref={/* istanbul ignore next */ref => this.accountNumber = ref}
             onEnter={() => this.focusOn('lastName')}
-            component={InputField}
+            component={AccountField}
             editable={editable}
             validate={accountValidators}
             returnKeyType={'next'}
             placeholder={I18n.t('accountNumber')}
+            selectedBank={selectedBank}
           />
 
           <Field
@@ -113,9 +117,18 @@ export class InfoStepForm extends Component {
   }
 }
 
-
-export default reduxForm({
+let StepForm = reduxForm({
   form: 'ExternalTransferForm',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
 })(InfoStepForm);
+
+// connect our component again to get some additional state
+StepForm = connect(
+  /* istanbul ignore next */
+  state => ({
+    selectedBank: formValueSelector('ExternalTransferForm')(state, 'receiver.bank')
+  })
+)(StepForm)
+
+export default StepForm

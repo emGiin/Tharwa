@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Container, Content, Text } from 'native-base'
 import { reduxForm, Field } from 'redux-form'
 import I18n from 'react-native-i18n'
-import { InputField, NextPrevious } from "../../../Components";
+import { InputField, NextPrevious, AccountField } from "../../../Components";
 import {
   accountValidators, requiredValidator,
   amountValidators
@@ -30,14 +30,14 @@ export class InfoStepForm extends Component {
             name={'receiver.account'}
             withRef
             refField="accountNumber"
-            icon={'md-barcode'}
             ref={/* istanbul ignore next */ref => this.accountNumber = ref}
             onEnter={() => this.focusOn('lastName')}
-            component={InputField}
+            component={AccountField}
             editable={editable}
             validate={accountValidators}
             returnKeyType={'next'}
             placeholder={I18n.t('accountNumber')}
+            selectedBank={"THW"}
           />
 
           <Field
