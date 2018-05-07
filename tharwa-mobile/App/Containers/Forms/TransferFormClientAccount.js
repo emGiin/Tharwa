@@ -5,7 +5,7 @@ import { Colors } from '../../Themes'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import { InputField, Header, PickerField } from "../../Components"
 import {
-  amountValidators
+  amountValidators, requiredValidator
 } from '../../Helpers/validators'
 import { connect } from 'react-redux'
 
@@ -100,6 +100,7 @@ class TransferFormClientAccount extends Component {
               editable={editable}
               placeholder={I18n.t('accountFromSelection')}
               options={itemsAccountTypeClient}
+              validate={requiredValidator}
               onChange={(value) => { this.onValueChange(value) }}
 
             />
@@ -114,6 +115,7 @@ class TransferFormClientAccount extends Component {
               component={PickerField}
               editable={editable}
               placeholder={I18n.t('accountToSelection')}
+              validate={requiredValidator}
               options={this.getItems()}
 
             />
