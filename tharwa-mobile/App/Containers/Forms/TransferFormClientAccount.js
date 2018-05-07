@@ -79,10 +79,6 @@ class TransferFormClientAccount extends Component {
     itemsAccountTypeFrom = []
     itemsAccountTypeClient = [
       { label: 'Courant', value: 'cour' },
-      /*{ label: 'Epargne', key: 'epar' },
-      { label: 'Devise USD', key: 'devi_usd' },
-      { label: 'Devise EUR', key: 'devi_eur' }*/
-
     ]
     itemsAccountTypeTo = [
       { label: 'Courant', value: 'cour' },
