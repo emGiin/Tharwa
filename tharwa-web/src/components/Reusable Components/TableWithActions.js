@@ -34,6 +34,7 @@ class TableWithActions extends Component {
           dataSource={this.props.dataSource}
           pagination={false}
           loading={this.props.fetching}
+          pagination={{ pageSize: 5 }}
         />
       </div>
     );
