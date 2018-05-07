@@ -53,7 +53,7 @@ const screens = {
 }
 
 const AppTabs = TabNavigator(screens, {
-  initialRouteName: 'TharwaTransactionScreen',
+  initialRouteName: 'MainScreen',
   tabBarOptions: {
     activeTintColor: 'tomato',
     inactiveTintColor: 'gray',

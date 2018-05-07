@@ -7,7 +7,8 @@ const { Types, Creators } = createActions({
   accountSuccess: ['data'],
   newAccountSuccess: [],
   saveAccountType: ['accountType'],
-  newAccountRequest: ['requestType']
+  newAccountRequest: ['requestType'],
+  newAccountReset: []
 })
 
 export const AccountTypes = Types
@@ -29,7 +30,7 @@ export const success = (state, { data }) => (
   state.merge({
     fetching: false,
     error: null,
-    success: true,
+    success: false,
     information: data
   })
 )
@@ -55,6 +56,15 @@ export const newAccountSuccess = state => (
   })
 )
 
+export const reset = state => (
+  state.merge({
+    fetching: false,
+    error: null,
+    success: false
+  })
+)
+
+
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.ACCOUNT_REQUEST]: request,
   [Types.ACCOUNT_SUCCESS]: success,
@@ -62,4 +72,5 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.SAVE_ACCOUNT_TYPE]: saveAccountType,
   [Types.NEW_ACCOUNT_REQUEST]: newAccountRequest,
   [Types.NEW_ACCOUNT_SUCCESS]: newAccountSuccess,
+  [Types.NEW_ACCOUNT_RESET]: reset,
 });

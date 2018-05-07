@@ -17,7 +17,7 @@ describe('Account REDUX', () => {
     const state = reducer(INITIAL_STATE, Actions.accountSuccess(data))
 
     expect(state.fetching).toBe(false)
-    expect(state.success).toBe(true)
+    expect(state.success).toBe(false)
     expect(state.error).toBeNull()
     expect(state.information).toEqual(data)
   })

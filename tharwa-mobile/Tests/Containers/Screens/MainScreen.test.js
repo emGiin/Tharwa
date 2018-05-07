@@ -13,7 +13,7 @@ describe('Registration Screen container', () => {
   const mockStore = configureStore()
   const dispatchSpy = jest.fn();
   const navigationSpy = jest.fn();
-  let store, container, content;
+  let store, container;
 
   beforeAll(() => {
     store = mockStore(initialState);

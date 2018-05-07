@@ -2,11 +2,10 @@ import React, { Component } from 'react'
 import { Container, Content, Text } from 'native-base'
 import { reduxForm, Field } from 'redux-form'
 import I18n from 'react-native-i18n'
-import { InputField, NextPrevious, PickerField } from "../../../Components";
+import { InputField, NextPrevious } from "../../../Components";
 import {
-  nameValidators, accountValidators,
-  requiredValidator, amountValidators,
-  pickerValidators
+  accountValidators, requiredValidator,
+  amountValidators
 } from '../../../Helpers/validators'
 import styles from '../Styles/SignupFormStyle'
 import { Colors } from '../../../Themes';
