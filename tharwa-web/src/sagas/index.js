@@ -19,7 +19,7 @@ import { confirmPinCode } from './PinCodeSaga'
 import { getRequestsList, acceptDemand, rejectDemand } from './ConfirmInscriptionSaga'
 import { getTransfersList, acceptTransfer, rejectTransfer } from './ValidateTransferSaga'
 import { register } from './banquierSagas'
-import { get_NbV } from './StatsSagas'
+import { get_stats} from './StatsSagas'
 
 /* ------------- API ------------- */
 const api = useFixtures ? FixtureAPI : AuthAPI.create()
@@ -51,6 +51,6 @@ export default function* root() {
 
     takeLatest(newBanquierTypes.CREATE_BANQUIER,register , api_b),
 
-    takeLatest(statsTypes.GET_NB_VIREMENT,get_NbV , api_),
+    takeLatest(statsTypes.SET_STATS,get_stats , api_),
   ])
 }

@@ -34,9 +34,12 @@ const create = (baseURL = API_URL) => {
 
 
   /****** STATS */
-  const getNbVirement=()=>{
-    return api.get('nbV')
+  const GET_stats=()=>{
+    console.log('dans APIapp:getStats.')
+    return api.get('GET_stats')
   }
+
+  
   return {
     api,
     getRequestsList,
@@ -47,7 +50,7 @@ const create = (baseURL = API_URL) => {
     inscriptionAction,
     transferAction,
     getTransfersList,
-    getNbVirement
+    GET_stats
   }
 }
 

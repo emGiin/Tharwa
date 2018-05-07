@@ -1,12 +1,6 @@
 {
-  "nbVirements":{
-    "total":200,
-    "detail":[30,50]
-  },
-  "nbInscription":{
-    "total":200,
-    "detail":[30,50]
-  },
+    "nbVirement":200,
+    "nbInscription":200,
   "nbOpeation":{
         "mois":[
           [65, 59, 30, 21, 56, 55, 40, 65, 59, 10, 41, 56],
@@ -30,5 +24,4 @@
       "trimestre":[12, 40 ,10, 30] ,
       "annee":[42, 10 ,40, 30, 2, 20 ,40, 40, 13 , 22]
   }
-
 }

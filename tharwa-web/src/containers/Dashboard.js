@@ -2,17 +2,22 @@ import React, { Component } from "react";
 import { Col, Row, Tabs, Icon } from "antd";
 import { NavLink } from "react-router-dom";
 
-import { NumberCard } from "../components/Reusable Components";
-
+import { NumberCard,NumberCardGest } from "../components/Reusable Components";
 
 import { connect } from "react-redux";
 
 import StatsActions from '../redux/StatsRedux';
 
+//highcharts 
+import Highcharts from 'highcharts/highstock';
+import {
+  HighchartsStockChart, Chart, withHighcharts, XAxis, YAxis, Title, Legend,
+  AreaSplineSeries, SplineSeries, Navigator, RangeSelector, Tooltip
+} from 'react-jsx-highstock';
+import { createRandomData } from './data-helper';
 
 //chartJs 
 import {Bar, Line} from 'react-chartjs-2';
-
 
 import './Styles/dashboard.css'
 
@@ -108,7 +113,7 @@ const data_op_year = {
 
 
 const data_comm = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'Sept','Octo', 'Nov', 'Dec'],
   datasets: [
     {
       label: 'type1',
@@ -128,7 +133,7 @@ const data_comm = {
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: [65, 59, 80, 81, 56, 55, 40]
+      data: [65, 59, 80, 81, 56, 55, 40, 15, 30, 15, 40]
     },
     {
       label: 'type2',
@@ -149,6 +154,26 @@ const data_comm = {
       pointRadius: 1,
       pointHitRadius: 10,
       data: [15, 49, 50, 21, 76, 15, 20]
+    },
+    {
+      label: 'type3',
+      fill: false,
+      lineTension: 0.1,
+      backgroundColor: 'red',
+      borderColor: 'red',
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: 'gray',
+      pointBackgroundColor: '#fff',
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: 'black',
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data: [25, 20, 50, 51, 70, 13, 29]
     }
   ]
 };
@@ -156,83 +181,73 @@ const data_comm = {
 //---- 
 
 
-const data_circle = {
-labels: [
-  'en attentes',
-  'Acceptés'
-],
-datasets: [
-  {
-  data: [50, 30],
-  backgroundColor: [
-  '#CCC',
-  '#36A2EB'
-  ],
-  hoverBackgroundColor: [
-  '#FF6384',
-  '#36A2EB'
-  ]
-}]
-
-}
- const options={
-  legend: {
-      display: false,
-  },
-  elements: {
-		arc: {
-			borderWidth: 0
-		}
-	}
-};
 
 class Dashboard extends Component {
+
   constructor(props){
     super(props);
     this.state = {
       nbV:0,
+      nbV_detail:[10,10],
       nbInscr:0,
-      data_op_mois:data_op_mois,
-      data_op_trimestre:data_op_trimestre,
-      data_op_year:data_op_year,
+      nbInscr_detail:[],
+      data_op_mois:null,
+      data_op_trimestre:null,
+      data_op_year:null,
+      data_com_jour:null,
+      data_com_mois:null,
+      data_com_trim:null,
+      data_com_annee:null,
+      stats:null
       };
   }
   
 
+
   render() {
+    const now = Date.now();
+    const date = new Date('December 17, 1995');
+    const date1 = new Date('17-12-1995');
+    
+    console.log(date.getMonth()+1)
+    console.log(date.getDate())
+    console.log(date.getFullYear())
+
+    const data1= createRandomData(now, 1e7, 500)
+    const data2= createRandomData(now, 1e7, 500)
+
+    console.log('PROPS.nbV_details >>:::::')
+console.log(this.state.nbV_detail)
+
        return (
       <div style={{ padding: 25 }}>
         <Row gutter={24}>
           <Col lg={10} md={12}>
-            <NavLink to="virements">
-              <NumberCard
+            <NavLink to="">
+              <NumberCardGest
                 icon="swap"
                 color="#4BB543"
-                title="Virements"
-                number={this.props.nbV}
-                data= {data_circle}
-                options={options}
+                title="total des virements :"
+                number={this.state.nbV}
+                data_sent= {this.state.nbV_detail}
               />
               </NavLink>
           </Col>
           
           <Col lg={10} md={12}>
-            <NavLink to="demandeInscriptions">
-              <NumberCard
+            <NavLink to="">
+              <NumberCardGest
                 icon="usergroup-add"
                 color="#fa541c"
-                title="Inscriptions"
+                title="nombre de clients :"
                 number={this.state.nbInscr}
-                data= {data_circle}
-                options={options}
+                data_sent= {this.state.nbV_detail}
               />
             </NavLink>
           </Col>
         </Row>
-<h2>Nombre des opérations :</h2>
- 
-
-<Tabs defaultActiveKey="2">
+<h2>Nombre des opérations :</h2> 
+<Tabs defaultActiveKey="1" className="tabs_op">
     <TabPane tab={<span className="tabBtn"><Icon type="bar-chart" />Par Trimestre</span>} key="1">
         <Bar
         data={data_op_trimestre}
@@ -267,9 +282,41 @@ class Dashboard extends Component {
 
         
 <h2>Revenus des Commissions :</h2>
-<Tabs defaultActiveKey="2">
+<Tabs defaultActiveKey="1">
     <TabPane tab={<span className="tabBtn"><Icon type="dot-chart" />Par Jour</span>} key="1">
-        <Line data={data_comm} />
+            <HighchartsStockChart>
+            <Chart zoomType="x" />
+          
+            <Title>Commissions :</Title>
+          
+            <Legend>
+              <Legend.Title>temps</Legend.Title>
+            </Legend>
+          
+            <RangeSelector>
+              <RangeSelector.Button count={1} type="day">1d</RangeSelector.Button>
+              <RangeSelector.Button count={7} type="day">7d</RangeSelector.Button>
+              <RangeSelector.Button count={1} type="month">1m</RangeSelector.Button>
+              <RangeSelector.Button type="all">All</RangeSelector.Button>
+              <RangeSelector.Input boxBorderColor="#7cb5ec" />
+            </RangeSelector>
+          
+            <Tooltip />
+          
+            <XAxis>
+              <XAxis.Title>temps</XAxis.Title>
+            </XAxis>
+          
+            <YAxis id="mountant">
+              <YAxis.Title>mountant(DZD)</YAxis.Title>
+              <AreaSplineSeries id="profit" name="Profit" data={data1} />
+            </YAxis>
+          
+            <Navigator>
+              <Navigator.Series seriesId="mountant" />
+            </Navigator>
+          </HighchartsStockChart>
+  
     </TabPane>
     <TabPane tab={<span className="tabBtn"><Icon type="dot-chart" />Par Mois</span>} key="2">
         <Line data={data_comm} />
@@ -282,49 +329,52 @@ class Dashboard extends Component {
     </TabPane>
   </Tabs>
 
-    
+
       </div>
     );
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.nbV)
     this.setState({
         nbV: nextProps.nbV,
+        nbInscr: nextProps.nbInscr,
+        nbV_detail: nextProps.nbV_detail,
+        nbInscr_detail: nextProps.nbI_detail,
     });
   }
   componentWillMount = () => {
-    console.log('will mount , props :'+this.props.nbV)
+
+    //data_circle.datasets[0].data=this.props.nbV_detail
     this.props.updateNbV()
-    this.setState({data_operations :data_op_mois})
+//    this.setState({data_operations :data_op_mois})
+console.log('will mount , props.nbV_detail :')
+console.log(this.props.nbV_detail)
   }
-  setOperationMode_trim = ()=>{
-      this.setState({data_operations:data_op_trimestre})
-  }
-  setOperationMode_mois = ()=>{
-      this.setState({data_operations:data_op_mois})
-  }
-  setOperationMode_year = ()=>{
-      this.setState({data_operations:data_op_year})
-  }
-  test =()=>{
-    //this.props.updateNbV()
-   // this.setState({nbV:55, nbInscr:12})
-    //console.log(':: test click ::')
-    //console.log(this.props.nbV)
-    //alert(this.state.nbV)
-  }
+
+
 }
 
 
 const  mapStateToProps = ({stats}) => {
-  return {  nbV: stats.nbV  }
+  const info=stats.nbV
+  console.log('mapstatToProps: data_sataaats::')
+  console.log(stats)
+  //const p = JSON.parse(info)
+  console.log('mapStateToporprops------nbV detail ::')
+  console.log(stats.nbV_detail)
+  return { 
+     nbV: stats.nbV,
+     nbInscr: stats.nbI,
+     nbV_detail: stats.nbV_detail,
+     nbI_detail: stats.nbI_detail,
+    //stats:stats.stats_info
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateNbV: () => dispatch(StatsActions.getNbVirement())   
+    updateNbV: () => dispatch(StatsActions.setStats())   
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(withHighcharts(Dashboard, Highcharts));
