@@ -21,6 +21,7 @@ export function* myAccountTransfer(api, { data }) {
 
   }
  
+ 
   const request = {
     method:  methodchange,
     amount: data.amount

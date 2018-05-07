@@ -146,7 +146,7 @@ class TransferFormClientAccount extends Component {
             borderRadius: 5,
             backgroundColor: Colors.button
           }}
-            onSubmit={handleSubmit}>
+            onPress={handleSubmit}>
             <Text style={{ color: '#c9d0de', textAlign: 'center' }}>Envoyer</Text>
           </Button>
         </Content>
@@ -156,16 +156,18 @@ class TransferFormClientAccount extends Component {
   }
 }
 
-TransferFormClientAccount = reduxForm({
+let TransferFormClientAccount2 = reduxForm({
   form: 'myAccountTransfer',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
 })(TransferFormClientAccount)
 // connect our component again to get some additional state
-export default connect(
+TransferFormClientAccount2= connect(
   /* istanbul ignore next */
   state => ({
     amount: formValueSelector('myAccountTransfer')(state, 'amount'),
     info: state.account.information
   })
-)(TransferFormClientAccount)
+)(TransferFormClientAccount2)
+
+export default TransferFormClientAccount2
