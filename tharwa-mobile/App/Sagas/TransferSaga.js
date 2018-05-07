@@ -4,8 +4,25 @@ import TransferActions from '../Redux/TransferRedux'
 
 // attempts to transfert
 export function* myAccountTransfer(api, { data }) {
+
+  if(data.from === 'devi_usd')
+  {
+    methodchange='devi_cour_usd'
+  }
+  else{
+    if(data.from === 'devi_eur')
+    {
+      methodchange='devi_cour_eur'
+    }
+    else{
+      methodchange= `${data.from}_${data.to}`
+
+    }
+
+  }
+ 
   const request = {
-    method: `${data.from}_${data.to}`,
+    method:  methodchange,
     amount: data.amount
   }
   const response = yield call(api.myAccountTransfer, request)
