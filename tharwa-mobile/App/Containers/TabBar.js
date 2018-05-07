@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { reset } from 'redux-form'
 import styles from './Styles/TabBarStyles'
 import { Colors } from '../Themes';
+import TransferActions from '../Redux/TransferRedux'
 
 class CustomTabBar extends Component {
   invisibleItems = ['TransactionOrderScreen'];
@@ -57,7 +58,6 @@ class CustomTabBar extends Component {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
-            this.props.resetForm()
             navigation.navigate(key, options.params || {})
           }}
           style={[styles.tab, { backgroundColor: color }]}
@@ -100,7 +100,6 @@ const mapStateToProps = ({ account: { accountType, information: { infos = {} } }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    resetForm: () => dispatch(reset('transfer')),
   }
 }
 

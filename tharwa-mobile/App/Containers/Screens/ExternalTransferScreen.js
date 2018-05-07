@@ -7,7 +7,7 @@ import TransferFormClientAccount from '../Forms/TransferFormClientAccount'
 import { ExternalTransferForm, TharwaTransferForm } from '../Forms'
 import { LoadingDialog } from '../../Components'
 // Redux
-import TransferActions from '../../Redux/TransferRedux'
+import ExternalTransferActions from '../../Redux/ExternalTransferRedux'
 import BankActions from '../../Redux/BankRedux'
 
 // Styles
@@ -16,48 +16,22 @@ import styles from './Styles/TransferScreenStyle'
 class TransferScreen extends Component {
   state = { key: 0 }
 
-  forms = {
-    "myAccount": {
-      component: TransferFormClientAccount,
-      submit: data => {
-        this.props.myAccountTransfer(data)
-        this.dialog.show()
-      }
-    },
-    "tharwaAccount": {
-      component: TharwaTransferForm,
-      submit: data => {
-        this.sup = data.amount > 200000
-        this.props.tharwaTransfer(data)
-
-      }
-    },
-    "externalAccount": {
-      component: ExternalTransferForm,
-      submit: data => {
-        this.sup = data.amount > 200000
-        this.props.externalTransfer(data)
-      }
-    }
-  }
-
   componentWillReceiveProps(props) {
-    // if (props.success || props.error) this.dialog.show()
+    if (props.success || props.error) this.dialog.show()
     return props
   }
 
   resetScreen = () => {
-    this.props.reset();
-    // this.setState({ key: this.state.key++ })
+    // this.props.resetForm();
+    this.setState({ key: this.state.key++ })
   }
 
   componentWillMount() {
     if (this.props.banks.length === 0) this.props.getBanks()
   }
 
-  renderDialog = ({ fetching, error, success, commission, reset }, type) => (
+  renderDialog = ({ fetching, error, success, commission, reset }) => (
     <LoadingDialog
-      key={`${type}_${this.state.key}`}
       reset={reset}
       onSuccess={this.resetScreen}
       init={/* istanbul ignore next */dialog => { this.dialog = dialog }}
@@ -73,17 +47,18 @@ class TransferScreen extends Component {
   )
 
   render() {
-    const { params = { type: 'tharwaAccount' } } = this.props.navigation.state;
     const { fetching, error, success, banks } = this.props;
-    const Form = this.forms[params.type]
 
     return (
-      <View style={styles.container} key={`${params.type}_${this.state.key}`}>
-        {this.renderDialog(this.props, params.type)}
-        <Form.component
-          key={`${params.type}_${this.state.key}`}
+      <View style={styles.container} key={this.state.key}>
+        {this.renderDialog(this.props)}
+        <ExternalTransferForm
+          key={this.state.key}
           banks={banks}
-          onSubmit={Form.submit}
+          onSubmit={data => {
+            this.sup = data.amount > 200000
+            this.props.externalTransfer(data)
+          }}
           editable={!fetching} />
       </View>
     )
@@ -91,7 +66,7 @@ class TransferScreen extends Component {
 }
 
 const mapStateToProps = ({
-  transfer: { fetching, error, success, commission = 0 }, bank: { banks }
+  externalTransfer: { fetching, error, success, commission = 0 }, bank: { banks }
 }) => {
   return {
     fetching, error, success, commission,
@@ -101,18 +76,10 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    myAccountTransfer: (...data) =>
-      dispatch(TransferActions.myAccountTransferRequest(...data)),
-    tharwaTransfer: (...data) =>
-      dispatch(TransferActions.tharwaTransferRequest(...data)),
     externalTransfer: (...data) =>
-      dispatch(TransferActions.externalTransferRequest(...data)),
-    resetForm: () => {
-      dispatch(resetReduxForm('ExternalTransferForm'))
-      dispatch(resetReduxForm('tharwaTransfer'))
-      dispatch(resetReduxForm('myAccountTransfer'))
-    },
-    reset: () => dispatch(TransferActions.transferReset()),
+      dispatch(ExternalTransferActions.externalTransferRequest(...data)),
+    // resetForm: () => dispatch(resetReduxForm('ExternalTransferForm')),
+    reset: () => dispatch(ExternalTransferActions.externalTransferReset()),
     getBanks: () => dispatch(BankActions.bankRequest())
   }
 }

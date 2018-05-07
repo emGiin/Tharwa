@@ -12,6 +12,8 @@ import { PinCodeTypes } from '../Redux/PinCodeRedux'
 import { SignupTypes } from '../Redux/SignupRedux'
 import { AccountTypes } from '../Redux/AccountRedux'
 import { TransferTypes } from '../Redux/TransferRedux'
+import { TharwaTransferTypes } from '../Redux/TharwaTransferRedux'
+import { ExternalTransferTypes } from '../Redux/ExternalTransferRedux'
 import { BankTypes } from '../Redux/BankRedux'
 
 /* ------------- Sagas ------------- */
@@ -63,8 +65,8 @@ export default function* root() {
 
     // money transfer
     takeLatest(TransferTypes.MY_ACCOUNT_TRANSFER_REQUEST, myAccountTransfer, api),
-    takeLatest(TransferTypes.THARWA_TRANSFER_REQUEST, tharwaTransfer, api),
-    takeLatest(TransferTypes.EXTERNAL_TRANSFER_REQUEST, externalTransfer, api),
+    takeLatest(TharwaTransferTypes.THARWA_TRANSFER_REQUEST, tharwaTransfer, api),
+    takeLatest(ExternalTransferTypes.EXTERNAL_TRANSFER_REQUEST, externalTransfer, api),
 
     // // password update
     // takeLatest(PasswordTypes.CHANGE_PASSWORD_REQUEST, changePassword, api),

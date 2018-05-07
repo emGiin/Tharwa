@@ -1,6 +1,8 @@
 import { call, put } from 'redux-saga/effects'
 import I18n from 'react-native-i18n'
 import TransferActions from '../Redux/TransferRedux'
+import TharwaTransferActions from '../Redux/TharwaTransferRedux'
+import ExternalTransferActions from '../Redux/ExternalTransferRedux'
 
 // attempts to transfert
 export function* myAccountTransfer(api, { data }) {
@@ -44,9 +46,9 @@ export function* tharwaTransfer(api, { data }) {
   // success?
   if (response.ok) {
     const { commission } = response.data
-    yield put(TransferActions.transferSuccess(commission))
+    yield put(TharwaTransferActions.tharwaTransferSuccess(commission))
   } else {
-    yield put(TransferActions.transferFailure(I18n.t('transferDialogMessageError')))
+    yield put(TharwaTransferActions.tharwaTransferFailure(I18n.t('transferDialogMessageError')))
   }
 }
 
@@ -59,8 +61,8 @@ export function* externalTransfer(api, { data }) {
   // success?
   if (response.ok) {
     const { commission } = response.data
-    yield put(TransferActions.transferSuccess(commission))
+    yield put(ExternalTransferActions.externalTransferSuccess(commission))
   } else {
-    yield put(TransferActions.transferFailure(I18n.t('transferDialogMessageError')))
+    yield put(ExternalTransferActions.externalTransferFailure(I18n.t('transferDialogMessageError')))
   }
 }

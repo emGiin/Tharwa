@@ -15,7 +15,7 @@ export default class LaunchScreen extends Component {
 
   componentDidMount() {
     const { navigate } = this.props.navigation;
-    setTimeout(() => navigate('MainScreen'), 0)
+    setTimeout(() => navigate('LoginScreen'), 0)
   }
 
   render() {

@@ -1,6 +1,11 @@
 import React from 'react';
 import { TabNavigator } from 'react-navigation'
-import { MainScreen, TransferScreen } from '../Containers/Screens'
+import {
+  MainScreen,
+  MyAccountTransferScreen,
+  TharwaTransferScreen,
+  ExternalTransferScreen
+} from '../Containers/Screens'
 import { DrawerIcon as TabIcon } from '../Components'
 import TabBar from '../Containers/TabBar'
 
@@ -13,7 +18,7 @@ const screens = {
     }
   },
   TransactionScreen: {
-    screen: TransferScreen,
+    screen: MyAccountTransferScreen,
     navigationOptions: {
       tabBarLabel: 'Compte Virement',
       tabBarIcon: props => <TabIcon {...props} icon='swap-horizontal' unselectedIcon='swap-horizontal' />,
@@ -21,7 +26,7 @@ const screens = {
     }
   },
   TharwaTransactionScreen: {
-    screen: TransferScreen,
+    screen: TharwaTransferScreen,
     navigationOptions: {
       tabBarLabel: 'Virement Tharwa',
       tabBarIcon: props => <TabIcon {...props} icon='transfer' unselectedIcon='transfer' />,
@@ -29,7 +34,7 @@ const screens = {
     }
   },
   ExternalTransactionScreen: {
-    screen: TransferScreen,
+    screen: ExternalTransferScreen,
     navigationOptions: {
       tabBarLabel: 'Virement externe',
       tabBarIcon: props => <TabIcon {...props} icon='bank' unselectedIcon='bank' />,
@@ -37,7 +42,7 @@ const screens = {
     }
   },
   TransactionOrderScreen: {
-    screen: TransferScreen,
+    screen: MainScreen,
     navigationOptions: {
       tabBarLabel: 'Ordres de virement',
       tabBarIcon: props => <TabIcon {...props} icon='reorder-horizontal' unselectedIcon='reorder-horizontal' />
