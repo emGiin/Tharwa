@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
-import { reset } from 'redux-form'
+import { reset as resetReduxForm } from 'redux-form'
 import I18n from 'react-native-i18n'
 import TransferFormClientAccount from '../Forms/TransferFormClientAccount'
 import { ExternalTransferForm, TharwaTransferForm } from '../Forms'
@@ -19,8 +19,7 @@ class TransferScreen extends Component {
   forms = {
     "myAccount": {
       component: TransferFormClientAccount,
-      submit: data =>{
-     
+      submit: data => {
         this.props.myAccountTransfer(data)
         this.dialog.show()
       }
@@ -42,20 +41,23 @@ class TransferScreen extends Component {
     }
   }
 
-  componentWillReceiveProps({ success, error }) {
-    if (success || error) this.dialog.show()
+  componentWillReceiveProps(props) {
+    // if (props.success || props.error) this.dialog.show()
+    return props
   }
 
   resetScreen = () => {
-    this.props.resetForm();
+    this.props.reset();
+    // this.setState({ key: this.state.key++ })
   }
 
   componentWillMount() {
     if (this.props.banks.length === 0) this.props.getBanks()
   }
 
-  renderDialog = ({ fetching, error, success, commission, reset }) => (
+  renderDialog = ({ fetching, error, success, commission, reset }, type) => (
     <LoadingDialog
+      key={`${type}_${this.state.key}`}
       reset={reset}
       onSuccess={this.resetScreen}
       init={/* istanbul ignore next */dialog => { this.dialog = dialog }}
@@ -66,21 +68,21 @@ class TransferScreen extends Component {
       successTitle={I18n.t('transferDialogTitleSuccess')}
       fetching={fetching}
       fetchingTitle={I18n.t('transferDialogTitleFetching')}
-      fetchingMessage={I18n.t('transferDialogDescriptionFetching')}>
+      fetchingMessage={I18n.t('transferInProgress')}>
     </LoadingDialog>
   )
 
   render() {
     const { params = { type: 'tharwaAccount' } } = this.props.navigation.state;
-    const { fetching, banks } = this.props;
+    const { fetching, error, success, banks } = this.props;
     const Form = this.forms[params.type]
 
     return (
       <View style={styles.container} key={`${params.type}_${this.state.key}`}>
-        {this.renderDialog(this.props)}
+        {this.renderDialog(this.props, params.type)}
         <Form.component
-          banks={banks}
           key={`${params.type}_${this.state.key}`}
+          banks={banks}
           onSubmit={Form.submit}
           editable={!fetching} />
       </View>
@@ -106,9 +108,9 @@ const mapDispatchToProps = (dispatch) => {
     externalTransfer: (...data) =>
       dispatch(TransferActions.externalTransferRequest(...data)),
     resetForm: () => {
-      dispatch(reset('ExternalTransferForm'))
-      dispatch(reset('tharwaTransfer'))
-      dispatch(reset('myAccountTransfer'))
+      dispatch(resetReduxForm('ExternalTransferForm'))
+      dispatch(resetReduxForm('tharwaTransfer'))
+      dispatch(resetReduxForm('myAccountTransfer'))
     },
     reset: () => dispatch(TransferActions.transferReset()),
     getBanks: () => dispatch(BankActions.bankRequest())

@@ -35,7 +35,12 @@ export const failure = (state, { error }) => state.merge({
   error
 })
 
-export const reset = state => state.merge(INITIAL_STATE)
+export const reset = state => state.merge({
+  fetching: false,
+  success: false,
+  error: null,
+  commission: 0
+})
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.MY_ACCOUNT_TRANSFER_REQUEST]: request,

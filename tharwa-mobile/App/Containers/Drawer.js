@@ -20,7 +20,6 @@ class Drawer extends Component {
 
   render() {
     const { email, name, picture, items, ...other } = this.props
-
     return (
       <ScrollView>
         <SafeAreaView style={{ flex: 1 }} forceInset={{ top: 'always', horizontal: 'never' }}>

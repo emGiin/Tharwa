@@ -23,7 +23,7 @@ export class ProgressStepForm extends Component {
         </Text>
         <View style={styles.container}>
           {
-            confirmed && <Pulse color={Colors.button} numPulses={3} diameter={size + 100} speed={20} duration={1000} />
+            confirmed && <Pulse color={Colors.button} numPulses={5} diameter={size + 100} speed={20} duration={1000} />
           }
           <TouchableOpacity style={styles.button}
             disabled={confirmed}

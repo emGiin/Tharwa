@@ -5,25 +5,23 @@ import TransferActions from '../Redux/TransferRedux'
 // attempts to transfert
 export function* myAccountTransfer(api, { data }) {
 
-  if(data.from === 'devi_usd')
-  {
-    methodchange='devi_cour_usd'
+  if (data.from === 'devi_usd') {
+    methodchange = 'devi_cour_usd'
   }
-  else{
-    if(data.from === 'devi_eur')
-    {
-      methodchange='devi_cour_eur'
+  else {
+    if (data.from === 'devi_eur') {
+      methodchange = 'devi_cour_eur'
     }
-    else{
-      methodchange= `${data.from}_${data.to}`
+    else {
+      methodchange = `${data.from}_${data.to}`
 
     }
 
   }
- 
- 
+
+
   const request = {
-    method:  methodchange,
+    method: methodchange,
     amount: data.amount
   }
   const response = yield call(api.myAccountTransfer, request)
@@ -38,9 +36,10 @@ export function* myAccountTransfer(api, { data }) {
 }
 
 export function* tharwaTransfer(api, { data }) {
-  if (data.receiver && data.receiver.account)
-    data.receiver.account = `THW${data.receiver.account}DZD`
-  const response = yield call(api.tharwaTransfer, data)
+  const request = Object.assign({}, data)
+  request.receiver = Object.assign({}, data.receiver)
+  request.receiver.account = `THW${request.receiver.account}DZD`
+  const response = yield call(api.tharwaTransfer, request)
 
   // success?
   if (response.ok) {
@@ -52,9 +51,10 @@ export function* tharwaTransfer(api, { data }) {
 }
 
 export function* externalTransfer(api, { data }) {
-  if (data.receiver && data.receiver.account)
-    data.receiver.account = `${data.bank}${data.receiver.account}DZD`
-  const response = yield call(api.externalTransfer, data)
+  const request = Object.assign({}, data)
+  request.receiver = Object.assign({}, data.receiver)
+  request.receiver.account = `${request.receiver.bank}${request.receiver.account}DZD`
+  const response = yield call(api.externalTransfer, request)
 
   // success?
   if (response.ok) {

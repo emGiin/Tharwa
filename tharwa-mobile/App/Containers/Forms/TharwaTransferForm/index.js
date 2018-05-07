@@ -10,7 +10,7 @@ import ProofStepForm from './ProofStepForm'
 import ProgressStepForm from './ProgressStepForm'
 import { Colors } from '../../../Themes';
 
-class TransferForm extends Component {
+class TharwaTransferForm extends Component {
   formSteps = [
     InfoStepForm,
     ProgressStepForm
@@ -74,7 +74,7 @@ let Form = reduxForm({
   form: 'tharwaTransfer',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
-})(TransferForm);
+})(TharwaTransferForm);
 
 // connect our component again to get some additional state
 Form = connect(

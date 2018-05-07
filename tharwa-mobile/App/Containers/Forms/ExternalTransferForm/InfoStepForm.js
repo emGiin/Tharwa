@@ -61,7 +61,7 @@ export class InfoStepForm extends Component {
             refField="name"
             icon={'md-person'}
             ref={/* istanbul ignore next */ref => this.name = ref}
-            onEnter={() => this.focusOn('reason')}
+            onEnter={() => this.focusOn('amount')}
             component={InputField}
             editable={editable}
             validate={nameValidators}

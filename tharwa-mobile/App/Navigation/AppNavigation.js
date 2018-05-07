@@ -24,7 +24,7 @@ const PrimaryNav = StackNavigator(
     TransferScreen: { screen: TransferScreen, ...headerHidden },
   }, {
     // Default config for all screens
-    initialRouteName: 'AppDrawer',
+    initialRouteName: 'LaunchScreen',
     // initialRouteName: 'LaunchScreen',
     navigationOptions: {
       headerStyle: styles.header
