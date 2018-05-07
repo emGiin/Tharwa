@@ -59,6 +59,7 @@
   "amount": "Montant",
   "transfertamount": "Montant du virement",
   "reason": "Motif",
+  "name": "Nom complet",
   "accountNumber": "Numéro du compte",
   "transfer": "Virement Bancaire",
   "recieverInformation": "Information du destinataire",

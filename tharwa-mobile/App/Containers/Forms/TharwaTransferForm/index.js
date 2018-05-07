@@ -25,8 +25,11 @@ class TransferForm extends Component {
 
   componentWillReceiveProps({ amount }) {
     if (amount > 200000) {
-      this.formSteps.pop()
-      this.formSteps.push(ProofStepForm, ProgressStepForm)
+      this.formSteps = [
+        InfoStepForm,
+        ProofStepForm,
+        ProgressStepForm
+      ]
     } else {
       this.formSteps = [
         InfoStepForm,
@@ -44,9 +47,9 @@ class TransferForm extends Component {
   }
 
   getNextComponent = (currentPage) => {
-    const { fetching, onSubmit } = this.props;
+    const { editable, onSubmit } = this.props;
     const formStepProps = {
-      editable: !fetching,
+      editable,
       onSubmit: currentPage !== this.formSteps.length ? this.nextPage : onSubmit
     };
     if (currentPage !== 1) formStepProps.previousPage = this.previousPage;

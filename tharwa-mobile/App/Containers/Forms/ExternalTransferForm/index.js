@@ -25,8 +25,11 @@ class TransferForm extends Component {
 
   componentWillReceiveProps({ amount }) {
     if (amount > 200000) {
-      this.formSteps.pop()
-      this.formSteps.push(ProofStepForm, ProgressStepForm)
+      this.formSteps = [
+        InfoStepForm,
+        ProofStepForm,
+        ProgressStepForm
+      ]
     } else {
       this.formSteps = [
         InfoStepForm,

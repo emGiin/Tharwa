@@ -38,6 +38,8 @@ export function* myAccountTransfer(api, { data }) {
 }
 
 export function* tharwaTransfer(api, { data }) {
+  if (data.receiver && data.receiver.account)
+    data.receiver.account = `THW${data.receiver.account}DZD`
   const response = yield call(api.tharwaTransfer, data)
 
   // success?
@@ -50,6 +52,8 @@ export function* tharwaTransfer(api, { data }) {
 }
 
 export function* externalTransfer(api, { data }) {
+  if (data.receiver && data.receiver.account)
+    data.receiver.account = `${data.bank}${data.receiver.account}DZD`
   const response = yield call(api.externalTransfer, data)
 
   // success?

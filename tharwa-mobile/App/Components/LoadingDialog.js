@@ -84,7 +84,7 @@ class LoadingDialog extends Component {
       <PopupDialog
         width={0.95}
         height={170}
-        dismissOnTouchOutside={!fetching}
+        dismissOnTouchOutside={false}
         dismissOnHardwareBackPress={!fetching}
         ref={/* istanbul ignore next*/(dialog) => { this.dialog = dialog; this.props.init(dialog); }}
         dialogAnimation={slideAnimation}

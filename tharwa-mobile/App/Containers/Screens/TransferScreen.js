@@ -30,7 +30,7 @@ class TransferScreen extends Component {
       submit: data => {
         this.sup = data.amount > 200000
         this.props.tharwaTransfer(data)
-        this.dialog.show()
+
       }
     },
     "externalAccount": {
@@ -38,14 +38,16 @@ class TransferScreen extends Component {
       submit: data => {
         this.sup = data.amount > 200000
         this.props.externalTransfer(data)
-        this.dialog.show()
       }
     }
   }
 
+  componentWillReceiveProps({ success, error }) {
+    if (success || error) this.dialog.show()
+  }
+
   resetScreen = () => {
     this.props.resetForm();
-    // this.setState({ key: this.state.key++ });
   }
 
   componentWillMount() {
@@ -103,7 +105,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(TransferActions.tharwaTransferRequest(...data)),
     externalTransfer: (...data) =>
       dispatch(TransferActions.externalTransferRequest(...data)),
-    resetForm: () => dispatch(reset('transfer')),
+    resetForm: () => {
+      dispatch(reset('ExternalTransferForm'))
+      dispatch(reset('tharwaTransfer'))
+      dispatch(reset('myAccountTransfer'))
+    },
     reset: () => dispatch(TransferActions.transferReset()),
     getBanks: () => dispatch(BankActions.bankRequest())
   }

@@ -31,7 +31,7 @@ export class InfoStepForm extends Component {
             withRef
             refField="accountNumber"
             ref={/* istanbul ignore next */ref => this.accountNumber = ref}
-            onEnter={() => this.focusOn('lastName')}
+            onEnter={() => this.focusOn('amount')}
             component={AccountField}
             editable={editable}
             validate={accountValidators}

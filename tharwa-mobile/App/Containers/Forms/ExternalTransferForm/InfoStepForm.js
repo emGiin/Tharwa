@@ -46,7 +46,7 @@ export class InfoStepForm extends Component {
             withRef
             refField="accountNumber"
             ref={/* istanbul ignore next */ref => this.accountNumber = ref}
-            onEnter={() => this.focusOn('lastName')}
+            onEnter={() => this.focusOn('name')}
             component={AccountField}
             editable={editable}
             validate={accountValidators}
@@ -56,31 +56,17 @@ export class InfoStepForm extends Component {
           />
 
           <Field
-            name={'receiver.lastName'}
+            name={'receiver.name'}
             withRef
-            refField="lastName"
+            refField="name"
             icon={'md-person'}
-            ref={/* istanbul ignore next */ref => this.lastName = ref}
-            onEnter={() => this.focusOn('firstName')}
+            ref={/* istanbul ignore next */ref => this.name = ref}
+            onEnter={() => this.focusOn('reason')}
             component={InputField}
             editable={editable}
             validate={nameValidators}
             returnKeyType={'next'}
-            placeholder={I18n.t('lastName')}
-          />
-
-          <Field
-            withRef
-            icon={'md-person'}
-            ref={/* istanbul ignore next */ref => this.firstName = ref}
-            onEnter={() => this.focusOn('amount')}
-            refField="firstName"
-            name={'receiver.firstName'}
-            component={InputField}
-            editable={editable}
-            validate={nameValidators}
-            returnKeyType={'next'}
-            placeholder={I18n.t('firstName')}
+            placeholder={I18n.t('name')}
           />
 
           <Field

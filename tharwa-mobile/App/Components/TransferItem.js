@@ -21,7 +21,7 @@ const TransferItem = ({ item }) => {
       </View>
       <View style={styles.rightContainer}>
         <Text style={[styles.amount, { color }]}>
-          {formatMoney(item.amount)} DZF
+          {formatMoney(item.amount)}
         </Text>
         <Icon style={[styles.icon, { color }]} name={icon} />
       </View>
