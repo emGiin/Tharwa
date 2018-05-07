@@ -40,8 +40,8 @@ const columns = [
   },
   {
     title: 'Date',
-    dataIndex: 'transferdate',
-    key: 'transferdate'
+    dataIndex: 'creationdate',
+    key: 'creationdate'
   }
 ];
 
