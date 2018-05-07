@@ -3,7 +3,7 @@
 
 M.{{ $userName }}
 
-    Aprés une étude de votre demande de creation de compte, l'admisnistration a decidée de
+Aprés une étude de votre demande de creation de compte, l'admisnistration a decidée de
 
 @component('mail::panel')
 {{ ($isAccepted === 1) ? 'Acceptée votre demmande' : 'Rejtée votre demmande' }}

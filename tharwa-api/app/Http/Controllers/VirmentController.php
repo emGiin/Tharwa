@@ -8,8 +8,10 @@ use App\Bank;
 use App\Client;
 use App\ExternTransfer;
 use App\InternTransfer;
+use App\Mail\TransferMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use View;
 use Validator;
@@ -161,9 +163,16 @@ class VirmentController extends Controller
             $tharwaAccount->balance = $tharwaAccount->balance + $commissionDZD;
             $tharwaAccount->save();
 
-//            Mail::to($request->input('email'))
-//                ->queue(new ClientRequestValidatedMail($acceptedClient->firstname.' '.$acceptedClient->lastname
-//                    , $request->input('code')));
+            //email virement entre ses comptes
+            $client = $this->client()->get(['email', 'firstname', 'lastname'])->first();
+            Mail::to($client->email)
+                ->queue(new TransferMail($client->firstname . ' ' . $client->lastname
+                    , 0
+                    , $mapMethodeToCommission[$method]
+                    , ""
+                    , $amount
+                    , ""
+                ));//todo : _to & currency
 
             // all good
             /**commit - no problems **/
@@ -174,7 +183,7 @@ class VirmentController extends Controller
                 "commission" => $commission
             ], config('code.CREATED'));
 
-        } catch (\Exception $e) {dd($e);
+        } catch (\Exception $e) {
 
             // something went wrong
             /**rollback every thing - problems **/
@@ -219,6 +228,10 @@ class VirmentController extends Controller
             $senderAccount = $this->client()->accounts()
                 ->courant()->first();//todo check methode first()
 
+            $senderClient = $this->client()->get(['email', 'firstname', 'lastname'])->first();
+            $receiverAccount = Account::find($request->input('receiver.account'));
+            $receiverClient = $receiverAccount->client()->get(['email', 'firstname', 'lastname'])->first();
+
             //check the amount
             if (!$senderAccount->hasEnoughMoney($amount)) throw new \Exception;
             $hasEnoughMoney = true;
@@ -230,7 +243,7 @@ class VirmentController extends Controller
             //sender history
             BalanceHistory::create([
                 'id' => $nb + 1,
-                'amount' => $amount + $commission,//todo put it negative !!
+                'amount' => $amount + $commission,
                 'transaction_type' => 'vir_client',
                 'transaction_direction' => 'out',
                 'isIntern' => true,
@@ -266,6 +279,19 @@ class VirmentController extends Controller
                 $path = 'pictures/justification/' . $file_name;//todo config
                 //save file in disk
                 $image = self::base64_to_jpeg($request->input('justification'), $path);
+
+                //email virement besoin de validation
+//                $client = $this->client()->get(['email', 'firstname', 'lastname'])->first();
+//                Mail::to($client->email)
+//                    ->queue(new TransferMail($client->firstname . ' ' . $client->lastname
+//                        , 0
+//                        , $mapMethodeToCommission[$method]
+//                        , ""
+//                        , $amount
+//                        , ""
+//                    ));
+                //todo : mail to manager
+
             } else {
                 //receiver history
                 BalanceHistory::create([
@@ -281,12 +307,22 @@ class VirmentController extends Controller
                     'transfer_code' => $senderAccount->number . $request->input('receiver.account') . $now->format('YmdHi'),
                 ]);
                 //change the amount of the destination client just in case of < 200 000 else till validation
-                $receiverAccount = Account::find($request->input('receiver.account'));
                 $receiverAccount->balance = $receiverAccount->balance + $amount;
                 $receiverAccount->save();
 
                 $status = 'valide';
                 $transferDate = $creationDate = $now->format('Y-m-d H:i:s');
+
+
+                //email virement recu (to reciever)
+                Mail::to($receiverClient->email)
+                    ->queue(new TransferMail($receiverClient->firstname . ' ' . $receiverClient->lastname
+                        , 1
+                        , $senderClient->firstname . ' ' . $senderClient->lastname
+                        , ""
+                        , $amount
+                        , ""
+                    ));//todo : _to & currency
             }
 
             InternTransfer::create([
@@ -309,9 +345,16 @@ class VirmentController extends Controller
             $senderAccount->save();
 
 
-//            Mail::to($request->input('email'))
-//                ->queue(new ClientRequestValidatedMail($acceptedClient->firstname.' '.$acceptedClient->lastname
-//                    , $request->input('code')));
+            //email virement validé ou traitement
+            Mail::to($senderClient->email)
+                ->queue(new TransferMail($senderClient->firstname . ' ' . $senderClient->lastname
+                    , 2
+                    , $senderClient->firstname . ' ' . $senderClient->lastname
+                    , $receiverAccount->firstname . ' ' . $receiverAccount->lastname
+                    , $amount
+                    , $status
+                ));//todo : _to & currency
+
 
             // all good
             /**commit - no problems **/
@@ -322,7 +365,7 @@ class VirmentController extends Controller
                 "commission" => $commission
             ], config('code.CREATED'));
 
-        } catch (\Exception $e) {
+        } catch (\Exception $e) {dd($e);
 
             // something went wrong
             /**rollback every thing - problems **/
