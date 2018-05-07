@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, Keyboard } from 'react-native';
 import { connect } from 'react-redux'
+import { reset } from 'redux-form'
 import styles from './Styles/TabBarStyles'
 import { Colors } from '../Themes';
 
@@ -55,7 +56,10 @@ class CustomTabBar extends Component {
       items.push(
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => { navigation.navigate(key, options.params || {}) }}
+          onPress={() => {
+            this.props.resetForm()
+            navigation.navigate(key, options.params || {})
+          }}
           style={[styles.tab, { backgroundColor: color }]}
           key={key}
         >
@@ -95,7 +99,9 @@ const mapStateToProps = ({ account: { accountType, information: { infos = {} } }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    resetForm: () => dispatch(reset('transfer')),
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomTabBar)

@@ -44,7 +44,7 @@ const screens = {
     }
   },
   ExchangeRateScreen: {
-    screen: TransferScreen,
+    screen: MainScreen,
     navigationOptions: {
       tabBarLabel: 'Taux de change',
       tabBarIcon: props => <TabIcon {...props} icon='currency-gbp' unselectedIcon='currency-gbp' />

@@ -42,7 +42,7 @@ export class ProofStepForm extends Component {
 
 
 export default reduxForm({
-  form: 'transfer',
+  form: 'ExternalTransferForm',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
 })(ProofStepForm);
