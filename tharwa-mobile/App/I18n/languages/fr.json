@@ -64,5 +64,12 @@
   "confirmTransfer": "Confimer le transfer en cliquant sur le boutton ci-dessous",
   "invalidAccountError": "Numéro de compte invalide",
   "invalidAmountError": "La montant est invalide",
-  "bank": "Banque"
+  "bank": "Banque",
+  "transferDialogTitleError": "Erreur",
+  "transferDialogMessageError": "Le virement a échoué",
+  "transferDialogTitleSuccess": "Operation avec succès",
+  "transferDialogMessageSuccess": "Virement avec succès, La commission est de : ",
+  "transferDialogMessageSuccessValidation": "En attente de la validation, La commission est de : ",
+  "transferDialogTitleFetching": "Virement",
+  "transferDialogMessageFetching": "Le virement est en cours de transfert"
 }

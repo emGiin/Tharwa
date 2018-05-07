@@ -1,17 +1,54 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, Keyboard } from 'react-native';
+import { connect } from 'react-redux'
 import styles from './Styles/TabBarStyles'
 import { Colors } from '../Themes';
 
 class CustomTabBar extends Component {
+  invisibleItems = ['TransactionOrderScreen'];
+
+  constructor(props) {
+    super(props)
+
+    this.keyboardWillShow = this.keyboardWillShow.bind(this)
+    this.keyboardWillHide = this.keyboardWillHide.bind(this)
+
+    this.state = { isVisible: true }
+  }
+
+  componentWillMount() {
+    this.keyboardWillShowSub = Keyboard.addListener('keyboardDidShow', this.keyboardWillShow)
+    this.keyboardWillHideSub = Keyboard.addListener('keyboardDidHide', this.keyboardWillHide)
+  }
+
+  componentWillUnmount() {
+    this.keyboardWillShowSub.remove()
+    this.keyboardWillHideSub.remove()
+  }
+
+  keyboardWillShow = event => {
+    this.setState({
+      isVisible: false
+    })
+  }
+
+  keyboardWillHide = event => {
+    this.setState({
+      isVisible: true
+    })
+  }
 
   renderItems = () => {
     const items = []
     const { navigation, screens } = this.props
     const { routes, index } = navigation.state;
     const currentRoute = routes[index].key
+    const entries = Object.entries(screens)
 
-    for (let [key, { navigationOptions: options }] of Object.entries(screens)) {
+    for (let [key, { navigationOptions: options }] of entries) {
+      if (this.props.accountType !== 'Employee' &&
+        this.invisibleItems.includes(key)) continue;
+
       const color = (currentRoute === key) ? Colors.button : Colors.forground;
       const isFocused = currentRoute === key;
 
@@ -43,12 +80,22 @@ class CustomTabBar extends Component {
   }
 
   render() {
-    return (
+    return this.state.isVisible ? (
       <View style={styles.tabContainer}>
         {this.renderItems()}
       </View>
-    );
+    ) : null;
   }
 }
 
-export default CustomTabBar;
+const mapStateToProps = ({ account: { accountType, information: { infos = {} } } }) => {
+  return {
+    accountType: accountType || 'Client'
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomTabBar)

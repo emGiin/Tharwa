@@ -14,7 +14,7 @@ export function* myAccountTransfer(api, { data }) {
   if (response.ok) {
     yield put(TransferActions.transferSuccess())
   } else {
-    yield put(TransferActions.transferFailure(I18n.t('transferDialogDescriptionErreur')))
+    yield put(TransferActions.transferFailure(I18n.t('transferDialogMessageError')))
   }
 }
 
@@ -25,7 +25,7 @@ export function* tharwaTransfer(api, { data }) {
   if (response.ok) {
     yield put(TransferActions.transferSuccess())
   } else {
-    yield put(TransferActions.transferFailure(I18n.t('transferDialogDescriptionErreur')))
+    yield put(TransferActions.transferFailure(I18n.t('transferDialogMessageError')))
   }
 }
 
@@ -36,6 +36,6 @@ export function* externalTransfer(api, { data }) {
   if (response.ok) {
     yield put(TransferActions.transferSuccess())
   } else {
-    yield put(TransferActions.transferFailure(I18n.t('transferDialogDescriptionErreur')))
+    yield put(TransferActions.transferFailure(I18n.t('transferDialogMessageError')))
   }
 }
