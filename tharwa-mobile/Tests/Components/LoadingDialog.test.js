@@ -11,6 +11,8 @@ describe('LoadinDialog component', () => {
     container = shallow(
       <LoadingDialog
         init={spy}
+        success={false}
+        error={null}
         defaultTitle={'title'}
         defaultMessage={'message'}>
         content
@@ -24,10 +26,10 @@ describe('LoadinDialog component', () => {
     expect(container).toHaveLength(1)
   })
 
-  it('should call init function', () => {
-    // console.warn(content.find('Dialog').debug());
-    // TODO find a way to test ref functions
-  })
+  // it('should call init function', () => {
+  // console.warn(content.find('Dialog').debug());
+  // TODO find a way to test ref functions
+  // })
 
   it('should show default content', () => {
     const dContent = instance.getDialogContent()
@@ -65,13 +67,5 @@ describe('LoadinDialog component', () => {
     instance.dialog = { dismiss: dismissSpy }
     content.find('DialogButton').simulate('press')
     expect(dismissSpy).toHaveBeenCalled()
-  })
-
-  it('should change state', () => {
-    const dialog = content.find('Dialog')
-    dialog.props().onShown()
-    expect(instance.state.new).toBe(false)
-    dialog.props().onDismissed()
-    expect(instance.state.new).toBe(true)
   })
 })

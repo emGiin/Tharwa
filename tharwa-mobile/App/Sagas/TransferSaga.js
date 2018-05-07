@@ -12,7 +12,8 @@ export function* myAccountTransfer(api, { data }) {
 
   // success?
   if (response.ok) {
-    yield put(TransferActions.transferSuccess())
+    const { commission } = response.data
+    yield put(TransferActions.transferSuccess(commission))
   } else {
     yield put(TransferActions.transferFailure(I18n.t('transferDialogMessageError')))
   }
@@ -23,7 +24,8 @@ export function* tharwaTransfer(api, { data }) {
 
   // success?
   if (response.ok) {
-    yield put(TransferActions.transferSuccess())
+    const { commission } = response.data
+    yield put(TransferActions.transferSuccess(commission))
   } else {
     yield put(TransferActions.transferFailure(I18n.t('transferDialogMessageError')))
   }
@@ -34,7 +36,8 @@ export function* externalTransfer(api, { data }) {
 
   // success?
   if (response.ok) {
-    yield put(TransferActions.transferSuccess())
+    const { commission } = response.data
+    yield put(TransferActions.transferSuccess(commission))
   } else {
     yield put(TransferActions.transferFailure(I18n.t('transferDialogMessageError')))
   }

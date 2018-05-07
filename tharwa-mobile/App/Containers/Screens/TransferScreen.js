@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { reset } from 'redux-form'
 import I18n from 'react-native-i18n'
 import TransferFormClientAccount from '../Forms/TransferFormClientAccount'
-import { TransferForm } from '../Forms'
+import { ExternalTransferForm, TharwaTransferForm } from '../Forms'
 import { LoadingDialog } from '../../Components'
 // Redux
 import TransferActions from '../../Redux/TransferRedux'
@@ -25,7 +25,7 @@ class TransferScreen extends Component {
       }
     },
     "tharwaAccount": {
-      component: TransferForm,
+      component: TharwaTransferForm,
       submit: data => {
         this.sup = data.amount > 200000
         this.props.tharwaTransfer(data)
@@ -33,7 +33,7 @@ class TransferScreen extends Component {
       }
     },
     "externalAccount": {
-      component: TransferForm,
+      component: ExternalTransferForm,
       submit: data => {
         this.sup = data.amount > 200000
         this.props.externalTransfer(data)
@@ -44,7 +44,7 @@ class TransferScreen extends Component {
 
   resetScreen = () => {
     this.props.resetForm();
-    this.setState({ key: this.state.key++ });
+    // this.setState({ key: this.state.key++ });
   }
 
   componentWillMount() {
@@ -73,12 +73,11 @@ class TransferScreen extends Component {
     const Form = this.forms[params.type]
 
     return (
-      <View style={styles.container}>
+      <View style={styles.container} key={`${params.type}_${this.state.key}`}>
         {this.renderDialog(this.props)}
         <Form.component
           banks={banks}
-          key={this.state.key}
-          transferType={params.type}
+          key={`${params.type}_${this.state.key}`}
           onSubmit={Form.submit}
           editable={!fetching} />
       </View>

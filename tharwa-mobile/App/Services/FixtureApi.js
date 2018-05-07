@@ -67,17 +67,29 @@ export default {
   },
   requestNewAccount: type => {
     return {
-      ok: true
+      ok: true,
+      data: {
+        "saved": true,
+        "commission": 210
+      }
     }
   },
   tharwaTransfer: data => {
     return {
-      ok: true
+      ok: true,
+      data: {
+        "saved": true,
+        "commission": 290
+      }
     }
   },
   externalTransfer: data => {
     return {
-      ok: true
+      ok: true,
+      data: {
+        "saved": true,
+        "commission": 300
+      }
     }
   },
   getBanks: () => {

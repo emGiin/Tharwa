@@ -6,7 +6,7 @@ const { Types, Creators } = createActions({
   tharwaTransferRequest: ['data'],
   externalTransferRequest: ['data'],
   transferFailure: ['error'],
-  transferSuccess: [],
+  transferSuccess: ['commission'],
   transferReset: [],
 })
 
@@ -17,15 +17,17 @@ const INITIAL_STATE = Immutable({
   fetching: false,
   loading: false,
   success: false,
-  error: null
+  error: null,
+  commission: 0
 })
 
 export const request = state => state.merge({ fetching: true, success: false })
 
-export const success = state => state.merge({
+export const success = (state, { commission }) => state.merge({
   fetching: false,
   error: null,
-  success: true
+  success: true,
+  commission
 })
 
 export const failure = (state, { error }) => state.merge({

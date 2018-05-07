@@ -44,12 +44,10 @@ class TransferForm extends Component {
   }
 
   getNextComponent = (currentPage) => {
-    const { fetching, onSubmit, transferType, banks } = this.props;
+    const { fetching, onSubmit } = this.props;
     const formStepProps = {
       editable: !fetching,
-      onSubmit: currentPage !== this.formSteps.length ? this.nextPage : onSubmit,
-      transferType,
-      banks
+      onSubmit: currentPage !== this.formSteps.length ? this.nextPage : onSubmit
     };
     if (currentPage !== 1) formStepProps.previousPage = this.previousPage;
     const CurrentFormComponent = this.formSteps[currentPage - 1];
@@ -70,7 +68,7 @@ class TransferForm extends Component {
 }
 
 let Form = reduxForm({
-  form: 'transfer',
+  form: 'tharwaTransfer',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
 })(TransferForm);
@@ -79,7 +77,7 @@ let Form = reduxForm({
 Form = connect(
   /* istanbul ignore next */
   state => ({
-    amount: formValueSelector('transfer')(state, 'amount')
+    amount: formValueSelector('tharwaTransfer')(state, 'amount')
   })
 )(Form)
 

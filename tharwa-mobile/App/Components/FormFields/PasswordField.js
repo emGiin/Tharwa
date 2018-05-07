@@ -18,7 +18,7 @@ class PasswordField extends Component {
     const { showPassword } = this.state;
     return (
       <View>
-        <Item regular style={styles.inputTxt}>
+        <Item regular style={[styles.inputTxt, { marginTop: 10 }]}>
           <Icon name='lock' style={styles.inputIcon} />
           <Input
             ref={refField}

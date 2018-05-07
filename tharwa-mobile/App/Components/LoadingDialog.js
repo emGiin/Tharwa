@@ -34,8 +34,8 @@ class LoadingDialog extends Component {
     fetchingMessage: I18n.t('dialogFetchingMessage'),
     error: I18n.t('dialogErrorMessage'),
     errorTitle: I18n.t('dialogErrorTitle'),
-    error: I18n.t('dialogSuccessMessage'),
-    errorTitle: I18n.t('dialogSuccessTitle')
+    success: I18n.t('dialogSuccessMessage'),
+    successTitle: I18n.t('dialogSuccessTitle')
   }
 
   close = () => {

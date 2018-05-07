@@ -3,6 +3,7 @@ import { call, put, select } from 'redux-saga/effects'
 import { confirmPinCode, selectPinCodeToken } from '../../App/Sagas/PinCodeSaga'
 import AuthActions from '../../App/Redux/AuthRedux'
 import PinCodeActions from '../../App/Redux/PinCodeRedux'
+import AccountActions from '../../App/Redux/AccountRedux'
 
 const stepper = (fn) => (mock) => fn.next(mock).value
 
@@ -24,7 +25,7 @@ describe('PIN CODE SAGA', () => {
 
     const response = FixtureAPI.confirmPinCode(pinCodeObj)
 
-    const step = stepper(confirmPinCode(FixtureAPI, { pinCode }))
+    const step = stepper(confirmPinCode({ authApi: FixtureAPI, api: FixtureAPI }, { pinCode }))
 
     expect(step(pinCodeObj.temporary_token)).toEqual(select(selectPinCodeToken))
 
@@ -32,10 +33,12 @@ describe('PIN CODE SAGA', () => {
       pin: pinCode,
       temporary_token: response
     }))
+    // Store the auth token in redux
+    expect(step(response)).toEqual(call(FixtureAPI.setAuthHeaders, response.data.token_, pinCode))
     // Set the auth token on the API
     expect(step(response)).toEqual(put(PinCodeActions.pinCodeSuccess()))
-    // Store the auth token in redux
     expect(step(response)).toEqual(put(AuthActions.saveAuthToken(response.data.token_)))
+    expect(step(response)).toEqual(put(AccountActions.saveAccountType(response.data.client_type)))
   })
 
 
@@ -56,7 +59,7 @@ describe('PIN CODE SAGA', () => {
 
     const response = FixtureAPI.confirmPinCode(pinCodeObj)
 
-    const step = stepper(confirmPinCode(FixtureAPI, { pinCode }))
+    const step = stepper(confirmPinCode({ authApi: FixtureAPI, api: FixtureAPI }, { pinCode }))
 
     expect(step(pinCodeObj.temporary_token)).toEqual(select(selectPinCodeToken))
 
@@ -69,7 +72,7 @@ describe('PIN CODE SAGA', () => {
   })
 
   it('should select the pin code token', () => {
-    const state = { pinCode: { pinCodeToken: 'token' } }
+    const state = { pinCode: { token: 'token' } }
     // Retrieve the API token
     expect(selectPinCodeToken(state)).toEqual('token')
   })

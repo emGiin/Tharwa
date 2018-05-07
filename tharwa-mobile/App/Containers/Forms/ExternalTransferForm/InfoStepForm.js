@@ -20,25 +20,22 @@ export class InfoStepForm extends Component {
 
   render() {
     const { editable, handleSubmit, previousPage, banks } = this.props;
-    const isExternal = this.props.transferType === 'externalAccount'
     return (
       <Container style={styles.mainformContainer}>
         <Content style={styles.inputContainer} >
-          <Text style={{ color: Colors.white }}>{I18n.t('recieverInformation')}
+          <Text style={{ color: Colors.white }}>
+            {I18n.t('recieverInformation')}
           </Text>
 
-          {
-            isExternal &&
-            <Field
-              name={'receiver.bank'}
-              icon={'md-home'}
-              component={PickerField}
-              editable={editable}
-              placeholder={I18n.t('bank')}
-              validate={pickerValidators}
-              options={banks}
-            />
-          }
+          <Field
+            name={'receiver.bank'}
+            icon={'md-home'}
+            component={PickerField}
+            editable={editable}
+            placeholder={I18n.t('bank')}
+            validate={pickerValidators}
+            options={banks}
+          />
 
           <Field
             name={'receiver.account'}
@@ -54,39 +51,33 @@ export class InfoStepForm extends Component {
             placeholder={I18n.t('accountNumber')}
           />
 
-          {
-            isExternal &&
-            <Field
-              name={'receiver.lastName'}
-              withRef
-              refField="lastName"
-              icon={'md-person'}
-              ref={/* istanbul ignore next */ref => this.lastName = ref}
-              onEnter={() => this.focusOn('firstName')}
-              component={InputField}
-              editable={editable}
-              validate={nameValidators}
-              returnKeyType={'next'}
-              placeholder={I18n.t('lastName')}
-            />
-          }
+          <Field
+            name={'receiver.lastName'}
+            withRef
+            refField="lastName"
+            icon={'md-person'}
+            ref={/* istanbul ignore next */ref => this.lastName = ref}
+            onEnter={() => this.focusOn('firstName')}
+            component={InputField}
+            editable={editable}
+            validate={nameValidators}
+            returnKeyType={'next'}
+            placeholder={I18n.t('lastName')}
+          />
 
-          {
-            isExternal &&
-            <Field
-              withRef
-              icon={'md-person'}
-              ref={/* istanbul ignore next */ref => this.firstName = ref}
-              onEnter={() => this.focusOn('amount')}
-              refField="firstName"
-              name={'receiver.firstName'}
-              component={InputField}
-              editable={editable}
-              validate={nameValidators}
-              returnKeyType={'next'}
-              placeholder={I18n.t('firstName')}
-            />
-          }
+          <Field
+            withRef
+            icon={'md-person'}
+            ref={/* istanbul ignore next */ref => this.firstName = ref}
+            onEnter={() => this.focusOn('amount')}
+            refField="firstName"
+            name={'receiver.firstName'}
+            component={InputField}
+            editable={editable}
+            validate={nameValidators}
+            returnKeyType={'next'}
+            placeholder={I18n.t('firstName')}
+          />
 
           <Field
             name={'amount'}
@@ -124,7 +115,7 @@ export class InfoStepForm extends Component {
 
 
 export default reduxForm({
-  form: 'transfer',
+  form: 'ExternalTransferForm',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
 })(InfoStepForm);

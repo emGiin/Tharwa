@@ -35,10 +35,10 @@ export function* logout(api) {
 // loads the login
 export function* loadToken(api) {
   const authToken = yield select(selectAuthToken)
-  const pinCode = yield select(selectPinCode)
+  // const pinCode = yield select(selectPinCode)
   // only set the token if we have it
-  if (authToken && pinCode) {
-    yield call(api.setAuthHeaders, pinCode, authToken)
+  if (authToken/* && pinCode*/) {
+    yield call(api.setAuthHeaders, authToken)
   }
   yield put(AuthActions.tokenLoadSuccess())
 }
