@@ -28,11 +28,12 @@ class ExternTransfer extends Model
 
     public function scopeNeedValidation($query)
     {
-        return $query->where('amount','>','200000')
-            ->where('status','traitement');
+        return $query->where('amount', '>', config('utils.amount_need_validation'))
+            ->where('status', 'traitement');
     }
 
-    public function isFromExtern(){
+    public function isFromExtern()
+    {
         return $this->direction === 'in';
     }
 }

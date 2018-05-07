@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Http\Controllers\VirmentController;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,8 +14,13 @@ class ConversionTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
+    public function testToDZD()
     {
+        $controller = new VirmentController();
+        $controller->toDZD(1000,0.5,'cour_epar');
+
+
+
         $this->assertTrue(true);
     }
 }

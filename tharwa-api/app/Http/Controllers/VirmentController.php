@@ -18,7 +18,7 @@ use Validator;
 
 class VirmentController extends Controller
 {
-    private function getConversionRate($method)
+    public function getConversionRate($method)
     {
         if ($method == 'cour_epar' || $method == 'epar_cour')
             return 1;
@@ -39,7 +39,7 @@ class VirmentController extends Controller
         return $res->$currencies->val;
     }
 
-    private function toDZD($amount, $conversionRate, $method)
+    public function toDZD($amount, $conversionRate, $method)
     {
         if (in_array($method, ['cour_epar', 'epar_cour', 'cour_devi_usd', 'cour_devi_eur']))
             return $amount;
@@ -209,7 +209,7 @@ class VirmentController extends Controller
             'reason' => 'required|max:255',
         ]);
         $validator->sometimes('justification', 'required', function ($input) {//todo more validation
-            return $input->amount > 200000; // Amount "Depasse" 200 000
+            return $input->amount > config('utils.amount_need_validation'); // Amount "Depasse" 200 000
         });
         if ($validator->fails()) {
             return response($validator->errors(), config('code.BAD_REQUEST'));
@@ -269,7 +269,7 @@ class VirmentController extends Controller
             $tharwaAccount->balance = $tharwaAccount->balance + $commission;
             $tharwaAccount->save();
 
-            if ($amount > 200000) {
+            if ($amount > config('utils.amount_need_validation')) {
                 $transferDate = null;
                 $creationDate = $now->format('Y-m-d H:i:s');
                 $status = 'traitement';
@@ -383,7 +383,7 @@ class VirmentController extends Controller
             'reason' => 'required|max:255',
         ]);
         $validator->sometimes('justification', 'required', function ($input) {//todo
-            return $input->amount > 200000; // Amount "Depasse" 200 000
+            return $input->amount > config('utils.amount_need_validation'); // Amount "Depasse" 200 000
         });
         if ($validator->fails()) {
             return response($validator->errors(), config('code.BAD_REQUEST'));
@@ -412,7 +412,7 @@ class VirmentController extends Controller
             $commission = config('commission.SENDEXTBANK') * $amount;
             $now = \Carbon\Carbon::now();
             $virement_code = $senderAccount->number . $request->input('receiver.account') . $now->format('YmdHi');
-            if ($amount > 200000) {
+            if ($amount > config('utils.amount_need_validation')) {
                 $transferDate = null;
                 $creationDate = $now->format('Y-m-d H:i:s');
                 $status = 'traitement';
