@@ -30,12 +30,12 @@ class LoginScreen extends Component {
     attemptLogin: PropTypes.func
   }
 
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps({ fetching, success }) {
     /* istanbul ignore else */
-    if (!props.fetching && props.success) {
+    if (!fetching && success) {
       this.dialog.dismiss();
       this.goToPinCodePage();
-      props.reset()
+      this.props.reset()
     }
   }
 

@@ -26,7 +26,7 @@ class PinCodeScreen extends Component {
     if (!fetching && success) {
       this.dialog.dismiss();
       this.goToMainPage();
-      reset()
+      this.props.reset()
     }
   }
 

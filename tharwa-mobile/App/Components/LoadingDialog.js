@@ -23,13 +23,13 @@ class LoadingDialog extends Component {
     defaultMessage: PropTypes.string,
     error: PropTypes.string,
     errorTitle: PropTypes.string,
-    success: PropTypes.bool,
     successMessage: PropTypes.string,
     successTitle: PropTypes.string
   }
 
   static defaultProps = {
     fetching: false,
+    success: false,
     fetchingTitle: I18n.t('dialogFetchingTitle'),
     fetchingMessage: I18n.t('dialogFetchingMessage'),
     error: I18n.t('dialogErrorMessage'),
