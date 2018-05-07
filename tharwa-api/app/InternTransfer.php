@@ -28,7 +28,7 @@ class InternTransfer extends Model
 
     public function scopeNeedValidation($query)
     {
-        return $query->where('amount', '>', config('utils.amount_need_validation'))
+        return $query->where('amount', '>', config('utils.amount_limit_validation'))
             ->where('status', 'traitement');
     }
 }

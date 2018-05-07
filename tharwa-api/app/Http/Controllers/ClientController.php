@@ -131,6 +131,8 @@ class ClientController extends Controller
             );
         }
 
+        $infos->put('amount_limit_validation',config('utils.amount_limit_validation'));
+
         return response($infos);
     }
 

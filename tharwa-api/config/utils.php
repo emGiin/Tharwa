@@ -2,6 +2,6 @@
 
 return [
 
-    'amount_need_validation' => 200000
+    'amount_limit_validation' => 200000
 
 ];

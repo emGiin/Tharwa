@@ -209,7 +209,7 @@ class VirmentController extends Controller
             'reason' => 'required|max:255',
         ]);
         $validator->sometimes('justification', 'required', function ($input) {//todo more validation
-            return $input->amount > config('utils.amount_need_validation'); // Amount "Depasse" 200 000
+            return $input->amount > config('utils.amount_limit_validation'); // Amount "Depasse" 200 000
         });
         if ($validator->fails()) {
             return response($validator->errors(), config('code.BAD_REQUEST'));
@@ -269,7 +269,7 @@ class VirmentController extends Controller
             $tharwaAccount->balance = $tharwaAccount->balance + $commission;
             $tharwaAccount->save();
 
-            if ($amount > config('utils.amount_need_validation')) {
+            if ($amount > config('utils.amount_limit_validation')) {
                 $transferDate = null;
                 $creationDate = $now->format('Y-m-d H:i:s');
                 $status = 'traitement';
@@ -383,7 +383,7 @@ class VirmentController extends Controller
             'reason' => 'required|max:255',
         ]);
         $validator->sometimes('justification', 'required', function ($input) {//todo
-            return $input->amount > config('utils.amount_need_validation'); // Amount "Depasse" 200 000
+            return $input->amount > config('utils.amount_limit_validation'); // Amount "Depasse" 200 000
         });
         if ($validator->fails()) {
             return response($validator->errors(), config('code.BAD_REQUEST'));
@@ -412,7 +412,7 @@ class VirmentController extends Controller
             $commission = config('commission.SENDEXTBANK') * $amount;
             $now = \Carbon\Carbon::now();
             $virement_code = $senderAccount->number . $request->input('receiver.account') . $now->format('YmdHi');
-            if ($amount > config('utils.amount_need_validation')) {
+            if ($amount > config('utils.amount_limit_validation')) {
                 $transferDate = null;
                 $creationDate = $now->format('Y-m-d H:i:s');
                 $status = 'traitement';
