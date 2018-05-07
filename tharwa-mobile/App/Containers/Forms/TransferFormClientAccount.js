@@ -89,11 +89,11 @@ class TransferFormClientAccount extends Component {
         <Header
           text={'Virement'}
         />
+        <Content style={{ marginTop: -20,
+          backgroundColor: Colors.background
+        }}>
         <Content style={{
-          marginLeft: 30, marginTop: 70, marginBottom: 130, marginRight: 30, shadowOffset: { width: 5, height: 5 },
-          shadowColor: Colors.white,
-          shadowOpacity: 1,
-          elevation: 5,
+          marginLeft: 40, marginTop: 70, marginRight: 40,
           backgroundColor: Colors.background
         }}>
           <Content >
@@ -146,7 +146,7 @@ class TransferFormClientAccount extends Component {
           <Button style={{
             alignSelf: 'center',
             height: 40,
-            marginTop: 20,
+            marginTop: 100,
             borderColor: Colors.button,
             borderWidth: 1,
             borderRadius: 5,
@@ -155,6 +155,7 @@ class TransferFormClientAccount extends Component {
             onSubmit={handleSubmit}>
             <Text style={{ color: '#c9d0de', textAlign: 'center' }}>Envoyer</Text>
           </Button>
+        </Content>
         </Content>
       </Container>
     );

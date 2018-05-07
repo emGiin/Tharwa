@@ -19,7 +19,10 @@ class TransferScreen extends Component {
   forms = {
     "myAccount": {
       component: TransferFormClientAccount,
-      submit: this.props.myAccountTransfer
+      submit: data =>{
+        this.props.myAccountTransfer(data)
+        this.dialog.show()
+      }
     },
     "tharwaAccount": {
       component: TransferForm,
