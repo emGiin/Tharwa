@@ -49,11 +49,15 @@ class MainScreen extends Component {
     this.setState({ selectedAccount: this.pages[page].type })
   }
 
-  renderConfirmationDialog = ({ fetching, error }, { selectedAccount }) => (
+  renderConfirmationDialog = ({ fetching, error, success, reset }, { selectedAccount }) => (
     <LoadingDialog
       init={/* istanbul ignore next */dialog => { this.dialog = dialog }}
       error={error}
+      reset={reset}
+      success={success}
       fetching={fetching}
+      successTitle={"Nouveau Compte"}
+      successMessage={"Nouveau Compte crée avec succes"}
       fetchingTitle={"Nouveau Compte"}
       fetchingMessage={"Creation du compte est en cours"}
       defaultTitle={"Nouveau Compte"}
@@ -71,7 +75,7 @@ class MainScreen extends Component {
   )
 
   render() {
-    const { width, height } = Dimensions.get('window')
+    const { width } = Dimensions.get('window')
     const { info } = this.props
     const selectedAccount = info[this.state.selectedAccount]
     const accountHistory = (selectedAccount && selectedAccount.history) || new Array(3);
@@ -127,16 +131,17 @@ class MainScreen extends Component {
 }
 
 const mapStateToProps = ({
-  account: { information: info, fetching, error }
+  account: { information: info, fetching, error, success }
 }) => {
-  return { info, fetching, error }
+  return { info, fetching, error, success }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getProfile: () => dispatch(AccountActions.accountRequest()),
     requestNewAccount: (...data) =>
-      dispatch(AccountActions.newAccountRequest(...data))
+      dispatch(AccountActions.newAccountRequest(...data)),
+    reset: () => dispatch(AccountActions.newAccountReset())
   }
 }
 

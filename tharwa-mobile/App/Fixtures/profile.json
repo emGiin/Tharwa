@@ -71,38 +71,12 @@
       }
     ]
   },
-  "EPARGN": {
-    "amount": "2983954.93",
-    "history": [
-      {
-        "target": "Courant",
-        "amount": "452000.50",
-        "transaction_direction": "in",
-        "created_at": "2018-04-22 23:00:07"
-      },
-      {
-        "target": "Courant",
-        "amount": "2005.99",
-        "transaction_direction": "out",
-        "created_at": "2018-04-22 23:05:39"
-      }
-    ]
+  "DVEUR": {
+    "status": "requested",
+    "at": "2018-05-06 09:29:10"
   },
-  "DVUSD": {
-    "amount": "2983954.93",
-    "history": [
-      {
-        "target": "Courant",
-        "amount": "452000.50",
-        "transaction_direction": "in",
-        "created_at": "2018-04-22 23:00:07"
-      },
-      {
-        "target": "Courant",
-        "amount": "2005.99",
-        "transaction_direction": "out",
-        "created_at": "2018-04-22 23:05:39"
-      }
-    ]
+  "EPARGN": {
+    "status": "blocked",
+    "at": "2018-05-06 17:30:59"
   }
 }

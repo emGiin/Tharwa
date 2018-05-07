@@ -1,13 +1,11 @@
 
 import React, { Component } from 'react'
-import { Container, Title, Content, Button, Icon, Right, Body, Left, Picker, Form, Text, Item, Input, Label } from "native-base";
-import PropTypes from 'prop-types'
-import { Colors, Images } from '../../Themes'
+import { Container, Content, Button, Form, Text, Item } from "native-base"
+import { Colors } from '../../Themes'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import { InputField, Header, PickerField } from "../../Components"
 import {
-  nameValidators, accountValidators,
-  requiredValidator, amountValidators
+  amountValidators
 } from '../../Helpers/validators'
 import { connect } from 'react-redux'
 
@@ -15,10 +13,6 @@ import I18n from 'react-native-i18n'
 
 
 class TransferFormClientAccount extends Component {
-
-
-
-
   constructor(props) {
     super(props);
     this.state = {

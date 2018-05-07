@@ -22,9 +22,9 @@ export class ProgressStepForm extends Component {
           {confirmed ? I18n.t("transferInProgress") : I18n.t("confirmTransfer")}
         </Text>
         <View style={styles.container}>
-          {/* {
+          {
             confirmed && <Pulse color={Colors.button} numPulses={3} diameter={size + 100} speed={10} duration={1000} />
-          } */}
+          }
           <TouchableOpacity style={styles.button}
             disabled={confirmed}
             activeOpacity={0.8}

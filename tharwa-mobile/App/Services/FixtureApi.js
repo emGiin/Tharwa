@@ -74,6 +74,15 @@ export default {
       }
     }
   },
+  myAccountTransfer: data => {
+    return {
+      ok: true,
+      data: {
+        "saved": true,
+        "commission": 290
+      }
+    }
+  },
   tharwaTransfer: data => {
     return {
       ok: true,

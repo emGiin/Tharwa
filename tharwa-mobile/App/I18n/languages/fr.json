@@ -53,6 +53,8 @@
   "signupPictureHint": "Veuillez vous prendre en photo pour votre compte bancaire en cliquant sur l'image ci-dessous",
   "loading": "Chargement en cours",
   "accountRequest": "Demander la creation de ce compte",
+  "accountRequested": "Votre demande est en cours de validation",
+  "accountBlocked": "Votre compte est bloqué. Demander le déblocage",
   "transferProofPicture": "Veuillez prendre une photo du document justifiant votre transfert supérieur à 200 000 DA",
   "amount": "Montant",
   "transfertamount": "Montant du virement",
