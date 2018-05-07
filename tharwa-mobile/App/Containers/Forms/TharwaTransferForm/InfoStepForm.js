@@ -36,7 +36,7 @@ export class InfoStepForm extends Component {
             onEnter={() => this.focusOn('lastName')}
             component={InputField}
             editable={editable}
-            // validate={accountValidators}
+            validate={accountValidators}
             returnKeyType={'next'}
             placeholder={I18n.t('accountNumber')}
           />
@@ -50,7 +50,7 @@ export class InfoStepForm extends Component {
             ref={/* istanbul ignore next */ref => this.amount = ref}
             component={InputField}
             editable={editable}
-            // validate={amountValidators}
+            validate={amountValidators}
             returnKeyType={'next'}
             keyboardType={'numeric'}
             placeholder={I18n.t('amount')}
@@ -64,7 +64,7 @@ export class InfoStepForm extends Component {
             name={'reason'}
             component={InputField}
             editable={editable}
-            // validate={[requiredValidator]}
+            validate={[requiredValidator]}
             returnKeyType={'done'}
             placeholder={I18n.t('reason')}
           />

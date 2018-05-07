@@ -60,7 +60,7 @@ const AppTabs = TabNavigator(screens, {
   },
   tabBarComponent: props => <TabBar screens={screens} {...props} />,
   tabBarPosition: 'bottom',
-  animationEnabled: false,
+  animationEnabled: true,
   swipeEnabled: false,
 });
 
