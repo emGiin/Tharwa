@@ -72,6 +72,6 @@ return [
     ],
 
 
-    'uploaded_file' => 'public/files'
+    'uploaded_file' => 'files'
 
 ];

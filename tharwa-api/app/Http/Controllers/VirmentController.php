@@ -549,8 +549,8 @@ class VirmentController extends Controller
             if ($transfer->isFromExtern()) { //from thrwa to out
                 $transfer->source_id = collect(
                     [
-                        'firstName' => $transfer->extern_account_name,
-                        'lastName' => '',
+                        'firstname' => $transfer->extern_account_name,
+                        'lastname' => '',
                         'account' => $transfer->extern_account_number,
                         'bank' => $extenBank
                     ]
@@ -559,7 +559,7 @@ class VirmentController extends Controller
                 $receiver = collect(
                     Account::find($transfer->intern_account_id)
                         ->client()
-                        ->get(['firstName', 'lastName'])
+                        ->get(['firstname', 'lastname'])
                         ->first()
                 );
                 $receiver->put('account', $transfer->intern_account_id);
@@ -569,7 +569,7 @@ class VirmentController extends Controller
                 $sender = collect(
                     Account::find($transfer->intern_account_id)
                         ->client()
-                        ->get(['firstName', 'lastName'])
+                        ->get(['firstname', 'lastname'])
                         ->first()
                 );
                 $sender->put('account', $transfer->intern_account_id);
@@ -578,8 +578,8 @@ class VirmentController extends Controller
 
                 $transfer->destination_id = collect(
                     [
-                        'firstName' => $transfer->extern_account_name,
-                        'lastName' => '',//todo
+                        'firstname' => $transfer->extern_account_name,
+                        'lastname' => '',//todo
                         'account' => $transfer->extern_account_number,
                         'bank' => $extenBank
                     ]
@@ -602,7 +602,7 @@ class VirmentController extends Controller
             $sender = collect(
                 Account::find($transfer->source_id)
                     ->client()
-                    ->get(['firstName', 'lastName'])
+                    ->get(['firstname', 'lastname'])
                     ->first()
             );
             $sender->put('bank', "Tharwa");
@@ -612,7 +612,7 @@ class VirmentController extends Controller
             $receiver = collect(
                 Account::find($transfer->destination_id)
                     ->client()
-                    ->get(['firstName', 'lastName'])
+                    ->get(['firstname', 'lastname'])
                     ->first()
             );
             $receiver->put('bank', "Tharwa");
@@ -620,9 +620,15 @@ class VirmentController extends Controller
             $transfer->destination_id = $receiver;
         }
 
-        //todo !or not! order by date!
         $transferNeedValidations = $transferInternNeedValidations
             ->merge($transferExternNeedValidations);
+
+        foreach ($transferNeedValidations as $transferNeedValidation){
+            $transferNeedValidation->justification = url(config('filesystems.uploaded_file')) . '/'
+                .$transferNeedValidation->justification;
+        }
+
+        $transferNeedValidations->sortBy("creationdate");
 
         return response($transferNeedValidations);
     }
@@ -672,7 +678,7 @@ class VirmentController extends Controller
                         'transaction_type' => 'vir_client',//todo change it to 'reject' after migration
                         'transaction_direction' => 'in',
                         //'isIntern' => null,
-                        'target' => "Tharwa reject your intern transfer",
+                        'target' => $interTransfer->destination_id,
                         'account_id' => $interTransfer->source_id,
                         'created_at' => $now->format('Y-m-d H:i:s'),
                         'updated_at' => $now->format('Y-m-d H:i:s'),
@@ -727,8 +733,8 @@ class VirmentController extends Controller
                         'transaction_type' => 'vir_client',//todo change it to 'reject' after migration
                         'transaction_direction' => 'in',
                         //'isIntern' => null,
-                        'target' => "Tharwa reject your extern transfer",
-                        'account_id' => $exterTransfer->source_id,
+                        'target' => $exterTransfer->extern_account_name,
+                        'account_id' => $exterTransfer->intern_account_id,
                         'created_at' => $now->format('Y-m-d H:i:s'),
                         'updated_at' => $now->format('Y-m-d H:i:s'),
                         'transfer_code' => $request->virement_code,

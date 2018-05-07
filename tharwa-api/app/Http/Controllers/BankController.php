@@ -9,7 +9,7 @@ class BankController extends Controller
 {
     public function index()
     {
-        $banks = Bank::all(["code","name"]);
+        $banks = Bank::where("code","<>","THW")->get(["code","name"]);
         return response($banks);
     }
 }
