@@ -67,7 +67,7 @@ class CustomTabBar extends Component {
             options.tabBarIcon({
               focused: isFocused,
               tintColor: '#fff',
-              size: isFocused ? 22 : 28
+              size: isFocused ? 20 : 28
             })
           }
 

@@ -12,7 +12,7 @@ class InputField extends Component {
     } = this.props;
     const hasValue = !!input.value
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         {
           hasValue &&
           <Text style={styles.placeholder}>
