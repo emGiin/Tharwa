@@ -81,7 +81,7 @@ class SideBar extends Component {
           className="ant-layout-sider-trigger"
           type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
           onClick={this.toggle}
-          style={this.state.collapsed ? { width: '80px' } : { width: '220px' }}
+          style={this.state.collapsed ? { width: '80px' } : { width: '230px' }}
         />
       </Sider>
     );
@@ -92,7 +92,7 @@ const SideBarWithRouter = withRouter(SideBar);
 
 export default class AppLayout extends Component {
   state = {
-    siderWidth: 220
+    siderWidth: 230
   };
 
   render() {
