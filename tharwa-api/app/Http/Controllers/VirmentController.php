@@ -281,15 +281,6 @@ class VirmentController extends Controller
                 $image = self::base64_to_jpeg($request->input('justification'), $path);
 
                 //email virement besoin de validation
-//                $client = $this->client()->get(['email', 'firstname', 'lastname'])->first();
-//                Mail::to($client->email)
-//                    ->queue(new TransferMail($client->firstname . ' ' . $client->lastname
-//                        , 0
-//                        , $mapMethodeToCommission[$method]
-//                        , ""
-//                        , $amount
-//                        , ""
-//                    ));
                 //todo : mail to manager
 
             } else {
@@ -365,7 +356,7 @@ class VirmentController extends Controller
                 "commission" => $commission
             ], config('code.CREATED'));
 
-        } catch (\Exception $e) {dd($e);
+        } catch (\Exception $e) {
 
             // something went wrong
             /**rollback every thing - problems **/

@@ -168,7 +168,6 @@ class TransferTest extends TestCase
             ->where('reason', 'somethingTest')
             ->where('transfers_type', 'vir_client')
             ->where('status', 'traitement')
-            ->where('justification', 'data:image/gif;base64,R0lGODlhAQABAAAAACw==')
             ->where('commission', 200001 * config('commission.COUR_COUR'))
             ->where('amount', 200001)->get();
 
@@ -256,7 +255,6 @@ class TransferTest extends TestCase
             'justification' => 'data:image/gif;base64,R0lGODlhAQABAAAAACw==',
         ]);
 
-//        dd($this,$response);
         //then
         $transferRaw = InternTransfer::where('source_id', 'THW445566DZD')
             ->where('destination_id', 'THW112233DZD')
@@ -284,7 +282,10 @@ class TransferTest extends TestCase
 
         $response
             ->assertStatus(config('code.CREATED'))
-            ->assertJson(["saved" => true]);
+            ->assertJson([
+                "saved" => true,
+                "commission" => 199999 * config('commission.COUR_COUR')
+            ]);
     }
 
 }
