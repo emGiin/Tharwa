@@ -13,9 +13,8 @@ const { Types, Creators } = createActions({
 export const TransferTypes = Types
 export default Creators
 
-const INITIAL_STATE = Immutable({
+export const INITIAL_STATE = Immutable({
   fetching: false,
-  loading: false,
   success: false,
   error: null,
   commission: 0
