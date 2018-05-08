@@ -25,7 +25,7 @@ class MainScreen extends Component {
   pages = [
     { type: 'DVUSD', label: 'Compte devise Dollar', symbol: 'Dollar' },
     { type: 'DVEUR', label: 'Compte devise Euro', symbol: 'Euro' },
-    { type: 'EPARGN', label: 'Compte Epargne', symbol: 'DZD' },
+    { type: 'EPARN', label: 'Compte Epargne', symbol: 'DZD' },
     { type: 'COUR', label: 'Compte courant', symbol: 'DZD' },
   ]
 
