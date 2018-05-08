@@ -11,12 +11,13 @@ import { reducer as tharwaTransfer } from './TharwaTransferRedux'
 import { reducer as externalTransfer } from './ExternalTransferRedux'
 import { reducer as account } from './AccountRedux'
 import { reducer as bank } from './BankRedux'
+import { reducer as exchangeRate } from './ExchangeRateRedux'
 
 // saga
 import rootSaga from '../Sagas/'
 
 export const reducers = combineReducers({
-  form, nav, auth, pinCode, signup,
+  form, nav, auth, pinCode, signup, exchangeRate,
   account, transfer, bank, tharwaTransfer, externalTransfer
 });
 

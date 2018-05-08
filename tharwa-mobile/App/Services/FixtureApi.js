@@ -107,4 +107,10 @@ export default {
       data: require('../Fixtures/banks.json')
     }
   },
+  getExchangeRates: () => {
+    return {
+      ok: true,
+      data: require('../Fixtures/exchangeRates.json')
+    }
+  },
 }

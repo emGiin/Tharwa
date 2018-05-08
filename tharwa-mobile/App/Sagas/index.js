@@ -15,6 +15,7 @@ import { TransferTypes } from '../Redux/TransferRedux'
 import { TharwaTransferTypes } from '../Redux/TharwaTransferRedux'
 import { ExternalTransferTypes } from '../Redux/ExternalTransferRedux'
 import { BankTypes } from '../Redux/BankRedux'
+import { ExchangeRateTypes } from '../Redux/ExchangeRateRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -29,6 +30,8 @@ import {
   externalTransfer
 } from './TransferSaga'
 import { getBanks } from './BankSaga'
+import { getExchangeRates } from './ExchangeRateSaga'
+import { ExchangeRateTypes } from '../Redux/ExchangeRateRedux';
 
 /* ------------- API ------------- */
 
@@ -67,6 +70,9 @@ export default function* root() {
     takeLatest(TransferTypes.MY_ACCOUNT_TRANSFER_REQUEST, myAccountTransfer, api),
     takeLatest(TharwaTransferTypes.THARWA_TRANSFER_REQUEST, tharwaTransfer, api),
     takeLatest(ExternalTransferTypes.EXTERNAL_TRANSFER_REQUEST, externalTransfer, api),
+
+    // Exchange Rate
+    takeLatest(ExchangeRateTypes.EXCHANGE_RATE_REQUEST, getExchangeRates, api)
 
     // // password update
     // takeLatest(PasswordTypes.CHANGE_PASSWORD_REQUEST, changePassword, api),
