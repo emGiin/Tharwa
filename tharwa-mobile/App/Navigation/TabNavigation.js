@@ -4,7 +4,8 @@ import {
   MainScreen,
   MyAccountTransferScreen,
   TharwaTransferScreen,
-  ExternalTransferScreen
+  ExternalTransferScreen,
+  ExchangeRateScreen
 } from '../Containers/Screens'
 import { DrawerIcon as TabIcon } from '../Components'
 import TabBar from '../Containers/TabBar'
@@ -49,16 +50,16 @@ const screens = {
     }
   },
   ExchangeRateScreen: {
-    screen: MainScreen,
+    screen: ExchangeRateScreen,
     navigationOptions: {
       tabBarLabel: 'Taux de change',
-      tabBarIcon: props => <TabIcon {...props} icon='currency-gbp' unselectedIcon='currency-gbp' />
+      tabBarIcon: props => <TabIcon {...props} icon='currency-usd' unselectedIcon='currency-usd' />
     }
   }
 }
 
 const AppTabs = TabNavigator(screens, {
-  initialRouteName: 'MainScreen',
+  initialRouteName: 'ExchangeRateScreen',
   tabBarOptions: {
     activeTintColor: 'tomato',
     inactiveTintColor: 'gray',

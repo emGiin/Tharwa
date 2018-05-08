@@ -31,7 +31,6 @@ import {
 } from './TransferSaga'
 import { getBanks } from './BankSaga'
 import { getExchangeRates } from './ExchangeRateSaga'
-import { ExchangeRateTypes } from '../Redux/ExchangeRateRedux';
 
 /* ------------- API ------------- */
 
