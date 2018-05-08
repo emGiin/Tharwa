@@ -7,8 +7,8 @@ export function* getExchangeRates(api) {
 
   // success? 
   if (response.ok) {
-    yield put(ExchangeRateActions.ExchangeRateSuccess(response.data))
+    yield put(ExchangeRateActions.exchangeRateSuccess(response.data))
   } else {
-    yield put(ExchangeRateActions.ExchangeRateFailure(I18n.t('EchangeRateFetchError')))
+    yield put(ExchangeRateActions.exchangeRateFailure(I18n.t('EchangeRateFetchError')))
   }
 }

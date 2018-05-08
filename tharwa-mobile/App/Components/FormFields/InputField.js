@@ -14,12 +14,12 @@ class InputField extends Component {
     return (
       <View style={{ flex: 1 }}>
         {
-          hasValue &&
+          hasValue && placeholder &&
           <Text style={styles.placeholder}>
             {placeholder}
           </Text>
         }
-        <Item regular style={[styles.inputTxt, !hasValue && { marginTop: 10 }]}>
+        <Item regular style={[styles.inputTxt, (!hasValue || !placeholder) && { marginTop: 10 }]}>
           <Icon name={icon} style={styles.inputIcon} />
           <Input
             ref={refField}
@@ -34,9 +34,9 @@ class InputField extends Component {
             autoFocus={false}
             style={styles.whiteColor}
             {...input} />
-          {meta.invalid && meta.touched && <Icon style={styles.alertIcon} name='md-alert' />}
+          {meta && meta.invalid && meta.touched && <Icon style={styles.alertIcon} name='md-alert' />}
         </Item>
-        {meta.invalid && meta.touched && <Text style={styles.errorText}>{meta.error}</Text>}
+        {meta && meta.invalid && meta.touched && <Text style={styles.errorText}>{meta.error}</Text>}
       </View>
     );
   }
