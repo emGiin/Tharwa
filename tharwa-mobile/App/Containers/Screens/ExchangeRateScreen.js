@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import { Icon } from 'native-base'
 import { connect } from 'react-redux'
 import { InputField, PickerField, Header } from '../../Components'
@@ -33,10 +33,22 @@ class ExchangeRateScreen extends Component {
     this.interval = setInterval(this.props.getRates, this.INTERVAL)
   }
 
-  renderExchageRateItem = () => (
-    <View style={styles.container}>
-    </View>
-  )
+  renderExchageRateItem = () => this.props.rates.map(({ from, to, value }) => (
+    <TouchableOpacity activeOpacity={0.5} style={styles.container} key={`${from}-${to}`}>
+      <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around', marginHorizontal: 20 }}>
+        <Text style={{ color: Colors.white, fontSize: 20, textAlign: 'center' }}>{from.toUpperCase()}</Text>
+        <Text style={{ color: Colors.white, fontSize: 18, textAlign: 'center' }}>1</Text>
+      </View>
+      <View style={{ width: 50, flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around', marginHorizontal: 20 }}>
+        <Icon name={'ios-swap'} style={{ color: Colors.white, fontSize: 30, marginTop: 10, marginHorizontal: 10 }} />
+        <Text style={{ color: Colors.white, fontSize: 20, textAlign: 'center' }}>{'='}</Text>
+      </View>
+      <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around', marginHorizontal: 20 }}>
+        <Text style={{ color: Colors.white, fontSize: 20, textAlign: 'center' }}>{to.toUpperCase()}</Text>
+        <Text style={{ color: Colors.white, fontSize: 18, textAlign: 'center' }}>{value}</Text>
+      </View>
+    </TouchableOpacity>
+  ))
 
   handleChange = field => value => {
     this.setState({ [field]: { value, currecy: this.state[field].currecy } })
@@ -44,6 +56,7 @@ class ExchangeRateScreen extends Component {
 
   renderConverter = () => (
     <View>
+      <Text style={{ color: Colors.white, fontSize: 18, marginLeft: 20 }}>{"Convertisseur "}</Text>
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginHorizontal: 20 }}>
         <InputField
           keyboardType={'numeric'}
@@ -90,6 +103,9 @@ class ExchangeRateScreen extends Component {
       <View style={styles.mainContainer}>
         <Header icon={'md-arrow-round-back'} text={'Taux d\'échange'} />
         {this.renderConverter()}
+        <ScrollView style={{ marginTop: 20, marginHorizontal: 20 }}>
+          {this.renderExchageRateItem()}
+        </ScrollView>
       </View>
     )
   }
