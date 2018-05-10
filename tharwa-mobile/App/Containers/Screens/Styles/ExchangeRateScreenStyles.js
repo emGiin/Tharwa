@@ -7,13 +7,14 @@ export default StyleSheet.create({
     flex: 1,
     height: '100%',
   },
-  container: {
-    backgroundColor: Colors.forground,
-    marginBottom: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    elevation: 3,
-    borderRadius: 3
+  title: {
+    marginTop: 20,
+    color: Colors.white,
+    fontSize: 18,
+    marginLeft: 20
+  },
+  currenciesList: {
+    marginTop: 5,
+    marginHorizontal: 20
   }
 })

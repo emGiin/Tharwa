@@ -74,5 +74,7 @@
   "transferDialogMessageSuccess": "Virement avec succès, La commission est de : ",
   "transferDialogMessageSuccessValidation": "En attente de la validation, La commission est de : ",
   "transferDialogTitleFetching": "Virement",
-  "transferDialogMessageFetching": "Le virement est en cours de transfert"
+  "transferDialogMessageFetching": "Le virement est en cours de transfert",
+  "exchangeRate": "Taux d'échange",
+  "realTimeValue": "Valeurs en temps réel"
 }
