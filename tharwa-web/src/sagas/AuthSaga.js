@@ -36,4 +36,3 @@ export function* loadToken(api) {
 }
 
 export const selectAuthToken = state => state.auth.authToken;
-//TO DO: selectPinCode

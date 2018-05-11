@@ -4,6 +4,8 @@ let otherList = require('../fixtures/AccountsList.json');
 
 let pinCode, authToken;
 
+let counts=require('../fixtures/counts.json');
+
 export const getDatasetTemplate = data => {
   if (
     true
@@ -87,6 +89,14 @@ export default {
       };
     }
   },
+  getCounts: ()=>{
+    return {
+      ok: true,
+      data: counts
+    };
+  }
+  
+  ,
 
   inscriptions: {
     getDataset: () => getDatasetTemplate(req),
