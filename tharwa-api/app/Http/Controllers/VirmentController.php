@@ -155,6 +155,7 @@ class VirmentController extends Controller
                 'transaction_type' => 'commiss',
                 'transaction_direction' => 'in',
                 'account_id' => 'THW000000DZD',
+                'target' => $senderAccount->number,
                 'created_at' => $now->format('Y-m-d H:i:s'),
                 'updated_at' => $now->format('Y-m-d H:i:s')
             ]);
@@ -261,6 +262,7 @@ class VirmentController extends Controller
                 'transaction_type' => 'commiss',
                 'transaction_direction' => 'in',
                 'account_id' => 'THW000000DZD',
+                'target' => $senderAccount->number,
                 'created_at' => $now->format('Y-m-d H:i:s'),
                 'updated_at' => $now->format('Y-m-d H:i:s'),
             ]);
@@ -356,7 +358,7 @@ class VirmentController extends Controller
                 "commission" => $commission
             ], config('code.CREATED'));
 
-        } catch (\Exception $e) {
+        } catch (\Exception $e) {dd($e);
 
             // something went wrong
             /**rollback every thing - problems **/
@@ -486,6 +488,7 @@ class VirmentController extends Controller
                 'transaction_type' => 'commiss',
                 'transaction_direction' => 'in',
                 'account_id' => 'THW000000DZD',
+                'target' => $senderAccount->number,
                 'created_at' => $now->format('Y-m-d H:i:s'),
                 'updated_at' => $now->format('Y-m-d H:i:s')
             ]);

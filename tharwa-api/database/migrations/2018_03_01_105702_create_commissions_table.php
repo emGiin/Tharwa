@@ -11,16 +11,16 @@ class CreateCommissionsTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('commissions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->char('code',8);
-            $table->string('description')->nullable();
-            $table->boolean('isValide')->default(true);
-            $table->timestamps();
-        });
-    }
+//    public function up()
+//    {
+//        Schema::create('commissions', function (Blueprint $table) {
+//            $table->increments('id');
+//            $table->char('code',8);
+//            $table->string('description')->nullable();
+//            $table->boolean('isValide')->default(true);
+//            $table->timestamps();
+//        });
+//    }
 
     /**
      * Reverse the migrations.
