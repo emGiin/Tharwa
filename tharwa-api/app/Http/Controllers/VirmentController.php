@@ -97,6 +97,7 @@ class VirmentController extends Controller
             BalanceHistory::create([
                 'id' => $nb + 1,
                 'amount' => $amount + $commission,//without conversion rate
+                'commission' => $commission,
                 'transaction_type' => $mapMethodeToTransactionType[$method],
                 'transaction_direction' => 'out',
                 'isIntern' => true,
@@ -245,6 +246,7 @@ class VirmentController extends Controller
             BalanceHistory::create([
                 'id' => $nb + 1,
                 'amount' => $amount + $commission,
+                'commission' => $commission,
                 'transaction_type' => 'vir_client',
                 'transaction_direction' => 'out',
                 'isIntern' => true,
@@ -358,7 +360,7 @@ class VirmentController extends Controller
                 "commission" => $commission
             ], config('code.CREATED'));
 
-        } catch (\Exception $e) {dd($e);
+        } catch (\Exception $e) {
 
             // something went wrong
             /**rollback every thing - problems **/
@@ -471,6 +473,7 @@ class VirmentController extends Controller
             BalanceHistory::create([
                 'id' => $nb + 1,
                 'amount' => $amount + $commission,
+                'commission' => $commission,
                 'transaction_type' => 'transf',
                 'transaction_direction' => 'out',
                 'isIntern' => false,
@@ -617,9 +620,9 @@ class VirmentController extends Controller
         $transferNeedValidations = $transferInternNeedValidations
             ->merge($transferExternNeedValidations);
 
-        foreach ($transferNeedValidations as $transferNeedValidation){
+        foreach ($transferNeedValidations as $transferNeedValidation) {
             $transferNeedValidation->justification = url(config('filesystems.uploaded_file')) . '/'
-                .$transferNeedValidation->justification;
+                . $transferNeedValidation->justification;
         }
 
         $transferNeedValidations->sortBy("creationdate");
@@ -669,7 +672,7 @@ class VirmentController extends Controller
                     BalanceHistory::create([
                         'id' => $nb + 1,
                         'amount' => $interTransfer->amount,
-                        'transaction_type' => 'vir_client',//todo change it to 'reject' after migration
+                        'transaction_type' => 'reject',
                         'transaction_direction' => 'in',
                         //'isIntern' => null,
                         'target' => $interTransfer->destination_id,
@@ -724,7 +727,7 @@ class VirmentController extends Controller
                     BalanceHistory::create([
                         'id' => $nb + 1,
                         'amount' => $exterTransfer->amount,
-                        'transaction_type' => 'vir_client',//todo change it to 'reject' after migration
+                        'transaction_type' => 'reject',
                         'transaction_direction' => 'in',
                         //'isIntern' => null,
                         'target' => $exterTransfer->extern_account_name,

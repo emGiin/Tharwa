@@ -12,7 +12,8 @@ class BalanceHistory extends Model
 
     protected $primaryKey = 'id';
 
-    protected $visible = ['amount', 'transaction_direction', 'created_at', 'target', 'transfer_code'];
+    protected $visible = ['amount', 'transaction_direction','commission','transaction_type',
+        'created_at', 'target', 'transfer_code'];
 
 
     public function target()
