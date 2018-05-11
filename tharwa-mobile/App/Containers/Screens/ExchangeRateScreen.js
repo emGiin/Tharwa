@@ -1,25 +1,42 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { View, Text, ScrollView } from 'react-native'
-import I18n from 'react-native-i18n'
-import { CurrencyConverter, Header, ExchangeRateItem } from '../../Components'
-
+import React, { Component } from 'react';
+import { ScrollView, Text, View } from 'react-native';
+import I18n from 'react-native-i18n';
+import { connect } from 'react-redux';
+import { CurrencyConverter, ExchangeRateItem, Header } from '../../Components';
 // Redux
-import ExchangeRateActions from '../../Redux/ExchangeRateRedux'
-
+import ExchangeRateActions from '../../Redux/ExchangeRateRedux';
 // Styles
-import styles from './Styles/ExchangeRateScreenStyles'
-import { formatMoney } from '../../Transforms';
+import styles from './Styles/ExchangeRateScreenStyles';
+
+
 
 class ExchangeRateScreen extends Component {
   INTERVAL = 10000
   state = {
-    from: { value: '1', currency: 'euro' },
-    to: { value: '139.4', currency: 'dzd' }
+    from: { value: '0', currency: '' },
+    to: { value: '0', currency: '' }
   }
 
-  fromCurrencies = ['dzd', 'euro', 'usd']
-  toCurrencies = ['euro', 'usd', 'dzd']
+  currencies = []
+
+  extractCurrencies = rates => {
+    rates.forEach(rate => {
+      if (!this.currencies.includes(rate.from))
+        this.currencies.push(rate.from)
+      if (!this.currencies.includes(rate.to))
+        this.currencies.push(rate.to)
+    })
+  }
+
+  componentWillReceiveProps({ rates }) {
+    if (this.currencies.length === 0) {
+      this.extractCurrencies(rates)
+      this.setState({
+        from: { value: '1', currency: rates[0].from },
+        to: { value: `${rates[0].value}`, currency: rates[0].to }
+      })
+    }
+  }
 
   componentWillMount() {
     if (this.props.rates.length === 0) {
@@ -96,8 +113,7 @@ class ExchangeRateScreen extends Component {
         <CurrencyConverter
           from={this.state.from}
           to={this.state.to}
-          fromCurrencies={this.fromCurrencies}
-          toCurrencies={this.toCurrencies}
+          currencies={this.currencies}
           handleInputChange={this.handleInputChange}
           handleSelectChange={this.handleSelectChange} />
         <Text style={styles.title}>{I18n.t('realTimeValue')}</Text>

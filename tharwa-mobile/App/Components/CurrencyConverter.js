@@ -5,7 +5,7 @@ import { InputField, PickerField } from './'
 import styles from './Styles/CurrencyConverterStyles'
 
 const CurrencyConverter = ({
-  from, to, fromCurrencies, toCurrencies,
+  from, to, currencies,
   handleInputChange, handleSelectChange
 }) => (
     <View>
@@ -21,11 +21,11 @@ const CurrencyConverter = ({
       </View>
       <View style={styles.currenciesContainer}>
         <PickerField
-          options={fromCurrencies} initialValue={fromCurrencies[0]}
+          options={currencies} initialValue={currencies[0]}
           input={{ onChange: handleSelectChange('from'), value: from.currency }} />
         <View style={styles.separator} />
         <PickerField
-          options={toCurrencies} initialValue={toCurrencies[0]}
+          options={currencies} initialValue={currencies[1]}
           input={{ onChange: handleSelectChange('to'), value: to.currency }} />
       </View>
     </View>
