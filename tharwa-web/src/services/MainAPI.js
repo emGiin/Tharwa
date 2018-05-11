@@ -34,6 +34,10 @@ const create = (baseURL = API_URL) => {
       api.post('account/validations', { id, code })
   };
 
+  const getClientsList=()=> api.get('clients');
+
+  const accountAction=({account, motif})=> api.post('account/blocking',{account, motif});
+
   const getCounts= () => api.get('banker/counts');
   
 

@@ -52,6 +52,12 @@ class SideBar extends Component {
               <span>Acceuil</span>
             </NavLink>
           </Menu.Item>
+          <Menu.Item key="/accountManagement">
+            <NavLink to="/accountManagement">
+              <Icon type="solution" />
+              <span>Gestion des comptes</span>
+            </NavLink>
+          </Menu.Item>
          {/*<Menu.Item key="/creerBanquier">
             <NavLink to="/creerBanquier">
               <Icon type="user-add" />

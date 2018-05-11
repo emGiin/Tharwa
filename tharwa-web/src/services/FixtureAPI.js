@@ -5,7 +5,7 @@ let otherList = require('../fixtures/AccountsList.json');
 let pinCode, authToken;
 
 let counts=require('../fixtures/counts.json');
-
+let clientsList=require('../fixtures/ClientsList.json');
 export const getDatasetTemplate = data => {
   if (
     true
@@ -97,7 +97,29 @@ export default {
   }
   
   ,
-
+  getClientsList:()=>{
+    
+    return{
+      ok:true,
+      data: clientsList
+    }
+  },
+  accountAction:({account,motif})=>{
+    
+    console.log(account,"api");
+    clientsList.forEach(element => {
+      element.accounts.forEach(e => {
+        if(e.num===account) {
+          console.log("found");
+          
+          if(e.status==="blocked") e.status="working";
+          else e.status="blocked";
+        }
+      });
+    });
+    return{ ok:true}
+  }
+  ,
   inscriptions: {
     getDataset: () => getDatasetTemplate(req),
     action: ({ id, code }) => {

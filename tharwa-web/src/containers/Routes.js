@@ -6,6 +6,7 @@ import ConfirmInscription from "./ConfirmInscription";
 import ValidateTransfer from "./ValidateTransfer";
 import RegistrationForm from './createBanquier'
 import OtherAccount from './OtherAccount';
+import AccountManagement from "./AccountManagement";
 
 export default () => (
   <Switch>
@@ -17,6 +18,7 @@ export default () => (
           <Route path="/otherAccount" component={OtherAccount} />
           <Route path="/virements" component={ValidateTransfer} />
           <Route path="/creerBanquier" component={RegistrationForm} />
+          <Route path="/accountManagement" component={AccountManagement} />
         </div>
       )}
     />
