@@ -21,7 +21,7 @@ class TransferScreen extends Component {
 
   resetScreen = () => {
     // this.props.resetForm();
-    this.setState({ key: this.state.key++ })
+    this.setState({ key: this.state.key + 1 })
   }
 
   renderDialog = ({ fetching, error, success, commission, reset }) => (

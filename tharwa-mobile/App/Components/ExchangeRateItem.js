@@ -5,7 +5,7 @@ import styles from './Styles/ExchangeRateItemStyles'
 
 const ExchangeRateItem = ({ from, to, value, onPress }) => (
   <TouchableOpacity
-    onPress={onPress}
+    onPress={() => onPress(from, to, value)}
     activeOpacity={0.5}
     style={styles.container}>
     <View style={styles.subContainer}>

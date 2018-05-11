@@ -2,21 +2,21 @@
   {
     "from": "dzd",
     "to": "euro",
-    "value": "0,0073"
+    "value": 0.0073
   },
   {
     "from": "euro",
     "to": "dzd",
-    "value": "137,47"
+    "value": 137.47
   },
   {
     "from": "dzd",
     "to": "usd",
-    "value": "0,0086"
+    "value": 0.0086
   },
   {
     "from": "usd",
     "to": "dzd",
-    "value": "115,62"
+    "value": 115.62
   }
 ]

@@ -46,7 +46,7 @@ class PickerField extends Component {
             disabled={!editable}
             iosHeader={placeholder}
             mode={"dialog"}
-            selectedValue={initialValue || this.state.itemValue}
+            selectedValue={input.value || initialValue}
             onValueChange={this.handleChange}
           >
             {this.renderOptions()}
