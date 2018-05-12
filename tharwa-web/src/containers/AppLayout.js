@@ -142,7 +142,7 @@ export default class AppLayout extends Component {
               </Menu.SubMenu>
             </Menu>
           </Header>
-          <Content style={{ margin: '24px 16px' ,overflow: 'auto', maxHeight:"500px"}}>
+          <Content style={{ margin: '24px 16px'}}>
             <Routes />
           </Content>
           <Footer

@@ -17,8 +17,3 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #555; 
 }
-
-.container{
-  overflow-y: auto;
-  max-height: 800px;
-}

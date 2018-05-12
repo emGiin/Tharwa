@@ -32,7 +32,7 @@ class TableWithActions extends Component {
           columns={this.columns}
           rowKey={record => record.id}
           dataSource={this.props.dataSource}
-          pagination={{total:5, size:"small"}}
+          pagination={{pageSize:5, size:"small"}}
           loading={this.props.fetching}
         />
       </div>

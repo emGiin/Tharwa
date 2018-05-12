@@ -7,6 +7,7 @@
     "phone": "0554854852",
     "function": "Médecin",
     "address": "Oran",
+    "type": "Client",
     "created_at": "14-01-2018 11:15",
     "accounts":[
       {
@@ -36,6 +37,7 @@
     "phone": "0554854852",
     "function": "Enseignant",
     "address": "Alger",
+    "type": "Employeur",
     "created_at": "14-01-2018 11:15",
     "accounts":[
       {
@@ -61,10 +63,11 @@
     "picture": "https://randomuser.me/api/portraits/women/42.jpg",
     "firstname": "Lina",
     "lastname": "Doe",
-    "email": "lina@1.dz",
+    "email": "lina@12.dz",
     "phone": "0554854852",
     "function": "Commerçant",
     "address": "Oran",
+    "type": "Client",
     "created_at": "14-01-2018 11:15",
     "accounts":[
       {
@@ -95,6 +98,137 @@
     "function": "azazfzfzef",
     "address": "Telemcen",
     "created_at": "14-01-2018 11:15",
+    "type": "Employeur",
+    "accounts":[
+      {
+        "num": "THW00002DZD",
+        "type": "EPARN",
+        "created_at":"14-01-2018 11:15",
+        "status": "working"
+      },
+      {
+        "num": "THW00003USD",
+        "type": "DVUSD",
+        "created_at":"14-01-2018 11:15",
+        "status": "working"
+      },{
+        "num": "THW00001DZD",
+        "type": "COURT",
+        "created_at":"14-01-2018 11:15",
+        "status": "working"
+      },{
+        "num": "THW00007DZD",
+        "type": "DVEUR",
+        "created_at":"14-01-2018 11:15",
+        "status": "working"
+      }
+    ]
+  },
+  {
+    "picture": "https://randomuser.me/api/portraits/women/42.jpg",
+    "firstname": "Lina",
+    "lastname": "Doe",
+    "email": "lina@1.dz",
+    "phone": "0554854852",
+    "function": "Commerçant",
+    "address": "Oran",
+    "type": "Client",
+    "created_at": "14-01-2018 11:15",
+    "accounts":[
+      {
+        "num": "THW00002DZD",
+        "type": "EPARN",
+        "created_at":"14-01-2018 11:15",
+        "status": "blocked"
+      },
+      {
+        "num": "THW00003USD",
+        "type": "DVUSD",
+        "created_at":"14-01-2018 11:15",
+        "status": "working"
+      },{
+        "num": "THW00001DZD",
+        "type": "COURT",
+        "created_at":"14-01-2018 11:15",
+        "status": "working"
+      }
+    ]
+  },
+  {
+    "picture": "https://randomuser.me/api/portraits/men/87.jpg",
+    "firstname": "Johne",
+    "lastname": "Doe",
+    "email": "john@24.dz",
+    "phone": "0554854852",
+    "function": "azazfzfzef",
+    "address": "Telemcen",
+    "created_at": "14-01-2018 11:15",
+    "type": "Employeur",
+    "accounts":[
+      {
+        "num": "THW00002DZD",
+        "type": "EPARN",
+        "created_at":"14-01-2018 11:15",
+        "status": "working"
+      },
+      {
+        "num": "THW00003USD",
+        "type": "DVUSD",
+        "created_at":"14-01-2018 11:15",
+        "status": "working"
+      },{
+        "num": "THW00001DZD",
+        "type": "COURT",
+        "created_at":"14-01-2018 11:15",
+        "status": "working"
+      },{
+        "num": "THW00007DZD",
+        "type": "DVEUR",
+        "created_at":"14-01-2018 11:15",
+        "status": "working"
+      }
+    ]
+  },
+  {
+    "picture": "https://randomuser.me/api/portraits/women/42.jpg",
+    "firstname": "Lina",
+    "lastname": "Doe",
+    "email": "lina@71.dz",
+    "phone": "0554854852",
+    "function": "Commerçant",
+    "address": "Oran",
+    "type": "Client",
+    "created_at": "14-01-2018 11:15",
+    "accounts":[
+      {
+        "num": "THW00002DZD",
+        "type": "EPARN",
+        "created_at":"14-01-2018 11:15",
+        "status": "blocked"
+      },
+      {
+        "num": "THW00003USD",
+        "type": "DVUSD",
+        "created_at":"14-01-2018 11:15",
+        "status": "working"
+      },{
+        "num": "THW00001DZD",
+        "type": "COURT",
+        "created_at":"14-01-2018 11:15",
+        "status": "working"
+      }
+    ]
+  },
+  {
+    "picture": "https://randomuser.me/api/portraits/men/45.jpg",
+    "firstname": "Johneg",
+    "lastname": "Doe",
+    "email": "john@245.dz",
+    "phone": "0554854852",
+    "function": "azazfzfzef",
+    "address": "Telemcen",
+    "created_at": "14-01-2018 11:15",
+    "type": "Employeur",
     "accounts":[
       {
         "num": "THW00002DZD",
