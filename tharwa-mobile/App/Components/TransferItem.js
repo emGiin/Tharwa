@@ -8,7 +8,7 @@ import { ContentLoader } from './'
 
 const TransferItem = ({ item }) => {
   if (!item) return <TransferLoaderItem />
-  const [date, time] = item.created_at.split(' ')
+  const [date/*, time*/] = item.created_at.split(' ')
   const type = item.transaction_direction === 'out'
   const color = type ? "#e74c3c" : "#218c74"
   const icon = type ? 'arrow-up' : 'arrow-down'

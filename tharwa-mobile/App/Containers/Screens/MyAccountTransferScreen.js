@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
-import { reset as resetReduxForm } from 'redux-form'
 import I18n from 'react-native-i18n'
 import TransferFormClientAccount from '../Forms/TransferFormClientAccount'
 import { LoadingDialog } from '../../Components'
@@ -21,7 +20,7 @@ class TransferScreen extends Component {
 
   resetScreen = () => {
     // this.props.resetForm();
-    this.setState({ key: this.state.key++ })
+    this.setState({ key: this.state.key + 1 })
   }
 
   renderDialog = ({ fetching, error, success, commission, reset }) => (
@@ -41,7 +40,7 @@ class TransferScreen extends Component {
   )
 
   render() {
-    const { fetching, error, success } = this.props;
+    const { fetching } = this.props;
 
     return (
       <View style={styles.container} key={this.state.key}>

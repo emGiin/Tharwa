@@ -8,14 +8,14 @@ import ExternalTransferActions from '../Redux/ExternalTransferRedux'
 export function* myAccountTransfer(api, { data }) {
 
   if (data.from === 'devi_usd') {
-    methodchange = 'devi_cour_usd'
+    this.methodchange = 'devi_cour_usd'
   }
   else {
     if (data.from === 'devi_eur') {
-      methodchange = 'devi_cour_eur'
+      this.methodchange = 'devi_cour_eur'
     }
     else {
-      methodchange = `${data.from}_${data.to}`
+      this.methodchange = `${data.from}_${data.to}`
 
     }
 
@@ -23,7 +23,7 @@ export function* myAccountTransfer(api, { data }) {
 
 
   const request = {
-    method: methodchange,
+    method: this.methodchange,
     amount: data.amount
   }
   const response = yield call(api.myAccountTransfer, request)

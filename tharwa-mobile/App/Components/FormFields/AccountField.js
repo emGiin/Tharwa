@@ -7,7 +7,7 @@ import styles from '../Styles/FormFieldStyles'
 class AccountField extends Component {
   render() {
     const {
-      input, meta, refField, onEnter, icon, selectedBank = '_ _ _',
+      input, meta, refField, onEnter, selectedBank = '_ _ _',
       editable, placeholder, returnKeyType, keyboardType
     } = this.props;
     const hasValue = !!input.value

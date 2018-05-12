@@ -22,7 +22,6 @@ describe('Registration Screen container', () => {
       <MainScreen navigation={{ navigate: navigationSpy }} />,
       { context: { store } }
     )
-    content = container.dive()
   })
 
   it('should render the component', () => {

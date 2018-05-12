@@ -1,13 +1,13 @@
-import FixtureAPI from '../../App/Services/FixtureApi'
-import { call, put } from 'redux-saga/effects'
-import {
-  myAccountTransfer,
-  tharwaTransfer,
-  externalTransfer
-} from '../../App/Sagas/TransferSaga'
-import TransferActions from '../../App/Redux/TransferRedux'
+// import FixtureAPI from '../../App/Services/FixtureApi'
+// import { call, put } from 'redux-saga/effects'
+// import {
+//   myAccountTransfer,
+//   tharwaTransfer,
+//   externalTransfer
+// } from '../../App/Sagas/TransferSaga'
+// import TransferActions from '../../App/Redux/TransferRedux'
 
-const stepper = (fn) => (mock) => fn.next(mock).value
+// const stepper = (fn) => (mock) => fn.next(mock).value
 
 describe('Transfer SAGA', () => {
   it('should show tharwa transfer request success path', () => {

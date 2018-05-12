@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, Keyboard } from 'react-native';
+import React, { Component } from 'react'
+import { View, TouchableOpacity, Text, Keyboard } from 'react-native'
 import { connect } from 'react-redux'
-import { reset } from 'redux-form'
 import styles from './Styles/TabBarStyles'
-import { Colors } from '../Themes';
-import TransferActions from '../Redux/TransferRedux'
+import { Colors } from '../Themes'
 
 class CustomTabBar extends Component {
   invisibleItems = ['TransactionOrderScreen'];
@@ -28,13 +26,13 @@ class CustomTabBar extends Component {
     this.keyboardWillHideSub.remove()
   }
 
-  keyboardWillShow = event => {
+  keyboardWillShow = () => {
     this.setState({
       isVisible: false
     })
   }
 
-  keyboardWillHide = event => {
+  keyboardWillHide = () => {
     this.setState({
       isVisible: true
     })

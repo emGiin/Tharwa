@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
 import { connect } from 'react-redux'
-import { Container, Content, Text, Icon } from 'native-base'
+import { Container, Content, Text } from 'native-base'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import I18n from 'react-native-i18n'
 import { InputField, NextPrevious, PickerField, AccountField } from "../../../Components";

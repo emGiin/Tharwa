@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { Container, Content, Button, Form, Text, Item } from "native-base"
+import { Container, Content, Button, Form, Text } from "native-base"
 import { Colors } from '../../Themes'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import { InputField, Header, PickerField } from "../../Components"
@@ -11,6 +11,9 @@ import { connect } from 'react-redux'
 
 import I18n from 'react-native-i18n'
 
+let itemsAccountTypeTo = []
+let itemsAccountTypeFrom = []
+let itemsAccountTypeClient = []
 
 class TransferFormClientAccount extends Component {
   constructor(props) {
@@ -83,75 +86,76 @@ class TransferFormClientAccount extends Component {
         <Header
           text={'Virement'}
         />
-        <Content style={{ marginTop: -20,
-          backgroundColor: Colors.background
-        }}>
         <Content style={{
-          marginLeft: 40, marginTop: 70, marginRight: 40,
+          marginTop: -20,
           backgroundColor: Colors.background
         }}>
-          <Content >
+          <Content style={{
+            marginLeft: 40, marginTop: 70, marginRight: 40,
+            backgroundColor: Colors.background
+          }}>
+            <Content >
 
-            {/* <Text style={{ marginBottom: 10, fontSize: 18, color: Colors.white, textAlign: 'center' }}> Choisir le compte </Text>*/}
-            <Field
-              name={'from'}
-              icon={'ios-briefcase'}
-              component={PickerField}
-              editable={editable}
-              placeholder={I18n.t('accountFromSelection')}
-              options={itemsAccountTypeClient}
-              validate={requiredValidator}
-              onChange={(value) => { this.onValueChange(value) }}
-
-            />
-
-
-          </Content>
-          <Content>
-            {/*<Text style={{ marginBottom: 10,marginTop: 10, fontSize: 18, color: Colors.white, textAlign: 'center' }}> Virer Vers </Text>*/}
-            <Field
-              name={'to'}
-              icon={'ios-briefcase'}
-              component={PickerField}
-              editable={editable}
-              placeholder={I18n.t('accountToSelection')}
-              validate={requiredValidator}
-              options={this.getItems()}
-
-            />
-          </Content>
-          <Content>
-            {/*<Text style={{ marginBottom: 10,marginTop: 10, fontSize: 18, color: Colors.white, textAlign: 'center' }}> Introduire le montant </Text>*/}
-            <Form>
+              {/* <Text style={{ marginBottom: 10, fontSize: 18, color: Colors.white, textAlign: 'center' }}> Choisir le compte </Text>*/}
               <Field
-                name={'amount'}
-                withRef
-                refField="amount"
-                icon={'md-cash'}
-                onEnter={() => this.focusOn('reason')}
-                ref={ref => this.amount = ref}
-                component={InputField}
+                name={'from'}
+                icon={'ios-briefcase'}
+                component={PickerField}
                 editable={editable}
-                validate={amountValidators}
-                keyboardType={'numeric'}
-                placeholder={I18n.t('transfertamount')}
-              />
-            </Form>
+                placeholder={I18n.t('accountFromSelection')}
+                options={itemsAccountTypeClient}
+                validate={requiredValidator}
+                onChange={(value) => { this.onValueChange(value) }}
 
+              />
+
+
+            </Content>
+            <Content>
+              {/*<Text style={{ marginBottom: 10,marginTop: 10, fontSize: 18, color: Colors.white, textAlign: 'center' }}> Virer Vers </Text>*/}
+              <Field
+                name={'to'}
+                icon={'ios-briefcase'}
+                component={PickerField}
+                editable={editable}
+                placeholder={I18n.t('accountToSelection')}
+                validate={requiredValidator}
+                options={this.getItems()}
+
+              />
+            </Content>
+            <Content>
+              {/*<Text style={{ marginBottom: 10,marginTop: 10, fontSize: 18, color: Colors.white, textAlign: 'center' }}> Introduire le montant </Text>*/}
+              <Form>
+                <Field
+                  name={'amount'}
+                  withRef
+                  refField="amount"
+                  icon={'md-cash'}
+                  onEnter={() => this.focusOn('reason')}
+                  ref={ref => this.amount = ref}
+                  component={InputField}
+                  editable={editable}
+                  validate={amountValidators}
+                  keyboardType={'numeric'}
+                  placeholder={I18n.t('transfertamount')}
+                />
+              </Form>
+
+            </Content>
+            <Button style={{
+              alignSelf: 'center',
+              height: 40,
+              marginTop: 100,
+              borderColor: Colors.button,
+              borderWidth: 1,
+              borderRadius: 5,
+              backgroundColor: Colors.button
+            }}
+              onPress={handleSubmit}>
+              <Text style={{ color: '#c9d0de', textAlign: 'center' }}>Envoyer</Text>
+            </Button>
           </Content>
-          <Button style={{
-            alignSelf: 'center',
-            height: 40,
-            marginTop: 100,
-            borderColor: Colors.button,
-            borderWidth: 1,
-            borderRadius: 5,
-            backgroundColor: Colors.button
-          }}
-            onPress={handleSubmit}>
-            <Text style={{ color: '#c9d0de', textAlign: 'center' }}>Envoyer</Text>
-          </Button>
-        </Content>
         </Content>
       </Container>
     );
@@ -164,7 +168,7 @@ let TransferFormClientAccount2 = reduxForm({
   forceUnregisterOnUnmount: true,
 })(TransferFormClientAccount)
 // connect our component again to get some additional state
-TransferFormClientAccount2= connect(
+TransferFormClientAccount2 = connect(
   /* istanbul ignore next */
   state => ({
     amount: formValueSelector('myAccountTransfer')(state, 'amount'),
