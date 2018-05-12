@@ -68,16 +68,16 @@ describe('Authentication SAGA', () => {
     const step = stepper(loadToken(FixtureAPI))
     // Select the token from redux and set it
     expect(step(authToken)).toEqual(select(selectAuthToken))
-    expect(step(authToken)).toEqual(call(FixtureAPI.setAuthToken, authToken))
-    FixtureAPI.setAuthToken(authToken)
+    expect(step(authToken)).toEqual(call(FixtureAPI.setAuthHeaders, authToken))
+    FixtureAPI.setAuthHeaders(authToken)
     // The token has been set so call success
     expect(step()).toEqual(put(AuthActions.tokenLoadSuccess()))
   })
 
   it('should show logout success path', () => {
     const step = stepper(logout(FixtureAPI))
-    expect(step()).toEqual(call(FixtureAPI.removeAuthToken))
-    FixtureAPI.removeAuthToken()
+    expect(step()).toEqual(call(FixtureAPI.removeAuthHeaders))
+    FixtureAPI.removeAuthHeaders()
     // Reset the account and logout
     expect(step()).toEqual(put(AuthActions.logoutSuccess()))
   })

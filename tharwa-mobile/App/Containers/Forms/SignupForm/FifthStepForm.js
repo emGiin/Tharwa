@@ -10,8 +10,8 @@ import formStyles from './Styles/FifthStepFormStyle'
 
 export class FifthStepForm extends Component {
   radio_props = [
-    { label: 'Non', value: 0 },
-    { label: 'Oui ', value: 1 }
+    { label: 'Non', value: 1 },
+    { label: 'Oui ', value: 2 }
   ]
 
   render() {
