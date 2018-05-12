@@ -5,6 +5,7 @@ const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@
 const nameRegex = /^[a-zA-Z '-.]*$/
 const phoneRegex = /^0[5-7]\d{8}$/
 const accountRegex = /^\d{6}$/
+const externalAccountRegex = /^[A-Z]{3}\d{6}DZD$/
 const amountRegex = /^(\d{1,3}(?: ?\d{3})*(?:\.\d{2})?|\.\d{2})?$/
 
 export const requiredValidator = (val) => val ? undefined : I18n.t('fieldRequiredError')
@@ -17,6 +18,12 @@ export const amountValidators = [
 export const accountValidators = [
   requiredValidator,
   (val) => val && accountRegex.test(val) ? undefined : I18n.t('invalidAccountError')
+]
+
+export const extenalAccountValidators = (banks) => [
+  requiredValidator,
+  (val) => val && externalAccountRegex.test(val) ? undefined : I18n.t('invalidAccountError'),
+  (val) => banks.find(({ value }) => value.toUpperCase() === val.substring(0, 3)) ? undefined : I18n.t('invalidBankError')
 ]
 
 export const emailValidators = [

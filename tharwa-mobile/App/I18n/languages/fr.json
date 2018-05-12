@@ -66,6 +66,7 @@
   "transferInProgress": "Transfert en cours, veuiller patienter",
   "confirmTransfer": "Confimer le transfer en cliquant sur le boutton ci-dessous",
   "invalidAccountError": "Numéro de compte invalide",
+  "invalidBankError": "Code de la bank invalide",
   "invalidAmountError": "La montant est invalide",
   "bank": "Banque",
   "transferDialogTitleError": "Erreur",

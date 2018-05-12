@@ -3,11 +3,10 @@ import { connect } from 'react-redux'
 import { Container, Content, Text } from 'native-base'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import I18n from 'react-native-i18n'
-import { InputField, NextPrevious, PickerField, AccountField } from "../../../Components";
+import { InputField, NextPrevious } from "../../../Components";
 import {
-  nameValidators, accountValidators,
-  requiredValidator, amountValidators,
-  pickerValidators
+  nameValidators, extenalAccountValidators,
+  requiredValidator, amountValidators
 } from '../../../Helpers/validators'
 import styles from '../Styles/SignupFormStyle'
 import { Colors } from '../../../Themes';
@@ -31,27 +30,17 @@ export class InfoStepForm extends Component {
           </Text>
 
           <Field
-            name={'receiver.bank'}
-            icon={'md-home'}
-            component={PickerField}
-            editable={editable}
-            placeholder={I18n.t('bank')}
-            validate={pickerValidators}
-            options={banks}
-          />
-
-          <Field
             name={'receiver.account'}
             withRef
+            icon={'md-barcode'}
             refField="accountNumber"
             ref={/* istanbul ignore next */ref => this.accountNumber = ref}
             onEnter={() => this.focusOn('name')}
-            component={AccountField}
+            component={InputField}
             editable={editable}
-            validate={accountValidators}
+            validate={extenalAccountValidators(banks)}
             returnKeyType={'next'}
             placeholder={I18n.t('accountNumber')}
-            selectedBank={selectedBank}
           />
 
           <Field

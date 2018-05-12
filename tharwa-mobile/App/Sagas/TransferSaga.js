@@ -53,10 +53,7 @@ export function* tharwaTransfer(api, { data }) {
 }
 
 export function* externalTransfer(api, { data }) {
-  const request = Object.assign({}, data)
-  request.receiver = Object.assign({}, data.receiver)
-  request.receiver.account = `${request.receiver.bank}${request.receiver.account}DZD`
-  const response = yield call(api.externalTransfer, request)
+  const response = yield call(api.externalTransfer, data)
 
   // success?
   if (response.ok) {
