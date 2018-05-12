@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import clientManagementActions  from '../redux/ClientManagementRedux'
 
 import { ClientsTable, ClientDetails, MotifBlockModal } from '../components/Banker'
-
+import "./Styles/AppLayout.css";
 
 class AccountManagement extends Component {
   constructor(props) {
@@ -71,12 +71,25 @@ class AccountManagement extends Component {
   
   render() {
     return (
-      <div>
-        <MotifBlockModal account={this.state.account} visible={this.state.motifModalVisible} cancel={this.handleCancelModal.bind(this)} ok={this.handleOkModal.bind(this)}/>
+      <div className="container">
+        <MotifBlockModal 
+          account={this.state.account} 
+          visible={this.state.motifModalVisible} 
+          cancel={this.handleCancelModal.bind(this)} 
+          ok={this.handleOkModal.bind(this)}/>
         {this.state.switchScreen ? (
-          <ClientDetails  record={this.state.record} close={this.closeDetails.bind(this)} action={this.action.bind(this)} accountActionState={this.props.accountActionState} setDefaultD={this.setDefault.bind(this)}/>
+          <ClientDetails  
+            id={this.state.record.email} 
+            list={this.props.clientsList.list} 
+            close={this.closeDetails.bind(this)} 
+            action={this.action.bind(this)} 
+            accountActionState={this.props.accountActionState} 
+            setDefaultD={this.setDefault.bind(this)}/>
         ) : (
-          <ClientsTable dataSource={this.props.clientsList.list} listState={this.props.clientsList} showDetails={this.showDetails.bind(this)}/>
+          <ClientsTable 
+            dataSource={this.props.clientsList.list} 
+            listState={this.props.clientsList} 
+            showDetails={this.showDetails.bind(this)}/>
         )}
       </div>
     );

@@ -55,7 +55,11 @@ const create = (baseURL = API_URL) => {
 
     accounts,
 
-    getCounts
+    getCounts,
+
+    getClientsList,
+
+    accountAction
   };
 };
 

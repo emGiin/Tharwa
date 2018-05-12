@@ -4,6 +4,7 @@ import { Layout, Menu, Icon } from 'antd';
 
 import Routes from './Routes';
 
+import './Styles/AppLayout.css';
 const { Header, Content, Footer, Sider } = Layout;
 
 class SideBar extends Component {
@@ -141,7 +142,7 @@ export default class AppLayout extends Component {
               </Menu.SubMenu>
             </Menu>
           </Header>
-          <Content style={{ margin: '24px 16px' }}>
+          <Content style={{ margin: '24px 16px' ,overflow: 'auto', maxHeight:"500px"}}>
             <Routes />
           </Content>
           <Footer

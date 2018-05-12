@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Modal,Button, Input ,message} from 'antd';
+import { Modal,Button, Input} from 'antd';
 
 const { TextArea } = Input;
 const confirm = Modal.confirm;

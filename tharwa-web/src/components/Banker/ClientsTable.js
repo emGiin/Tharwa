@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { RoundedImage } from '../Reusable Components';
-import { Table, Icon, Modal, message, Tooltip } from 'antd';
+import { Table, Icon, Tooltip } from 'antd';
 
 class ClientsTable extends Component{
   columns = [

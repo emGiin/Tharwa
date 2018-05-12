@@ -1,9 +1,31 @@
 import React, { Component } from 'react';
-import { Table, Button, Modal,Icon, Divider,Col,Row, Card,Tooltip, message } from 'antd';
+import { Table, Button,Icon, Divider,Col,Row, Card, message } from 'antd';
 
 import "./Styles/style.css";
 const { Meta } = Card;
-class ClientsTable extends Component{
+class ClientDetails extends Component{
+  constructor(props){
+    super(props);
+    let r;
+    for (let element of props.list) {
+      if(element.email===props.id){
+        r=element;
+        break;
+      } 
+    }
+    this.state={record:r};
+}
+componentWillReceiveProps(nextProps) {
+  let r;
+  for (let element of nextProps.list) {
+    if(element.email===nextProps.id){
+      r=element;
+      break;
+    } 
+  }
+    this.setState({ record: r });
+  
+}
   columns = [
     {
       title: 'Type de compte',
@@ -90,10 +112,10 @@ class ClientsTable extends Component{
             <Row type="flex" justify="center" align="middle" gutter={24}>
             <Col span={18}>
             <Card
-              cover={<img alt="example" src={this.props.record.picture} />}
+              cover={<img alt="example" src={this.state.record.picture} />}
             >
               <Meta
-                title={`${this.props.record.firstname} ${this.props.record.lastname}`}
+                title={`${this.state.record.firstname} ${this.state.record.lastname}`}
               />
             </Card>
             </Col>
@@ -102,19 +124,19 @@ class ClientsTable extends Component{
           <Col xs={24} sm={24} md={12} lg={14} xl={16}>
           <Divider/>
             <Icon type="mail" style={{ marginRight: '20px', fontSize: 18 }} />
-            {' ' + this.props.record.email}
+            {' ' + this.state.record.email}
             <Divider/>
             <Icon type="phone" style={{ marginRight: '20px', fontSize: 18 }} />
-            {' ' + this.props.record.phone}
+            {' ' + this.state.record.phone}
             <Divider/>
             <Icon type="home" style={{ marginRight: '20px', fontSize: 18 }} />
-            {' ' + this.props.record.address}
+            {' ' + this.state.record.address}
             <Divider/>
             <Icon type="idcard" style={{ marginRight: '20px', fontSize: 18 }} />
-            {' ' + this.props.record.function}
+            {' ' + this.state.record.function}
             <Divider/>
             <Icon type="tag-o" style={{ marginRight: '20px', fontSize: 18 }} />
-            {' ' + this.props.record.type}
+            {' ' + this.state.record.type}
             <Divider/>
           </Col>
         </Row>
@@ -122,14 +144,13 @@ class ClientsTable extends Component{
         <Table
             columns={this.columns}
             rowKey={record => record.num}
-            dataSource={this.props.record.accounts}
+            dataSource={this.state.record.accounts}
             pagination={false}
             borderd
-            loading={this.props.fetching}
           />
       </div>
     )
   }
 
 }
-export default ClientsTable;
+export default ClientDetails;
