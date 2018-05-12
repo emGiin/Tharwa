@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
+import { reset as resetReduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import I18n from 'react-native-i18n'
 import TransferFormClientAccount from '../Forms/TransferFormClientAccount'
@@ -19,7 +20,7 @@ class TransferScreen extends Component {
   }
 
   resetScreen = () => {
-    // this.props.resetForm();
+    this.props.resetForm();
     this.setState({ key: this.state.key + 1 })
   }
 
@@ -43,7 +44,7 @@ class TransferScreen extends Component {
     const { fetching } = this.props;
 
     return (
-      <View style={styles.container} key={this.state.key}>
+      <View style={styles.container}>
         {this.renderDialog(this.props)}
         <TransferFormClientAccount
           key={this.state.key}
@@ -51,7 +52,8 @@ class TransferScreen extends Component {
             this.props.myAccountTransfer(data)
             this.dialog.show()
           }}
-          editable={!fetching} />
+          editable={!fetching} 
+        />
       </View>
     )
   }
@@ -68,8 +70,8 @@ const mapStateToProps = ({
 const mapDispatchToProps = (dispatch) => {
   return {
     myAccountTransfer: (...data) =>
-      dispatch(TransferActions.myAccountTransferRequest(...data)),
-    // resetForm: () => dispatch(resetReduxForm('myAccountTransfer')),
+      dispatch(TransferActions.transferRequest(...data)),
+    resetForm: () => dispatch(resetReduxForm('myAccountTransfer')),
     reset: () => dispatch(TransferActions.transferReset())
   }
 }

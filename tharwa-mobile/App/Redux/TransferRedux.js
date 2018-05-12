@@ -2,9 +2,7 @@ import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
-  myAccountTransferRequest: ['data'],
-  tharwaTransferRequest: ['data'],
-  externalTransferRequest: ['data'],
+  transferRequest: ['data'],
   transferFailure: ['error'],
   transferSuccess: ['commission'],
   transferReset: [],
@@ -43,9 +41,7 @@ export const reset = state => state.merge({
 })
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.MY_ACCOUNT_TRANSFER_REQUEST]: request,
-  [Types.THARWA_TRANSFER_REQUEST]: request,
-  [Types.EXTERNAL_TRANSFER_REQUEST]: request,
+  [Types.TRANSFER_REQUEST]: request,
   [Types.TRANSFER_SUCCESS]: success,
   [Types.TRANSFER_FAILURE]: failure,
   [Types.TRANSFER_RESET]: reset

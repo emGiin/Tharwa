@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
+import { reset as resetReduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import I18n from 'react-native-i18n'
 import { TharwaTransferForm } from '../Forms'
@@ -19,7 +20,7 @@ class TransferScreen extends Component {
   }
 
   resetScreen = () => {
-    // this.props.resetForm();
+    this.props.resetForm();
     this.setState({ key: this.state.key + 1 })
   }
 
@@ -43,7 +44,7 @@ class TransferScreen extends Component {
     const { fetching } = this.props;
 
     return (
-      <View style={styles.container} key={this.state.key}>
+      <View style={styles.container}>
         {this.renderDialog(this.props)}
         <TharwaTransferForm
           key={this.state.key}
@@ -51,7 +52,8 @@ class TransferScreen extends Component {
             this.sup = data.amount > 200000
             this.props.tharwaTransfer(data)
           }}
-          editable={!fetching} />
+          editable={!fetching}
+        />
       </View>
     )
   }
@@ -68,7 +70,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     tharwaTransfer: (...data) =>
       dispatch(TharwaTransferRedux.tharwaTransferRequest(...data)),
-    // resetForm: () => dispatch(resetReduxForm('tharwaTransfer')),
+    resetForm: () => dispatch(resetReduxForm('tharwaTransfer')),
     reset: () => dispatch(TharwaTransferRedux.tharwaTransferReset())
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { connect } from 'react-redux'
+import { reset as resetReduxForm } from 'redux-form'
 import I18n from 'react-native-i18n'
 import { ExternalTransferForm } from '../Forms'
 import { LoadingDialog } from '../../Components'
@@ -20,7 +21,7 @@ class TransferScreen extends Component {
   }
 
   resetScreen = () => {
-    // this.props.resetForm();
+    this.props.resetForm();
     this.setState({ key: this.state.key + 1 })
   }
 
@@ -48,7 +49,7 @@ class TransferScreen extends Component {
     const { fetching, banks } = this.props;
 
     return (
-      <View style={styles.container} key={this.state.key}>
+      <View style={styles.container}>
         {this.renderDialog(this.props)}
         <ExternalTransferForm
           key={this.state.key}
@@ -76,7 +77,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     externalTransfer: (...data) =>
       dispatch(ExternalTransferActions.externalTransferRequest(...data)),
-    // resetForm: () => dispatch(resetReduxForm('ExternalTransferForm')),
+    resetForm: () => dispatch(resetReduxForm('ExternalTransferForm')),
     reset: () => dispatch(ExternalTransferActions.externalTransferReset()),
     getBanks: () => dispatch(BankActions.bankRequest())
   }

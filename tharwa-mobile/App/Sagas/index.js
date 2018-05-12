@@ -66,7 +66,7 @@ export default function* root() {
     takeLatest(BankTypes.BANK_REQUEST, getBanks, api),
 
     // money transfer
-    takeLatest(TransferTypes.MY_ACCOUNT_TRANSFER_REQUEST, myAccountTransfer, api),
+    takeLatest(TransferTypes.TRANSFER_REQUEST, myAccountTransfer, api),
     takeLatest(TharwaTransferTypes.THARWA_TRANSFER_REQUEST, tharwaTransfer, api),
     takeLatest(ExternalTransferTypes.EXTERNAL_TRANSFER_REQUEST, externalTransfer, api),
 
