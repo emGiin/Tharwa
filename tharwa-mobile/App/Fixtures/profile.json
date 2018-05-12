@@ -6,6 +6,7 @@
     "picture": "hi.png",
     "type": "Client"
   },
+  "amount_limit_validation": 200000,
   "COUR": {
     "amount": "2983954.93",
     "history": [

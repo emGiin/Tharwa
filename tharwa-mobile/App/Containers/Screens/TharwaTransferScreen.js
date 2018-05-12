@@ -48,8 +48,9 @@ class TransferScreen extends Component {
         {this.renderDialog(this.props)}
         <TharwaTransferForm
           key={this.state.key}
+          maxTransfer={this.props.max}
           onSubmit={data => {
-            this.sup = data.amount > 200000
+            this.sup = data.amount > this.props.max
             this.props.tharwaTransfer(data)
           }}
           editable={!fetching}
@@ -60,9 +61,11 @@ class TransferScreen extends Component {
 }
 
 const mapStateToProps = ({
-  tharwaTransfer: { fetching, error, success, commission = 0 } }) => {
+  tharwaTransfer: { fetching, error, success, commission = 0 },
+  account: { information: { amount_limit_validation: max } }
+}) => {
   return {
-    fetching, error, success, commission
+    fetching, error, success, commission, max
   }
 }
 

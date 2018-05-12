@@ -24,7 +24,7 @@ class TharwaTransferForm extends Component {
   }
 
   componentWillReceiveProps({ amount }) {
-    if (amount > 200000) {
+    if (amount > this.props.maxTransfer) {
       this.formSteps = [
         InfoStepForm,
         ProofStepForm,
