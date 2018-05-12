@@ -53,6 +53,7 @@ export function* tharwaTransfer(api, { data }) {
 }
 
 export function* externalTransfer(api, { data }) {
+  data.receiver.bank = data.receiver.account.substring(0, 3)
   const response = yield call(api.externalTransfer, data)
 
   // success?
