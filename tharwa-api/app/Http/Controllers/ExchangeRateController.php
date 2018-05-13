@@ -42,7 +42,7 @@ class ExchangeRateController extends Controller
             ->getBody();
 
         $collection = collect(json_decode($res1))->merge(json_decode($res2));
-        
+
         return response($collection);
 
     }

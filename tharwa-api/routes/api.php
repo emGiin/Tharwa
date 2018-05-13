@@ -30,7 +30,7 @@ Route::post('/account', 'AccountController@create')->middleware(AuthClient::clas
 
 Route::get('/bank', 'BankController@index')->middleware(AuthClient::class);
 
-Route::get('/exchangerate', 'ExchangeRateController@index');//->middleware(AuthClient::class);
+Route::get('/exchangerate', 'ExchangeRateController@index')->middleware(AuthClient::class);
 
     /**
      * web managers
