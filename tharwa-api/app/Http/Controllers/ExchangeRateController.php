@@ -6,26 +6,6 @@ use Illuminate\Http\Request;
 
 class ExchangeRateController extends Controller
 {
-    public function getConversionRate($method)
-    {
-        if ($method == 'cour_epar' || $method == 'epar_cour')
-            return 1;
-
-        $mapMethodeToCurrencies = ['cour_devi_usd' => 'DZD_USD',
-            'devi_cour_usd' => 'USD_DZD',
-            'cour_devi_eur' => 'DZD_EUR',
-            'devi_cour_eur' => 'EUR_DZD'];
-
-        $currencies = $mapMethodeToCurrencies[$method];
-
-        $api = new \GuzzleHttp\Client();
-        $res = $api->get('http://free.currencyconverterapi.com/api/v5/convert?q=' . $currencies . '&compact=y')
-            ->getBody();
-
-        $res = json_decode($res);
-
-        return $res->$currencies->val;
-    }
 
     public function index()
     {

@@ -21,6 +21,7 @@ return [
     'SENDEXTBANK' => 0.02,
     'RECVEXTBANK' => 0.005,
 
+    //monthly commission
     'MONTHCOUR' => 100,//100 DA
     'MONTHEPART' => 50,//50 DA
     'MONTHDEV' => 200,//200 DA
