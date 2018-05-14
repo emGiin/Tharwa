@@ -431,7 +431,7 @@ class VirmentController extends Controller
                 //generate the XML file that will be treated later equivalent to send money
                 $xmlBody = View::make('xml_transfer_template', [
                     "code" => $virement_code,
-                    "date" => $now->format('YmdHis'),
+                    "date" => $now->format('YmdHi'),
                     "senderName" => $this->client()->firstname . ' ' . $this->client()->lastname,
                     "senderAccount" => $senderAccount->number,
                     "receiverName" => $request->input('receiver.name'),
@@ -751,7 +751,7 @@ class VirmentController extends Controller
                     //send money if valide (genrate the XML file that will be treated later)
                     $xmlBody = View::make('xml_transfer_template', [
                         "code" => $request->virement_code,
-                        "date" => $now->format('YmdHis'),
+                        "date" => $now->format('YmdHi'),
                         "senderName" => $sender->firstname . ' ' . $sender->lastname,
                         "senderAccount" => $exterTransfer->intern_account_id,
                         "receiverName" => $exterTransfer->extern_account_name,

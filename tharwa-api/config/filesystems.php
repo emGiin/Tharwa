@@ -68,10 +68,14 @@ return [
             'root'   => storage_path('app/xml_out'),
         ],
 
+        'xml_in' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/xml_in'),
+        ],
 
     ],
 
 
-    'uploaded_file' => 'files'
+    'uploaded_file' => 'files',
 
 ];
