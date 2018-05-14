@@ -183,6 +183,9 @@ class TreatExternTransfers extends Command
 //                ->queue(new ClientRequestValidatedMail($acceptedClient->firstname.' '.$acceptedClient->lastname
 //                    , $request->input('code')));
 
+
+                Storage::disk('xml_in')->delete($file);
+
                 // all good
                 /**commit - no problems **/
                 DB::commit();
@@ -203,6 +206,7 @@ class TreatExternTransfers extends Command
 
 
         //send xml to the banks
+
 
     }
 
