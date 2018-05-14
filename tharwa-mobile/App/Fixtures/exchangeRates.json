@@ -1,22 +1,6 @@
-[
-  {
-    "from": "dzd",
-    "to": "euro",
-    "value": 0.0073
-  },
-  {
-    "from": "euro",
-    "to": "dzd",
-    "value": 137.47
-  },
-  {
-    "from": "dzd",
-    "to": "usd",
-    "value": 0.0086
-  },
-  {
-    "from": "usd",
-    "to": "dzd",
-    "value": 115.62
-  }
-]
+{
+  "DZD_USD": 0.008662,
+  "USD_DZD": 115.446999,
+  "DZD_EUR": 0.007249,
+  "EUR_DZD": 137.945313
+}
