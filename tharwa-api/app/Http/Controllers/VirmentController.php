@@ -442,7 +442,7 @@ class VirmentController extends Controller
                 ])->render();
                 $xmlBody = '<?xml version="1.0" encoding="utf-8"?>' . $xmlBody;
 
-                Storage::disk('xml_out')->put($virement_code . '.xml', $xmlBody);
+                Storage::disk('xml_out')->put($request->input('receiver.bank').'/'.$virement_code . '.xml', $xmlBody);
 
                 $status = 'valide';
                 $transferDate = $creationDate = $now->format('Y-m-d H:i:s');
@@ -762,7 +762,7 @@ class VirmentController extends Controller
                     ])->render();
                     $xmlBody = '<?xml version="1.0" encoding="utf-8"?>' . $xmlBody;
 
-                    Storage::disk('xml_out')->put($request->virement_code . '.xml', $xmlBody);
+                    Storage::disk('xml_out')->put($exterTransfer->extern_bank.'/'.$request->virement_code . '.xml', $xmlBody);
                 }
             }
 
