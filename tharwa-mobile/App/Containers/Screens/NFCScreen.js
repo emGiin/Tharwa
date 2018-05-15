@@ -10,7 +10,7 @@ const { NfcManager } = NativeModules
 
 class App extends Component {
   componentWillMount() {
-    NfcManager.setMessage("Hello from react native");
+    // NfcManager.setMessage("Hello from react native");
   }
 
   render() {

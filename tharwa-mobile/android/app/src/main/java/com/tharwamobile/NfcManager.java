@@ -10,6 +10,8 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.Arguments;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.nfc.*;
 
 public class NfcManager extends ReactContextBaseJavaModule{
@@ -29,9 +31,29 @@ public class NfcManager extends ReactContextBaseJavaModule{
   @ReactMethod
   public void setMessage(String message) {
     final Activity activity = getCurrentActivity();
-    NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
+    nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
     byte[] bytesOut = message.getBytes();
     NdefRecord ndefRecordOut = new NdefRecord(NdefRecord.TNF_MIME_MEDIA, "text/plain".getBytes(), new byte[] {}, bytesOut);
     nfcAdapter.setNdefPushMessage(new NdefMessage(ndefRecordOut), activity);
+  }
+
+  @ReactMethod
+  public void getMessages(Callback callback) {
+    Intent nfcIntent = getCurrentActivity().getIntent();
+    WritableArray receivedMessages = Arguments.createArray();
+    receivedMessages.pushString("hello");
+    
+    Parcelable[] receivedArray = nfcIntent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+    if(receivedArray != null && receivedArray.lengt > 0) {
+      NdefMessage receivedMessage = (NdefMessage) receivedArray[0];
+      NdefRecord[] attachedRecords = receivedMessage.getRecords();
+
+      for (NdefRecord record : attachedRecords) {
+        String string = new String(record.getPayload());
+        if(string != null) receivedMessages.pushString(string);
+      }
+    }
+
+    callback.invoke(receivedMessages);
   }
 }

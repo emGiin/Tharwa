@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StatusBar, BackHandler, NetInfo, AppState } from 'react-native'
+import { View, Text, StatusBar, BackHandler, NetInfo, TextInput, AppState, NativeModules } from 'react-native'
 import I18n from 'react-native-i18n'
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
@@ -10,15 +10,18 @@ import StartupActions from '../Redux/StartupRedux'
 // Styles
 import styles from './Styles/RootContainerStyles'
 
+const { NfcManager } = NativeModules
+
 class RootContainer extends Component {
   state = {
     isConnected: true,
-    appState: AppState.currentState
+    appState: AppState.currentState,
+    text: "wow"
   }
 
   componentDidMount() {
     this.props.startup();
-
+    NfcManager.setMessage("Hello from react native");
     BackHandler.addEventListener('hardwareBackPress', this.handleHardwareBackPress);
     NetInfo.isConnected.addEventListener('connectionChange', this.handleConnetionChange);
     AppState.addEventListener('change', this.handleAppStateChange);
@@ -32,8 +35,7 @@ class RootContainer extends Component {
 
   handleAppStateChange = (nextAppState) => {
     if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-      // console.warn('App has come to the foreground!')
-      // TODO show pin code if logged in
+      NfcManager.getMessages(console.warn);
     }
     this.setState({ appState: nextAppState });
   }
@@ -76,6 +78,7 @@ class RootContainer extends Component {
     const style = isConnected ? styles.online : styles.offline;
     return (
       <View style={styles.applicationView}>
+        <TextInput value={this.state.text} onChangeText={(text) => { this.setState({ text }) }} />
         <StatusBar barStyle='light-content' backgroundColor={Colors.forground} />
         {showNetState && <Text style={style}> {message} </Text>}
         <ReduxNavigation />
