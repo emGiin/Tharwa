@@ -31,7 +31,8 @@ public class MainApplication extends Application implements ReactApplication {
             new SvgPackage(),
             new VectorIconsPackage(),
             new ImagePickerPackage(),
-            new ReactNativeI18n()
+            new ReactNativeI18n(),
+            new NfcPackage()
       );
     }
 
