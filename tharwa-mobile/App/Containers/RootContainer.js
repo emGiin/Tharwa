@@ -40,8 +40,8 @@ class RootContainer extends Component {
 
   /* NFC */
   onNfcMessageSent = () => {
-    console.warn("NDEF Sent");
-    // goto pending screen
+    // console.warn("NDEF Sent");
+    this.props.goToNfcPendingScreen()
   }
 
   checkNfcSupport = () => {
@@ -156,7 +156,6 @@ class RootContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  // nav: state.nav,
   nav: state.nav,
 })
 
@@ -164,6 +163,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   startup: () => dispatch(StartupActions.startup()),
   goBack: () => dispatch(NavigationActions.back()),
+  goToNfcPendingScreen: () => dispatch(NavigationActions.navigate({ routeName: 'NfcPendingScreen' })),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RootContainer)
