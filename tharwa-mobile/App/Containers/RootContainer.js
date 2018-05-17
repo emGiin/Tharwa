@@ -25,7 +25,10 @@ class RootContainer extends Component {
 
   componentDidMount() {
     this.props.startup();
-    NfcNdefManager.setMessage("Hello from react native");
+    NfcNdefManager.setMessage("Hello from react native", () => {
+      console.warn("NDEF Sent");
+
+    });
     BackHandler.addEventListener('hardwareBackPress', this.handleHardwareBackPress);
     NetInfo.isConnected.addEventListener('connectionChange', this.handleConnetionChange);
     AppState.addEventListener('change', this.handleAppStateChange);

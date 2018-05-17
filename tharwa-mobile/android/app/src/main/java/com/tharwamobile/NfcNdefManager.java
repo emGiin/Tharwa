@@ -20,7 +20,7 @@ public class NfcNdefManager extends ReactContextBaseJavaModule{
 
   public NfcNdefManager(ReactApplicationContext context) {
     super(context);
-    this.context = context;
+    this.context = context; 
   }
 
   @Override
@@ -29,19 +29,22 @@ public class NfcNdefManager extends ReactContextBaseJavaModule{
   }
 
   @ReactMethod
-  public void setMessage(String message) {
+  public void setMessage(String message, final Callback callback) {
     final Activity activity = getCurrentActivity();
     nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
     byte[] bytesOut = message.getBytes();
     NdefRecord ndefRecordOut = new NdefRecord(NdefRecord.TNF_MIME_MEDIA, "text/plain".getBytes(), new byte[] {}, bytesOut);
     nfcAdapter.setNdefPushMessage(new NdefMessage(ndefRecordOut), activity);
+    nfcAdapter.setOnNdefPushCompleteCallback(new NfcAdapter.OnNdefPushCompleteCallback(){
+      @Override
+      public void onNdefPushComplete(NfcEvent arg0) { callback.invoke(); }
+    }, activity);
   }
 
   @ReactMethod
   public void getMessages(Callback callback) {
     Intent nfcIntent = getCurrentActivity().getIntent();
     WritableArray receivedMessages = Arguments.createArray();
-    receivedMessages.pushString("hello");
     
     Parcelable[] receivedArray = nfcIntent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
     if(receivedArray != null) {
