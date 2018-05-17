@@ -48,6 +48,7 @@
     "react-native-content-loader": "^0.1.6",
     "react-native-i18n": "1.0.0",
     "react-native-image-picker": "^0.26.7",
+    "react-native-nfc-manager": "^0.4.2",
     "react-native-popup-dialog": "^0.10.46",
     "react-native-pulse": "^1.0.6",
     "react-native-simple-radio-button": "^2.7.1",

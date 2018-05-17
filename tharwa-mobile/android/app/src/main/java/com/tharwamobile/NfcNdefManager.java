@@ -14,18 +14,18 @@ import android.content.Intent;
 import android.os.Parcelable;
 import android.nfc.*;
 
-public class NfcManager extends ReactContextBaseJavaModule{
+public class NfcNdefManager extends ReactContextBaseJavaModule{
   NfcAdapter nfcAdapter;
   ReactApplicationContext context;
 
-  public NfcManager(ReactApplicationContext context) {
+  public NfcNdefManager(ReactApplicationContext context) {
     super(context);
     this.context = context;
   }
 
   @Override
   public String getName() {
-    return "NfcManager";
+    return "NfcNdefManager";
   }
 
   @ReactMethod
@@ -44,7 +44,7 @@ public class NfcManager extends ReactContextBaseJavaModule{
     receivedMessages.pushString("hello");
     
     Parcelable[] receivedArray = nfcIntent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-    if(receivedArray != null && receivedArray.lengt > 0) {
+    if(receivedArray != null) {
       NdefMessage receivedMessage = (NdefMessage) receivedArray[0];
       NdefRecord[] attachedRecords = receivedMessage.getRecords();
 

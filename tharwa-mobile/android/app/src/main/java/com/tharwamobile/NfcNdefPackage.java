@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class NfcPackage implements ReactPackage {
+public class NfcNdefPackage implements ReactPackage {
 
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
-        modules.add(new NfcManager(reactContext));
+        modules.add(new NfcNdefManager(reactContext));
         return modules;
     }
 

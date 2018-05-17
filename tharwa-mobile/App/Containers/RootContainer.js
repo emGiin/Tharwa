@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { View, Text, StatusBar, BackHandler, NetInfo, TextInput, AppState, NativeModules } from 'react-native'
+import { View, Text, StatusBar, BackHandler, Platform, NetInfo, AppState, NativeModules } from 'react-native'
+import { Button } from 'native-base'
 import I18n from 'react-native-i18n'
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
+import NfcManager from 'react-native-nfc-manager';
 import { Colors } from '../Themes'
 import ReduxNavigation from '../Navigation/ReduxNavigation'
 import StartupActions from '../Redux/StartupRedux'
@@ -10,39 +12,103 @@ import StartupActions from '../Redux/StartupRedux'
 // Styles
 import styles from './Styles/RootContainerStyles'
 
-const { NfcManager } = NativeModules
+const { NfcNdefManager } = NativeModules
 
 class RootContainer extends Component {
   state = {
     isConnected: true,
     appState: AppState.currentState,
-    text: "wow"
+    nfcSupported: true,
+    nfcEnabled: false,
+    nfcParsedText: ''
   }
 
   componentDidMount() {
     this.props.startup();
-    NfcManager.setMessage("Hello from react native");
+    NfcNdefManager.setMessage("Hello from react native");
     BackHandler.addEventListener('hardwareBackPress', this.handleHardwareBackPress);
     NetInfo.isConnected.addEventListener('connectionChange', this.handleConnetionChange);
     AppState.addEventListener('change', this.handleAppStateChange);
+    this.checkNfcSupport();
   }
 
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress')
     NetInfo.isConnected.removeEventListener('connectionChange')
     AppState.removeEventListener('change', this.handleAppStateChange);
+
+    // NFC
+    if (this.nfcStateChangedSubscription) this.nfcStateChangedSubscription.remove();
   }
+
+  /* NFC */
+  checkNfcSupport = () => {
+    NfcManager.isSupported().then(supported => {
+      this.setState({ supported });
+      if (supported) {
+        this.startNfc();
+      }
+    })
+  }
+
+  startNfc() {
+    NfcManager.start({ onSessionClosedIOS: () => { } }).then(() => {
+      // console.warn('start OK');
+    }).catch(error => {
+      console.warn('start fail', error);
+      this.setState({ supported: false });
+    })
+
+    if (Platform.OS === 'android') {
+      NfcManager.getLaunchTagEvent().then(tag => {
+        if (tag) this.setState({ tag })
+      }).catch(console.warn)
+
+      NfcManager.isEnabled().then(enabled => {
+        this.setState({ enabled });
+        this.startDetection()
+      }).catch(console.warn)
+
+      NfcManager.onStateChanged(this.onStateChanged).then(sub => {
+        this.nfcStateChangedSubscription = sub;
+      }).catch(console.warn)
+    }
+  }
+
+  onStateChanged = ({ state }) => {
+    if (state === 'on') {
+      this.setState({ enabled: true });
+    } else if (state === 'off') {
+      this.setState({ enabled: false });
+      NfcManager.unregisterTagEvent().catch(console.warn)
+    }
+  }
+
+  startDetection = () => {
+    NfcManager.registerTagEvent(this.onTagDiscovered).then(() => {
+      console.warn('registerTagEvent OK')
+    }).catch(console.warn)
+  }
+
+  onTagDiscovered = tag => {
+    // console.warn('Tag Discovered', tag);
+    this.setState({ tag });
+    let text = String.fromCharCode.apply(String, tag.ndefMessage[0].payload);
+    /* TODO: goto micro transfer screen */
+    console.warn('parsed', text);
+    this.setState({ parsedText: text });
+  }
+  /* NFC */
 
   handleAppStateChange = (nextAppState) => {
     if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-      NfcManager.getMessages(console.warn);
+      // NfcNdefManager.getMessages(console.warn);
     }
     this.setState({ appState: nextAppState });
   }
 
   handleHardwareBackPress = () => {
     // console.warn(this.props.nav);
-
     if (this.shouldCloseApp()) return false
     this.props.goBack();
     return true
@@ -50,10 +116,7 @@ class RootContainer extends Component {
 
   shouldCloseApp() {
     const routeName = this.getCurrentRouteName()
-    const notAllowedRouted = [
-      'LaunchScreen'
-    ]
-
+    const notAllowedRouted = ['LaunchScreen']
     return !this.state.isConnected || notAllowedRouted.includes(routeName)
   }
 
@@ -78,7 +141,9 @@ class RootContainer extends Component {
     const style = isConnected ? styles.online : styles.offline;
     return (
       <View style={styles.applicationView}>
-        <TextInput value={this.state.text} onChangeText={(text) => { this.setState({ text }) }} />
+        <Button full onPress={this.startDetection.bind(this)}>
+          <Text>Hello</Text>
+        </Button>
         <StatusBar barStyle='light-content' backgroundColor={Colors.forground} />
         {showNetState && <Text style={style}> {message} </Text>}
         <ReduxNavigation />
