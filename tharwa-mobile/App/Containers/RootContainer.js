@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { View, Text, StatusBar, BackHandler, Platform, NetInfo, AppState, NativeModules } from 'react-native'
-import { Button } from 'native-base'
 import I18n from 'react-native-i18n'
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
@@ -25,10 +24,6 @@ class RootContainer extends Component {
 
   componentDidMount() {
     this.props.startup();
-    NfcNdefManager.setMessage("Hello from react native", () => {
-      console.warn("NDEF Sent");
-
-    });
     BackHandler.addEventListener('hardwareBackPress', this.handleHardwareBackPress);
     NetInfo.isConnected.addEventListener('connectionChange', this.handleConnetionChange);
     AppState.addEventListener('change', this.handleAppStateChange);
@@ -39,17 +34,23 @@ class RootContainer extends Component {
     BackHandler.removeEventListener('hardwareBackPress')
     NetInfo.isConnected.removeEventListener('connectionChange')
     AppState.removeEventListener('change', this.handleAppStateChange);
-
     // NFC
     if (this.nfcStateChangedSubscription) this.nfcStateChangedSubscription.remove();
   }
 
   /* NFC */
+  onNfcMessageSent = () => {
+    console.warn("NDEF Sent");
+    // goto pending screen
+  }
+
   checkNfcSupport = () => {
     NfcManager.isSupported().then(supported => {
       this.setState({ supported });
       if (supported) {
-        this.startNfc();
+        NfcNdefManager.setMessage("Hello from react native")
+        NfcNdefManager.onMessageSent(this.onNfcMessageSent)
+        this.startNfc()
       }
     })
   }
@@ -89,7 +90,7 @@ class RootContainer extends Component {
 
   startDetection = () => {
     NfcManager.registerTagEvent(this.onTagDiscovered).then(() => {
-      console.warn('registerTagEvent OK')
+      // console.warn('registerTagEvent OK')
     }).catch(console.warn)
   }
 
@@ -144,9 +145,6 @@ class RootContainer extends Component {
     const style = isConnected ? styles.online : styles.offline;
     return (
       <View style={styles.applicationView}>
-        <Button full onPress={this.startDetection.bind(this)}>
-          <Text>Hello</Text>
-        </Button>
         <StatusBar barStyle='light-content' backgroundColor={Colors.forground} />
         {showNetState && <Text style={style}> {message} </Text>}
         <ReduxNavigation />

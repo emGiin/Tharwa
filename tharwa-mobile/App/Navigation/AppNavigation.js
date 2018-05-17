@@ -5,7 +5,7 @@ import {
   PinCodeScreen,
   LoginScreen,
   LaunchScreen,
-  NFCScreen
+  NfcPendingScreen
 } from '../Containers/Screens'
 import AppDrawer from './DrawerNavigation'
 import styles from './Styles/NavigationStyles'
@@ -16,7 +16,7 @@ const headerHidden = { navigationOptions: { header: null } }
 const PrimaryNav = StackNavigator(
   {
     AppDrawer: { screen: AppDrawer },
-    NFCScreen: { screen: NFCScreen },
+    NfcPendingScreen: { screen: NfcPendingScreen },
     PendingScreen: { screen: PendingScreen, ...headerHidden },
     RegisterScreen: { screen: RegisterScreen, ...headerHidden },
     PinCodeScreen: { screen: PinCodeScreen, ...headerHidden },
@@ -24,7 +24,7 @@ const PrimaryNav = StackNavigator(
     LaunchScreen: { screen: LaunchScreen, ...headerHidden },
   }, {
     // Default config for all screens
-    initialRouteName: 'NFCScreen',
+    initialRouteName: 'NfcPendingScreen',
     // initialRouteName: 'LaunchScreen',
     navigationOptions: {
       headerStyle: styles.header

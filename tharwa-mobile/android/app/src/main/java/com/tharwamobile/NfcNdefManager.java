@@ -29,16 +29,20 @@ public class NfcNdefManager extends ReactContextBaseJavaModule{
   }
 
   @ReactMethod
-  public void setMessage(String message, final Callback callback) {
+  public void setMessage(String message) {
     final Activity activity = getCurrentActivity();
     nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
     byte[] bytesOut = message.getBytes();
     NdefRecord ndefRecordOut = new NdefRecord(NdefRecord.TNF_MIME_MEDIA, "text/plain".getBytes(), new byte[] {}, bytesOut);
     nfcAdapter.setNdefPushMessage(new NdefMessage(ndefRecordOut), activity);
+  }
+
+  @ReactMethod
+  public void onMessageSent(final Callback callback){
     nfcAdapter.setOnNdefPushCompleteCallback(new NfcAdapter.OnNdefPushCompleteCallback(){
       @Override
       public void onNdefPushComplete(NfcEvent arg0) { callback.invoke(); }
-    }, activity);
+    }, getCurrentActivity());
   }
 
   @ReactMethod
