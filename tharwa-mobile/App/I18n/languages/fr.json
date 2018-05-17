@@ -77,5 +77,7 @@
   "transferDialogTitleFetching": "Virement",
   "transferDialogMessageFetching": "Le virement est en cours de transfert",
   "exchangeRate": "Taux d'échange",
-  "realTimeValue": "Valeurs en temps réel"
+  "realTimeValue": "Valeurs en temps réel",
+  "pendingMicroTransferDetails": "En attente du micro transaction par la technologie NFC, veuiller patienter",
+  "pending": "Attente En cours..."
 }

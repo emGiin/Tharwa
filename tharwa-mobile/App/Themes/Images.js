@@ -2,7 +2,8 @@
 const images = {
   logo: require('../Images/logo.png'),
   avatar: require('../Images/avatar.png'),
-  document: require('../Images/document.png')
+  document: require('../Images/document.png'),
+  nfcTag: require('../Images/nfcTag.png')
 }
 
 export default images

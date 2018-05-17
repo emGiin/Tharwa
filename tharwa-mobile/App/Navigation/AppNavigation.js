@@ -16,7 +16,7 @@ const headerHidden = { navigationOptions: { header: null } }
 const PrimaryNav = StackNavigator(
   {
     AppDrawer: { screen: AppDrawer },
-    NfcPendingScreen: { screen: NfcPendingScreen },
+    NfcPendingScreen: { screen: NfcPendingScreen, ...headerHidden },
     PendingScreen: { screen: PendingScreen, ...headerHidden },
     RegisterScreen: { screen: RegisterScreen, ...headerHidden },
     PinCodeScreen: { screen: PinCodeScreen, ...headerHidden },
