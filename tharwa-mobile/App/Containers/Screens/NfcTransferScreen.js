@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import { NfcTransferForm } from '../Forms';
 import styles from './Styles/NfcTransferScreenStyles'
-import { Colors } from '../../Themes';
+import { Images } from '../../Themes';
 
 class NfcTransferScreen extends Component {
   cancel = () => {
@@ -15,10 +15,9 @@ class NfcTransferScreen extends Component {
     // get params from route
     this.receiverInfo = {
       email: 'user@email.com',
-      firstname: 'User',
-      lastname: 'Tharwa',
-      picture: null,
-      code: "THW000000DZD"
+      name: 'User Tharwa',
+      picture: null ? Images.avatar : { uri: 'picture' },
+      accountNumber: "THW000000DZD"
     }
   }
 
@@ -27,9 +26,9 @@ class NfcTransferScreen extends Component {
   }
 
   render() {
-    const { fetching = false, maxAmount = 5000 } = this.props
+    const { fetching = false, maxAmount } = this.props
     return (
-      <View style={{ flex: 1, backgroundColor: Colors.background }}>
+      <View style={styles.pageContainer}>
         <NfcTransferForm
           onSubmit={this.submit}
           editable={!fetching}
@@ -42,8 +41,10 @@ class NfcTransferScreen extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {}
+const mapStateToProps = ({ account: { accountType, information: { infos = {} } } }) => {
+  return {
+    maxAmount: infos.max_nfc_amount || 5000
+  };
 }
 
 const mapDispatchToProps = (dispatch) => {

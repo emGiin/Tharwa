@@ -3,15 +3,15 @@ import { Text, View, Image, TouchableOpacity } from 'react-native'
 import { Container } from 'native-base'
 import I18n from 'react-native-i18n'
 import { reduxForm } from 'redux-form'
-import { Images, Colors } from '../../../Themes'
+import { Images } from '../../../Themes'
 import { NextPrevious } from "../../../Components";
 import styles from './Styles/ReceiverDetailStepStyles'
 
 class ReceiverDetailStep extends Component {
   render() {
-    const { previousPage, handleSubmit/*, receiverInfo*/, cancel } = this.props;
+    const { previousPage, handleSubmit, receiverInfo, cancel } = this.props;
     return (
-      <Container style={{ flex:1 }}>
+      <Container style={{ flex: 1 }}>
         <View style={{ flex: 1 }}>
           <View style={styles.topContainer}>
             <Image source={Images.nfcTag} style={styles.nfcLogo} />
@@ -20,20 +20,20 @@ class ReceiverDetailStep extends Component {
             </TouchableOpacity>
           </View>
           <Text style={styles.detailsText}>
-            Vous allez effectuer un micro virement vers le client Tharwa suivant, veuiller verifier les information reçu
+            {I18n.t('microTransferReceiverDetails')}
           </Text>
           <View style={styles.container}>
-            <Image source={Images.avatar} style={{ width: 150, height: 150, borderRadius: 150 }} />
-            <View style={{ flex: 1, marginTop: 20, flexDirection: 'row', justifyContent: 'space-around' }}>
-              <View style={{}}>
-                <Text style={{ color: Colors.white, fontSize: 18, fontWeight: 'bold' }}>Nom:</Text>
-                <Text style={{ color: Colors.white, fontSize: 18, fontWeight: 'bold' }}>Email:</Text>
-                <Text style={{ color: Colors.white, fontSize: 18, fontWeight: 'bold' }}>Code Banquaire:</Text>
+            <Image source={Images.avatar} style={styles.avatar} />
+            <View style={styles.receiverDetailsContainer}>
+              <View>
+                <Text style={styles.title}>{I18n.t('emailPlaceholder')}:</Text>
+                <Text style={styles.title}>{I18n.t('name')}:</Text>
+                <Text style={styles.title}>{I18n.t('accountNumber')}:</Text>
               </View>
-              <View style={{ marginLeft: 20 }}>
-                <Text style={{ color: Colors.white, fontSize: 18 }}>User Tharwa</Text>
-                <Text style={{ color: Colors.white, fontSize: 18 }}>user@email.com</Text>
-                <Text style={{ color: Colors.white, fontSize: 18 }}>THW000000DZD</Text>
+              <View style={styles.detailContainer}>
+                <Text style={styles.detail}>{receiverInfo.email}</Text>
+                <Text style={styles.detail}>{receiverInfo.name}</Text>
+                <Text style={styles.detail}>{receiverInfo.accountNumber}</Text>
               </View>
             </View>
           </View>

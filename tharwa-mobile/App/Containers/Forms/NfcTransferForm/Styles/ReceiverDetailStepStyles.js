@@ -1,8 +1,5 @@
 import { StyleSheet } from 'react-native'
-import Dimensions from 'Dimensions'
 import { Colors } from '../../../../Themes'
-
-const size = Dimensions.get('window').width / 2
 
 export default StyleSheet.create({
   container: {
@@ -11,10 +8,11 @@ export default StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 25,
+    marginTop: 35,
     paddingTop: 25,
+    paddingHorizontal: 10,
     backgroundColor: Colors.forground,
-    elevation: 5
+    elevation: 3
   },
   topContainer: {
     paddingTop: 10,
@@ -37,20 +35,31 @@ export default StyleSheet.create({
     color: Colors.white,
     textAlign: 'center',
     fontSize: 18,
-    paddingHorizontal: 40
+    paddingHorizontal: 30
   },
-  pendingTxt: {
+  avatar: {
+    width: 150,
+    height: 150,
+    borderRadius: 150
+  },
+  receiverDetailsContainer: {
+    flex: 1,
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  title: {
     color: Colors.white,
-    textAlign: 'center',
-    paddingHorizontal: 5
+    fontSize: 17,
+    fontWeight: 'bold'
   },
-  pendingContainer: {
-    width: size,
-    height: size,
-    borderRadius: size,
-    backgroundColor: Colors.button,
-    alignItems: 'center',
-    justifyContent: 'center'
+  detail: {
+    color: Colors.white,
+    fontSize: 16,
+    marginTop: 1
+  },
+  detailContainer: {
+    marginLeft: 20
   }
 })
 
