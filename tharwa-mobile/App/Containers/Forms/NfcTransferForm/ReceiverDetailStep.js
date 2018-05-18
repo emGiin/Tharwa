@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, Image, TouchableOpacity } from 'react-native'
+import { Text, View, Image } from 'react-native'
 import { Container } from 'native-base'
 import I18n from 'react-native-i18n'
 import { reduxForm } from 'redux-form'
@@ -9,16 +9,10 @@ import styles from './Styles/ReceiverDetailStepStyles'
 
 class ReceiverDetailStep extends Component {
   render() {
-    const { previousPage, handleSubmit, receiverInfo, cancel } = this.props;
+    const { previousPage, handleSubmit, receiverInfo } = this.props;
     return (
       <Container style={{ flex: 1 }}>
         <View style={{ flex: 1 }}>
-          <View style={styles.topContainer}>
-            <Image source={Images.nfcTag} style={styles.nfcLogo} />
-            <TouchableOpacity onPress={cancel} activeOpacity={0.8}>
-              <Text style={styles.cancelBtn}>{I18n.t('cancel')}</Text>
-            </TouchableOpacity>
-          </View>
           <Text style={styles.detailsText}>
             {I18n.t('microTransferReceiverDetails')}
           </Text>

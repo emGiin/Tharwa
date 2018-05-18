@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View, TouchableOpacity, Image, Text } from 'react-native'
+import { Images } from '../../../Themes'
+import I18n from 'react-native-i18n'
+import styles from './Styles/ReceiverDetailStepStyles'
 import ReceiverDetailStep from './ReceiverDetailStep'
 import AmountStepForm from './AmountStepForm'
 import ProgressStepForm from './ProgressStepForm'
@@ -13,7 +16,7 @@ class NfcTransferForm extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { currentPage: 1 }
+    this.state = { currentPage: 2 }
     this.nextPage = this.nextPage.bind(this)
     this.previousPage = this.previousPage.bind(this)
   }
@@ -27,13 +30,12 @@ class NfcTransferForm extends Component {
   }
 
   getNextComponent = (currentPage) => {
-    const { fetching, onSubmit, maxAmount, receiverInfo, cancel } = this.props;
+    const { fetching, onSubmit, maxAmount, receiverInfo } = this.props;
     const formStepProps = {
       editable: !fetching,
       onSubmit: currentPage !== this.formSteps.length ? this.nextPage : onSubmit,
       maxAmount,
-      receiverInfo,
-      cancel
+      receiverInfo
     };
     if (currentPage !== 1) formStepProps.previousPage = this.previousPage;
     const CurrentFormComponent = this.formSteps[currentPage - 1];
@@ -44,7 +46,12 @@ class NfcTransferForm extends Component {
     const { CurrentFormComponent, formStepProps } = this.getNextComponent(this.state.currentPage)
     return (
       <View style={{ flex: 1 }}>
-        {/* <Header icon={'md-arrow-round-back'} text={I18n.t('transfer')} /> */}
+        <View style={styles.topContainer}>
+          <Image source={Images.nfcTag} style={styles.nfcLogo} />
+          <TouchableOpacity onPress={this.props.cancel} activeOpacity={0.8}>
+            <Text style={styles.cancelBtn}>{I18n.t('cancel')}</Text>
+          </TouchableOpacity>
+        </View>
         <CurrentFormComponent {...formStepProps} />
       </View>
     )

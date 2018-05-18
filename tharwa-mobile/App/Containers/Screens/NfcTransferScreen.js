@@ -8,6 +8,7 @@ import { Images } from '../../Themes';
 
 class NfcTransferScreen extends Component {
   cancel = () => {
+    // reset form
     this.props.navigation.dispatch(NavigationActions.back());
   }
 
