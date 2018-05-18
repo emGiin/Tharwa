@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\AccountRequest;
+use App\ClientRequest;
+use App\ExternTransfer;
+use App\InternTransfer;
 use App\Manager;
 use Illuminate\Http\Request;
 use Validator;
@@ -13,7 +17,8 @@ class BanquierController extends Controller
 //        $this->manager = resolve(Manager::class);
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         //validation
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|max:55|unique:managers,email',
@@ -39,5 +44,21 @@ class BanquierController extends Controller
         ]);
 
         return response(["saved" => true], config('code.CREATED'));
+    }
+
+    public function index()
+    {
+        $nbreInscriptions = ClientRequest::notValidated()->count();
+        $nbreAutresComptes = AccountRequest::notValidated()->count();
+        $nbreVirements = ExternTransfer::needValidation()->count() +
+            InternTransfer::needValidation()->count();
+
+        $res = collect([
+            'nbreInscriptions' => $nbreInscriptions,
+            'nbreAutresComptes' => $nbreAutresComptes,
+            'nbreVirements' => $nbreVirements,
+        ]);
+
+        return response($res);
     }
 }

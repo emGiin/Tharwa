@@ -41,6 +41,7 @@ Route::get('/clientRequests', 'RequestController@index')->middleware(AuthManager
 Route::post('/clientRequests', 'RequestController@edit')->middleware(AuthManager::class);
 
 Route::post('/banquier', 'BanquierController@create');//->middleware(AuthManager::class);
+Route::get('/banquier', 'BanquierController@index');//->middleware(AuthManager::class);
 
 Route::get('/virement/validations', 'VirmentController@validationList')->middleware(AuthManager::class);
 Route::post('/virement/validations', 'VirmentController@validateVirement')->middleware(AuthManager::class);
@@ -48,4 +49,5 @@ Route::post('/virement/validations', 'VirmentController@validateVirement')->midd
 Route::get('/account/validations', 'AccountController@validationList')->middleware(AuthManager::class);
 Route::post('/account/validations', 'AccountController@validateAccount')->middleware(AuthManager::class);
 
+//dashboard of the manager (gestionaire)
 Route::get('/dashboard', 'DashboardController@index')->middleware(AuthManager::class);
