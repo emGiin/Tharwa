@@ -6,10 +6,13 @@ use App\Account;
 use App\BalanceHistory;
 use App\Bank;
 use App\ExternTransfer;
+use App\Mail\ExternTransferBankMail;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use ZipArchive;
 
 class TreatExternTransfers extends Command
 {
@@ -51,7 +54,7 @@ class TreatExternTransfers extends Command
         $i = 1;
 
         foreach ($files as $index => $file) {
-            $fileName = explode('.', substr($file,strlen('received/')))[0] ;
+            $fileName = explode('.', substr($file, strlen('received/')))[0];
 
             $contentFile = Storage::disk('xml_in')->get($file);
 
@@ -85,9 +88,9 @@ class TreatExternTransfers extends Command
             $this->info('3');
 
 
-            if ($receiverAccount != "".$xml->destinataire->compte ||
-                $senderAccount != "".$xml->titulaire->compte ||
-                substr($fileName, 24) != "".$xml->date) {
+            if ($receiverAccount != "" . $xml->destinataire->compte ||
+                $senderAccount != "" . $xml->titulaire->compte ||
+                substr($fileName, 24) != "" . $xml->date) {
                 $this->rejectFile($file);// file name infos with the xml
                 continue;
             }
@@ -103,7 +106,7 @@ class TreatExternTransfers extends Command
             $this->info('5');
 
 
-            $senderBank = Bank::find("".$xml->titulaire->banque);
+            $senderBank = Bank::find("" . $xml->titulaire->banque);
             if (is_null($senderBank)) {
                 $this->rejectFile($file);// sender bank supported
                 continue;
@@ -116,8 +119,8 @@ class TreatExternTransfers extends Command
 
             try {
 
-                $amount = "".$xml->montant;
-                $virement_code = "".$xml->numero;
+                $amount = "" . $xml->montant;
+                $virement_code = "" . $xml->numero;
 
                 //create the transfer
                 $commission = config('commission.RECVEXTBANK') * $amount;
@@ -127,16 +130,16 @@ class TreatExternTransfers extends Command
                 ExternTransfer::create([
                     'code' => $virement_code,
                     'amount' => $amount,//in this case he include the commission
-                    'reason' => "".$xml->motif,
+                    'reason' => "" . $xml->motif,
                     'transferDate' => $transferDate,
                     'creationDate' => $creationDate,
                     'status' => $status,
                     'commission' => $commission,
-                    'intern_account_id' => "".$xml->destinataire->compte,
+                    'intern_account_id' => "" . $xml->destinataire->compte,
                     'direction' => 'in',
-                    'extern_account_name' => "".$xml->titulaire->nom,
+                    'extern_account_name' => "" . $xml->titulaire->nom,
                     'extern_account_number' => $senderAccount,
-                    'extern_bank' => "".$xml->titulaire->banque,
+                    'extern_bank' => "" . $xml->titulaire->banque,
                 ]);
                 $this->info('7');
 
@@ -153,7 +156,7 @@ class TreatExternTransfers extends Command
                     'transaction_type' => 'transf',
                     'transaction_direction' => 'in',
                     'isIntern' => false,
-                    'target' => "".$xml->titulaire->nom,
+                    'target' => "" . $xml->titulaire->nom,
                     'account_id' => $senderAccount,
                     'created_at' => $creationDate,
                     'updated_at' => $creationDate,
@@ -206,13 +209,72 @@ class TreatExternTransfers extends Command
 
 
         //send xml to the banks
+        $dirs = Storage::disk('xml_out')->directories();
 
+        $banks = Bank::get(['code', 'email']);
+
+        foreach ($dirs as $index => $dirNameBank) {
+            $bankEmail = $banks->firstWhere('code', $dirNameBank)->email;
+//            dd($bankEmail);
+
+            //zip it (create tmp zip)
+            $this->zipFiles($dirNameBank);
+//            dd($bankEmail);
+
+            $pathToZip = storage_path("app/xml_out/".$dirNameBank.".zip");
+
+            //attache it with a mail
+            Mail::to($bankEmail)
+                ->queue(new ExternTransferBankMail($pathToZip,$dirNameBank));
+
+            //delete the tmp zip
+            Storage::disk('xml_out')->delete($dirNameBank.".zip");
+            //delete the xml folder
+            Storage::disk('xml_out')->deleteDirectory($dirNameBank);
+
+        }
 
     }
 
     function rejectFile($fileName)
     {
-        $fileName = substr($fileName,strlen('received/'));
+        $fileName = substr($fileName, strlen('received/'));
         Storage::disk('xml_in')->move('received/' . $fileName, 'rejected/' . $fileName);
+    }
+
+
+    public function zipFiles($bankName)
+    {
+        // create a list of files that should be added to the archive.
+        $files = glob(storage_path("app/xml_out/".$bankName."/*"));
+
+        // define the name of the archive and create a new ZipArchive instance.
+        $archiveFile = storage_path("app/xml_out/".$bankName.".zip");
+        $archive = new ZipArchive();
+
+        // check if the archive could be created.
+        if ($archive->open($archiveFile, ZipArchive::CREATE | ZipArchive::OVERWRITE)) {
+
+            // loop trough all the files and add them to the archive.
+            foreach ($files as $file) {
+                if ($archive->addFile($file, basename($file))) {
+                    // do something here if addFile succeeded, otherwise this statement is unnecessary and can be ignored.
+                    continue;
+                } else {
+                    throw new \Exception("file `{$file}` could not be added to the zip file: " . $archive->getStatusString());
+                }
+            }
+
+            // close the archive.
+            if ($archive->close()) {
+                //finish zipping
+                return true;
+            } else {
+                throw new \Exception("could not close zip file: " . $archive->getStatusString());
+            }
+
+        } else {
+            throw new \Exception("zip file could not be created: " . $archive->getStatusString());
+        }
     }
 }
