@@ -65,7 +65,7 @@ export class ThirdStepForm extends Component {
             editable={editable}
             validate={nameValidators}
             returnKeyType={'done'}
-            placeholder={I18n.t('address')}
+            placeholder={I18n.t('function')}
           />
         </Content>
         <NextPrevious onPrevious={previousPage} onSubmit={handleSubmit} />
