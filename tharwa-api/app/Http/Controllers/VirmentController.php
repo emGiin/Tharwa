@@ -442,7 +442,7 @@ class VirmentController extends Controller
                 ])->render();
                 $xmlBody = '<?xml version="1.0" encoding="utf-8"?>' . $xmlBody;
 
-                Storage::disk('xml_out')->put($request->input('receiver.bank').'/'.$virement_code . '.xml', $xmlBody);
+                Storage::disk('xml_out')->put($request->input('receiver.bank') . '/' . $virement_code . '.xml', $xmlBody);
 
                 $status = 'valide';
                 $transferDate = $creationDate = $now->format('Y-m-d H:i:s');
@@ -527,6 +527,153 @@ class VirmentController extends Controller
             return response(["saved" => false], config('code.UNKNOWN_ERROR'));
         }
 
+    }
+
+    public function createMicro(Request $request)
+    {
+        //validation//todo check if the account is valid not blocked
+        $validator = Validator::make($request->all(), [
+            'account' => 'required|regex:/^THW[0-9]{6}DZD$/|exists:accounts,number',
+            'amount' => 'required|numeric|min:0|max:' . config('utils.amount_max_micro_transfer')
+        ]);
+        if ($validator->fails()) {
+            return response($validator->errors(), config('code.BAD_REQUEST'));
+        }
+
+        $amount = $request->input('amount');
+        $hasEnoughMoney = false;
+        /**start transaction**/
+        DB::beginTransaction();
+
+        try {
+
+            $senderAccount = $this->client()->accounts()
+                ->courant()->first();//todo check methode first()
+
+            $senderClient = $this->client()->get(['email', 'firstname', 'lastname'])->first();
+            $receiverAccount = Account::find($request->input('account'));
+            $receiverClient = $receiverAccount->client()->get(['email', 'firstname', 'lastname'])->first();
+
+            //check the amount
+            if (!$senderAccount->hasEnoughMoney($amount)) throw new \Exception;
+            $hasEnoughMoney = true;
+
+            //create the transfer
+            $commission = config('commission.COUR_COUR') * $amount;
+            $now = \Carbon\Carbon::now();
+            $nb = BalanceHistory::count();//todo fix this !all sol tested! re-migrate DB
+            //sender history
+            BalanceHistory::create([
+                'id' => $nb + 1,
+                'amount' => $amount + $commission,
+                'commission' => $commission,
+                'transaction_type' => 'vir_client',
+                'transaction_direction' => 'out',
+                'isIntern' => true,
+                'target' => $request->input('account'),
+                'account_id' => $senderAccount->number,
+                'created_at' => $now->format('Y-m-d H:i:s'),
+                'updated_at' => $now->format('Y-m-d H:i:s'),
+                'transfer_code' => $senderAccount->number . $request->input('account') . $now->format('YmdHi'),
+            ]);
+
+            //Tharwa commission history
+            BalanceHistory::create([
+                'id' => $nb + 2,
+                'amount' => $commission,
+                'transaction_type' => 'commiss',
+                'transaction_direction' => 'in',
+                'account_id' => 'THW000000DZD',
+                'target' => $senderAccount->number,
+                'created_at' => $now->format('Y-m-d H:i:s'),
+                'updated_at' => $now->format('Y-m-d H:i:s'),
+            ]);
+            //change the amount of the Tharwa account
+            $tharwaAccount = Account::find('THW000000DZD');
+            $tharwaAccount->balance = $tharwaAccount->balance + $commission;
+            $tharwaAccount->save();
+
+            //receiver history
+            BalanceHistory::create([
+                'id' => $nb + 3,
+                'amount' => $amount,
+                'transaction_type' => 'vir_client',
+                'transaction_direction' => 'in',
+                'isIntern' => true,
+                'target' => $senderAccount->number,
+                'account_id' => $request->input('account'),
+                'created_at' => $now->format('Y-m-d H:i:s'),
+                'updated_at' => $now->format('Y-m-d H:i:s'),
+                'transfer_code' => $senderAccount->number . $request->input('account') . $now->format('YmdHi'),
+            ]);
+            //change the amount of the destination client just in case of < 200 000 else till validation
+            $receiverAccount->balance = $receiverAccount->balance + $amount;
+            $receiverAccount->save();
+
+            $status = 'valide';
+            $transferDate = $creationDate = $now->format('Y-m-d H:i:s');
+
+
+            //email virement recu (to reciever)
+            Mail::to($receiverClient->email)
+                ->queue(new TransferMail($receiverClient->firstname . ' ' . $receiverClient->lastname
+                    , 1
+                    , $senderClient->firstname . ' ' . $senderClient->lastname
+                    , ""
+                    , $amount
+                    , ""
+                ));//todo : _to & currency
+
+
+            InternTransfer::create([
+                'code' => $senderAccount->number . $request->input('account') . $now->format('YmdHi'),
+                'amount' => $amount,
+                'transferDate' => $transferDate,
+                'creationDate' => $creationDate,
+                'status' => $status,
+                'transfers_type' => 'vir_client',
+                'commission' => $commission,
+                'source_id' => $senderAccount->number,
+                'destination_id' => $request->input('account'),
+            ]);
+
+
+            //we retrieve the amount from the sender account
+            $senderAccount->balance = $senderAccount->balance - $commission - $amount;
+            $senderAccount->save();
+
+
+            //email virement validé ou traitement
+            Mail::to($senderClient->email)
+                ->queue(new TransferMail($senderClient->firstname . ' ' . $senderClient->lastname
+                    , 2
+                    , $senderClient->firstname . ' ' . $senderClient->lastname
+                    , $receiverAccount->firstname . ' ' . $receiverAccount->lastname
+                    , $amount
+                    , $status
+                ));//todo : _to & currency
+
+
+            // all good
+            /**commit - no problems **/
+            DB::commit();
+
+            return response([
+                "saved" => true,
+                "commission" => $commission
+            ], config('code.CREATED'));
+
+        } catch (\Exception $e) {
+
+            // something went wrong
+            /**rollback every thing - problems **/
+            DB::rollback();
+
+            if (!$hasEnoughMoney)
+                return response(["amount" => false], config('code.NOT_FOUND'));
+
+            return response(["saved" => false], config('code.UNKNOWN_ERROR'));
+        }
     }
 
     public function validationList()
@@ -762,7 +909,7 @@ class VirmentController extends Controller
                     ])->render();
                     $xmlBody = '<?xml version="1.0" encoding="utf-8"?>' . $xmlBody;
 
-                    Storage::disk('xml_out')->put($exterTransfer->extern_bank.'/'.$request->virement_code . '.xml', $xmlBody);
+                    Storage::disk('xml_out')->put($exterTransfer->extern_bank . '/' . $request->virement_code . '.xml', $xmlBody);
                 }
             }
 
