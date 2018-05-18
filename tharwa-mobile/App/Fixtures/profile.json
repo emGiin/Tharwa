@@ -4,9 +4,11 @@
     "firstname": "cltest",
     "lastname": "cltest",
     "picture": "hi.png",
-    "type": "Client"
+    "type": "Client",
+    "code": "THW000000DZD"
   },
   "amount_limit_validation": 200000,
+  "max_nfc_amount": 5000,
   "COUR": {
     "amount": "2983954.93",
     "history": [
