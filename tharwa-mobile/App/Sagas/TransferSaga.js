@@ -3,6 +3,7 @@ import I18n from 'react-native-i18n'
 import TransferActions from '../Redux/TransferRedux'
 import TharwaTransferActions from '../Redux/TharwaTransferRedux'
 import ExternalTransferActions from '../Redux/ExternalTransferRedux'
+import NfcTransferActions from '../Redux/NfcTransferRedux'
 
 // attempts to transfert
 export function* myAccountTransfer(api, { data }) {
@@ -64,3 +65,16 @@ export function* externalTransfer(api, { data }) {
     yield put(ExternalTransferActions.externalTransferFailure(I18n.t('transferDialogMessageError')))
   }
 }
+
+export function* nfcTransfer(api, { data }) {
+  const response = yield call(api.nfcTransfer, data)
+
+  // success?
+  if (response.ok) {
+    const { commission } = response.data
+    yield put(NfcTransferActions.nfcTransferSuccess(commission))
+  } else {
+    yield put(NfcTransferActions.nfcTransferFailure(I18n.t('transferDialogMessageError')))
+  }
+}
+

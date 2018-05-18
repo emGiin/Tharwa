@@ -101,6 +101,15 @@ export default {
       }
     }
   },
+  nfcTransfer: data => {
+    return {
+      ok: true,
+      data: {
+        "saved": true,
+        "commission": 53
+      }
+    }
+  },
   getBanks: () => {
     return {
       ok: true,
