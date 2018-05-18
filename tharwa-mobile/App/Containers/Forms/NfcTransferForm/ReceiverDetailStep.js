@@ -3,7 +3,6 @@ import { Text, View, Image } from 'react-native'
 import { Container } from 'native-base'
 import I18n from 'react-native-i18n'
 import { reduxForm } from 'redux-form'
-import { Images } from '../../../Themes'
 import { NextPrevious } from "../../../Components";
 import styles from './Styles/ReceiverDetailStepStyles'
 
@@ -17,7 +16,7 @@ class ReceiverDetailStep extends Component {
             {I18n.t('microTransferReceiverDetails')}
           </Text>
           <View style={styles.container}>
-            <Image source={Images.avatar} style={styles.avatar} />
+            <Image source={receiverInfo.picture} style={styles.avatar} />
             <View style={styles.receiverDetailsContainer}>
               <View>
                 <Text style={styles.title}>{I18n.t('emailPlaceholder')}:</Text>

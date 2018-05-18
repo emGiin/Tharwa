@@ -6,7 +6,6 @@ import { reset as resetReduxForm } from 'redux-form'
 import { NavigationActions } from 'react-navigation'
 import { LoadingDialog } from '../../Components'
 import { NfcTransferForm } from '../Forms';
-import { Images } from '../../Themes';
 
 // Redux
 import NfcTransferRedux from '../../Redux/NfcTransferRedux'
@@ -43,11 +42,9 @@ class NfcTransferScreen extends Component {
 
   componentWillMount() {
     // get params from route
-    this.receiverInfo = {
-      email: 'user@email.com',
-      name: 'User Tharwa',
-      picture: null ? Images.avatar : { uri: 'picture' },
-      accountNumber: "THW000000DZD"
+    const { params } = this.props.navigation.state
+    if (params) {
+      this.receiverInfo = params.receiverInfo
     }
   }
 

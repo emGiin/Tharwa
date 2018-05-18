@@ -4,7 +4,7 @@ import { Colors } from '../../../../Themes'
 export default StyleSheet.create({
   container: {
     height: 300,
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',

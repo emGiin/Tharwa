@@ -7,6 +7,7 @@ import NfcManager from 'react-native-nfc-manager';
 import { Colors } from '../Themes'
 import ReduxNavigation from '../Navigation/ReduxNavigation'
 import StartupActions from '../Redux/StartupRedux'
+import { Images } from '../Themes';
 
 // Styles
 import styles from './Styles/RootContainerStyles'
@@ -19,7 +20,7 @@ class RootContainer extends Component {
     appState: AppState.currentState,
     nfcSupported: true,
     nfcEnabled: false,
-    nfcParsedText: ''
+    nfcMsgSaved: true
   }
 
   componentDidMount() {
@@ -38,6 +39,16 @@ class RootContainer extends Component {
     if (this.nfcStateChangedSubscription) this.nfcStateChangedSubscription.remove();
   }
 
+  componentWillReceiveProps({ name, email, picture, accountNumber }) {
+    if (accountNumber && !this.setState.nfcMsgSaved) {
+      this.setState({ nfcMsgSaved: true })
+      const userDetails = JSON.stringify({
+        email, name, picture, accountNumber
+      })
+      NfcNdefManager.setMessage(userDetails)
+    }
+  }
+
   /* NFC */
   onNfcMessageSent = () => {
     // console.warn("NDEF Sent");
@@ -48,7 +59,13 @@ class RootContainer extends Component {
     NfcManager.isSupported().then(supported => {
       this.setState({ supported });
       if (supported) {
-        NfcNdefManager.setMessage("Hello from react native")
+        const userDetails = {
+          email: this.props.email,
+          name: this.props.name,
+          picture: this.props.picture,
+          accountNumber: this.props.accountNumber
+        }
+        NfcNdefManager.setMessage(JSON.stringify(userDetails))
         NfcNdefManager.onMessageSent(this.onNfcMessageSent)
         this.startNfc()
       }
@@ -95,13 +112,10 @@ class RootContainer extends Component {
   }
 
   onTagDiscovered = tag => {
-    // console.warn('Tag Discovered', tag);
-    this.setState({ tag });
-    let text = String.fromCharCode.apply(String, tag.ndefMessage[0].payload);
-    /* TODO: goto micro transfer screen */
-    console.warn('parsed', text);
-    this.props.goToNfcTransferScreen()
-    this.setState({ parsedText: text });
+    if (tag && tag.ndefMessage[0]) {
+      let text = String.fromCharCode.apply(String, tag.ndefMessage[0].payload || '');
+      this.props.goToNfcTransferScreen({ receiverInfo: JSON.parse(text) });
+    }
   }
   /* NFC */
 
@@ -156,8 +170,12 @@ class RootContainer extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  nav: state.nav,
+const mapStateToProps = ({ account: { accountType, information: { infos = {} } }, nav }) => ({
+  nav: nav,
+  name: (infos ? `${infos.lastname} ${infos.firstname}` : 'John Doe'),
+  picture: infos.picture ? { uri: infos.picture } : Images.avatar,
+  email: infos.email || 'john_doe@mail.com',
+  accountNumber: infos.accountNumber || 'THW00000DZD'
 })
 
 // wraps dispatch to create nicer functions to call within our component
@@ -165,7 +183,9 @@ const mapDispatchToProps = (dispatch) => ({
   startup: () => dispatch(StartupActions.startup()),
   goBack: () => dispatch(NavigationActions.back()),
   goToNfcPendingScreen: () => dispatch(NavigationActions.navigate({ routeName: 'NfcPendingScreen' })),
-  goToNfcTransferScreen: () => dispatch(NavigationActions.navigate({ routeName: 'NfcTransferScreen' })),
+  goToNfcTransferScreen: params => dispatch(NavigationActions.navigate({
+    routeName: 'NfcTransferScreen', params
+  })),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RootContainer)

@@ -3,7 +3,7 @@
     "email": "client@domaine.com",
     "firstname": "cltest",
     "lastname": "cltest",
-    "picture": "hi.png",
+    "picture": 0,
     "type": "Client",
     "accountNumber": "THW000000DZD"
   },

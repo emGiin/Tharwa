@@ -78,7 +78,7 @@
   "transferDialogMessageFetching": "Le virement est en cours de transfert",
   "exchangeRate": "Taux d'échange",
   "realTimeValue": "Valeurs en temps réel",
-  "pendingMicroTransferDetails": "En attente du micro transaction par la technologie NFC, veuiller patienter",
+  "pendingMicroTransferDetails": "En attente du micro virement par la technologie NFC, veuiller patienter",
   "pending": "Attente En cours...",
   "microTransferReceiverDetails": "Vous allez effectuer un micro virement vers le client Tharwa suivant, veuillez vérifier les informations reçu",
   "maxAmountError": "Montant max est de "
