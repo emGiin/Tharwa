@@ -93,10 +93,15 @@ class ClientController extends Controller
             url(config('filesystems.uploaded_file')) . '/'
             . $client->picture;
 
+        
         $infos = collect(['infos' => $client]);
+
 
         //get (amount & 10 last transact) for each account type
         $accounts = $client->accounts()->valid()->get();
+
+        $client['accountNumber'] = $accounts->firstWhere('type_id', 'COUR ')->number;
+
         foreach ($accounts as $account) {
             $infos->put(
                 trim($account->type_id), [
