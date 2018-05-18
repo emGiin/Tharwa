@@ -32,5 +32,8 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     paddingHorizontal: 40
+  },
+  pendingTxt: {
+    color: Colors.white
   }
 })

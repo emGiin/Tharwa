@@ -100,6 +100,7 @@ class RootContainer extends Component {
     let text = String.fromCharCode.apply(String, tag.ndefMessage[0].payload);
     /* TODO: goto micro transfer screen */
     console.warn('parsed', text);
+    this.props.goToNfcTransferScreen()
     this.setState({ parsedText: text });
   }
   /* NFC */
@@ -164,6 +165,7 @@ const mapDispatchToProps = (dispatch) => ({
   startup: () => dispatch(StartupActions.startup()),
   goBack: () => dispatch(NavigationActions.back()),
   goToNfcPendingScreen: () => dispatch(NavigationActions.navigate({ routeName: 'NfcPendingScreen' })),
+  goToNfcTransferScreen: () => dispatch(NavigationActions.navigate({ routeName: 'NfcTransferScreen' })),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RootContainer)

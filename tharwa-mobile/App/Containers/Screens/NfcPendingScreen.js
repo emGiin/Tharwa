@@ -26,7 +26,7 @@ class NfcPendingScreen extends Component {
           {I18n.t('pendingMicroTransferDetails')}
         </Text>
         <View style={styles.container}>
-          <Pulse color={Colors.button} numPulses={3} diameter={size + 150} speed={20} duration={1000} />
+          <Pulse color={Colors.button} numPulses={3} diameter={size + 120} speed={20} duration={1000} />
           <View style={styles.pendingContainer}>
             <Text style={styles.pendingTxt}> {I18n.t('pending')} </Text>
           </View>
