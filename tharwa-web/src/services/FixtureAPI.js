@@ -104,16 +104,15 @@ export default {
       data: clientsList
     }
   },
-  accountAction:({account,motif})=>{
+  accountAction:({account,motif,type})=>{
+    console.log("account= ",account);
+    console.log("motif= ",motif);
+    console.log("type= ",type);
     
-    console.log(account,"api");
     clientsList.forEach(element => {
       element.accounts.forEach(e => {
-        if(e.num===account) {
-          console.log("found");
-          
-          if(e.status==="blocked") e.status="working";
-          else e.status="blocked";
+        if(e.number===account) {
+          e.isvalid=!e.isvalid;
         }
       });
     });

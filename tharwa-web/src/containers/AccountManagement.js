@@ -9,6 +9,7 @@ class AccountManagement extends Component {
   constructor(props) {
     super(props);
     this.state = {
+        actionAccount: null,
         switchScreen: false,
         record:{},
         account:{},
@@ -17,8 +18,6 @@ class AccountManagement extends Component {
 }
 
   componentWillMount() {
-    console.log("moutning");
-    
     this.props.getClientsList();
   }
   
@@ -32,36 +31,21 @@ class AccountManagement extends Component {
   }
 
   action(account){
-    if(account.status==="blocked"){
-        this.handleDeblock(account.num);
-    }
-    else{
-        this.handleBlock(account.num);
-    }
+    this.setState({account:account.number});
+    this.setState({motifModalVisible: true, actionAccount: account.isvalid});
   }
 
-  handleBlock(id){
-    this.setState({account:id});
-    this.setState({motifModalVisible: true});
-  }
-  handleDeblock(id){
-    console.log("deblocking call  ",id);
-    const o={
-      account:id,
-      motif:""
-    }
-    this.props.accountAction(o);
-    
-  }
   handleCancelModal(){
     this.setState({motifModalVisible: false});
   }
-  handleOkModal(id,motif){
-    this.setState({motifModalVisible: false});
+  handleOkModal(id,motif,type){
+    this.setState({motifModalVisible: false, actionAccount: null});
     const o={
       account:id,
-      motif
+      motif,
+      type
     }  
+    
     this.props.accountAction(o);
    
   }
@@ -73,6 +57,7 @@ class AccountManagement extends Component {
     return (
       <div className="container">
         <MotifBlockModal 
+          action={this.state.actionAccount}
           account={this.state.account} 
           visible={this.state.motifModalVisible} 
           cancel={this.handleCancelModal.bind(this)} 
@@ -84,7 +69,7 @@ class AccountManagement extends Component {
             close={this.closeDetails.bind(this)} 
             action={this.action.bind(this)} 
             accountActionState={this.props.accountActionState} 
-            setDefaultD={this.setDefault.bind(this)}/>
+            setDefault={this.setDefault.bind(this)}/>
         ) : (
           <ClientsTable 
             dataSource={this.props.clientsList.list} 
@@ -106,7 +91,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getClientsList: () => dispatch(clientManagementActions.clientsListRequest()),
-    accountAction: params => {console.log("deblocking call  ",params);dispatch(clientManagementActions.accountActionRequest(params))},
+    accountAction: params => {dispatch(clientManagementActions.accountActionRequest(params))},
     setDefault: () => dispatch(clientManagementActions.accountActionSetDefault())
   };
 };

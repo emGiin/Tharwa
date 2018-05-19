@@ -29,14 +29,15 @@ export function* getClientsList(api) {
   }
 }
 
-export function* actionRequest(api,params){
+export function* actionRequest(api,{id:{account, motif,type}}){
   setCredentials(api);
-  console.log(params," saga");
-  params=params.id;
+ 
       const body={
-        account: params.account,
-        motif:params.motif
+        account,
+        motif,
+        type
       }
+      
       const response = yield call(api.accountAction,body);
 
       if (response.ok) {

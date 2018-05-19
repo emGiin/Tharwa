@@ -3,46 +3,22 @@ import { Table, Button,Icon, Divider,Col,Row, Card, message } from 'antd';
 
 import "./Styles/style.css";
 const { Meta } = Card;
-class ClientDetails extends Component{
-  constructor(props){
-    super(props);
-    let r;
-    for (let element of props.list) {
-      if(element.email===props.id){
-        r=element;
-        break;
-      } 
-    }
-    this.state={record:r};
-}
-componentWillReceiveProps(nextProps) {
-  let r;
-  for (let element of nextProps.list) {
-    if(element.email===nextProps.id){
-      r=element;
-      break;
-    } 
-  }
-    this.setState({ record: r });
-    console.log(this.state.record);
-    
-  
-}
+class TransferOrderDetails extends Component{
   columns = [
     {
-      title: 'Type de compte',
-      dataIndex: 'type_id',
-      key: 'type_id',
-      render: text => (
-        <span>
-          {{
-            COURT: "Courant",
-            EPARN: "Epargne",
-            DVEUR: "Devise Euro",
-            DVUSD: "Devise Dollar"
-          }[text]}
-        </span>
-      )
+      title: 'Nom',
+      dataIndex: 'lastname',
+      key: 'lastname'
+    },
+    {
+      title: 'Prénom',
+      dataIndex: 'firstname',
+      key: 'firstname'
+    },
+    {
+      title: 'Banque',
+      dataIndex: 'bank',
+      key: 'bank'
     },
     {
       title: 'Numéro de compte',
@@ -50,36 +26,9 @@ componentWillReceiveProps(nextProps) {
       key: 'number'
     },
     {
-      title: 'Date de création',
-      dataIndex: 'created_at',
-      key: 'created_at'
-    },
-    {
-      title: 'Etat',
-      dataIndex: 'isvalid',
-      key: 'isvalid',
-      render: valid => (
-        <span>
-        {valid ? (
-          "Fonctionnel"
-        ) : (
-          "Bloqué"
-        )}
-        </span>
-      )
-    },
-    {
-      title:'',
-      key:'action',
-      render: (text, record) => (
-        <span>
-          <Button 
-            style={{minWidth:"95px"}}
-            type={record.isvalid ? ("danger") : ("primary")}
-            onClick={() => this.props.action(record)}> {record.isvalid ? ("Bloquer") : ("Débloquer")}
-          </Button>
-        </span>
-      )
+      title: 'Montant',
+      dataIndex: 'amount',
+      key: 'amount'
     }
   ];
 
@@ -141,12 +90,18 @@ componentWillReceiveProps(nextProps) {
             {' ' + this.state.record.type_id}
             <Divider/>
           </Col>
+          <Col>
+            <h3>Motif</h3>
+            <span>
+              {this.state.record.reason}
+            </span>
+          </Col>
         </Row>
     <br />
         <Table
             columns={this.columns}
             rowKey={record => record.number}
-            dataSource={this.state.record.accounts}
+            dataSource={this.state.record.destination_ids}
             pagination={false}
             borderd
           />
@@ -155,4 +110,4 @@ componentWillReceiveProps(nextProps) {
   }
 
 }
-export default ClientDetails;
+export default TransferOrderDetails;

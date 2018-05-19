@@ -11,21 +11,21 @@
     "created_at": "14-01-2018 11:15",
     "accounts":[
       {
-        "num": "THW00002DZD",
-        "type": "EPARN",
+        "number": "THW00002DZD",
+        "type_id": "EPARN",
         "created_at":"14-01-2018 11:15",
-        "status": "blocked"
+        "isvalid": false
       },
       {
-        "num": "THW00003USD",
-        "type": "DVUSD",
+        "number": "THW00003USD",
+        "type_id": "DVUSD",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       },{
-        "num": "THW00001DZD",
-        "type": "COURT",
+        "number": "THW00001DZD",
+        "type_id": "COURT",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       }
     ]
   },
@@ -41,21 +41,21 @@
     "created_at": "14-01-2018 11:15",
     "accounts":[
       {
-        "num": "THW00002DZD",
-        "type": "EPARN",
+        "number": "THW00002DZD",
+        "type_id": "EPARN",
         "created_at":"14-01-2018 11:15",
-        "status": "blocked"
+        "isvalid": false
       },
       {
-        "num": "THW00003USD",
-        "type": "DVUSD",
+        "number": "THW00003USD",
+        "type_id": "DVUSD",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       },{
-        "num": "THW00001DZD",
-        "type": "COURT",
+        "number": "THW00001DZD",
+        "type_id": "COURT",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       }
     ]
   },
@@ -71,21 +71,21 @@
     "created_at": "14-01-2018 11:15",
     "accounts":[
       {
-        "num": "THW00002DZD",
-        "type": "EPARN",
+        "number": "THW00002DZD",
+        "type_id": "EPARN",
         "created_at":"14-01-2018 11:15",
-        "status": "blocked"
+        "isvalid": false
       },
       {
-        "num": "THW00003USD",
-        "type": "DVUSD",
+        "number": "THW00003USD",
+        "type_id": "DVUSD",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       },{
-        "num": "THW00001DZD",
-        "type": "COURT",
+        "number": "THW00001DZD",
+        "type_id": "COURT",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       }
     ]
   },
@@ -101,26 +101,26 @@
     "type": "Employeur",
     "accounts":[
       {
-        "num": "THW00002DZD",
-        "type": "EPARN",
+        "number": "THW00002DZD",
+        "type_id": "EPARN",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       },
       {
-        "num": "THW00003USD",
-        "type": "DVUSD",
+        "number": "THW00003USD",
+        "type_id": "DVUSD",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       },{
-        "num": "THW00001DZD",
-        "type": "COURT",
+        "number": "THW00001DZD",
+        "type_id": "COURT",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       },{
-        "num": "THW00007DZD",
-        "type": "DVEUR",
+        "number": "THW00007DZD",
+        "type_id": "DVEUR",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       }
     ]
   },
@@ -136,21 +136,21 @@
     "created_at": "14-01-2018 11:15",
     "accounts":[
       {
-        "num": "THW00002DZD",
-        "type": "EPARN",
+        "number": "THW00002DZD",
+        "type_id": "EPARN",
         "created_at":"14-01-2018 11:15",
-        "status": "blocked"
+        "isvalid": false
       },
       {
-        "num": "THW00003USD",
-        "type": "DVUSD",
+        "number": "THW00003USD",
+        "type_id": "DVUSD",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       },{
-        "num": "THW00001DZD",
-        "type": "COURT",
+        "number": "THW00001DZD",
+        "type_id": "COURT",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       }
     ]
   },
@@ -166,26 +166,26 @@
     "type": "Employeur",
     "accounts":[
       {
-        "num": "THW00002DZD",
-        "type": "EPARN",
+        "number": "THW00002DZD",
+        "type_id": "EPARN",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       },
       {
-        "num": "THW00003USD",
-        "type": "DVUSD",
+        "number": "THW00003USD",
+        "type_id": "DVUSD",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       },{
-        "num": "THW00001DZD",
-        "type": "COURT",
+        "number": "THW00001DZD",
+        "type_id": "COURT",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       },{
-        "num": "THW00007DZD",
-        "type": "DVEUR",
+        "number": "THW00007DZD",
+        "type_id": "DVEUR",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       }
     ]
   },
@@ -201,21 +201,21 @@
     "created_at": "14-01-2018 11:15",
     "accounts":[
       {
-        "num": "THW00002DZD",
-        "type": "EPARN",
+        "number": "THW00002DZD",
+        "type_id": "EPARN",
         "created_at":"14-01-2018 11:15",
-        "status": "blocked"
+        "isvalid": false
       },
       {
-        "num": "THW00003USD",
-        "type": "DVUSD",
+        "number": "THW00003USD",
+        "type_id": "DVUSD",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       },{
-        "num": "THW00001DZD",
-        "type": "COURT",
+        "number": "THW00001DZD",
+        "type_id": "COURT",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       }
     ]
   },
@@ -228,29 +228,29 @@
     "function": "azazfzfzef",
     "address": "Telemcen",
     "created_at": "14-01-2018 11:15",
-    "type": "Employeur",
+    "type_id": "Employeur",
     "accounts":[
       {
-        "num": "THW00002DZD",
-        "type": "EPARN",
+        "number": "THW00002DZD",
+        "type_id": "EPARN",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       },
       {
-        "num": "THW00003USD",
-        "type": "DVUSD",
+        "number": "THW00003USD",
+        "type_id": "DVUSD",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       },{
-        "num": "THW00001DZD",
-        "type": "COURT",
+        "number": "THW00001DZD",
+        "type_id": "COURT",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       },{
-        "num": "THW00007DZD",
-        "type": "DVEUR",
+        "number": "THW00007DZD",
+        "type_id": "DVEUR",
         "created_at":"14-01-2018 11:15",
-        "status": "working"
+        "isvalid": true
       }
     ]
   }
