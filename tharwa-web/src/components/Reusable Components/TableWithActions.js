@@ -11,7 +11,7 @@ class TableWithActions extends Component {
     this.columns = [...this.props.columns, this.actionsColumn];
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.props.setDefault();
   }
 
@@ -32,8 +32,8 @@ class TableWithActions extends Component {
           columns={this.columns}
           rowKey={record => record.id}
           dataSource={this.props.dataSource}
-          pagination={{pageSize:5, size:"small"}}
           loading={this.props.fetching}
+          pagination={{ pageSize: 5, size: 'small' , hideOnSinglePage: true}}
         />
       </div>
     );
@@ -53,10 +53,10 @@ class TableWithActions extends Component {
   };
 
   notify = () => {
-    message.config({  
+    message.config({
       duration: 2,
-      maxCount: 1,
-    })
+      maxCount: 1
+    });
     message.destroy();
     if (this.props.actionState.fetching) {
       message.loading("En cours d'exécution...", 0);

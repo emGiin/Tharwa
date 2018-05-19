@@ -1,7 +1,7 @@
 export default {
   // auth fixtures
-  setAuthToken: () => { },
-  removeAuthToken: () => { },
+  setAuthHeaders: () => { },
+  removeAuthHeaders: () => { },
   login: (authObj) => {
     if (
       authObj.username === 'user@email.com' &&
@@ -58,5 +58,59 @@ export default {
         data: 'validation error'
       }
     }
-  }
+  },
+  getProfile: data => {
+    return {
+      ok: true,
+      data: require('../Fixtures/profile.json')
+    }
+  },
+  requestNewAccount: type => {
+    return {
+      ok: true,
+      data: {
+        "saved": true,
+        "commission": 210
+      }
+    }
+  },
+  myAccountTransfer: data => {
+    return {
+      ok: true,
+      data: {
+        "saved": true,
+        "commission": 290
+      }
+    }
+  },
+  tharwaTransfer: data => {
+    return {
+      ok: true,
+      data: {
+        "saved": true,
+        "commission": 290
+      }
+    }
+  },
+  externalTransfer: data => {
+    return {
+      ok: true,
+      data: {
+        "saved": true,
+        "commission": 300
+      }
+    }
+  },
+  getBanks: () => {
+    return {
+      ok: true,
+      data: require('../Fixtures/banks.json')
+    }
+  },
+  getExchangeRates: () => {
+    return {
+      ok: true,
+      data: require('../Fixtures/exchangeRates.json')
+    }
+  },
 }

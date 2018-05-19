@@ -5,6 +5,7 @@ const { Types, Creators } = createActions({
   authRequest: ['email', 'password', 'confirmationMethod'],
   authSuccess: [],
   authFailure: ['error'],
+  authReset: [],
   logoutRequest: null,
   logoutSuccess: null,
   tokenLoad: [],
@@ -31,6 +32,8 @@ export const success = (state) => (
 
 export const failure = (state, { error }) => state.merge({ fetching: false, error })
 
+export const reset = state => state.merge(INITIAL_STATE)
+
 // we're attempting to load token from startup sagas
 export const load = (state) => state.merge({ loading: true })
 export const loadSuccess = (state) => state.merge({ loading: false })
@@ -44,6 +47,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.AUTH_REQUEST]: request,
   [Types.AUTH_SUCCESS]: success,
   [Types.AUTH_FAILURE]: failure,
+  [Types.AUTH_RESET]: reset,
   [Types.TOKEN_LOAD]: load,
   [Types.TOKEN_LOAD_SUCCESS]: loadSuccess,
   [Types.LOGOUT_REQUEST]: logoutRequest,

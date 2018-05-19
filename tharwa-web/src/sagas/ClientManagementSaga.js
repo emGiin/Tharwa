@@ -17,7 +17,15 @@ export const setCredentials = function*(api) {
 };
 
 export function* getClientsList(api) {
-  setCredentials(api);
+  //setCredentials(api);
+  const authToken = yield select(selectAuthToken);
+  if (authToken) {
+    yield call(api.setAuthToken, authToken);
+  }
+  const pinCode = yield select(selectPinCode);
+  if (pinCode) {
+    yield call(api.setPinCode, pinCode);
+  }
   const response = yield call(api.getClientsList);
 
   if (response.ok) {
@@ -30,8 +38,15 @@ export function* getClientsList(api) {
 }
 
 export function* actionRequest(api,{id:{account, motif,type}}){
-  setCredentials(api);
- 
+ // setCredentials(api);
+ const authToken = yield select(selectAuthToken);
+ if (authToken) {
+   yield call(api.setAuthToken, authToken);
+ }
+ const pinCode = yield select(selectPinCode);
+ if (pinCode) {
+   yield call(api.setPinCode, pinCode);
+ }
       const body={
         account,
         motif,

@@ -8,7 +8,7 @@ class EmailField extends Component {
     const { input, meta, onEnter, placeholder, refField } = this.props;
     return (
       <View>
-        <Item regular style={styles.inputTxt}>
+        <Item regular style={[styles.inputTxt, { marginTop: 10 }]}>
           <Icon name='ios-mail' style={styles.inputIcon} />
           <Input
             placeholder={placeholder}

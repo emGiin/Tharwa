@@ -30,11 +30,12 @@ class LoginScreen extends Component {
     attemptLogin: PropTypes.func
   }
 
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps({ fetching, success }) {
     /* istanbul ignore else */
-    if (!props.fetching && props.success) {
+    if (!fetching && success) {
       this.dialog.dismiss();
       this.goToPinCodePage();
+      this.props.reset()
     }
   }
 
@@ -66,10 +67,11 @@ class LoginScreen extends Component {
   )
 
   render() {
-    const { fetching, error } = this.props;
+    const { fetching, error, reset } = this.props;
     return (
       <Container style={styles.mainContainer}>
         <LoadingDialog
+          reset={reset}
           init={/* istanbul ignore next */dialog => { this.dialog = dialog }}
           error={error}
           errorTitle={I18n.t('authDialogTitleError')}
@@ -101,6 +103,7 @@ const mapStateToProps = ({ auth: { fetching, error, success } }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     attemptLogin: (...data) => dispatch(AuthActions.authRequest(...data)),
+    reset: () => dispatch(AuthActions.authReset()),
   }
 }
 
