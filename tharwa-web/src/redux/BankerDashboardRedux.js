@@ -17,7 +17,9 @@ const INITIAL_STATE = Immutable({
   nbrError: null,
   nbreInscriptions: null,
   nbreAutresComptes: null,
-  nbreVirements: null
+  nbreVirements: null,
+  nbreDeblocageComptes: null,
+  nbreOrdresVirements: null
 });
 
 export const request = state => state.merge({ nbreFetching: true, nbreSuccess: false });
@@ -30,7 +32,9 @@ export const success = state =>
 export const save = (state,{counts}) => state.merge({ 
    nbreInscriptions:counts.nbreInscriptions, 
    nbreAutresComptes: counts.nbreAutresComptes, 
-   nbreVirements: counts.nbreVirements});
+   nbreVirements: counts.nbreVirements,
+   nbreDeblocageComptes: counts.nbreDeblocageComptes,
+   nbreOrdresVirements:counts.nbreOrdresVirements});
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.NBRE_REQUEST]: request,

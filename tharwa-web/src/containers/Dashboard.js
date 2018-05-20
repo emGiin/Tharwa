@@ -36,12 +36,32 @@ class Dashboard extends Component {
             </NavLink>
           </Col>
           <Col lg={6} md={12}>
+            <NavLink to="deblockAccount">
+              <NumberCard
+                icon="unlock"
+                color="f9bd38"
+                title="Déblocages"
+                number={this.props.nbreDeblocageComptes}
+              />
+            </NavLink>
+          </Col>
+          <Col lg={6} md={12}>
             <NavLink to="virements">
               <NumberCard
                 icon="swap"
                 color="#4BB543"
                 title="Virements"
                 number={this.props.nbreVirements}
+              />
+            </NavLink>
+          </Col>
+          <Col lg={6} md={12}>
+            <NavLink to="ordresVirement">
+              <NumberCard
+                icon="bars"
+                color="#4BB543"
+                title="Ordres de virements"
+                number={this.props.nbreOrdresVirements}
               />
             </NavLink>
           </Col>
@@ -55,9 +75,11 @@ const mapStateToProps = state => {
   const {
     nbreInscriptions,
     nbreAutresComptes,
-    nbreVirements
+    nbreVirements,
+    nbreDeblocageComptes,
+    nbreOrdresVirements
   }=state.bankerDashboard;
-  return { nbreInscriptions, nbreAutresComptes, nbreVirements };
+  return { nbreInscriptions, nbreAutresComptes, nbreVirements,nbreDeblocageComptes,nbreOrdresVirements };
 };
 
 const mapDispatchToProps = dispatch => {
