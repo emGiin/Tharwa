@@ -4,6 +4,7 @@ import TransferActions from '../Redux/TransferRedux'
 import TharwaTransferActions from '../Redux/TharwaTransferRedux'
 import ExternalTransferActions from '../Redux/ExternalTransferRedux'
 import NfcTransferActions from '../Redux/NfcTransferRedux'
+import MicroTransferListActions from '../Redux/MicroTransferListRedux'
 
 // attempts to transfert
 export function* myAccountTransfer(api, { data }) {
@@ -75,6 +76,17 @@ export function* nfcTransfer(api, { data }) {
     yield put(NfcTransferActions.nfcTransferSuccess(commission))
   } else {
     yield put(NfcTransferActions.nfcTransferFailure(I18n.t('transferDialogMessageError')))
+  }
+}
+
+export function* microTransferList(api) {
+  const response = yield call(api.getMicroTransferList)
+
+  // success?
+  if (response.ok) {
+    yield put(MicroTransferListActions.microTransferListSuccess(response.data))
+  } else {
+    yield put(MicroTransferListActions.microTransferListFailure(I18n.t('transferDialogMessageError')))
   }
 }
 

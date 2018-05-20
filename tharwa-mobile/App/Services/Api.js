@@ -37,6 +37,7 @@ const create = (baseURL = API_URL) => {
   const tharwaTransfer = data => api.post(`${transferURL}/intern`, data)
   const externalTransfer = data => api.post(`${transferURL}/extern`, data)
   const nfcTransfer = data => api.post(`${transferURL}/micro`, data)
+  const getMicroTransferList = () => api.get(`${transferURL}/micro`)
 
   // exchange rates
   const getExchangeRates = () => api.get(`exchange_rate`)
@@ -54,7 +55,8 @@ const create = (baseURL = API_URL) => {
     getBanks,
     externalTransfer,
     getExchangeRates,
-    nfcTransfer
+    nfcTransfer,
+    getMicroTransferList
   }
 }
 

@@ -122,4 +122,15 @@ export default {
       data: require('../Fixtures/exchangeRates.json')
     }
   },
+  getMicroTransferList: () => {
+    return {
+      ok: true,
+      data: [{
+        amount: 4800,
+        name: 'User Tharwa',
+        email: 'user@tharwa.dz',
+        accountNumber: 'THW000002DZD'
+      }]
+    }
+  },
 }

@@ -17,6 +17,7 @@ import { ExternalTransferTypes } from '../Redux/ExternalTransferRedux'
 import { BankTypes } from '../Redux/BankRedux'
 import { ExchangeRateTypes } from '../Redux/ExchangeRateRedux'
 import { NfcTransferTypes } from '../Redux/NfcTransferRedux'
+import { MicroTransferListTypes } from '../Redux/MicroTransferListRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -29,7 +30,8 @@ import {
   myAccountTransfer,
   tharwaTransfer,
   externalTransfer,
-  nfcTransfer
+  nfcTransfer,
+  microTransferList
 } from './TransferSaga'
 import { getBanks } from './BankSaga'
 import { getExchangeRates } from './ExchangeRateSaga'
@@ -72,6 +74,7 @@ export default function* root() {
     takeLatest(TharwaTransferTypes.THARWA_TRANSFER_REQUEST, tharwaTransfer, api),
     takeLatest(ExternalTransferTypes.EXTERNAL_TRANSFER_REQUEST, externalTransfer, api),
     takeLatest(NfcTransferTypes.NFC_TRANSFER_REQUEST, nfcTransfer, api),
+    takeLatest(MicroTransferListTypes.MICRO_TRANSFER_LIST_REQUEST, microTransferList, api),
 
     // Exchange Rate
     takeLatest(ExchangeRateTypes.EXCHANGE_RATE_REQUEST, getExchangeRates, api)
