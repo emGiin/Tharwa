@@ -26,7 +26,7 @@ const PrimaryNav = StackNavigator(
     LaunchScreen: { screen: LaunchScreen, ...headerHidden },
   }, {
     // Default config for all screens
-    initialRouteName: 'AppDrawer',
+    initialRouteName: 'NfcPendingScreen',
     // initialRouteName: 'LaunchScreen',
     navigationOptions: {
       headerStyle: styles.header

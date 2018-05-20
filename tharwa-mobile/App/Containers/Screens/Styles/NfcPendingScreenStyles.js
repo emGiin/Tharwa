@@ -35,5 +35,42 @@ export default StyleSheet.create({
   },
   pendingTxt: {
     color: Colors.white
-  }
+  },
+  senderDetailsContainer: {
+    flex: 1,
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
+  },
+  title: {
+    color: Colors.white,
+    fontSize: 17,
+    fontWeight: 'bold'
+  },
+  detail: {
+    color: Colors.white,
+    fontSize: 16,
+    marginTop: 1
+  },
+  detailContainer: {
+    marginLeft: 20
+  },
+  amount: {
+    color: Colors.white,
+    fontSize: 30,
+    marginTop: 20
+  },
+  cardContainer: {
+    height: 300,
+    marginHorizontal: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 35,
+    paddingTop: 25,
+    paddingHorizontal: 10,
+    backgroundColor: Colors.forground,
+    elevation: 3
+  },
 })
