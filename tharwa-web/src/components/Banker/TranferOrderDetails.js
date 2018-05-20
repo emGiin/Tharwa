@@ -78,7 +78,7 @@ class TransferOrderDetails extends Component{
     const source=this.props.record.source_id
     return(
       <div className="ClientDeails">
-      {/*this.notify()*/}
+      {this.notify()}
         <Row type="flex" justify="center" align="middle" gutter={24}>
           <Col span={24}>
             <Button shape="circle" icon="arrow-left" onClick={() => this.props.close()}/>

@@ -6,7 +6,9 @@ import ClientDetails from "./ClientDetails";
 import MotifBlockModal from "./MotifBlockModal";
 import TransferOrderDetails from "./TranferOrderDetails";
 import TransferOrdersTable from "./TransferOrdersTable";
+import DeblockRequestsTable from "./DeblockRequestsTable";
 
 export { RequestsTable, TransfersTable, OtherAccountTable, ClientsTable, ClientDetails, MotifBlockModal,
    TransferOrderDetails,
-  TransferOrdersTable};
+  TransferOrdersTable,
+  DeblockRequestsTable};

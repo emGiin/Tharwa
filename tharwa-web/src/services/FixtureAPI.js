@@ -7,7 +7,7 @@ let pinCode, authToken;
 let counts=require('../fixtures/counts.json');
 let clientsList=require('../fixtures/ClientsList.json');
 let transferOrders=require('../fixtures/TransferOrders.json');
-
+let deblockList=require('../fixtures/deblockRequests.json');
 export const getDatasetTemplate = data => {
   if (
     true
@@ -130,6 +130,18 @@ export default {
   transferOrderAction:({id,code})=>{
     transferOrders=transferOrders.filter(e=>e.code!==id);
     return{ ok:true}
+  }
+  ,
+  getDeblockRequestsList:()=>{
+    return{
+      ok:true,
+      data: deblockList
+    }
+  },
+  deblockAccountAction:({account,motif,code})=> {
+    console.log("account ",account," motif ",motif," code ",code);
+    deblockList=deblockList.filter(e=>e.account!==account);
+    return {ok:true}
   }
   ,
   inscriptions: {

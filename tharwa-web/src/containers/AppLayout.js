@@ -59,6 +59,12 @@ class SideBar extends Component {
               <span>Gestion des comptes</span>
             </NavLink>
           </Menu.Item>
+          <Menu.Item key="/deblockAccount">
+            <NavLink to="/deblockAccount">
+              <Icon type="unlock" />
+              <span>Demandes de déblocage</span>
+            </NavLink>
+          </Menu.Item>
          {/*<Menu.Item key="/creerBanquier">
             <NavLink to="/creerBanquier">
               <Icon type="user-add" />

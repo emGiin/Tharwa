@@ -44,6 +44,10 @@ const create = (baseURL = API_URL) => {
 
   const transferOrderAction=({id, code})=> api.post('ordreVirement/validations',{id,code})
 
+  const getDeblockRequestsList=()=> api.get('deblock')
+
+  const deblockAccountAction=({account,motif, code})=> api.post('deblock')
+
   return {
     api,
     setAuthToken,
@@ -64,7 +68,10 @@ const create = (baseURL = API_URL) => {
     accountAction,
 
     getTransferOrdersList,
-    transferOrderAction
+    transferOrderAction,
+
+    getDeblockRequestsList,
+    deblockAccountAction
   };
 };
 

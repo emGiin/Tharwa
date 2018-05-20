@@ -63,6 +63,11 @@ export default class TransferDetailsModal extends Component {
             mainSrc={this.props.record.justification}
             onCloseRequest={() => this.setState({ previewImage: false })}
           />
+        )} {this.state.previewImage && (
+          <Lightbox
+            mainSrc={this.props.record.justification}
+            onCloseRequest={() => this.setState({ previewImage: false })}
+          />
         )}
         <ModalWithActions
           body={Body}

@@ -11,6 +11,7 @@ const reducers = combineReducers({
   otherAccount: require('./OtherAccountRedux').reducer,
   bankerDashboard: require('./BankerDashboardRedux').reducer,
   clientManagement: require('./ClientManagementRedux').reducer,
+  deblockAccount: require('./DeblockAccountRedux').reducer,
   transferOrder: require('./TransferOrderRedux').reducer
 });
 

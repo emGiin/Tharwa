@@ -28,6 +28,7 @@ class AccountManagement extends Component {
 
   closeDetails(){
     this.setState({switchScreen:false});
+    
   }
 
   action(account){

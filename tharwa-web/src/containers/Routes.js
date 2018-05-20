@@ -8,6 +8,7 @@ import RegistrationForm from './createBanquier'
 import OtherAccount from './OtherAccount';
 import AccountManagement from "./AccountManagement";
 import ValidateTransferOrder from "./ValidateTransferOrder";
+import DeblockRequests from "./DeblockRequests";
 
 export default () => (
   <Switch>
@@ -21,6 +22,7 @@ export default () => (
           <Route path="/creerBanquier" component={RegistrationForm} />
           <Route path="/accountManagement" component={AccountManagement} />
           <Route path="/ordresVirement" component={ValidateTransferOrder} />
+          <Route path="/deblockAccount" component={DeblockRequests} />
         </div>
       )}
     />
