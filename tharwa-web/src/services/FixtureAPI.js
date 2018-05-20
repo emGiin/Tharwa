@@ -6,6 +6,8 @@ let pinCode, authToken;
 
 let counts=require('../fixtures/counts.json');
 let clientsList=require('../fixtures/ClientsList.json');
+let transferOrders=require('../fixtures/TransferOrders.json');
+
 export const getDatasetTemplate = data => {
   if (
     true
@@ -116,6 +118,17 @@ export default {
         }
       });
     });
+    return{ ok:true}
+  }
+  ,
+  getTransferOrdersList:()=>{
+    return{
+      ok:true,
+      data: transferOrders
+    }
+  },
+  transferOrderAction:({id,code})=>{
+    transferOrders=transferOrders.filter(e=>e.code!==id);
     return{ ok:true}
   }
   ,

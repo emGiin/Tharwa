@@ -83,6 +83,12 @@ class SideBar extends Component {
               <span>Demandes de Virements</span>
             </NavLink>
           </Menu.Item>
+          <Menu.Item key="/OrdresVirement">
+            <NavLink to="/OrdresVirement">
+              <Icon type="bars" />
+              <span>Ordres de Virements</span>
+            </NavLink>
+          </Menu.Item>
         </Menu>
         <Icon
           className="ant-layout-sider-trigger"

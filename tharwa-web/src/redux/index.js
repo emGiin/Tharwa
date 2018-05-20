@@ -10,7 +10,8 @@ const reducers = combineReducers({
   validateTransfer: require('./ValidateTransferRedux').reducer,
   otherAccount: require('./OtherAccountRedux').reducer,
   bankerDashboard: require('./BankerDashboardRedux').reducer,
-  clientManagement: require('./ClientManagementRedux').reducer
+  clientManagement: require('./ClientManagementRedux').reducer,
+  transferOrder: require('./TransferOrderRedux').reducer
 });
 
 

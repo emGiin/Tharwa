@@ -4,5 +4,9 @@ import OtherAccountTable from "./OtherAccountTable";
 import ClientsTable from "./ClientsTable";
 import ClientDetails from "./ClientDetails";
 import MotifBlockModal from "./MotifBlockModal";
+import TransferOrderDetails from "./TranferOrderDetails";
+import TransferOrdersTable from "./TransferOrdersTable";
 
-export { RequestsTable, TransfersTable, OtherAccountTable, ClientsTable, ClientDetails, MotifBlockModal};
+export { RequestsTable, TransfersTable, OtherAccountTable, ClientsTable, ClientDetails, MotifBlockModal,
+   TransferOrderDetails,
+  TransferOrdersTable};

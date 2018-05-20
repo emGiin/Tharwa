@@ -1,34 +1,39 @@
 import React, { Component } from 'react';
-import { Table, Button,Icon, Divider,Col,Row, Card, message } from 'antd';
+import { Table, Button,Icon, Divider,Col,Row, Card, message,Modal } from 'antd';
 
 import "./Styles/style.css";
 const { Meta } = Card;
 class TransferOrderDetails extends Component{
   columns = [
-    {
-      title: 'Nom',
-      dataIndex: 'lastname',
-      key: 'lastname'
-    },
-    {
-      title: 'Prénom',
-      dataIndex: 'firstname',
-      key: 'firstname'
-    },
+     {
+        title: 'Nom',
+        dataIndex: 'lastname',
+        key: 'lastname'
+      },
+      {
+        title: 'Prénom',
+        dataIndex: 'firstname',
+        key: 'firstname',
+      },
     {
       title: 'Banque',
       dataIndex: 'bank',
-      key: 'bank'
+        key: 'bank'
     },
     {
       title: 'Numéro de compte',
-      dataIndex: 'number',
-      key: 'number'
+      dataIndex: 'account',
+      key: 'account'
     },
     {
       title: 'Montant',
       dataIndex: 'amount',
-      key: 'amount'
+      key: 'amount',
+      render: amount=>(
+        <span>
+         {amount}{" DZD"}
+        </span>
+      )
     }
   ];
 
@@ -51,10 +56,29 @@ class TransferOrderDetails extends Component{
     }
   };
 
+  handleConfirmReject() {
+    const rejectOrder = this.props.rejectOrder;
+    const id=this.props.record.code
+    Modal.confirm({
+      title: 'Voulez-vous vraiment rejeter cet ordre de virement?', //TODO: this is modal dependent
+      okText: 'Oui',
+      okType: 'danger',
+      cancelText: 'Annuler',
+      onOk() {
+        rejectOrder(id);
+      }
+    });
+  }
+
+  handleValidate(){
+    this.props.acceptOrder(this.props.record.code)
+  }
+
   render(){
+    const source=this.props.record.source_id
     return(
       <div className="ClientDeails">
-      {this.notify()}
+      {/*this.notify()*/}
         <Row type="flex" justify="center" align="middle" gutter={24}>
           <Col span={24}>
             <Button shape="circle" icon="arrow-left" onClick={() => this.props.close()}/>
@@ -63,10 +87,10 @@ class TransferOrderDetails extends Component{
             <Row type="flex" justify="center" align="middle" gutter={24}>
             <Col span={18}>
             <Card
-              cover={<img alt="example" src={this.state.record.picture} />}
+              cover={<img alt="example" src={source.picture} />}
             >
               <Meta
-                title={`${this.state.record.firstname} ${this.state.record.lastname}`}
+                title={`${source.firstname} ${source.lastname}`}
               />
             </Card>
             </Col>
@@ -75,35 +99,51 @@ class TransferOrderDetails extends Component{
           <Col xs={24} sm={24} md={12} lg={14} xl={16}>
           <Divider/>
             <Icon type="mail" style={{ marginRight: '20px', fontSize: 18 }} />
-            {' ' + this.state.record.email}
+            {' ' + source.email}
             <Divider/>
             <Icon type="phone" style={{ marginRight: '20px', fontSize: 18 }} />
-            {' ' + this.state.record.phone}
+            {' ' + source.phone}
             <Divider/>
             <Icon type="home" style={{ marginRight: '20px', fontSize: 18 }} />
-            {' ' + this.state.record.address}
+            {' ' + source.address}
             <Divider/>
             <Icon type="idcard" style={{ marginRight: '20px', fontSize: 18 }} />
-            {' ' + this.state.record.function}
-            <Divider/>
-            <Icon type="tag-o" style={{ marginRight: '20px', fontSize: 18 }} />
-            {' ' + this.state.record.type_id}
+            {' ' + source.function}
             <Divider/>
           </Col>
-          <Col>
-            <h3>Motif</h3>
-            <span>
-              {this.state.record.reason}
-            </span>
-          </Col>
-        </Row>
+          </Row>
+          <br />
+          <h3>Motif</h3>
+          <span>
+            {this.props.record.reason}
+          </span>
+    <br />
     <br />
         <Table
             columns={this.columns}
-            rowKey={record => record.number}
-            dataSource={this.state.record.destination_ids}
+            rowKey={record => record.account}
+            dataSource={this.props.record.destination_ids}
             pagination={false}
             borderd
+            footer={() =>
+            <div>
+                <Button
+                  style={{marginRight:"10px"}}
+                  type="danger"
+                  key="reject"
+                  size="large"
+                  onClick={() => this.handleConfirmReject()}>
+                  <Icon type="close" /> Rejeter
+                </Button>
+                <Button
+                  type="primary"
+                  key="validate"
+                  size="large"
+                  onClick={() => this.handleValidate()}>
+                  <Icon type="check" /> Valider
+                </Button>
+            </div>
+            }
           />
       </div>
     )

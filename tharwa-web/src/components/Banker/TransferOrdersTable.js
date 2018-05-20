@@ -8,38 +8,58 @@ class TransferOrdersTable extends Component{
     const columns = [
       {
         title: '',
-        dataIndex: 'picture',
-        key: 'picture',
+        dataIndex: 'source_id',
+        key: 'source_id',
         render: text => (
           <span>
-            <RoundedImage uri={text} height="50px" />
+            <RoundedImage uri={text.picture} height="50px" />
           </span>
         )
       },
       {
         title: 'Nom',
-        dataIndex: 'lastname',
-        key: 'lastname'
+        dataIndex: 'source_id',
+        key: 'nom',
+        render:text=>(
+          <span>
+            {text.lastname}
+          </span>
+        )
       },
       {
         title: 'Prénom',
-        dataIndex: 'firstname',
-        key: 'firstename'
+        dataIndex: 'source_id',
+        key: 'prenom',
+        render:text=>(
+          <span>
+            {text.firstname}
+          </span>
+        )
       },
       {
         title: 'E-mail',
-        dataIndex: 'email',
-        key: 'email'
+        dataIndex:'source_id',
+        key:'email',
+        render:text=>(
+          <span>
+            {text.email}
+          </span>
+        )
       },
       {
         title: 'Numéro de compte',
-        dataIndex: 'email',
-        key: 'email'
+        dataIndex: 'source_id',
+        key: 'compte',
+        render:text=>(
+          <span>
+            {text.account}
+          </span>
+        )
       },
       {
         title: 'Date',
-        dataIndex: 'created_at',
-        key: 'created_at'
+        dataIndex: 'creationdate',
+        key: 'creationdate'
       },
       {
         title:'',
@@ -58,8 +78,8 @@ class TransferOrdersTable extends Component{
     return(
       <Table
           columns={columns}
-          rowKey={record => record.email}
-          dataSource={this.state.data}
+          rowKey={record => record.source_id.email}
+          dataSource={this.props.dataSource}
           pagination={{pageSize:5, size: "small"}}
           loading={this.props.listState.fetching}
         />

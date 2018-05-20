@@ -40,6 +40,9 @@ const create = (baseURL = API_URL) => {
 
   const getCounts= () => api.get('baquier');
   
+  const getTransferOrdersList=()=> api.get('orderVirement/validations')
+
+  const transferOrderAction=({id, code})=> api.post('ordreVirement/validations',{id,code})
 
   return {
     api,
@@ -58,8 +61,10 @@ const create = (baseURL = API_URL) => {
     getCounts,
 
     getClientsList,
+    accountAction,
 
-    accountAction
+    getTransferOrdersList,
+    transferOrderAction
   };
 };
 

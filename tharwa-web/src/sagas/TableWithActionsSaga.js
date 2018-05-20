@@ -5,7 +5,6 @@ export const selectAuthToken = state => state.auth.authToken;
 export const selectPinCode = state => state.auth.pinCode;
 
 export const setCredentials = function*(api) {
-  console.log("cccccccccccccccccccccccccccc");
   const authToken = yield select(selectAuthToken);
   console.log(authToken);
   
@@ -22,10 +21,8 @@ export const setCredentials = function*(api) {
 
 export default (Actions, holder) => {
   const getDataset = function*(api) {
-    console.log("avant");
     
-    setCredentials(api);
-    console.log("cccccccccccccccccccccccccccc");
+    //setCredentials(api);
     const authToken = yield select(selectAuthToken);
     console.log(authToken);
     
@@ -38,7 +35,7 @@ export default (Actions, holder) => {
     if (pinCode) {
       yield call(api.setPinCode, pinCode);
     }
-    console.log("aprés");
+
     const response = yield call(api[holder].getDataset);
     if (response.ok) {
       yield put(Actions.datasetSuccess());
@@ -52,8 +49,7 @@ export default (Actions, holder) => {
 
   const requestAction = code =>
     function*(api, { id }) {
-      setCredentials(api);
-      console.log("cccccccccccccccccccccccccccc");
+      //setCredentials(api);
       const authToken = yield select(selectAuthToken);
       console.log(authToken);
       
