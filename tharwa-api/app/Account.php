@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
@@ -82,5 +83,28 @@ class Account extends Model
     public function scopeBlocked($query)
     {
         return $query->where('isValid', false);
+    }
+
+    public function didMicroTodayToSameClient($clientAcc,$now)
+    {
+        $count = $this->history()
+            ->where('transaction_type', 'micro')
+            ->where('target', $clientAcc)
+            ->whereDate('created_at', $now->format('Y-m-d'))
+            ->count();
+        return $count > 0;
+    }
+
+    public function microToday()
+    {
+        $now = Carbon::now();
+        $micro = $this->history()
+            ->where('transaction_type', 'micro')
+            ->where('transaction_direction', 'in')
+            ->whereDate('created_at', $now->format('Y-m-d'))
+            ->get()
+            ->first();
+
+        return $micro;
     }
 }

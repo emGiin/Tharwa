@@ -542,6 +542,8 @@ class VirmentController extends Controller
 
         $amount = $request->input('amount');
         $hasEnoughMoney = false;
+        $didMicroTodayToSameClient = true;
+
         /**start transaction**/
         DB::beginTransaction();
 
@@ -558,16 +560,22 @@ class VirmentController extends Controller
             if (!$senderAccount->hasEnoughMoney($amount)) throw new \Exception;
             $hasEnoughMoney = true;
 
+            $now = \Carbon\Carbon::now();
+
+            //check if he already made a micro for the same client today
+            if ($senderAccount->didMicroTodayToSameClient($request->input('account'), $now))
+                throw new \Exception;
+            $didMicroTodayToSameClient = false;
+
             //create the transfer
             $commission = config('commission.COUR_COUR') * $amount;
-            $now = \Carbon\Carbon::now();
             $nb = BalanceHistory::count();//todo fix this !all sol tested! re-migrate DB
             //sender history
             BalanceHistory::create([
                 'id' => $nb + 1,
                 'amount' => $amount + $commission,
                 'commission' => $commission,
-                'transaction_type' => 'vir_client',
+                'transaction_type' => 'micro',
                 'transaction_direction' => 'out',
                 'isIntern' => true,
                 'target' => $request->input('account'),
@@ -597,7 +605,7 @@ class VirmentController extends Controller
             BalanceHistory::create([
                 'id' => $nb + 3,
                 'amount' => $amount,
-                'transaction_type' => 'vir_client',
+                'transaction_type' => 'micro',
                 'transaction_direction' => 'in',
                 'isIntern' => true,
                 'target' => $senderAccount->number,
@@ -610,7 +618,7 @@ class VirmentController extends Controller
             $receiverAccount->balance = $receiverAccount->balance + $amount;
             $receiverAccount->save();
 
-            $status = 'valide';
+            $status = 'traitement';//todo check with manager validation
             $transferDate = $creationDate = $now->format('Y-m-d H:i:s');
 
 
@@ -631,7 +639,7 @@ class VirmentController extends Controller
                 'transferDate' => $transferDate,
                 'creationDate' => $creationDate,
                 'status' => $status,
-                'transfers_type' => 'vir_client',
+                'transfers_type' => 'micro',
                 'commission' => $commission,
                 'source_id' => $senderAccount->number,
                 'destination_id' => $request->input('account'),
@@ -671,6 +679,9 @@ class VirmentController extends Controller
 
             if (!$hasEnoughMoney)
                 return response(["amount" => false], config('code.NOT_FOUND'));
+
+            if ($didMicroTodayToSameClient)
+                return response(["micro" => false], config('code.NOT_FOUND'));
 
             return response(["saved" => false], config('code.UNKNOWN_ERROR'));
         }
@@ -929,5 +940,27 @@ class VirmentController extends Controller
 
     }
 
+
+    public function getMicro()
+    {
+        //check if had
+        $microToday= $this->client()->accounts()
+            ->courant()->first()->microToday();
+
+        if (is_null($microToday))
+            return response(["micro" => false],
+                config('code.NOT_FOUND'));
+
+        $microTransefer = InternTransfer::find($microToday->transfer_code);
+
+        //change to valid
+        $microTransefer->status = 'valide';//todo
+        $microTransefer->save();
+
+        dd($microToday);
+        return response(["micro" => true],
+            config('code.OK'));
+
+    }
 
 }

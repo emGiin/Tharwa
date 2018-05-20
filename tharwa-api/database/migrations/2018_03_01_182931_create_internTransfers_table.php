@@ -21,7 +21,7 @@ class CreateInternTransfersTable extends Migration
             $table->dateTime('transferDate')->nullable();//could be seen also as a validating date
             $table->dateTime('creationDate');
             $table->enum('status', ['traitement', 'valide' ,'rejete']);
-            $table->enum('transfers_type', ['commiss', 'cour_epar','epar_cour','cour_devi','devi_cour','vir_client']);//todo this is caused by tharwa account thr00000dzd  //['commiss', 'cour_epar','epar_cour','cour_devi','devi_cour','vir_client']
+            $table->enum('transfers_type', ['commiss', 'cour_epar','epar_cour','cour_devi','devi_cour','vir_client','micro']);//todo this is caused by tharwa account thr00000dzd  //['commiss', 'cour_epar','epar_cour','cour_devi','devi_cour','vir_client']
             $table->double('commission', 20, 8);
             $table->double('conversionRate', 20, 8)->default(1);
             $table->char('source_id', 12);

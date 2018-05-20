@@ -17,7 +17,7 @@ class CreateBalnacesHistoryTable extends Migration
             $table->increments('id');
             $table->double('amount', 20, 8);//changed v2 db
             $table->double('commission', 20, 8)->nullable();//added v2 db
-            $table->enum('transaction_type', ['commiss', 'vir_epar','vir_devi','vir_cour','vir_client', 'transf','reject']);
+            $table->enum('transaction_type', ['commiss', 'vir_epar','vir_devi','vir_cour','vir_client', 'transf','reject','micro']);
             $table->enum('transaction_direction', ['in', 'out']);
             $table->char('account_id', 12);
             $table->foreign('account_id')->references('number')->on('accounts');

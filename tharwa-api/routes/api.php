@@ -27,6 +27,8 @@ Route::post('/virement/intern', 'VirmentController@createIntern')->middleware(Au
 Route::post('/virement/extern', 'VirmentController@createExtern')->middleware(AuthClient::class);
 Route::post('/virement/micro', 'VirmentController@createMicro')->middleware(AuthClient::class);
 
+Route::get('/virement/micro', 'VirmentController@getMicro')->middleware(AuthClient::class);
+
 Route::post('/account', 'AccountController@create')->middleware(AuthClient::class);
 
 Route::get('/bank', 'BankController@index')->middleware(AuthClient::class);
