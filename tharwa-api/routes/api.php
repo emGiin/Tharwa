@@ -48,6 +48,8 @@ Route::post('/virement/validations', 'VirmentController@validateVirement')->midd
 
 Route::get('/account/validations', 'AccountController@validationList')->middleware(AuthManager::class);
 Route::post('/account/validations', 'AccountController@validateAccount')->middleware(AuthManager::class);
+Route::get('/accounts', 'AccountController@index')->middleware(AuthManager::class);
+Route::post('/accounts', 'AccountController@edit')->middleware(AuthManager::class);
 
 //dashboard of the manager (gestionaire)
 Route::get('/dashboard', 'DashboardController@index')->middleware(AuthManager::class);

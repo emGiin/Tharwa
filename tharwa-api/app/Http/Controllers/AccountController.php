@@ -136,4 +136,39 @@ class AccountController extends Controller
         }
     }
 
+    public function index()
+    {
+        $allAccounts = Account::get(['number', 'isvalid', 'type_id', 'created_at']);
+
+        return response($allAccounts);
+    }
+
+    public function edit(Request $request){
+        //validation
+        $validator = \Validator::make($request->all(), [
+            'numero' => ['required', 'regex:/^THW[0-9]{6}(DZD|EUR|USD)$/','exists:accounts,number'],
+            'motif' => 'required|max:255',
+            'type' => 'required|boolean',//true ==> blocage
+            //in:true,false
+        ]);
+        if ($validator->fails()) {
+            return response($validator->errors(), config('code.BAD_REQUEST'));
+        }
+
+        $account = Account::find($request->input('numero'));
+
+        //todo send mail with the motif
+        if ($request->input('type')){//blocage
+
+            $account->isvalid = true;
+        }else{//deblocage
+
+            $account->isvalid = false;
+        }
+
+        $account->save();
+
+        return response(["saved" => true], config('code.CREATED'));
+
+    }
 }
