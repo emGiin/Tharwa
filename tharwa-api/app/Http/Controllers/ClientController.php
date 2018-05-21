@@ -137,6 +137,7 @@ class ClientController extends Controller
         }
 
         $infos->put('amount_limit_validation',config('utils.amount_limit_validation'));
+        $infos->put('max_nfc_amount',config('utils.amount_max_micro_transfer'));
 
         return response($infos);
     }

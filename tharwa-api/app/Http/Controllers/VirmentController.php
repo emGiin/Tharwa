@@ -944,7 +944,7 @@ class VirmentController extends Controller
     public function getMicro()
     {
         //check if had
-        $microToday= $this->client()->accounts()
+        $microToday = $this->client()->accounts()
             ->courant()->first()->microToday();
 
         if (is_null($microToday))
@@ -953,12 +953,26 @@ class VirmentController extends Controller
 
         $microTransefer = InternTransfer::find($microToday->transfer_code);
 
+        if ('valide' == $microTransefer->status)
+            return response(["micro" => false],
+                config('code.NOT_FOUND'));
+
+
         //change to valid
         $microTransefer->status = 'valide';//todo
         $microTransefer->save();
 
-//        dd($microToday);
-        return response(["micro" => true],
+        $accountSender = $microTransefer->senderAccount()->get()->first();
+        $clientSender = $accountSender->client()->get()->first();
+
+        $res = collect([
+            "amount" => $microTransefer->amount,
+            "name" => $clientSender->name(),
+            "email" => $clientSender->email,
+            "accountNumber" => $microTransefer->source_id,
+        ]);
+
+        return response($res,
             config('code.OK'));
 
     }
