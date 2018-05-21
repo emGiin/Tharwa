@@ -5,6 +5,7 @@ import {
   MyAccountTransferScreen,
   TharwaTransferScreen,
   ExternalTransferScreen,
+  TransferOrderScreen,
   ExchangeRateScreen
 } from '../Containers/Screens'
 import { DrawerIcon as TabIcon } from '../Components'
@@ -43,7 +44,7 @@ const screens = {
     }
   },
   TransactionOrderScreen: {
-    screen: MainScreen,
+    screen: TransferOrderScreen,
     navigationOptions: {
       tabBarLabel: 'Ordres de virement',
       tabBarIcon: props => <TabIcon {...props} icon='reorder-horizontal' unselectedIcon='reorder-horizontal' />

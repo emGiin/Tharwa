@@ -4,7 +4,7 @@
     "firstname": "cltest",
     "lastname": "cltest",
     "picture": "hi.png",
-    "type": "Client"
+    "type": "Employee"
   },
   "amount_limit_validation": 200000,
   "COUR": {
