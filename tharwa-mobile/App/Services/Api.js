@@ -29,7 +29,7 @@ const create = (baseURL = API_URL) => {
   const requestNewAccount = type => api.post('account', { type })
 
   // banks
-  const getBanks = () => api.get(`banks`)
+  const getBanks = () => api.get(`bank`)
 
   // transfert
   const transferURL = 'virement'
