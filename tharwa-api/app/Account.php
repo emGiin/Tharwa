@@ -90,6 +90,7 @@ class Account extends Model
         $count = $this->history()
             ->where('transaction_type', 'micro')
             ->where('target', $clientAcc)
+            ->where('transaction_direction', 'out')
             ->whereDate('created_at', $now->format('Y-m-d'))
             ->count();
         return $count > 0;

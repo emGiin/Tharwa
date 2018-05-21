@@ -2,7 +2,9 @@
 
 namespace Tests\Unit;
 
+use App\Account;
 use App\Client;
+use App\Token;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -82,6 +84,7 @@ class MicroTransferTest extends TestCase
         ]);
 
         /**when**/
+        $accountSender = Account::find('THW445566DZD');
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
             'Pin' => $pin,

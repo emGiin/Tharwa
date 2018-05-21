@@ -533,7 +533,7 @@ class VirmentController extends Controller
     {
         //validation//todo check if the account is valid not blocked
         $validator = Validator::make($request->all(), [
-            'account' => 'required|regex:/^THW[0-9]{6}DZD$/|exists:accounts,number',
+            'accountNumber' => 'required|regex:/^THW[0-9]{6}DZD$/|exists:accounts,number',
             'amount' => 'required|numeric|min:0|max:' . config('utils.amount_max_micro_transfer')
         ]);
         if ($validator->fails()) {
@@ -553,7 +553,7 @@ class VirmentController extends Controller
                 ->courant()->first();//todo check methode first()
 
             $senderClient = $this->client()->get(['email', 'firstname', 'lastname'])->first();
-            $receiverAccount = Account::find($request->input('account'));
+            $receiverAccount = Account::find($request->input('accountNumber'));
             $receiverClient = $receiverAccount->client()->get(['email', 'firstname', 'lastname'])->first();
 
             //check the amount
@@ -563,7 +563,7 @@ class VirmentController extends Controller
             $now = \Carbon\Carbon::now();
 
             //check if he already made a micro for the same client today
-            if ($senderAccount->didMicroTodayToSameClient($request->input('account'), $now))
+            if ($senderAccount->didMicroTodayToSameClient($request->input('accountNumber'), $now))
                 throw new \Exception;
             $didMicroTodayToSameClient = false;
 
@@ -578,11 +578,11 @@ class VirmentController extends Controller
                 'transaction_type' => 'micro',
                 'transaction_direction' => 'out',
                 'isIntern' => true,
-                'target' => $request->input('account'),
+                'target' => $request->input('accountNumber'),
                 'account_id' => $senderAccount->number,
                 'created_at' => $now->format('Y-m-d H:i:s'),
                 'updated_at' => $now->format('Y-m-d H:i:s'),
-                'transfer_code' => $senderAccount->number . $request->input('account') . $now->format('YmdHi'),
+                'transfer_code' => $senderAccount->number . $request->input('accountNumber') . $now->format('YmdHi'),
             ]);
 
             //Tharwa commission history
@@ -609,10 +609,10 @@ class VirmentController extends Controller
                 'transaction_direction' => 'in',
                 'isIntern' => true,
                 'target' => $senderAccount->number,
-                'account_id' => $request->input('account'),
+                'account_id' => $request->input('accountNumber'),
                 'created_at' => $now->format('Y-m-d H:i:s'),
                 'updated_at' => $now->format('Y-m-d H:i:s'),
-                'transfer_code' => $senderAccount->number . $request->input('account') . $now->format('YmdHi'),
+                'transfer_code' => $senderAccount->number . $request->input('accountNumber') . $now->format('YmdHi'),
             ]);
             //change the amount of the destination client just in case of < 200 000 else till validation
             $receiverAccount->balance = $receiverAccount->balance + $amount;
@@ -622,19 +622,19 @@ class VirmentController extends Controller
             $transferDate = $creationDate = $now->format('Y-m-d H:i:s');
 
 
-            //email virement recu (to reciever)
-            Mail::to($receiverClient->email)
-                ->queue(new TransferMail($receiverClient->firstname . ' ' . $receiverClient->lastname
-                    , 1
-                    , $senderClient->firstname . ' ' . $senderClient->lastname
-                    , ""
-                    , $amount
-                    , ""
-                ));//todo : _to & currency
+//            //email virement recu (to reciever)
+//            Mail::to($receiverClient->email)
+//                ->queue(new TransferMail($receiverClient->firstname . ' ' . $receiverClient->lastname
+//                    , 1
+//                    , $senderClient->firstname . ' ' . $senderClient->lastname
+//                    , ""
+//                    , $amount
+//                    , ""
+//                ));//todo : _to & currency
 
 
             InternTransfer::create([
-                'code' => $senderAccount->number . $request->input('account') . $now->format('YmdHi'),
+                'code' => $senderAccount->number . $request->input('accountNumber') . $now->format('YmdHi'),
                 'amount' => $amount,
                 'transferDate' => $transferDate,
                 'creationDate' => $creationDate,
@@ -642,7 +642,7 @@ class VirmentController extends Controller
                 'transfers_type' => 'micro',
                 'commission' => $commission,
                 'source_id' => $senderAccount->number,
-                'destination_id' => $request->input('account'),
+                'destination_id' => $request->input('accountNumber'),
             ]);
 
 
@@ -651,15 +651,15 @@ class VirmentController extends Controller
             $senderAccount->save();
 
 
-            //email virement validé ou traitement
-            Mail::to($senderClient->email)
-                ->queue(new TransferMail($senderClient->firstname . ' ' . $senderClient->lastname
-                    , 2
-                    , $senderClient->firstname . ' ' . $senderClient->lastname
-                    , $receiverAccount->firstname . ' ' . $receiverAccount->lastname
-                    , $amount
-                    , $status
-                ));//todo : _to & currency
+//            //email virement validé ou traitement
+//            Mail::to($senderClient->email)
+//                ->queue(new TransferMail($senderClient->firstname . ' ' . $senderClient->lastname
+//                    , 2
+//                    , $senderClient->firstname . ' ' . $senderClient->lastname
+//                    , $receiverAccount->firstname . ' ' . $receiverAccount->lastname
+//                    , $amount
+//                    , $status
+//                ));//todo : _to & currency
 
 
             // all good
@@ -948,13 +948,13 @@ class VirmentController extends Controller
             ->courant()->first()->microToday();
 
         if (is_null($microToday))
-            return response(["micro" => false],
+            return response(["micro" => "does not exist yet"],
                 config('code.NOT_FOUND'));
 
         $microTransefer = InternTransfer::find($microToday->transfer_code);
 
         if ('valide' == $microTransefer->status)
-            return response(["micro" => false],
+            return response(["micro" => "already done today"],
                 config('code.NOT_FOUND'));
 
 
