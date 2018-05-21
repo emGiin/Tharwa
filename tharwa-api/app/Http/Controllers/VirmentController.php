@@ -957,7 +957,7 @@ class VirmentController extends Controller
         $microTransefer->status = 'valide';//todo
         $microTransefer->save();
 
-        dd($microToday);
+//        dd($microToday);
         return response(["micro" => true],
             config('code.OK'));
 
