@@ -7,7 +7,7 @@
     "phone": "0554854852",
     "function": "Médecin",
     "address": "Oran",
-    "type": "Client",
+    "type_id": "Client",
     "created_at": "14-01-2018 11:15",
     "accounts":[
       {
@@ -23,7 +23,7 @@
         "isvalid": true
       },{
         "number": "THW00001DZD",
-        "type_id": "COURT",
+        "type_id": "COUR",
         "created_at":"14-01-2018 11:15",
         "isvalid": true
       }
@@ -37,7 +37,7 @@
     "phone": "0554854852",
     "function": "Enseignant",
     "address": "Alger",
-    "type": "Employeur",
+    "type_id": "Employeur",
     "created_at": "14-01-2018 11:15",
     "accounts":[
       {
@@ -53,7 +53,7 @@
         "isvalid": true
       },{
         "number": "THW00001DZD",
-        "type_id": "COURT",
+        "type_id": "COUR",
         "created_at":"14-01-2018 11:15",
         "isvalid": true
       }
@@ -67,7 +67,7 @@
     "phone": "0554854852",
     "function": "Commerçant",
     "address": "Oran",
-    "type": "Client",
+    "type_id": "Client",
     "created_at": "14-01-2018 11:15",
     "accounts":[
       {
@@ -83,7 +83,7 @@
         "isvalid": true
       },{
         "number": "THW00001DZD",
-        "type_id": "COURT",
+        "type_id": "COUR",
         "created_at":"14-01-2018 11:15",
         "isvalid": true
       }
@@ -98,7 +98,7 @@
     "function": "azazfzfzef",
     "address": "Telemcen",
     "created_at": "14-01-2018 11:15",
-    "type": "Employeur",
+    "type_id": "Employeur",
     "accounts":[
       {
         "number": "THW00002DZD",
@@ -113,7 +113,7 @@
         "isvalid": true
       },{
         "number": "THW00001DZD",
-        "type_id": "COURT",
+        "type_id": "COUR",
         "created_at":"14-01-2018 11:15",
         "isvalid": true
       },{
@@ -132,7 +132,7 @@
     "phone": "0554854852",
     "function": "Commerçant",
     "address": "Oran",
-    "type": "Client",
+    "type_id": "Client",
     "created_at": "14-01-2018 11:15",
     "accounts":[
       {
@@ -148,7 +148,7 @@
         "isvalid": true
       },{
         "number": "THW00001DZD",
-        "type_id": "COURT",
+        "type_id": "COUR",
         "created_at":"14-01-2018 11:15",
         "isvalid": true
       }
@@ -163,7 +163,7 @@
     "function": "azazfzfzef",
     "address": "Telemcen",
     "created_at": "14-01-2018 11:15",
-    "type": "Employeur",
+    "type_id": "Employeur",
     "accounts":[
       {
         "number": "THW00002DZD",
@@ -178,7 +178,7 @@
         "isvalid": true
       },{
         "number": "THW00001DZD",
-        "type_id": "COURT",
+        "type_id": "COUR",
         "created_at":"14-01-2018 11:15",
         "isvalid": true
       },{
@@ -197,7 +197,7 @@
     "phone": "0554854852",
     "function": "Commerçant",
     "address": "Oran",
-    "type": "Client",
+    "type_id": "Client",
     "created_at": "14-01-2018 11:15",
     "accounts":[
       {
@@ -213,7 +213,7 @@
         "isvalid": true
       },{
         "number": "THW00001DZD",
-        "type_id": "COURT",
+        "type_id": "COUR",
         "created_at":"14-01-2018 11:15",
         "isvalid": true
       }
@@ -243,7 +243,7 @@
         "isvalid": true
       },{
         "number": "THW00001DZD",
-        "type_id": "COURT",
+        "type_id": "COUR",
         "created_at":"14-01-2018 11:15",
         "isvalid": true
       },{

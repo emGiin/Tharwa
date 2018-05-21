@@ -8,28 +8,28 @@ class ClientsTable extends Component{
     super(props);
     this.state = {
       filteredInfo: null,
-      origin: prompt.dataSource,
+      origin: props.dataSource,
       data: props.dataSource
     };
 }
 componentWillReceiveProps(nextProps) {
-   this.setState({ list: nextProps.dataSource, data: nextProps.dataSource});
+   this.setState({ origin: nextProps.dataSource, data: nextProps.dataSource});
   
 }
 
   handleChange = (pagination, filters, sorter) => {
    
-    if(filters.type!=null){
-      console.log('Various parameters',pagination, filters.type.length===0, sorter);
-      if(filters.type.length===0){
+    if(filters.type_id!=null){
+      console.log('Various parameters',pagination, filters.type_id.length===0, sorter);
+      if(filters.type_id.length===0){
         this.setState({
           filteredInfo: null,
-          data: this.state.list
+          data: this.state.origin
         });
       }else{
         var d=[];
-        for(let e of this.state.list){
-          if(filters.type.includes(e.type)){
+        for(let e of this.state.origin){
+          if(filters.type_id.includes(e.type_id)){
             d.push(e);
           }
         }
@@ -78,14 +78,14 @@ componentWillReceiveProps(nextProps) {
       },
       {
         title: 'Type',
-        dataIndex: 'type',
-        key: 'type',
+        dataIndex: 'type_id',
+        key: 'type_id',
         filters: [
           { text: 'Client', value: 'Client' },
           { text: 'Employeur', value: 'Employeur' },
         ],
-        filteredValue: filteredInfo.type || null,
-        onFilter: (value, record) => record.type.includes(value)
+        filteredValue: filteredInfo.type_id || null,
+        onFilter: (value, record) => record.type_id.includes(value)
       },
       {
         title:'',

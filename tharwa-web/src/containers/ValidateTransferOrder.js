@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {message} from 'antd';
 import transferOrderActions  from '../redux/TransferOrderRedux'
 
 import { TransferOrdersTable, TransferOrderDetails} from '../components/Banker'
@@ -42,17 +43,35 @@ class ValidateTransferOrder extends Component {
   setDefault(){
    this.props.setDefault();
   }
-  
+  notify = () => {
+    message.config({  
+      duration: 2,
+      maxCount: 1,
+    })
+    message.destroy();
+    console.log(this.props.transferOrderActionState);
+    
+    if (this.props.transferOrderActionState.fetching) {
+      message.loading("En cours d'exécution...", 0);
+    } else {
+      if (this.props.transferOrderActionState.success) {
+        message.success('Action réussie!', this.props.setDefault);
+      } else if (this.props.transferOrderActionState.error) {
+        message.error(this.props.transferOrderActionState.error, this.props.setDefault);
+      }
+    }
+  };
   render() {
     return (
       <div className="container">
+      {this.notify()}
         {this.state.switchScreen ? (
           <TransferOrderDetails  
             record={this.state.record}
             close={this.closeDetails.bind(this)} 
             rejectOrder={this.rejectOrder.bind(this)}
             acceptOrder={this.acceptOrder.bind(this)}
-            cctionState={this.props.transferOrderActionState} 
+            accountActionState={this.props.transferOrderActionState} 
             setDefault={this.setDefault.bind(this)}/>
         ) : (
           <TransferOrdersTable 

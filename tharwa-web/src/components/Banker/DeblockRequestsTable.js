@@ -53,7 +53,7 @@ class DeblockRequestsTable extends Component{
             EPARN: "Epargne",
             DVEUR: "Devise Euro",
             DVUSD: "Devise Dollar",
-            COURT: "Courant"
+            COUR: "Courant"
           }[text]}
         </span>
       )

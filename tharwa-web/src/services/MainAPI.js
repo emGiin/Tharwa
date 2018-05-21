@@ -34,19 +34,19 @@ const create = (baseURL = API_URL) => {
       api.post('account/validations', { id, code })
   };
 
-  const getClientsList=()=> api.get('accounts');
+  const getClientsList=()=> api.get('clients');
 
-  const accountAction=({account, motif, type})=> api.post('accounts',{account, motif, type});
+  const accountAction=({account, motif, type})=> api.post('clients',{account, motif, type});
 
-  const getCounts= () => api.get('baquier');
+  const getCounts= () => api.get('banquier');
   
-  const getTransferOrdersList=()=> api.get('orderVirement/validations')
+  const getTransferOrdersList=()=> api.get('ordreVirement/validations')
 
   const transferOrderAction=({id, code})=> api.post('ordreVirement/validations',{id,code})
 
   const getDeblockRequestsList=()=> api.get('deblock')
 
-  const deblockAccountAction=({account,motif, code})=> api.post('deblock')
+  const deblockAccountAction=({account,motif, code})=> api.post('deblock',{account,motif,code})
 
   return {
     api,

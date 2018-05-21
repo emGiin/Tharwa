@@ -118,7 +118,7 @@ class DeblockRequestDetailsModal extends Component{
       <Row type="flex" align="middle" gutter={24}>
         <Col xs={24} sm={18} md={18} lg={18} xl={18} >
           <p>Type: {{
-                COURT: " Courant",
+                COUR: " Courant",
                 EPARN: " Epargne",
                 DVEUR: " Devise Euro",
                 DVUSD: " Devise Dollar"

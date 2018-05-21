@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Button,Icon, Divider,Col,Row, Card, message,Modal } from 'antd';
+import { Table, Button,Icon, Divider,Col,Row, Card, Modal } from 'antd';
 
 import "./Styles/style.css";
 const { Meta } = Card;
@@ -37,24 +37,7 @@ class TransferOrderDetails extends Component{
     }
   ];
 
-  notify = () => {
-    message.config({  
-      duration: 2,
-      maxCount: 1,
-    })
-    message.destroy();
-    console.log(this.props.accountActionState);
-    
-    if (this.props.accountActionState.fetching) {
-      message.loading("En cours d'exécution...", 0);
-    } else {
-      if (this.props.accountActionState.success) {
-        message.success('Action réussie!', this.props.setDefault);
-      } else if (this.props.accountActionState.error) {
-        message.error(this.props.accountActionState.error, this.props.setDefault);
-      }
-    }
-  };
+  
 
   handleConfirmReject() {
     const rejectOrder = this.props.rejectOrder;
@@ -78,7 +61,6 @@ class TransferOrderDetails extends Component{
     const source=this.props.record.source_id
     return(
       <div className="ClientDeails">
-      {this.notify()}
         <Row type="flex" justify="center" align="middle" gutter={24}>
           <Col span={24}>
             <Button shape="circle" icon="arrow-left" onClick={() => this.props.close()}/>

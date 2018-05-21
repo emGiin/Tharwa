@@ -36,7 +36,7 @@ componentWillReceiveProps(nextProps) {
       render: text => (
         <span>
           {{
-            COURT: "Courant",
+            COUR: "Courant",
             EPARN: "Epargne",
             DVEUR: "Devise Euro",
             DVUSD: "Devise Dollar"
