@@ -3,6 +3,8 @@ import I18n from 'react-native-i18n'
 import TransferActions from '../Redux/TransferRedux'
 import TharwaTransferActions from '../Redux/TharwaTransferRedux'
 import ExternalTransferActions from '../Redux/ExternalTransferRedux'
+import NfcTransferActions from '../Redux/NfcTransferRedux'
+import MicroTransferListActions from '../Redux/MicroTransferListRedux'
 
 // attempts to transfert
 export function* myAccountTransfer(api, { data }) {
@@ -64,3 +66,31 @@ export function* externalTransfer(api, { data }) {
     yield put(ExternalTransferActions.externalTransferFailure(I18n.t('transferDialogMessageError')))
   }
 }
+
+export function* nfcTransfer(api, { data }) {
+  const response = yield call(api.nfcTransfer, data)
+
+  // success?
+  if (response.ok) {
+    const { commission } = response.data
+    yield put(NfcTransferActions.nfcTransferSuccess(commission))
+  } else {
+    // if ((response.data && response.data.micro === false) || response.micro === false) {
+    // } else
+    //   yield put(NfcTransferActions.nfcTransferFailure(I18n.t('transferDialogMessageError')))
+
+    yield put(NfcTransferActions.nfcTransferFailure("Un seul virement NFC par jour est autorisé pour le même client"))
+  }
+}
+
+export function* microTransferList(api) {
+  const response = yield call(api.getMicroTransferList)
+
+  // success?
+  if (response.ok) {
+    yield put(MicroTransferListActions.microTransferListSuccess(response.data))
+  } else {
+    yield put(MicroTransferListActions.microTransferListFailure(I18n.t('transferDialogMessageError')))
+  }
+}
+

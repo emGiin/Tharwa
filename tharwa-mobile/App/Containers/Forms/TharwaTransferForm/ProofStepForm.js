@@ -6,7 +6,7 @@ import { reduxForm, Field } from 'redux-form'
 import { Images } from '../../../Themes'
 import { CameraPicker, NextPrevious } from "../../../Components";
 import fomrsStyles from '../Styles/SignupFormStyle'
-import styles from './Styles/ProofStepFormStyle'
+import styles from '../Styles/ProofStepFormStyle'
 
 export class ProofStepForm extends Component {
   state = { picture: '' }

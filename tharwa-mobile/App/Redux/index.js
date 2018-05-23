@@ -12,15 +12,16 @@ import { reducer as externalTransfer } from './ExternalTransferRedux'
 import { reducer as account } from './AccountRedux'
 import { reducer as bank } from './BankRedux'
 import { reducer as exchangeRate } from './ExchangeRateRedux'
+import { reducer as nfcTransfer } from './NfcTransferRedux'
+import { reducer as microTransferList } from './MicroTransferListRedux'
 
 // saga
 import rootSaga from '../Sagas/'
 
 export const reducers = combineReducers({
-  form, nav, auth, pinCode, signup, exchangeRate,
-  account, transfer, bank, tharwaTransfer, externalTransfer
-});
-
+  form, nav, auth, pinCode, signup, exchangeRate, nfcTransfer,
+  account, transfer, bank, tharwaTransfer, externalTransfer, microTransferList
+})
 
 export default () => {
   let { store, sagasManager, sagaMiddleware } = configureStore(reducers, rootSaga)
