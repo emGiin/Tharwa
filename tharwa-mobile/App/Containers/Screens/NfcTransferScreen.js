@@ -9,6 +9,7 @@ import { NfcTransferForm } from '../Forms';
 
 // Redux
 import NfcTransferRedux from '../../Redux/NfcTransferRedux'
+import AccountActions from '../../Redux/AccountRedux'
 
 // Styles
 import styles from './Styles/NfcTransferScreenStyles'
@@ -16,6 +17,7 @@ import styles from './Styles/NfcTransferScreenStyles'
 class NfcTransferScreen extends Component {
   cancel = () => {
     this.props.resetForm();
+    this.props.getProfile();
     this.props.navigation.dispatch(NavigationActions.back());
   }
 
@@ -83,6 +85,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = (dispatch) => {
   return {
     nfcTransfer: (...data) => dispatch(NfcTransferRedux.nfcTransferRequest(...data)),
+    getProfile: () => dispatch(AccountActions.accountRequest()),
     resetForm: () => dispatch(resetReduxForm('NfcTransferForm')),
     reset: () => dispatch(NfcTransferRedux.nfcTransferReset())
   }

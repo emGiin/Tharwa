@@ -75,7 +75,11 @@ export function* nfcTransfer(api, { data }) {
     const { commission } = response.data
     yield put(NfcTransferActions.nfcTransferSuccess(commission))
   } else {
-    yield put(NfcTransferActions.nfcTransferFailure(I18n.t('transferDialogMessageError')))
+    // if ((response.data && response.data.micro === false) || response.micro === false) {
+    // } else
+    //   yield put(NfcTransferActions.nfcTransferFailure(I18n.t('transferDialogMessageError')))
+
+    yield put(NfcTransferActions.nfcTransferFailure("Un seul virement NFC par jour est autorisé pour le même client"))
   }
 }
 

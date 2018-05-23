@@ -53,6 +53,7 @@ class RootContainer extends Component {
   onNfcMessageSent = () => {
     // console.warn("NDEF Sent");
     this.props.goToNfcPendingScreen()
+    NfcNdefManager.onMessageSent(this.onNfcMessageSent)
   }
 
   checkNfcSupport = () => {
@@ -112,7 +113,7 @@ class RootContainer extends Component {
   }
 
   onTagDiscovered = tag => {
-    if (tag && tag.ndefMessage[0]) {
+    if (tag && tag.ndefMessage && tag.ndefMessage[0]) {
       let text = String.fromCharCode.apply(String, tag.ndefMessage[0].payload || '');
       this.props.goToNfcTransferScreen({ receiverInfo: JSON.parse(text) });
     }

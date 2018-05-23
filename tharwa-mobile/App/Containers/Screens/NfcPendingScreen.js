@@ -14,6 +14,7 @@ class NfcPendingScreen extends Component {
   INTERVAL = 2000
   state = { received: false }
   cancel = () => {
+    this.props.reset()
     this.props.navigation.dispatch(NavigationActions.back());
   }
 
@@ -82,7 +83,7 @@ class NfcPendingScreen extends Component {
                   {I18n.t('pendingMicroTransferDetails')}
                 </Text>
                 <View style={styles.container}>
-                  <Pulse color={Colors.button} numPulses={3} diameter={size + 120} speed={20} duration={1000} />
+                  <Pulse color={Colors.button} numPulses={1} diameter={size + 120} speed={10} duration={5000} />
                   <View style={styles.pendingContainer}>
                     <Text style={styles.pendingTxt}> {I18n.t('pending')} </Text>
                   </View>
@@ -96,12 +97,13 @@ class NfcPendingScreen extends Component {
 }
 
 const mapStateToProps = ({ microTransferList: { list, success, fetching } }) => {
-  return { senderInfo: list[0], fetching, success }
+  return { senderInfo: list, fetching, success }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchList: () => dispatch(MicroTransferListAction.microTransferListRequest())
+    fetchList: () => dispatch(MicroTransferListAction.microTransferListRequest()),
+    reset: () => dispatch(MicroTransferListAction.microTransferListReset())
   }
 }
 
