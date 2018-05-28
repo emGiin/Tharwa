@@ -7,7 +7,8 @@ const reducers = combineReducers({
   pinCode: require('./PinCodeRedux').reducer,
   confirmInscription:require('./ConfirmInscriptionRedux').reducer,
   validateTransfer: require('./ValidateTransferRedux').reducer,
-  otherAccount: require('./OtherAccountRedux').reducer
+  otherAccount: require('./OtherAccountRedux').reducer,
+  bankerDashboard: require('./BankerDashboardRedux').reducer
 });
 
 

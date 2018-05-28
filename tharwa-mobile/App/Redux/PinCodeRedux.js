@@ -5,7 +5,8 @@ const { Types, Creators } = createActions({
   pinCodeRequest: ['pinCode'],
   pinCodeSuccess: [],
   pinCodeFailure: ['error'],
-  savePinCodeToken: ['pinCodeToken']
+  pinCodeReset: [],
+  savePinCodeToken: ['token', 'code']
 })
 
 export const PinCodeTypes = Types
@@ -16,7 +17,8 @@ const INITIAL_STATE = Immutable({
   loading: false,
   success: false,
   error: null,
-  pinCodeToken: null
+  token: null,
+  code: null
 })
 
 export const request = (state) => state.merge({ fetching: true, success: false })
@@ -27,11 +29,15 @@ export const success = (state) => (
   state.merge({ fetching: false, error: null, success: true })
 )
 
-export const save = (state, { pinCodeToken }) => state.merge({ pinCodeToken })
+export const save = (state, { token, code }) =>
+  state.merge({ token, code })
+
+export const reset = state => state.merge(INITIAL_STATE)
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.PIN_CODE_REQUEST]: request,
   [Types.PIN_CODE_SUCCESS]: success,
   [Types.PIN_CODE_FAILURE]: failure,
+  [Types.PIN_CODE_RESET]: reset,
   [Types.SAVE_PIN_CODE_TOKEN]: save,
 });

@@ -1,7 +1,7 @@
 import createReducer from './TableWithActionsRedux';
 
-const {reducer, Types, Creators} = createReducer('OTHERACCOUNT');
+export const prefix = 'OTHERACCOUNT';
+const { reducer, Types, Creators } = createReducer(prefix);
 
-export {reducer , Types as OtherAccountTypes};
+export { reducer, Types as OtherAccountTypes };
 export default Creators;
-

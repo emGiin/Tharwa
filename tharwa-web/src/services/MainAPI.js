@@ -34,6 +34,9 @@ const create = (baseURL = API_URL) => {
       api.post('account/validations', { id, code })
   };
 
+  const getCounts= () => api.get('banker/counts');
+  
+
   return {
     api,
     setAuthToken,
@@ -46,7 +49,9 @@ const create = (baseURL = API_URL) => {
 
     virements,
 
-    accounts
+    accounts,
+
+    getCounts
   };
 };
 

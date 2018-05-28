@@ -3,16 +3,23 @@ import { View } from 'react-native'
 import { Text, Item, Input, Icon } from 'native-base'
 import styles from '../Styles/FormFieldStyles'
 
+
 class InputField extends Component {
   render() {
     const {
       input, meta, refField, onEnter, icon,
       editable, placeholder, returnKeyType, keyboardType
     } = this.props;
-
+    const hasValue = !!input.value
     return (
-      <View>
-        <Item regular style={styles.inputTxt}>
+      <View style={{ flex: 1 }}>
+        {
+          hasValue && placeholder &&
+          <Text style={styles.placeholder}>
+            {placeholder}
+          </Text>
+        }
+        <Item regular style={[styles.inputTxt, (!hasValue || !placeholder) && { marginTop: 10 }]}>
           <Icon name={icon} style={styles.inputIcon} />
           <Input
             ref={refField}
@@ -27,9 +34,9 @@ class InputField extends Component {
             autoFocus={false}
             style={styles.whiteColor}
             {...input} />
-          {meta.invalid && meta.touched && <Icon style={styles.alertIcon} name='md-alert' />}
+          {meta && meta.invalid && meta.touched && <Icon style={styles.alertIcon} name='md-alert' />}
         </Item>
-        {meta.invalid && meta.touched && <Text style={styles.errorText}>{meta.error}</Text>}
+        {meta && meta.invalid && meta.touched && <Text style={styles.errorText}>{meta.error}</Text>}
       </View>
     );
   }

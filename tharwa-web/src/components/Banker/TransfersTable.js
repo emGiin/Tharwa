@@ -40,8 +40,8 @@ const columns = [
   },
   {
     title: 'Date',
-    dataIndex: 'transferdate',
-    key: 'transferdate'
+    dataIndex: 'creationdate',
+    key: 'creationdate'
   }
 ];
 
@@ -53,7 +53,6 @@ export default props => (
     dataSource={props.list.map(({ code, ...transfer }) => {
       return { id: code, code, ...transfer };
     })}
-    fetching={props.fetching}
     {...props}
   />
 );

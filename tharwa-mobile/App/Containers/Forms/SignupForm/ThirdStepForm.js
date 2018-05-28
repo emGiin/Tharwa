@@ -2,20 +2,15 @@ import React, { Component } from 'react'
 import { Container, Content } from 'native-base'
 import { reduxForm, Field } from 'redux-form'
 import I18n from 'react-native-i18n'
-import { PickerField, InputField, NextPrevious } from "../../../Components";
+import { InputField, NextPrevious } from "../../../Components";
 import {
   addressValidators,
   phoneValidators,
-  pickerValidators
+  nameValidators
 } from '../../../Helpers/validators'
 import styles from '../Styles/SignupFormStyle'
 
 export class ThirdStepForm extends Component {
-  functions = [
-    { label: 'Etudiant', value: 'student' },
-    { label: 'Ingénieur', value: 'engineer' },
-  ]
-
   componentDidMount() {
     this.focusOn('phone')
   }
@@ -50,23 +45,27 @@ export class ThirdStepForm extends Component {
             withRef
             icon={'ios-home'}
             ref={/* istanbul ignore next */ref => this.address = ref}
+            onEnter={() => this.focusOn('function')}
             refField="address"
             name={'address'}
             component={InputField}
             editable={editable}
             validate={addressValidators}
-            returnKeyType={'done'}
+            returnKeyType={'next'}
             placeholder={I18n.t('address')}
           />
 
           <Field
-            name={'function'}
+            withRef
             icon={'ios-briefcase'}
-            component={PickerField}
+            ref={/* istanbul ignore next */ref => this.function = ref}
+            refField="function"
+            name={'function'}
+            component={InputField}
             editable={editable}
-            placeholder={I18n.t('functionSelection')}
-            validate={pickerValidators}
-            options={this.functions}
+            validate={nameValidators}
+            returnKeyType={'done'}
+            placeholder={I18n.t('function')}
           />
         </Content>
         <NextPrevious onPrevious={previousPage} onSubmit={handleSubmit} />

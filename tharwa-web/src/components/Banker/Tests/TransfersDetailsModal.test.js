@@ -1,13 +1,27 @@
-import React from "react";
-import { shallow } from "enzyme";
+import React from 'react';
+import { shallow } from 'enzyme';
 
-import TransfersDetailsModal from "../TransferDetailsModal"
+import TransferDetailsModal from '../TransferDetailsModal';
 
-describe("<TransfersDetailsModal>",()=>{
+describe('<TransferDetailsModal />', () => {
   let wrapper;
-  let record={}
+  let mockprops = {
+    record: {}
+  };
 
   beforeAll(() => {
-    wrapper = shallow(<TransfersDetailsModal record={record} />);
+    wrapper = shallow(<TransferDetailsModal {...mockprops} />);
   });
+
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it("should render without crashing", ()=> {
+    expect(wrapper).toHaveLength(1);    
+  })
+
+  it("should be instance of Modalwithactions", ()=> {
+    expect(wrapper.find('ModalWithActions')).toHaveLength(1);
+  })
 });

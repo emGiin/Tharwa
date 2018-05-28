@@ -3,7 +3,7 @@ import { Button, Icon, Modal } from 'antd';
 
 import LoadingSpinner from './LoadingSpinner';
 
-const Footer = ({ record, handleValidate, handleConfirmReject, loading }) => [
+export const Footer = ({ record, handleValidate, handleConfirmReject, loading }) => [
   <Button
     type="danger"
     key="reject"
@@ -22,7 +22,7 @@ const Footer = ({ record, handleValidate, handleConfirmReject, loading }) => [
   </Button>
 ];
 
-export default ({ body:Body, record, ...props }) => {
+const ModalWithActions=  ({ body:Body, record, ...props }) => {
   return (
     <Modal
       style={{ top: 20 }}
@@ -35,3 +35,5 @@ export default ({ body:Body, record, ...props }) => {
     </Modal>
   );
 };
+
+export default ModalWithActions

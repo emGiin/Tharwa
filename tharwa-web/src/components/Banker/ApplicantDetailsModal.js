@@ -3,7 +3,7 @@ import { Icon, Row, Col, Divider } from 'antd';
 
 import { RoundedImage, ModalWithActions } from '../Reusable Components/';
 
-const Body = ({ record }) => (
+export const Body = ({ record }) => (
   <div>
     <Row type="flex" justify="center">
       <Col span={12}>

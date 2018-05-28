@@ -6,6 +6,7 @@ export default StyleSheet.create({
     position: 'relative',
     marginBottom: 20
   },
+  
   leftButton: {
     position: 'absolute',
     left: 5
