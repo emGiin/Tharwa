@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AccountRequest;
+use App\AccountStatus;
 use App\ClientRequest;
 use App\ExternTransfer;
 use App\InternTransfer;
@@ -52,11 +53,15 @@ class BanquierController extends Controller
         $nbreAutresComptes = AccountRequest::notValidated()->count();
         $nbreVirements = ExternTransfer::needValidation()->count() +
             InternTransfer::needValidation()->count();
+        $nbreDeblocageComptes = AccountStatus::notValidated()->count();
+//        $nbreOrdresVirements = 0;//todo
 
         $res = collect([
             'nbreInscriptions' => $nbreInscriptions,
             'nbreAutresComptes' => $nbreAutresComptes,
             'nbreVirements' => $nbreVirements,
+            'nbreDeblocageComptes' => $nbreDeblocageComptes,
+//            'nbreOrdresVirements' => $nbreOrdresVirements
         ]);
 
         return response($res);

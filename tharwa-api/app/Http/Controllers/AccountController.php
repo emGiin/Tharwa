@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\AccountRequest;
+use App\AccountStatus;
 use App\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -143,10 +144,11 @@ class AccountController extends Controller
         return response($allAccounts);
     }
 
-    public function edit(Request $request){
+    public function edit(Request $request)
+    {
         //validation
         $validator = \Validator::make($request->all(), [
-            'numero' => ['required', 'regex:/^THW[0-9]{6}(DZD|EUR|USD)$/','exists:accounts,number'],
+            'numero' => ['required', 'regex:/^THW[0-9]{6}(DZD|EUR|USD)$/', 'exists:accounts,number'],
             'motif' => 'required|max:255',
             'type' => 'required|boolean',//true ==> blocage
             //in:true,false
@@ -158,15 +160,48 @@ class AccountController extends Controller
         $account = Account::find($request->input('numero'));
 
         //todo send mail with the motif
-        if ($request->input('type')){//blocage
+        if ($request->input('type')) {//blocage
 
             $account->isvalid = true;
-        }else{//deblocage
+        } else {//deblocage
 
             $account->isvalid = false;
         }
 
         $account->save();
+
+        return response(["saved" => true], config('code.CREATED'));
+
+    }
+
+    public function debloqageDemande(Request $request)
+    {
+        //validation
+        $validator = \Validator::make($request->all(), [
+            'numero' => ['required', 'regex:/^THW[0-9]{6}(DZD|EUR|USD)$/', 'exists:accounts,number'],
+            'justification' => 'required|max:255',
+        ]);
+        if ($validator->fails()) {
+            return response($validator->errors(), config('code.BAD_REQUEST'));
+        }
+
+        //todo check account belongs to client
+
+        $account = Account::find($request->input('numero'));
+
+        if(true == $account->isValid)
+            return response(["message" => "the account is not blocked"], config('code.UNAUTHORIZED'));
+
+
+        AccountStatus::create([
+            'type'=>'dem_debloq',
+            'justification'=>\Request::input('justification'),
+            'treated'=>false,
+            'type_id'=>$account->type_id,
+            'account_id'=>\Request::input('numero'),
+        ]);
+
+        //todo send mail to banqie
 
         return response(["saved" => true], config('code.CREATED'));
 

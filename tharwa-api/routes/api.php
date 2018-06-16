@@ -30,6 +30,7 @@ Route::post('/virement/micro', 'VirmentController@createMicro')->middleware(Auth
 Route::get('/virement/micro', 'VirmentController@getMicro')->middleware(AuthClient::class);
 
 Route::post('/account', 'AccountController@create')->middleware(AuthClient::class);
+Route::post('/account/deblocage', 'AccountController@debloqageDemande')->middleware(AuthClient::class);
 
 Route::get('/bank', 'BankController@index')->middleware(AuthClient::class);
 
