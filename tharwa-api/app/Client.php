@@ -32,7 +32,7 @@ class Client extends Model
 
 //    protected $visible = ["email","firstname","lastname","type","picture"]; todo check if not needed any more
 
-    protected $hidden = ['password',"created_at","updated_at"];
+    protected $hidden = ['password',"updated_at"];//"created_at",
 
     public static function check($userName,$password){
 

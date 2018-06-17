@@ -21,6 +21,11 @@ class AccountStatus extends Model
         return $this->belongsTo(Account::class, 'account_id');
     }
 
+    public function client()
+    {
+        return $this->hasManyThrough(Client::class,Account::class);
+    }
+
     public static function notValidated()
     {
         return static::where('treated', false)

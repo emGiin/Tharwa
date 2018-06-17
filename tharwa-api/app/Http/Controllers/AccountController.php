@@ -189,16 +189,16 @@ class AccountController extends Controller
 
         $account = Account::find($request->input('numero'));
 
-        if(true == $account->isValid)
+        if (true == $account->isValid)
             return response(["message" => "the account is not blocked"], config('code.UNAUTHORIZED'));
 
 
         AccountStatus::create([
-            'type'=>'dem_debloq',
-            'justification'=>\Request::input('justification'),
-            'treated'=>false,
-            'type_id'=>$account->type_id,
-            'account_id'=>\Request::input('numero'),
+            'type' => 'dem_debloq',
+            'justification' => \Request::input('justification'),
+            'treated' => false,
+            'type_id' => $account->type_id,
+            'account_id' => \Request::input('numero'),
         ]);
 
         //todo send mail to banqie
@@ -206,4 +206,21 @@ class AccountController extends Controller
         return response(["saved" => true], config('code.CREATED'));
 
     }
+
+    public function deblockList()
+    {
+        $deblockDemandes = AccountStatus::with('account.client')
+            ->get();
+
+        foreach ($deblockDemandes as $deblockDemande){
+            $deblockDemande['client'] =$deblockDemande['account']['client'];
+            $deblockDemande['client']['picture'] =
+                url(config('filesystems.uploaded_file')) . '/'
+                .$deblockDemande['client']['picture'];
+            unset($deblockDemande->account);
+        }
+
+        return response($deblockDemandes);
+    }
+
 }

@@ -93,7 +93,7 @@ class ClientController extends Controller
             url(config('filesystems.uploaded_file')) . '/'
             . $client->picture;
 
-        
+
         $infos = collect(['infos' => $client]);
 
 
@@ -121,7 +121,7 @@ class ClientController extends Controller
         foreach ($accountRequests as $accountRequest) {
             $infos->put(trim($accountRequest->type_id), [
                     "status" => "requested",
-                    "at" => "".$accountRequest["created_at"],
+                    "at" => "" . $accountRequest["created_at"],
                 ]
             );
         }
@@ -131,15 +131,34 @@ class ClientController extends Controller
         foreach ($blockedAccounts as $blockedAccount) {
             $infos->put(trim($blockedAccount->type_id), [
                     "status" => "blocked",
-                    "at" => "".$blockedAccount["updated_at"],
+                    "at" => "" . $blockedAccount["updated_at"],
                 ]
             );
         }
 
-        $infos->put('amount_limit_validation',config('utils.amount_limit_validation'));
-        $infos->put('max_nfc_amount',config('utils.amount_max_micro_transfer'));
+        $infos->put('amount_limit_validation', config('utils.amount_limit_validation'));
+        $infos->put('max_nfc_amount', config('utils.amount_max_micro_transfer'));
 
         return response($infos);
+    }
+
+    public function all()
+    {
+        //todo type to type_id "COUR "
+
+        $clients = Client::with('accounts:client_id,number,type_id,created_at,isvalid')
+            ->get([
+                "email", "firstname", "lastname", "type", "picture",
+                "phone", "function", "address", "created_at",
+            ]);
+
+        foreach ($clients as $client){
+            $client->picture =
+                url(config('filesystems.uploaded_file')) . '/'
+                .$client->picture;
+        }
+
+        return response($clients);
     }
 
     private function client()

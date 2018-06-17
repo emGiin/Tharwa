@@ -43,6 +43,8 @@ Route::get('/exchangerate', 'ExchangeRateController@index')->middleware(AuthClie
 Route::get('/clientRequests', 'RequestController@index')->middleware(AuthManager::class);
 Route::post('/clientRequests', 'RequestController@edit')->middleware(AuthManager::class);
 
+Route::get('/clients', 'ClientController@all')->middleware(AuthManager::class);
+
 Route::post('/banquier', 'BanquierController@create');//->middleware(AuthManager::class);
 Route::get('/banquier', 'BanquierController@index');//->middleware(AuthManager::class);
 
@@ -53,6 +55,8 @@ Route::get('/account/validations', 'AccountController@validationList')->middlewa
 Route::post('/account/validations', 'AccountController@validateAccount')->middleware(AuthManager::class);
 Route::get('/accounts', 'AccountController@index')->middleware(AuthManager::class);
 Route::post('/accounts', 'AccountController@edit')->middleware(AuthManager::class);
+Route::get('/accounts/deblock ', 'AccountController@deblockList')->middleware(AuthManager::class);
+//Route::post('/accounts/deblock ', 'AccountController@edit')->middleware(AuthManager::class);
 
 //dashboard of the manager (gestionaire)
 Route::get('/dashboard', 'DashboardController@index')->middleware(AuthManager::class);
