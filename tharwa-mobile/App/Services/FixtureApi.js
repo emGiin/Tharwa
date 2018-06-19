@@ -65,6 +65,12 @@ export default {
       data: require('../Fixtures/profile.json')
     }
   },
+  getOrderHistory: data => {
+    return {
+      ok: true,
+      data: require('../Fixtures/TransferOrder.json')
+    }
+  },
   requestNewAccount: type => {
     return {
       ok: true,

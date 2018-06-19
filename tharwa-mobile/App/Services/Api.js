@@ -26,6 +26,7 @@ const create = (baseURL = API_URL) => {
 
   const signup = user => api.post('client', user)
   const getProfile = () => api.get('client')
+  const getOrderHistory = () => api.get('order')
   const requestNewAccount = type => api.post('account', { type })
 
   // banks
@@ -47,6 +48,7 @@ const create = (baseURL = API_URL) => {
     removeAuthHeaders,
     signup,
     getProfile,
+    getOrderHistory,
     requestNewAccount,
     myAccountTransfert,
     tharwaTransfer,

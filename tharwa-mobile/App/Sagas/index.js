@@ -11,6 +11,7 @@ import { AuthTypes } from '../Redux/AuthRedux'
 import { PinCodeTypes } from '../Redux/PinCodeRedux'
 import { SignupTypes } from '../Redux/SignupRedux'
 import { AccountTypes } from '../Redux/AccountRedux'
+import { TransferOrderTypes } from '../Redux/TransferOrderRedux'
 import { TransferTypes } from '../Redux/TransferRedux'
 import { TharwaTransferTypes } from '../Redux/TharwaTransferRedux'
 import { ExternalTransferTypes } from '../Redux/ExternalTransferRedux'
@@ -24,6 +25,7 @@ import { login, logout, loadToken } from './AuthSaga'
 import { confirmPinCode } from './PinCodeSaga'
 import { signup } from './SignupSaga'
 import { getProfile, requestNewAccount } from './AccountSaga'
+import { getOrderHistory} from './TransferOrderSaga'
 import {
   myAccountTransfer,
   tharwaTransfer,
@@ -61,6 +63,9 @@ export default function* root() {
     // account
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getProfile, api),
     takeLatest(AccountTypes.NEW_ACCOUNT_REQUEST, requestNewAccount, api),
+
+     // Order History
+     takeLatest(TransferOrderTypes.TRANSFER_ORDER_REQUEST, getOrderHistory, api),
 
     // banks
     takeLatest(BankTypes.BANK_REQUEST, getBanks, api),
