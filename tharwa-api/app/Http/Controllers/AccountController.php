@@ -148,27 +148,48 @@ class AccountController extends Controller
     {
         //validation
         $validator = \Validator::make($request->all(), [
-            'numero' => ['required', 'regex:/^THW[0-9]{6}(DZD|EUR|USD)$/', 'exists:accounts,number'],
-            'motif' => 'required|max:255',
-            'type' => 'required|boolean',//true ==> blocage
-            //in:true,false
+            'id' => 'sometimes|required|integer|min:0',//todo if present means it s a response of a demande
+            'account' => ['required', 'regex:/^THW[0-9]{6}(DZD|EUR|USD)$/', 'exists:accounts,number'],
+            'motif' => 'required_without:id|max:255',
+            'type' => 'required|boolean',//true ==> blocage //in:true,false
         ]);
+//        $validator->sometimes('motif', 'required|max:255', function ($input) {//todo
+//            return is_null(\Request->input('id'));
+//        });
         if ($validator->fails()) {
             return response($validator->errors(), config('code.BAD_REQUEST'));
         }
 
-        $account = Account::find($request->input('numero'));
+        $deblocDemandeId = $request->input('id');
+        $managerAnswer = null;
+
+        if (!is_null($deblocDemandeId)) {//it's a bloq or debloq (AFTER a demande from client)
+            $accountStatus = AccountStatus::find($deblocDemandeId);
+            $accountStatus->treated = true;
+            $accountStatus->save();
+        }
+
+        $account = Account::find($request->input('account'));
 
         //todo send mail with the motif
+
         if ($request->input('type')) {//blocage
-
             $account->isvalid = true;
+            $managerAnswer = 'bloq';
         } else {//deblocage
-
             $account->isvalid = false;
+            $managerAnswer = 'debloq';
         }
 
         $account->save();
+
+        AccountStatus::create([
+            'type' => $managerAnswer,
+            'justification' => \Request::input('motif'),
+            'treated' => null,
+            'type_id' => $account->type_id,
+            'account_id' => \Request::input('account'),
+        ]);
 
         return response(["saved" => true], config('code.CREATED'));
 
@@ -209,14 +230,15 @@ class AccountController extends Controller
 
     public function deblockList()
     {
-        $deblockDemandes = AccountStatus::with('account.client')
+        $deblockDemandes = AccountStatus::notValidated()
+            ->with('account.client')
             ->get();
 
-        foreach ($deblockDemandes as $deblockDemande){
-            $deblockDemande['client'] =$deblockDemande['account']['client'];
+        foreach ($deblockDemandes as $deblockDemande) {
+            $deblockDemande['client'] = $deblockDemande['account']['client'];
             $deblockDemande['client']['picture'] =
                 url(config('filesystems.uploaded_file')) . '/'
-                .$deblockDemande['client']['picture'];
+                . $deblockDemande['client']['picture'];
             unset($deblockDemande->account);
         }
 

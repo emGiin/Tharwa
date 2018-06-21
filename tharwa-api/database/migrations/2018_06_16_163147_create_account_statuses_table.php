@@ -19,7 +19,7 @@ class CreateAccountStatusesTable extends Migration
             $table->string('justification')->nullable();
             $table->boolean('treated')->default(false)->nullable();
             $table->char('type_id',5)->nullable();
-            $table->char('account_id', 12)->primary()->index();
+            $table->char('account_id', 12)->primary();
             $table->timestamps();
         });
     }
