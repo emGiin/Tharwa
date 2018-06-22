@@ -33,7 +33,8 @@ class CreateTransferOrdersTable extends Migration
         });
 
         Schema::create('externAccount_transferOrder', function (Blueprint $table) {
-            $table->char('number', 12)->primary()->index();
+            $table->increments('id');
+            $table->char('number', 12);
             $table->string('name');
             $table->unsignedInteger('transferOrder_id');
             $table->foreign('transferOrder_id')->references('id')->on('transferOrders');
