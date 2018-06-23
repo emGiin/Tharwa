@@ -154,13 +154,10 @@ class AccountController extends Controller
             'motif' => 'required|max:255',
             'code' => 'required|in:0,1',//0 ==> blocage //in:true,false
         ]);
-//        $validator->sometimes('motif', 'required|max:255', function ($input) {//todo
-//            return is_null(\Request->input('id'));
-//        });
         if ($validator->fails()) {
             return response($validator->errors(), config('code.BAD_REQUEST'));
         }
-//dd($request);
+
         $deblocDemandeId = $request->input('id');
         $managerAnswer = null;
 
@@ -174,7 +171,6 @@ class AccountController extends Controller
                 $accountStatus = AccountStatus::find($deblocDemandeId);
                 $accountStatus->treated = true;
                 $accountStatus->save();
-//            dd($accountStatus);
             }
 
             $account = Account::find($request->input('account'));
