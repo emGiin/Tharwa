@@ -27,6 +27,10 @@ class Account extends Model
         return $this->hasMany(BalanceHistory::class, 'account_id');
     }
 
+    public function ordreVirement()
+    {
+        return $this->hasMany(TransferOrder::class, 'employer_account_id');
+    }
 
     public function hasEnoughMoney($needed)
     {

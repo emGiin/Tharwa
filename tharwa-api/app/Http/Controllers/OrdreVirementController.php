@@ -358,6 +358,7 @@ class OrdreVirementController extends Controller
                     $tharwaAccount->balance = $tharwaAccount->balance + $commission;
                     $tharwaAccount->save();
 
+                    //todo
 //            Mail::to($request->input('email'))
 //                ->queue(new ClientRequestValidatedMail($acceptedClient->firstname.' '.$acceptedClient->lastname
 //                    , $request->input('code')));
@@ -385,12 +386,57 @@ class OrdreVirementController extends Controller
 //                if (Storage::disk('xml_out')->exists($filePath))
 //                    Storage::disk('xml_out')->exists($filePath);
 
-            dd($e);
             return response(["saved" => false], config('code.UNKNOWN_ERROR'));
 
         }
 
     }
+
+    public function myOrdreVirements(){
+
+        $trnasferOrders = $this->client()->accounts()
+            ->courant()->first()->ordreVirement()
+            ->with(['externAccounts', 'internAccounts.client'])
+            ->get();
+//dd($trnasferOrders);
+
+        foreach ($trnasferOrders as $trnasferOrder) {
+
+            unset($trnasferOrder['id']);
+            unset($trnasferOrder['justification']);
+            unset($trnasferOrder['status']);
+            unset($trnasferOrder['employer_account_id']);
+            unset($trnasferOrder['updated_at']);
+
+            $trnasferOrder['destination_ids'] = collect();
+
+            foreach ($trnasferOrder['externAccounts'] as $externAccount) {
+                $new['account'] = $externAccount['number'];
+                $names = explode(' ', $externAccount['name']);
+                $new['firstname'] = $names[0];
+                if (array_key_exists(1, $names))
+                    $new['lastname'] = $names[1];
+                $new['amount'] = $externAccount['amount'];
+                $new['bank'] = $externAccount['bank'];
+                $trnasferOrder['destination_ids']->push($new);
+            }
+            unset($trnasferOrder['externAccounts']);
+
+            foreach ($trnasferOrder['internAccounts'] as $internAccount) {
+                $new['account'] = $internAccount['number'];
+                $new['firstname'] = $internAccount['client']['firstname'];
+                $new['lastname'] = $internAccount['client']['lastname'];
+                $new['amount'] = $internAccount['pivot']['amount'];
+                $new['bank'] = 'tharwa';
+                $trnasferOrder['destination_ids']->push($new);
+            }
+            unset($trnasferOrder['internAccounts']);
+        }
+
+        $res["OrderInfos"] = $trnasferOrders;
+        return response($res);
+    }
+
 
     private function client()
     {

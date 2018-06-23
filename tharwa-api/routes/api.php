@@ -38,6 +38,7 @@ Route::get('/exchangerate', 'ExchangeRateController@index')->middleware(AuthClie
 
     /**Employs**/
 Route::post('/ordrevirement', 'OrdreVirementController@create')->middleware(AuthClient::class);
+Route::get('/ordrevirement', 'OrdreVirementController@myOrdreVirements')->middleware(AuthClient::class);
 
 
     /**
