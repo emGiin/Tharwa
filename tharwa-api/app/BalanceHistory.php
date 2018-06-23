@@ -28,4 +28,8 @@ class BalanceHistory extends Model
         }
     }
 
+    public function scopeCommission($query)
+    {
+        return $query->where('transaction_type', 'commiss');
+    }
 }

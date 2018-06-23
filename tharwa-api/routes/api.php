@@ -45,10 +45,10 @@ Route::get('/ordrevirement', 'OrdreVirementController@myOrdreVirements')->middle
      * web managers
      **/
 Route::get('/clientRequests', 'RequestController@index')->middleware(AuthManager::class);
+Route::post('/clientRequests', 'RequestController@edit')->middleware(AuthManager::class);
 
 Route::get('/clients', 'ClientController@all');//->middleware(AuthManager::class);
 
-Route::post('/banquier', 'BanquierController@create');//->middleware(AuthManager::class);
 Route::get('/banquier', 'BanquierController@index');//->middleware(AuthManager::class);
 
 Route::get('/virement/validations', 'VirmentController@validationList')->middleware(AuthManager::class);
@@ -63,7 +63,9 @@ Route::get('/accounts/deblock ', 'AccountController@deblockList');//->middleware
 Route::get('/ordreVirement/validations', 'OrdreVirementController@validationList');//->middleware(AuthManager::class);
 Route::post('/ordreVirement/validations', 'OrdreVirementController@validateVirement');//->middleware(AuthManager::class);
 
+/**Gestionnaire**/
+Route::post('/banquier', 'BanquierController@create');//->middleware(AuthManager::class);
 
 //dashboard of the manager (gestionaire)
 Route::get('/dashboard', 'DashboardController@index')->middleware(AuthManager::class);
-Route::post('/clientRequests', 'RequestController@edit')->middleware(AuthManager::class);
+Route::get('/dashboard/commissions', 'DashboardController@getListCommissions')->middleware(AuthManager::class);

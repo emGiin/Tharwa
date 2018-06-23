@@ -398,7 +398,6 @@ class OrdreVirementController extends Controller
             ->courant()->first()->ordreVirement()
             ->with(['externAccounts', 'internAccounts.client'])
             ->get();
-//dd($trnasferOrders);
 
         foreach ($trnasferOrders as $trnasferOrder) {
 

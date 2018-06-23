@@ -16,6 +16,7 @@ class DashboardController extends Controller
         'transf' => 'other_banks',
         'commiss' => 'commissions',
         'reject' => 'rejected_transfers',
+        'micro'=>'micro'
     ];
 
     public function index()
@@ -134,5 +135,35 @@ class DashboardController extends Controller
 
         return response($res, config('code.OK'));
 
+    }
+
+    public function getListCommissions(){
+        $commissions = BalanceHistory::commission()
+//            ->with()
+            ->orderBy('created_at','desc')
+            ->get();
+
+        $res['MONTHCOUR']=$res['MONTHEPART']
+            =$res['MONTHDEV']=$res['TRANSFER']=array();
+        foreach ($commissions as $commission){
+            switch ($commission['amount']) {
+                case 100:
+                    $key='MONTHCOUR';
+                break;
+                case 50:
+                    $key='MONTHEPART';
+                    break;
+                case 200:
+                    $key='MONTHDEV';
+                    break;
+                default :
+                    $key='TRANSFER';
+            }
+
+            array_push($res[$key],$commission);
+        }
+
+//todo type
+        return response($res, config('code.OK'));
     }
 }
