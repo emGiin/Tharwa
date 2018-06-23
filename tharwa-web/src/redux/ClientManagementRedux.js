@@ -23,12 +23,12 @@ export const setDefault = state =>
 
 export const request = state =>
   state.merge(
-    { clients: { fetching: true, success: false, error: null } }
+    { clients: { fetching: true, success: false, error: null } }, { deep: true }
   );
 
 export const success = state =>
   state.merge(
-    { clients: { fetching: false, error: null, success: true } }
+    { clients: { fetching: false, error: null, success: true } }, { deep: true }
   );
 
 export const saveDataset = (state, { list }) =>

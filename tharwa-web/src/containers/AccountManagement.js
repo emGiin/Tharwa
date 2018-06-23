@@ -22,6 +22,7 @@ componentWillReceiveProps(nextProps) {
 }
   componentWillMount() {
     this.props.getClientsList();
+    console.log(this.props.clientsList)
   }
   
   showDetails(record){

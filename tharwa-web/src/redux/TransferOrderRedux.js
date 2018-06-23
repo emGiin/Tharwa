@@ -19,23 +19,23 @@ const INITIAL_STATE = Immutable({
 
 //Functions
 export const setDefault = state =>
-  state.merge({ transferOrderActions: { success: false, error: null } });
+  state.merge({ transferOrderActions: { success: false, error: null } }, { deep: true });
 
 export const request = state =>
   state.merge(
-    { transferOrder: { fetching: true, success: false, error: null } }
+    { transferOrder: { fetching: true, success: false, error: null } }, { deep: true }
   );
 
 export const success = state =>
   state.merge(
-    { transferOrder: { fetching: false, error: null, success: true } }
+    { transferOrder: { fetching: false, error: null, success: true } }, { deep: true }
   );
 
 export const saveDataset = (state, { list }) =>
-  state.merge({ transferOrder: { list } });
+  state.merge({ transferOrder: { list } }, { deep: true });
 
 export const failure = (state, { error }) =>
-  state.merge({ transferOrder: { fetching: false, error } }); //si code pin expiré popup de code pin
+  state.merge({ transferOrder: { fetching: false, error } }, { deep: true }); //si code pin expiré popup de code pin
 
 export const actionRequest = state =>
   state.merge(
@@ -45,7 +45,7 @@ export const actionRequest = state =>
         success: false,
         error: null
       }
-    }
+    }, { deep: true }
   );
 
 export const actionSuccess = state =>
@@ -56,11 +56,11 @@ export const actionSuccess = state =>
         success: true,
         error: null
       }
-    }
+    }, { deep: true }
   );
 
 export const actionFailure = (state, { error }) =>
-  state.merge({ transferOrderActions: { fetching: false, error } });
+  state.merge({ transferOrderActions: { fetching: false, error } }, { deep: true });
 
 
   //Actions
