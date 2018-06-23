@@ -8,6 +8,7 @@ use App\ClientRequest;
 use App\ExternTransfer;
 use App\InternTransfer;
 use App\Manager;
+use App\TransferOrder;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -54,14 +55,14 @@ class BanquierController extends Controller
         $nbreVirements = ExternTransfer::needValidation()->count() +
             InternTransfer::needValidation()->count();
         $nbreDeblocageComptes = AccountStatus::notValidated()->count();
-//        $nbreOrdresVirements = 0;//todo
+        $nbreOrdresVirements = TransferOrder::notValidated()->count();
 
         $res = collect([
             'nbreInscriptions' => $nbreInscriptions,
             'nbreAutresComptes' => $nbreAutresComptes,
             'nbreVirements' => $nbreVirements,
             'nbreDeblocageComptes' => $nbreDeblocageComptes,
-//            'nbreOrdresVirements' => $nbreOrdresVirements
+            'nbreOrdresVirements' => $nbreOrdresVirements
         ]);
 
         return response($res);

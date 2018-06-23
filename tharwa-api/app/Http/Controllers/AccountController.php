@@ -146,12 +146,13 @@ class AccountController extends Controller
 
     public function edit(Request $request)
     {
+        //todo more v
         //validation
         $validator = \Validator::make($request->all(), [
-            'id' => 'sometimes|required|integer|min:0',//todo if present means it s a response of a demande
+            'id' => 'sometimes|required|integer|min:0|exists:account_statuses,id',//todo if present means it s a response of a demande
             'account' => ['required', 'regex:/^THW[0-9]{6}(DZD|EUR|USD)$/', 'exists:accounts,number'],
             'motif' => 'required_without:id|max:255',
-            'type' => 'required|boolean',//true ==> blocage //in:true,false
+            'code' => 'required|in:0,1',//0 ==> blocage //in:true,false
         ]);
 //        $validator->sometimes('motif', 'required|max:255', function ($input) {//todo
 //            return is_null(\Request->input('id'));
@@ -159,7 +160,7 @@ class AccountController extends Controller
         if ($validator->fails()) {
             return response($validator->errors(), config('code.BAD_REQUEST'));
         }
-
+//dd($request);
         $deblocDemandeId = $request->input('id');
         $managerAnswer = null;
 
@@ -173,7 +174,7 @@ class AccountController extends Controller
 
         //todo send mail with the motif
 
-        if ($request->input('type')) {//blocage
+        if (1 == $request->input('code')) {//blocage
             $account->isvalid = true;
             $managerAnswer = 'bloq';
         } else {//deblocage
@@ -234,12 +235,21 @@ class AccountController extends Controller
             ->with('account.client')
             ->get();
 
+        $baseUrl = url(config('filesystems.uploaded_file'));
+
         foreach ($deblockDemandes as $deblockDemande) {
-            $deblockDemande['client'] = $deblockDemande['account']['client'];
+
+            $deblockDemande['client'] = clone $deblockDemande['account']['client'];
             $deblockDemande['client']['picture'] =
-                url(config('filesystems.uploaded_file')) . '/'
+                $baseUrl . '/'
                 . $deblockDemande['client']['picture'];
             unset($deblockDemande->account);
+
+            $deblockDemande['account'] = $deblockDemande['account_id'];
+            unset($deblockDemande['account_id']);
+            $deblockDemande['client']['type_id'] = $deblockDemande['client']['type'];
+            unset($deblockDemande['client']['type']);
+
         }
 
         return response($deblockDemandes);

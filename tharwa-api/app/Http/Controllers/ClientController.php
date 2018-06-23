@@ -153,6 +153,8 @@ class ClientController extends Controller
             ]);
 
         foreach ($clients as $client){
+            $client['type_id'] = $client['type'];
+            unset($client['type']);
             $client->picture =
                 url(config('filesystems.uploaded_file')) . '/'
                 .$client->picture;
