@@ -19,14 +19,15 @@ class DeblockRequestDetailsModal extends Component{
   }
   handleConfirmReject(){
       const onReject = this.props.onReject;
-      const id= this.props.record.account;
+      const num= this.props.record.account;
+      const id=this.props.record.id;
         confirm({
           title: `Voulez-vous vraiment refuser cette demande?`,
           okText: "Oui",
           okType: "danger",
           cancelText: "Annuler",
           onOk() {
-            onReject(id);
+            onReject(id,num);
           }
         });
       }
@@ -40,7 +41,7 @@ class DeblockRequestDetailsModal extends Component{
 
   handleOkModal(id, motif, typeAction){
     this.setState({isModalMotifVisible: false})
-    this.props.onDeblock(this.props.record.account,motif)
+    this.props.onDeblock(this.props.record.id,this.props.record.account,motif)
   }
   render(){
     return(
@@ -118,7 +119,7 @@ class DeblockRequestDetailsModal extends Component{
       <Row type="flex" align="middle" gutter={24}>
         <Col xs={24} sm={18} md={18} lg={18} xl={18} >
           <p>Type: {{
-                COUR: " Courant",
+               "COUR ": " Courant",
                 EPARN: " Epargne",
                 DVEUR: " Devise Euro",
                 DVUSD: " Devise Dollar"

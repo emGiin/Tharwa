@@ -15,11 +15,11 @@ class DeblockRequests extends Component {
     this.props.setDefault();
   }
   
-  rejectDemand(account){
-    this.props.deblockAccountAction({account,motif:null})
+  rejectDemand(id,account){
+    this.props.deblockAccountAction({id,account,motif:null})
   }
-  acceptDemand(account,motif){
-    this.props.deblockAccountAction({account,motif})  
+  acceptDemand(id,account,motif){
+    this.props.deblockAccountAction({id,account,motif})  
   }
   
   render() {

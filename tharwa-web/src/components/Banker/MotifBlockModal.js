@@ -25,7 +25,7 @@ class MotifBlockModal extends Component{
       const motif= this.state.value;
      this.setState({error:false,value:""});
      const typeAction=this.props.action
-     const action=(typeAction ? "bloquer": "débloquer")
+     const action=(typeAction==1 ? "bloquer": "débloquer")
       confirm({
         title: `Voulez-vous vraiment ${action} ce compte?`,
         okText: "Oui",
@@ -44,8 +44,8 @@ class MotifBlockModal extends Component{
   }
 
   render(){
-    const action=(this.props.action ? "Bloquer": "Débloquer")
-    const actionAccount=(this.props.action ? "blocage": "déblocage")
+    const action=(this.props.action==1 ? "Bloquer": "Débloquer")
+    const actionAccount=(this.props.action==1 ? "blocage": "déblocage")
     const titre=`Veuillez indiquer le motif du ${actionAccount} :`
     return(
       <Modal

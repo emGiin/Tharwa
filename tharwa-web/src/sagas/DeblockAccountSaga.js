@@ -37,7 +37,7 @@ export function* getDeblockRequestsList(api) {
   }
 }
 
-export function* deblockAccountActionRequest(api,{id:{account, motif}}){
+export function* deblockAccountActionRequest(api,{id:{id, account, motif}}){
  // setCredentials(api);
  const authToken = yield select(selectAuthToken);
  if (authToken) {
@@ -49,11 +49,12 @@ export function* deblockAccountActionRequest(api,{id:{account, motif}}){
  }
  const code= (motif==null? 0:1)
       const body={
+        id,
         account,
         motif,
         code
       }
-      
+      console.log("deblock",body)
       const response = yield call(api.deblockAccountAction,body);
 
       if (response.ok) {

@@ -14,7 +14,6 @@ class ClientsTable extends Component{
 }
 componentWillReceiveProps(nextProps) {
    this.setState({ origin: nextProps.dataSource, data: nextProps.dataSource});
-  
 }
 
   handleChange = (pagination, filters, sorter) => {

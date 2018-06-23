@@ -7,6 +7,7 @@ class ClientDetails extends Component{
   constructor(props){
     super(props);
     let r;
+    console.log("Props:",props)
     for (let element of props.list) {
       if(element.email===props.id){
         r=element;
@@ -17,6 +18,7 @@ class ClientDetails extends Component{
 }
 componentWillReceiveProps(nextProps) {
   let r;
+  console.log("nextProps:",nextProps)
   for (let element of nextProps.list) {
     if(element.email===nextProps.id){
       r=element;
@@ -25,8 +27,6 @@ componentWillReceiveProps(nextProps) {
   }
     this.setState({ record: r });
     console.log(this.state.record);
-    
-  
 }
   columns = [
     {
@@ -36,7 +36,7 @@ componentWillReceiveProps(nextProps) {
       render: text => (
         <span>
           {{
-            COUR: "Courant",
+            "COUR ": "Courant",
             EPARN: "Epargne",
             DVEUR: "Devise Euro",
             DVUSD: "Devise Dollar"
@@ -60,11 +60,10 @@ componentWillReceiveProps(nextProps) {
       key: 'isvalid',
       render: valid => (
         <span>
-        {valid ? (
-          "Fonctionnel"
-        ) : (
-          "Bloqué"
-        )}
+        {{
+          1:"Fonctionnel",
+          0:"Bloqué"
+        }[valid]}
         </span>
       )
     },
@@ -75,8 +74,11 @@ componentWillReceiveProps(nextProps) {
         <span>
           <Button 
             style={{minWidth:"95px"}}
-            type={record.isvalid ? ("danger") : ("primary")}
-            onClick={() => this.props.action(record)}> {record.isvalid ? ("Bloquer") : ("Débloquer")}
+            type={record.isvalid==1 ? ("danger") : ("primary")}
+            onClick={() => this.props.action(record)}> {{
+              1:"Bloquer",
+              0:"Débloquer"
+            }[record.isvalid]}
           </Button>
         </span>
       )

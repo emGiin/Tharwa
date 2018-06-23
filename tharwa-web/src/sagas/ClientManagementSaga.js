@@ -50,9 +50,8 @@ export function* actionRequest(api,{id:{account, motif,type}}){
       const body={
         account,
         motif,
-        type
+        code:type
       }
-      
       const response = yield call(api.accountAction,body);
 
       if (response.ok) {

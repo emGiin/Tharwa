@@ -17,6 +17,9 @@ class AccountManagement extends Component {
     };
 }
 
+componentWillReceiveProps(nextProps) {
+  console.log("dad",nextProps)
+}
   componentWillMount() {
     this.props.getClientsList();
   }
@@ -41,10 +44,13 @@ class AccountManagement extends Component {
   }
   handleOkModal(id,motif,type){
     this.setState({motifModalVisible: false, actionAccount: null});
+    let code
+    if(type==1) code=0
+    else code=1
     const o={
       account:id,
       motif,
-      type
+      type: code
     }  
     
     this.props.accountAction(o);

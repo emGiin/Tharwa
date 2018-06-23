@@ -53,7 +53,7 @@ class DeblockRequestsTable extends Component{
             EPARN: "Epargne",
             DVEUR: "Devise Euro",
             DVUSD: "Devise Dollar",
-            COUR: "Courant"
+            "COUR ": "Courant"
           }[text]}
         </span>
       )
@@ -81,13 +81,13 @@ class DeblockRequestsTable extends Component{
       )
     }
   ];
-  onReject(account){
+  onReject(id,account){
     this.setState({selectedRecord:{},isModalVisible:false})
-    this.props.rejectRequest(account);
+    this.props.rejectRequest(id,account);
   }
-  onDeblock(account, motif){
+  onDeblock(id,account, motif){
     this.setState({selectedRecord:{},isModalVisible:false})
-    this.props.acceptRequest(account, motif);
+    this.props.acceptRequest(id,account, motif);
   }
 
   onCancel(){
