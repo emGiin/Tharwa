@@ -15,20 +15,24 @@ class TransferOrder extends Model
 
     protected $primaryKey = 'id';
 
-//    protected $visible = ["id","justification" ,"reason" ,"status","employer_account_id","created_at"];
+//    protected $visible = ["id","justification" ,"reason" ,"employer_account_id","created_at"];
 
     public function internAccounts()
     {
         return $this->belongsToMany(Account::class,
-            'account_transferOrder',
-            'transferOrder_id',
+            'account_transferorder',
+            'transferorder_id',
             'account_id')
             ->withPivot('amount');
     }
 
     public function externAccounts()
     {
-        return $this->hasMany(ExternAccountTransferOrder::class, 'transferOrder_id');
+        return $this->hasMany(ExternAccountTransferOrder::class, 'transferorder_id');
+    }
+
+    public function employerAccount(){
+        return $this->belongsTo(Account::class,'employer_account_id');
     }
 //
 //
@@ -43,4 +47,8 @@ class TransferOrder extends Model
 //        return $query->where('type_id', 'COUR ');
 //    }
 
+    public function scopeNotValidated($query)
+    {
+        return $query->where('status', 'traitement');
+    }
 }

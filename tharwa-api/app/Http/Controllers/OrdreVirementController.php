@@ -50,7 +50,7 @@ class OrdreVirementController extends Controller
             'employer_account_id' => $employerAccount->number,
             'created_at' => $date,
             'updated_at' => $date,
-            ]);
+        ]);
 
 
         $transferOrder = TransferOrder::find($transferOrder);
@@ -75,6 +75,50 @@ class OrdreVirementController extends Controller
         return response(["saved" => true], config('code.CREATED'));
     }
 
+
+    public function validationList()
+    {
+
+        $notValidatedTrnasferOrders = TransferOrder::notValidated()
+            ->with(['externAccounts', 'internAccounts.client', 'employerAccount.client'])
+            ->get();
+
+        $baseUrl = url(config('filesystems.uploaded_file'));
+
+        foreach ($notValidatedTrnasferOrders as $notValidatedTrnasferOrder) {
+            $notValidatedTrnasferOrder['source_id'] = clone $notValidatedTrnasferOrder['employerAccount']['client'];
+            $notValidatedTrnasferOrder['source_id']['picture'] =
+                $baseUrl . '/' . $notValidatedTrnasferOrder['source_id']['picture'];
+
+            unset($notValidatedTrnasferOrder['employerAccount']);
+
+            $notValidatedTrnasferOrder['destination_ids'] = collect();
+
+            foreach ($notValidatedTrnasferOrder['externAccounts'] as $externAccount) {
+                $new['account'] = $externAccount['number'];
+                $names = explode(' ', $externAccount['name']);
+                $new['firstname'] = $names[0];
+                if (array_key_exists(1, $names))
+                    $new['lastname'] = $names[1];
+                $new['amount'] = $externAccount['amount'];
+                $new['bank'] = $externAccount['bank'];
+                $notValidatedTrnasferOrder['destination_ids']->push($new);
+            }
+            unset($notValidatedTrnasferOrder['externAccounts']);
+
+            foreach ($notValidatedTrnasferOrder['internAccounts'] as $internAccount) {
+                $new['account'] = $internAccount['number'];
+                $new['firstname'] = $internAccount['client']['firstname'];
+                $new['lastname'] = $internAccount['client']['lastname'];
+                $new['amount'] = $internAccount['pivot']['amount'];
+                $new['bank'] = 'tharwa';
+                $notValidatedTrnasferOrder['destination_ids']->push($new);
+            }
+            unset($notValidatedTrnasferOrder['internAccounts']);
+        }
+        
+        return response($notValidatedTrnasferOrders, config('code.OK'));
+    }
 
     private function client()
     {

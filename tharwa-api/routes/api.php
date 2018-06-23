@@ -61,5 +61,8 @@ Route::post('/accounts', 'AccountController@edit')->middleware(AuthManager::clas
 Route::get('/accounts/deblock ', 'AccountController@deblockList')->middleware(AuthManager::class);
 //Route::post('/accounts/deblock ', 'AccountController@edit')->middleware(AuthManager::class);
 
+Route::get('/ordrevirement/validations', 'OrdreVirementController@validationList')->middleware(AuthManager::class);
+
+
 //dashboard of the manager (gestionaire)
 Route::get('/dashboard', 'DashboardController@index')->middleware(AuthManager::class);
