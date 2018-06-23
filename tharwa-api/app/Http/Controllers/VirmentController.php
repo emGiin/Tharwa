@@ -380,7 +380,7 @@ class VirmentController extends Controller
     {
         //validation            //todo check if the account is valid not blocked
         $validator = Validator::make($request->all(), [
-            'receiver.account' => ['required', 'regex:/^[A-Z]{3}[0-9]{6}(DZD|EUR|USD)$/'],
+            'receiver.account' => ['required', 'regex:/^[A-Z]{3}[0-9]{6}DZD$/'],//(DZD|EUR|USD)
             'receiver.name' => 'required|max:255',
             'receiver.bank' => 'required|regex:/^[A-Z]{3}$/|exists:banks,code',
             'amount' => 'required|numeric|min:0',

@@ -58,9 +58,9 @@ Route::post('/account/validations', 'AccountController@validateAccount')->middle
 Route::get('/accounts', 'AccountController@index')->middleware(AuthManager::class);
 Route::post('/accounts', 'AccountController@edit');//->middleware(AuthManager::class);
 Route::get('/accounts/deblock ', 'AccountController@deblockList');//->middleware(AuthManager::class);
-//Route::post('/accounts/deblock ', 'AccountController@edit')->middleware(AuthManager::class);
 
 Route::get('/ordreVirement/validations', 'OrdreVirementController@validationList');//->middleware(AuthManager::class);
+Route::post('/ordreVirement/validations', 'OrdreVirementController@validateVirement');//->middleware(AuthManager::class);
 
 
 //dashboard of the manager (gestionaire)

@@ -36,6 +36,7 @@ class CreateTransferOrdersTable extends Migration
             $table->increments('id');
             $table->char('number', 12);
             $table->string('name');
+            $table->string('bank');
             $table->unsignedInteger('transferOrder_id');
             $table->foreign('transferOrder_id')->references('id')->on('transferOrders');
             $table->double('amount', 20, 8);//todo DOUBLE(size,d)
