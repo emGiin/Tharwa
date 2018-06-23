@@ -151,7 +151,7 @@ class AccountController extends Controller
         $validator = \Validator::make($request->all(), [
             'id' => 'sometimes|required|integer|min:0|exists:account_statuses,id',//todo if present means it s a response of a demande
             'account' => ['required', 'regex:/^THW[0-9]{6}(DZD|EUR|USD)$/', 'exists:accounts,number'],
-            'motif' => 'required_without:id|max:255',
+            'motif' => 'required|max:255',
             'code' => 'required|in:0,1',//0 ==> blocage //in:true,false
         ]);
 //        $validator->sometimes('motif', 'required|max:255', function ($input) {//todo
@@ -169,22 +169,22 @@ class AccountController extends Controller
 
         try {
 
-            if (!is_null($deblocDemandeId)) {//it's a bloq or debloq (AFTER a demande from client)
+            //it's a bloq or debloq (AFTER a demande from client)
+            if (!is_null($deblocDemandeId)) {
                 $accountStatus = AccountStatus::find($deblocDemandeId);
                 $accountStatus->treated = true;
                 $accountStatus->save();
 //            dd($accountStatus);
-                //todo create a new status
             }
-//dd("nn");
+
             $account = Account::find($request->input('account'));
 
             //todo send mail with the motif
 
-            if (1 == $request->input('code')) {//blocage
+            if (1 == $request->input('code')) {//deblocage
                 $account->isvalid = true;
                 $managerAnswer = 'bloq';
-            } else {//deblocage
+            } else {//block
                 $account->isvalid = false;
                 $managerAnswer = 'debloq';
             }
@@ -201,14 +201,14 @@ class AccountController extends Controller
 
             /**commit - no problems **/
             DB::commit();
+
             return response(["saved" => true], config('code.CREATED'));
+
         } catch (\Exception $e) {
             // something went wrong
 
             /**rollback every thing - problems **/
             DB::rollback();
-
-            if (Storage::exists($path)) Storage::delete($path);
 
             return response(["saved" => false], config('code.UNKNOWN_ERROR'));
 
@@ -233,7 +233,7 @@ class AccountController extends Controller
         //save file in disk
         $image = self::base64_to_jpeg(\Request::input('justification'), $path);
 
-        //todo check account belongs to client
+        //todo check account belongs to client or change acc number to type_id
 
         $account = Account::find($request->input('numero'));
 
