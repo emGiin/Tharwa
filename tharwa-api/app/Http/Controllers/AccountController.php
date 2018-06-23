@@ -146,7 +146,7 @@ class AccountController extends Controller
 
     public function edit(Request $request)
     {
-        //todo more v
+        //todo more validation
         //validation
         $validator = \Validator::make($request->all(), [
             'id' => 'sometimes|required|integer|min:0|exists:account_statuses,id',//todo if present means it s a response of a demande
@@ -164,36 +164,55 @@ class AccountController extends Controller
         $deblocDemandeId = $request->input('id');
         $managerAnswer = null;
 
-        if (!is_null($deblocDemandeId)) {//it's a bloq or debloq (AFTER a demande from client)
-            $accountStatus = AccountStatus::find($deblocDemandeId);
-            $accountStatus->treated = true;
-            $accountStatus->save();
+        /**start transaction**/
+        DB::beginTransaction();
+
+        try {
+
+            if (!is_null($deblocDemandeId)) {//it's a bloq or debloq (AFTER a demande from client)
+                $accountStatus = AccountStatus::find($deblocDemandeId);
+                $accountStatus->treated = true;
+                $accountStatus->save();
+//            dd($accountStatus);
+                //todo create a new status
+            }
+//dd("nn");
+            $account = Account::find($request->input('account'));
+
+            //todo send mail with the motif
+
+            if (1 == $request->input('code')) {//blocage
+                $account->isvalid = true;
+                $managerAnswer = 'bloq';
+            } else {//deblocage
+                $account->isvalid = false;
+                $managerAnswer = 'debloq';
+            }
+
+            $account->save();
+
+            AccountStatus::create([
+                'type' => $managerAnswer,
+                'justification' => \Request::input('motif'),
+                'treated' => null,
+                'type_id' => $account->type_id,
+                'account_id' => \Request::input('account'),
+            ]);
+
+            /**commit - no problems **/
+            DB::commit();
+            return response(["saved" => true], config('code.CREATED'));
+        } catch (\Exception $e) {
+            // something went wrong
+
+            /**rollback every thing - problems **/
+            DB::rollback();
+
+            if (Storage::exists($path)) Storage::delete($path);
+
+            return response(["saved" => false], config('code.UNKNOWN_ERROR'));
+
         }
-
-        $account = Account::find($request->input('account'));
-
-        //todo send mail with the motif
-
-        if (1 == $request->input('code')) {//blocage
-            $account->isvalid = true;
-            $managerAnswer = 'bloq';
-        } else {//deblocage
-            $account->isvalid = false;
-            $managerAnswer = 'debloq';
-        }
-
-        $account->save();
-
-        AccountStatus::create([
-            'type' => $managerAnswer,
-            'justification' => \Request::input('motif'),
-            'treated' => null,
-            'type_id' => $account->type_id,
-            'account_id' => \Request::input('account'),
-        ]);
-
-        return response(["saved" => true], config('code.CREATED'));
-
     }
 
     public function debloqageDemande(Request $request)
@@ -201,11 +220,18 @@ class AccountController extends Controller
         //validation
         $validator = \Validator::make($request->all(), [
             'numero' => ['required', 'regex:/^THW[0-9]{6}(DZD|EUR|USD)$/', 'exists:accounts,number'],
-            'justification' => 'required|max:255',
+            'justification' => 'required',//img
         ]);
         if ($validator->fails()) {
             return response($validator->errors(), config('code.BAD_REQUEST'));
         }
+
+        //save image from 64base
+        $file_name = strtoupper(md5(uniqid(rand(), true))) . ".jpeg";
+        $path = config('filesystems.justification_img') . $file_name;
+
+        //save file in disk
+        $image = self::base64_to_jpeg(\Request::input('justification'), $path);
 
         //todo check account belongs to client
 
@@ -217,7 +243,7 @@ class AccountController extends Controller
 
         AccountStatus::create([
             'type' => 'dem_debloq',
-            'justification' => \Request::input('justification'),
+            'justification' => $image,
             'treated' => false,
             'type_id' => $account->type_id,
             'account_id' => \Request::input('numero'),
@@ -238,7 +264,8 @@ class AccountController extends Controller
         $baseUrl = url(config('filesystems.uploaded_file'));
 
         foreach ($deblockDemandes as $deblockDemande) {
-
+            $deblockDemande['justification'] =  $baseUrl . '/'
+                . $deblockDemande['justification'];
             $deblockDemande['client'] = clone $deblockDemande['account']['client'];
             $deblockDemande['client']['picture'] =
                 $baseUrl . '/'

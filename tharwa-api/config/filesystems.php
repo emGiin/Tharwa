@@ -77,5 +77,6 @@ return [
 
 
     'uploaded_file' => 'files',
+    'justification_img' => 'pictures/justification/',
 
 ];

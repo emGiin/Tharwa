@@ -92,6 +92,9 @@ class OrdreVirementController extends Controller
 
             unset($notValidatedTrnasferOrder['employerAccount']);
 
+            $notValidatedTrnasferOrder['source_id']['account'] = $notValidatedTrnasferOrder['employer_account_id'];
+            $notValidatedTrnasferOrder['creationdate'] = "".$notValidatedTrnasferOrder['created_at'];
+
             $notValidatedTrnasferOrder['destination_ids'] = collect();
 
             foreach ($notValidatedTrnasferOrder['externAccounts'] as $externAccount) {

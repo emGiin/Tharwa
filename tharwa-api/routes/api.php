@@ -60,7 +60,7 @@ Route::post('/accounts', 'AccountController@edit');//->middleware(AuthManager::c
 Route::get('/accounts/deblock ', 'AccountController@deblockList');//->middleware(AuthManager::class);
 //Route::post('/accounts/deblock ', 'AccountController@edit')->middleware(AuthManager::class);
 
-Route::get('/ordrevirement/validations', 'OrdreVirementController@validationList')->middleware(AuthManager::class);
+Route::get('/ordreVirement/validations', 'OrdreVirementController@validationList');//->middleware(AuthManager::class);
 
 
 //dashboard of the manager (gestionaire)
