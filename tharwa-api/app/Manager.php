@@ -49,4 +49,9 @@ class Manager extends Model
             'scope' => $client->role];
 
     }
+
+    public function scopeBanquier($query)
+    {
+        return $query->where('role','Banquier');
+    }
 }

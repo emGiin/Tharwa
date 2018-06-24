@@ -6,8 +6,16 @@ use App\Account;
 use App\AccountRequest;
 use App\AccountStatus;
 use App\Client;
+use App\Mail\AccountBlockedMail;
+use App\Mail\AccountDeblockedMail;
+use App\Mail\AccountDeblockedRequestMail;
+use App\Mail\AccountRequestAcceptedMail;
+use App\Mail\AccountRequestRefusedMail;
+use App\Mail\NewAccountRequestMail;
+use App\Manager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class AccountController extends Controller
 {
@@ -35,6 +43,10 @@ class AccountController extends Controller
             return response(["saved" => false, "account_request" => "already exist"], config('code.UNAUTHORIZED'));
         }
 
+        $banquier = Manager::banquier()->first();
+
+        Mail::to($banquier->email)
+                ->queue(new NewAccountRequestMail($client->name(),$request->type));
 
         //save to db
         AccountRequest::create([
@@ -84,9 +96,9 @@ class AccountController extends Controller
             $rejectedAccRequest->validated = true;
             $rejectedAccRequest->save();
 
-//            Mail::to($request->input('email'))
-//                ->queue(new ClientRequestValidatedMail($rejectedRequest->firstname.' '.$rejectedRequest->lastname
-//                    , $request->input('code')));
+            $client = $rejectedAccRequest->client();
+            Mail::to($client->email)
+                ->queue(new AccountRequestRefusedMail());
 
             return response(["saved" => true], config('code.CREATED'));
 
@@ -99,6 +111,10 @@ class AccountController extends Controller
 
                 //get the accepted client
                 $acceptedAccount = AccountRequest::find($request->input('id'));
+
+                $client = $acceptedAccount->client();
+                Mail::to($client->email)
+                    ->queue(new AccountRequestAcceptedMail());
 
                 $currencies = ['EPARN' => 'DZD', 'DVEUR' => 'EUR', 'DVUSD' => 'USD'];
                 $currency = $currencies[$acceptedAccount->type_id];
@@ -114,10 +130,6 @@ class AccountController extends Controller
                 ]);
 
                 $acceptedAccount->delete();
-
-//                Mail::to($request->input('email'))
-//                    ->queue(new ClientRequestValidatedMail($acceptedClient->firstname.' '.$acceptedClient->lastname
-//                        , $request->input('code')));
 
                 // all good
                 /**commit - no problems **/
@@ -174,15 +186,18 @@ class AccountController extends Controller
             }
 
             $account = Account::find($request->input('account'));
-
-            //todo send mail with the motif
+            $client = $account->client()->first();
 
             if (1 == $request->input('code')) {//deblocage
                 $account->isvalid = true;
-                $managerAnswer = 'bloq';
+                $managerAnswer = 'debloq';
+                Mail::to($client->email)
+                    ->queue(new AccountDeblockedMail($account->number,"".$request->input('motif')));
             } else {//block
                 $account->isvalid = false;
-                $managerAnswer = 'debloq';
+                $managerAnswer = 'bloq';
+                Mail::to($client->email)
+                    ->queue(new AccountBlockedMail($account->number,"".$request->input('motif')));
             }
 
             $account->save();
@@ -244,6 +259,12 @@ class AccountController extends Controller
             'type_id' => $account->type_id,
             'account_id' => \Request::input('numero'),
         ]);
+
+
+        $client = $account->client()->first();
+        $banquier = Manager::banquier()->first();
+        Mail::to($banquier->email)
+            ->queue(new AccountDeblockedRequestMail($client->name()));
 
         //todo send mail to banqie
 
