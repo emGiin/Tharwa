@@ -3,6 +3,7 @@ package com.tharwamobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.b8ne.RNPusherPushNotifications.RNPusherPushNotificationsPackage;
 import community.revteltech.nfc.NfcManagerPackage;
 import com.horcrux.svg.SvgPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -29,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNPusherPushNotificationsPackage(),
             new NfcManagerPackage(),
             new SvgPackage(),
             new VectorIconsPackage(),

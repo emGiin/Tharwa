@@ -145,6 +145,7 @@ dependencies {
     compile project(':react-native-vector-icons')
     compile project(':react-native-svg')
     compile project(':react-native-nfc-manager')
+    compile project(':react-native-pusher-push-notifications')
 }
 
 // Run this once to be able to run the application with BUCK
