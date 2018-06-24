@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StatusBar, BackHandler, Platform, NetInfo, AppState, NativeModules } from 'react-native'
 import I18n from 'react-native-i18n'
+import Pusher from 'pusher-js/react-native';
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
 import NfcManager from 'react-native-nfc-manager';
@@ -29,6 +30,7 @@ class RootContainer extends Component {
     NetInfo.isConnected.addEventListener('connectionChange', this.handleConnetionChange);
     AppState.addEventListener('change', this.handleAppStateChange);
     this.checkNfcSupport();
+    this.initPusher()
   }
 
   componentWillUnmount() {
@@ -47,6 +49,18 @@ class RootContainer extends Component {
       })
       NfcNdefManager.setMessage(userDetails)
     }
+  }
+
+  initPusher() {
+    var pusher = new Pusher('812badb8454a8e3bf271', {
+      cluster: 'eu',
+      encrypted: true
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function (data) {
+      console.warn(data.message);
+    });
   }
 
   /* NFC */

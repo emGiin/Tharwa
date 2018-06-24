@@ -60,7 +60,6 @@
 		FF2A617456B349F58B96A110 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0515C714D9C40D897F37066 /* libRNSVG.a */; };
 		49902CFFB5394E5C958BC2BB /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABDC019B97404D0C9DDE4E24 /* libRNSVG-tvOS.a */; };
 		38B6AB49DF294A74BCE0A786 /* libNfcManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBC730751E04D37AA0798CE /* libNfcManager.a */; };
-		5D8EE0A69ACB40A9BF2A9AE0 /* libRNPusherPushNotifications.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FAE5E6673184B9A9BBB73BB /* libRNPusherPushNotifications.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -318,8 +317,6 @@
 		ABDC019B97404D0C9DDE4E24 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; name = "libRNSVG-tvOS.a"; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		068C193A88C847889717760B /* NfcManager.xcodeproj */ = {isa = PBXFileReference; name = "NfcManager.xcodeproj"; path = "../node_modules/react-native-nfc-manager/ios/NfcManager.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		2EBC730751E04D37AA0798CE /* libNfcManager.a */ = {isa = PBXFileReference; name = "libNfcManager.a"; path = "libNfcManager.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		8F9C5731D076424C92890C4B /* RNPusherPushNotifications.xcodeproj */ = {isa = PBXFileReference; name = "RNPusherPushNotifications.xcodeproj"; path = "../node_modules/react-native-pusher-push-notifications/ios/RNPusherPushNotifications.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		8FAE5E6673184B9A9BBB73BB /* libRNPusherPushNotifications.a */ = {isa = PBXFileReference; name = "libRNPusherPushNotifications.a"; path = "libRNPusherPushNotifications.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -358,7 +355,6 @@
 				FF2A617456B349F58B96A110 /* libRNSVG.a in Frameworks */,
 				49902CFFB5394E5C958BC2BB /* libRNSVG-tvOS.a in Frameworks */,
 				38B6AB49DF294A74BCE0A786 /* libNfcManager.a in Frameworks */,
-				5D8EE0A69ACB40A9BF2A9AE0 /* libRNPusherPushNotifications.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,7 +529,6 @@
 				BA061BE398D04360B1A292CD /* RNVectorIcons.xcodeproj */,
 				1325AA464CDC40AEB0A08C2B /* RNSVG.xcodeproj */,
 				068C193A88C847889717760B /* NfcManager.xcodeproj */,
-				8F9C5731D076424C92890C4B /* RNPusherPushNotifications.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1118,13 +1113,6 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TharwaMobile.app/TharwaMobile";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1134,7 +1122,6 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-nfc-manager\ios",
-					"$(SRCROOT)\..\node_modules\react-native-pusher-push-notifications\ios",
 				);
 			};
 			name = Debug;
@@ -1155,13 +1142,6 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TharwaMobile.app/TharwaMobile";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1171,7 +1151,6 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-nfc-manager\ios",
-					"$(SRCROOT)\..\node_modules\react-native-pusher-push-notifications\ios",
 				);
 			};
 			name = Release;
@@ -1199,7 +1178,6 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-nfc-manager\ios",
-					"$(SRCROOT)\..\node_modules\react-native-pusher-push-notifications\ios",
 				);
 			};
 			name = Debug;
@@ -1226,7 +1204,6 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-nfc-manager\ios",
-					"$(SRCROOT)\..\node_modules\react-native-pusher-push-notifications\ios",
 				);
 			};
 			name = Release;
@@ -1256,13 +1233,6 @@
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1272,7 +1242,6 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-nfc-manager\ios",
-					"$(SRCROOT)\..\node_modules\react-native-pusher-push-notifications\ios",
 				);
 			};
 			name = Debug;
@@ -1302,13 +1271,6 @@
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1318,7 +1280,6 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-nfc-manager\ios",
-					"$(SRCROOT)\..\node_modules\react-native-pusher-push-notifications\ios",
 				);
 			};
 			name = Release;
@@ -1343,13 +1304,6 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1374,13 +1328,6 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Release;
