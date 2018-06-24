@@ -2,7 +2,7 @@ import { call, put, select } from 'redux-saga/effects'
 
 import FixtureAPI from '../../services/FixtureAPI'
 import { confirmPinCode, selectPinCodeToken } from '../PinCodeSaga'
-import AuthActions from '../../redux/AuthRedux'
+//import AuthActions from '../../redux/AuthRedux'
 import PinCodeActions from '../../redux/PinCodeRedux'
 
 const stepper = (fn) => (mock) => fn.next(mock).value
@@ -23,9 +23,9 @@ describe('PIN CODE SAGA', () => {
       temporary_token: authResponse.data.temporary_token
     }
 
-    const response = FixtureAPI.confirmPinCode(pinCodeObj)
+    //const response = FixtureAPI.confirmPinCode(pinCodeObj)
 
-    const step = stepper(confirmPinCode(FixtureAPI, { pinCode }))
+    //const step = stepper(confirmPinCode(FixtureAPI, { pinCode }))
 
     // expect(step(pinCodeObj.temporary_token)).toEqual(select(selectPinCodeToken))
 
