@@ -80,7 +80,7 @@ class TransferOrdersTable extends Component{
           columns={columns}
           rowKey={record => record.source_id.email}
           dataSource={this.props.dataSource}
-          pagination={{pageSize:5, size: "small"}}
+          pagination={{ pageSize: 5, size: 'small' , hideOnSinglePage: true}}
           loading={this.props.listState.fetching}
         />
     )
