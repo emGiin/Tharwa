@@ -30,14 +30,13 @@ export function* getDeblockRequestsList(api) {
 
   if (response.ok) {
     yield put(DeblockAccountActions.deblockRequestsListSuccess());
-    console.log(response.data);
     yield put(DeblockAccountActions.saveDeblockRequestsList(response.data));
   } else {
     yield put(DeblockAccountActions.deblockRequestsListFailure("Non authorisé"));
   }
 }
 
-export function* deblockAccountActionRequest(api,{id:{id, account, motif}}){
+export function* deblockAccountActionRequest(api,{id:{id, account, motif,code}}){
  // setCredentials(api);
  const authToken = yield select(selectAuthToken);
  if (authToken) {
@@ -47,14 +46,12 @@ export function* deblockAccountActionRequest(api,{id:{id, account, motif}}){
  if (pinCode) {
    yield call(api.setPinCode, pinCode);
  }
- const code= (motif==null? 0:1)
       const body={
         id,
         account,
         motif,
         code
       }
-      console.log("deblock",body)
       const response = yield call(api.deblockAccountAction,body);
 
       if (response.ok) {

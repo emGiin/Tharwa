@@ -81,12 +81,13 @@ class DeblockRequestsTable extends Component{
       )
     }
   ];
-  onReject(id,account){
+  onReject(id,account,motif){
     this.setState({selectedRecord:{},isModalVisible:false})
-    this.props.rejectRequest(id,account);
+    this.props.rejectRequest(id,account,motif);
   }
   onDeblock(id,account, motif){
     this.setState({selectedRecord:{},isModalVisible:false})
+    
     this.props.acceptRequest(id,account, motif);
   }
 

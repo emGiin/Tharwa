@@ -29,13 +29,11 @@ class ValidateTransferOrder extends Component {
   }
 
   rejectOrder(id){
-    console.log("reject",id);
     this.props.transferOrderAction({id, code:0})
     this.closeDetails()
   }
 
   acceptOrder(id){
-    console.log("accept",id);
     this.props.transferOrderAction({id, code:1})
     this.closeDetails()
   }
@@ -49,7 +47,6 @@ class ValidateTransferOrder extends Component {
       maxCount: 1,
     })
     message.destroy();
-    console.log(this.props.transferOrderActionState);
     
     if (this.props.transferOrderActionState.fetching) {
       message.loading("En cours d'exécution...", 0);

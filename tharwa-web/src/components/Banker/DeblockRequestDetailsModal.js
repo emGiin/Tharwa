@@ -7,48 +7,40 @@ import MotifBlockModal from "./MotifBlockModal"
 import "./Styles/style.css";
 
 const { Meta } = Card;
-const confirm = Modal.confirm;
+//const confirm = Modal.confirm;
 class DeblockRequestDetailsModal extends Component{
   state = {
     previewImage: false,
-    isModalMotifVisible: false
+    isModalMotifVisible: false,
+    actionType: null
   };
 
   showImage(){
     this.setState({ previewImage: true })
   }
   handleConfirmReject(){
-      const onReject = this.props.onReject;
-      const num= this.props.record.account;
-      const id=this.props.record.id;
-        confirm({
-          title: `Voulez-vous vraiment refuser cette demande?`,
-          okText: "Oui",
-          okType: "danger",
-          cancelText: "Annuler",
-          onOk() {
-            onReject(id,num);
-          }
-        });
+    this.setState({isModalMotifVisible: true, actionType:1})
       }
   handleValidate(){
-    this.setState({isModalMotifVisible: true})
+    this.setState({isModalMotifVisible: true, actionType:0})
   }
 
   handleCancelModal(){
-    this.setState({isModalMotifVisible: false})
+    this.setState({isModalMotifVisible: false, actionType: null})
   }
 
   handleOkModal(id, motif, typeAction){
     this.setState({isModalMotifVisible: false})
-    this.props.onDeblock(this.props.record.id,this.props.record.account,motif)
+    if(typeAction===1) this.props.onReject(this.props.record.id,this.props.record.account,motif)
+    else this.props.onDeblock(this.props.record.id,this.props.record.account,motif)
   }
   render(){
     return(
       <div>
       {this.state.isModalMotifVisible && (
          <MotifBlockModal
-            action={false}
+            isReject={(this.state.actionType===1)}
+            action={this.state.actionType}
             account={this.props.record.account} 
             visible={this.state.isModalMotifVisible} 
             cancel={this.handleCancelModal.bind(this)} 

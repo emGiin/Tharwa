@@ -7,7 +7,6 @@ class ClientDetails extends Component{
   constructor(props){
     super(props);
     let r;
-    console.log("Props:",props)
     for (let element of props.list) {
       if(element.email===props.id){
         r=element;
@@ -18,7 +17,6 @@ class ClientDetails extends Component{
 }
 componentWillReceiveProps(nextProps) {
   let r;
-  console.log("nextProps:",nextProps)
   for (let element of nextProps.list) {
     if(element.email===nextProps.id){
       r=element;
@@ -26,7 +24,6 @@ componentWillReceiveProps(nextProps) {
     } 
   }
     this.setState({ record: r });
-    console.log(this.state.record);
 }
   columns = [
     {
@@ -74,7 +71,7 @@ componentWillReceiveProps(nextProps) {
         <span>
           <Button 
             style={{minWidth:"95px"}}
-            type={record.isvalid==1 ? ("danger") : ("primary")}
+            type={record.isvalid===1 ? ("danger") : ("primary")}
             onClick={() => this.props.action(record)}> {{
               1:"Bloquer",
               0:"Débloquer"
@@ -91,7 +88,6 @@ componentWillReceiveProps(nextProps) {
       maxCount: 1,
     })
     message.destroy();
-    console.log(this.props.accountActionState);
     
     if (this.props.accountActionState.fetching) {
       message.loading("En cours d'exécution...", 0);

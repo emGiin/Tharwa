@@ -25,9 +25,11 @@ class MotifBlockModal extends Component{
       const motif= this.state.value;
      this.setState({error:false,value:""});
      const typeAction=this.props.action
-     const action=(typeAction==1 ? "bloquer": "débloquer")
+     let action;
+     if(this.props.isReject) action="rejeter cette demande?"
+     else action=(typeAction===1 ? "bloquer": "débloquer")+" ce compte?"
       confirm({
-        title: `Voulez-vous vraiment ${action} ce compte?`,
+        title: `Voulez-vous vraiment ${action}`,
         okText: "Oui",
         okType: "danger",
         cancelText: "Annuler",
@@ -44,17 +46,29 @@ class MotifBlockModal extends Component{
   }
 
   render(){
-    const action=(this.props.action==1 ? "Bloquer": "Débloquer")
-    const actionAccount=(this.props.action==1 ? "blocage": "déblocage")
+    let action;
+    let btnAction
+    if(this.props.isReject) {
+      action="Rejeter la demande"
+      btnAction="Rejeter"
+    }
+    else{
+      btnAction=(this.props.action===1 ? "Bloquer": "Débloquer")
+      action=btnAction+` le compte: ${this.props.account}`
+    } 
+    
+    let actionAccount
+    if(this.props.isReject) actionAccount="rejet"
+    else actionAccount=(this.props.action===1 ? "blocage": "déblocage")
     const titre=`Veuillez indiquer le motif du ${actionAccount} :`
     return(
       <Modal
       visible={this.props.visible}
-      title={`${action} le compte: ${this.props.account}`}
+      title={action}
       onCancel={this.handleCancel.bind(this)}
       footer={[
         <Button key="btn1" onClick={this.handleCancel.bind(this)}>Annuler</Button>,
-        <Button key="btn2" type="primary" onClick={this.handleOk.bind(this)}>{action}</Button>,
+        <Button key="btn2" type="primary" onClick={this.handleOk.bind(this)}>{btnAction}</Button>,
       ]}
     >
     

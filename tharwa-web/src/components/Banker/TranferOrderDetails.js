@@ -41,7 +41,7 @@ class TransferOrderDetails extends Component{
 
   handleConfirmReject() {
     const rejectOrder = this.props.rejectOrder;
-    const id=this.props.record.code
+    const id=this.props.record.id
     Modal.confirm({
       title: 'Voulez-vous vraiment rejeter cet ordre de virement?', //TODO: this is modal dependent
       okText: 'Oui',
@@ -54,7 +54,7 @@ class TransferOrderDetails extends Component{
   }
 
   handleValidate(){
-    this.props.acceptOrder(this.props.record.code)
+    this.props.acceptOrder(this.props.record.id)
   }
 
   render(){

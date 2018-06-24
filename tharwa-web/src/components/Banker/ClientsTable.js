@@ -19,7 +19,6 @@ componentWillReceiveProps(nextProps) {
   handleChange = (pagination, filters, sorter) => {
    
     if(filters.type_id!=null){
-      console.log('Various parameters',pagination, filters.type_id.length===0, sorter);
       if(filters.type_id.length===0){
         this.setState({
           filteredInfo: null,

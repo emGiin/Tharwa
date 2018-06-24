@@ -6,13 +6,11 @@ export const selectPinCode = state => state.auth.pinCode;
 
 export const setCredentials = function*(api) {
   const authToken = yield select(selectAuthToken);
-  console.log(authToken);
   
   if (authToken) {
     yield call(api.setAuthToken, authToken);
   }
   const pinCode = yield select(selectPinCode);
-  console.log(pinCode);
   
   if (pinCode) {
     yield call(api.setPinCode, pinCode);
@@ -24,13 +22,11 @@ export default (Actions, holder) => {
     
     //setCredentials(api);
     const authToken = yield select(selectAuthToken);
-    console.log(authToken);
     
     if (authToken) {
       yield call(api.setAuthToken, authToken);
     }
     const pinCode = yield select(selectPinCode);
-    console.log(pinCode);
     
     if (pinCode) {
       yield call(api.setPinCode, pinCode);
@@ -51,13 +47,11 @@ export default (Actions, holder) => {
     function*(api, { id }) {
       //setCredentials(api);
       const authToken = yield select(selectAuthToken);
-      console.log(authToken);
       
       if (authToken) {
         yield call(api.setAuthToken, authToken);
       }
       const pinCode = yield select(selectPinCode);
-      console.log(pinCode);
       
       if (pinCode) {
         yield call(api.setPinCode, pinCode);

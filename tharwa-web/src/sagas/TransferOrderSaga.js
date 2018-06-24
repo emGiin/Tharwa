@@ -30,7 +30,6 @@ export function* getTransferOrdersList(api) {
 
   if (response.ok) {
     yield put(TransferOrderActions.transferOrderListSuccess());
-    console.log(response.data);
     yield put(TransferOrderActions.saveTransferOrderList(response.data));
   } else {
     yield put(TransferOrderActions.transferOrderListFailure("Non authorisé"));
@@ -40,17 +39,16 @@ export function* getTransferOrdersList(api) {
 export function* transferOrderAction(api, { id:{id, code} }) {
   //setCredentials(api);
   const authToken = yield select(selectAuthToken);
-  console.log(authToken);
   
   if (authToken) {
     yield call(api.setAuthToken, authToken);
   }
   const pinCode = yield select(selectPinCode);
-  console.log(pinCode);
   
   if (pinCode) {
     yield call(api.setPinCode, pinCode);
   }
+  
   const response = yield call(api.transferOrderAction, { id, code });
 
   if (response.ok) {

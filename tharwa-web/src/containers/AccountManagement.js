@@ -17,12 +17,8 @@ class AccountManagement extends Component {
     };
 }
 
-componentWillReceiveProps(nextProps) {
-  console.log("dad",nextProps)
-}
   componentWillMount() {
     this.props.getClientsList();
-    console.log(this.props.clientsList)
   }
   
   showDetails(record){
@@ -46,7 +42,7 @@ componentWillReceiveProps(nextProps) {
   handleOkModal(id,motif,type){
     this.setState({motifModalVisible: false, actionAccount: null});
     let code
-    if(type==1) code=0
+    if(type===1) code=0
     else code=1
     const o={
       account:id,
@@ -65,6 +61,7 @@ componentWillReceiveProps(nextProps) {
     return (
       <div className="container">
         <MotifBlockModal 
+          isReject={false}
           action={this.state.actionAccount}
           account={this.state.account} 
           visible={this.state.motifModalVisible} 

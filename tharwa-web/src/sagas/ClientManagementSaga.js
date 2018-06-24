@@ -30,7 +30,6 @@ export function* getClientsList(api) {
 
   if (response.ok) {
     yield put(ClientManagementActions.clientsListSuccess());
-    console.log(response.data);
     yield put(ClientManagementActions.saveClientsList(response.data));
   } else {
     yield put(ClientManagementActions.clientsListFailure("Non authorisé"));

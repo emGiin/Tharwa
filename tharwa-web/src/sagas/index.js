@@ -1,4 +1,4 @@
-import { all, takeLatest, take } from 'redux-saga/effects'
+import { all, takeLatest } from 'redux-saga/effects'
 import AuthAPI from '../services/AuthAPI'
 import FixtureAPI from '../services/FixtureAPI'
 import banquierAPI from '../services/createBanquier'
