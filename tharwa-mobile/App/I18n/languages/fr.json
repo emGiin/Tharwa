@@ -67,7 +67,7 @@
   "confirmTransfer": "Confimer le transfer en cliquant sur le boutton ci-dessous",
   "invalidAccountError": "Numéro de compte invalide",
   "invalidBankError": "Code de la bank invalide",
-  "invalidAmountError": "La montant est invalide",
+  "invalidAmountError": "Le montant est invalide",
   "bank": "Banque",
   "transferDialogTitleError": "Erreur",
   "transferDialogMessageError": "Le virement a échoué",
@@ -77,5 +77,9 @@
   "transferDialogTitleFetching": "Virement",
   "transferDialogMessageFetching": "Le virement est en cours de transfert",
   "exchangeRate": "Taux d'échange",
-  "realTimeValue": "Valeurs en temps réel"
+  "realTimeValue": "Valeurs en temps réel",
+  "pendingMicroTransferDetails": "En attente du micro virement par la technologie NFC, veuiller patienter",
+  "pending": "Attente En cours...",
+  "microTransferReceiverDetails": "Vous allez effectuer un micro virement vers le client Tharwa suivant, veuillez vérifier les informations reçu",
+  "maxAmountError": "Montant max est de "
 }

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 import Dimensions from 'Dimensions'
-import { Colors } from '../../../../Themes'
+import { Colors } from '../../../Themes'
 
 const size = Dimensions.get('window').width / 1.5
 

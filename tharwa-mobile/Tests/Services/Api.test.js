@@ -75,4 +75,11 @@ describe('Authentication API', () => {
     expect(API.api.post).toHaveBeenCalledWith('virement/extern', data);
     API.api.post.mockClear()
   });
+
+  it('should post to `virement/micro` on externalTransfer', () => {
+    const data = { amount: 200 }
+    API.nfcTransfer(data);
+    expect(API.api.post).toHaveBeenCalledWith('virement/micro', data);
+    API.api.post.mockClear()
+  });
 })

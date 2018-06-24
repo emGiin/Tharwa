@@ -25,7 +25,7 @@ export class ProgressStepForm extends Component {
           {
             confirmed && <Pulse color={Colors.button} numPulses={5} diameter={size + 100} speed={20} duration={1000} />
           }
-          <TouchableOpacity style={styles.button}
+          <TouchableOpacity style={[styles.button, { backgroundColor: confirmed ? 'transparent' : Colors.button }]}
             disabled={confirmed}
             activeOpacity={0.8}
             onPress={handleSubmit}>
@@ -33,7 +33,7 @@ export class ProgressStepForm extends Component {
               adjustsFontSizeToFit
               numberOfLines={1}
               style={styles.amount}>
-              {formatMoney(this.props.amount || 0)} DZD
+              {confirmed ? "Transfer en cours ..." : (formatMoney(this.props.amount || 0) + "DZD")}
             </Text>
           </TouchableOpacity>
         </View>
@@ -44,7 +44,7 @@ export class ProgressStepForm extends Component {
 }
 
 let StepForm = reduxForm({
-  form: 'ExternalTransferForm',
+  form: 'NfcTransferForm',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
 })(ProgressStepForm);
@@ -53,7 +53,7 @@ let StepForm = reduxForm({
 StepForm = connect(
   /* istanbul ignore next */
   state => ({
-    amount: formValueSelector('ExternalTransferForm')(state, 'amount')
+    amount: formValueSelector('NfcTransferForm')(state, 'amount')
   })
 )(StepForm)
 

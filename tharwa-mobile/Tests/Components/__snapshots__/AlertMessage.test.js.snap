@@ -4,7 +4,7 @@ exports[`AlertMessage component should not render if show is false 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <View
+  Symbol(enzyme.__unrendered__): <Component
     style={
       Array [
         Object {
@@ -15,7 +15,7 @@ ShallowWrapper {
       ]
     }
   >
-    <View
+    <Component
       style={
         Object {
           "alignItems": "center",
@@ -41,8 +41,8 @@ ShallowWrapper {
       >
         HOWDY
       </Text>
-    </View>
-  </View>,
+    </Component>
+  </Component>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -55,7 +55,7 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": <View
+      "children": <Component
         style={
           Object {
             "alignItems": "center",
@@ -81,7 +81,7 @@ ShallowWrapper {
         >
           HOWDY
         </Text>
-      </View>,
+      </Component>,
       "style": Array [
         Object {
           "justifyContent": "center",
@@ -153,7 +153,7 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "host",
       "props": Object {
-        "children": <View
+        "children": <Component
           style={
             Object {
               "alignItems": "center",
@@ -179,7 +179,7 @@ ShallowWrapper {
           >
             HOWDY
           </Text>
-        </View>,
+        </Component>,
         "style": Array [
           Object {
             "justifyContent": "center",
@@ -260,7 +260,7 @@ exports[`AlertMessage component should render correctly if show is true 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <View
+  Symbol(enzyme.__unrendered__): <Component
     style={
       Array [
         Object {
@@ -271,7 +271,7 @@ ShallowWrapper {
       ]
     }
   >
-    <View
+    <Component
       style={
         Object {
           "alignItems": "center",
@@ -297,8 +297,8 @@ ShallowWrapper {
       >
         HOWDY
       </Text>
-    </View>
-  </View>,
+    </Component>
+  </Component>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -311,7 +311,7 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": <View
+      "children": <Component
         style={
           Object {
             "alignItems": "center",
@@ -337,7 +337,7 @@ ShallowWrapper {
         >
           HOWDY
         </Text>
-      </View>,
+      </Component>,
       "style": Array [
         Object {
           "justifyContent": "center",
@@ -409,7 +409,7 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "host",
       "props": Object {
-        "children": <View
+        "children": <Component
           style={
             Object {
               "alignItems": "center",
@@ -435,7 +435,7 @@ ShallowWrapper {
           >
             HOWDY
           </Text>
-        </View>,
+        </Component>,
         "style": Array [
           Object {
             "justifyContent": "center",
