@@ -7,14 +7,16 @@ const { Types, Creators } = createActions({
   transferOrderSuccess: ['data']
 })
 
-export const transferOrderTypes = Types
+export const TransferOrderTypes = Types
 export default Creators
 
 const INITIAL_STATE = Immutable({
   fetching: false,
   success: false,
   error: null,
-  information: {}
+  information: {
+    OrderInfos: []
+  }
 })
 
 export const request = state => state.merge({

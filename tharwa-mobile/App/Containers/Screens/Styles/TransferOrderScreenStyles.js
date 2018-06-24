@@ -16,6 +16,11 @@ export default StyleSheet.create({
     borderBottomColor: Colors.forground,
     
   },
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white',
+  },
   historyTitle: {
     color: Colors.forground,
     textAlign: 'center',
@@ -23,7 +28,8 @@ export default StyleSheet.create({
   },
   historyList: {
     marginTop: 2,
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    height: "100%"
   },
   actionButtonIcon: {
     fontSize: 20,

@@ -9,20 +9,18 @@ import { ContentLoader } from './'
 const TransferOrderItem = ({ item }) => {
   if (!item) return <TransferOrderLoaderItem />
   const [date/*, time*/] = item.created_at.split(' ')
-  const type = item.transaction_direction === 'out'
+  const type = item.reason === 'out'
   const color = type ? "#e74c3c" : "#218c74"
-  const icon = type ? 'arrow-up' : 'arrow-down'
+  const icon = type ? 'arrow-down' : 'arrow-up'  
 
   return (
     <TouchableOpacity activeOpacity={0.8} style={styles.container}>
       <View style={styles.leftContainer}>
-        <Text style={styles.target}>{item.target}</Text>
+      <Text style={styles.target}>{item.reason}</Text>
         <Text style={styles.date}>{date}</Text>
       </View>
       <View style={styles.rightContainer}>
-        <Text style={[styles.amount, { color }]}>
-          {formatMoney(item.amount)}
-        </Text>
+        
         <Icon style={[styles.icon, { color }]} name={icon} />
       </View>
     </TouchableOpacity>
