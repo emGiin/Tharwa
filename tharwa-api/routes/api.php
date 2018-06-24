@@ -54,8 +54,8 @@ Route::get('/banquier', 'BanquierController@index');//->middleware(AuthManager::
 Route::get('/virement/validations', 'VirmentController@validationList')->middleware(AuthManager::class);
 Route::post('/virement/validations', 'VirmentController@validateVirement')->middleware(AuthManager::class);
 
-Route::get('/account/validations', 'AccountController@validationList')->middleware(AuthManager::class);
-Route::post('/account/validations', 'AccountController@validateAccount')->middleware(AuthManager::class);
+Route::get('/account/validations', 'AccountController@validationList');//->middleware(AuthManager::class);
+Route::post('/account/validations', 'AccountController@validateAccount');//->middleware(AuthManager::class);
 Route::get('/accounts', 'AccountController@index')->middleware(AuthManager::class);
 Route::post('/accounts', 'AccountController@edit');//->middleware(AuthManager::class);
 Route::get('/accounts/deblock ', 'AccountController@deblockList');//->middleware(AuthManager::class);

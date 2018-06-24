@@ -96,9 +96,9 @@ class AccountController extends Controller
             $rejectedAccRequest->validated = true;
             $rejectedAccRequest->save();
 
-            $client = $rejectedAccRequest->client();
+            $client = $rejectedAccRequest->client()->first();
             Mail::to($client->email)
-                ->queue(new AccountRequestRefusedMail());
+                ->queue(new AccountRequestRefusedMail(""));
 
             return response(["saved" => true], config('code.CREATED'));
 
@@ -112,7 +112,7 @@ class AccountController extends Controller
                 //get the accepted client
                 $acceptedAccount = AccountRequest::find($request->input('id'));
 
-                $client = $acceptedAccount->client();
+                $client = $acceptedAccount->client()->first();
                 Mail::to($client->email)
                     ->queue(new AccountRequestAcceptedMail());
 

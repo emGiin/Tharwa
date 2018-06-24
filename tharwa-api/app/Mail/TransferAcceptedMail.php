@@ -7,19 +7,24 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class AccountRequestRefusedMail extends Mailable
+class TransferAcceptedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $type;
+
+    public $clientName;
+    public $transDate;
+    public $amount;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($type)
+    public function __construct($clientName,$transDate,$amount)
     {
-        $this->type = $type;
+        $this->clientName = $clientName;
+        $this->transDate = $transDate;
+        $this->amount = $amount;
     }
 
     /**
@@ -29,6 +34,6 @@ class AccountRequestRefusedMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.accouts.new_account_request_refused');
+        return $this->markdown('emails.accouts.transfer_accepted');
     }
 }

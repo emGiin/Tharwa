@@ -8,7 +8,11 @@ use App\Bank;
 use App\Client;
 use App\ExternTransfer;
 use App\InternTransfer;
+use App\Mail\TransferAcceptedMail;
 use App\Mail\TransferMail;
+use App\Mail\TransferNeedValidationMail;
+use App\Mail\TransferRefusedMail;
+use App\Manager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -285,7 +289,10 @@ class VirmentController extends Controller
                 $image = self::base64_to_jpeg($request->input('justification'), $path);
 
                 //email virement besoin de validation
-                //todo : mail to manager
+                $banquier = Manager::banquier()->first();
+                Mail::to($banquier->email)
+                    ->queue(new TransferNeedValidationMail($senderClient->name()));
+
 
             } else {
                 //receiver history
@@ -426,6 +433,11 @@ class VirmentController extends Controller
                 $path = 'pictures/justification/' . $file_name;//todo config
                 //save file in disk
                 $image = self::base64_to_jpeg($request->input('justification'), $path);
+
+                //email virement besoin de validation
+                $banquier = Manager::banquier()->first();
+                Mail::to($banquier->email)
+                    ->queue(new TransferNeedValidationMail($this->client()->first()->name()));
 
             } else {
                 //generate the XML file that will be treated later equivalent to send money
@@ -845,6 +857,10 @@ class VirmentController extends Controller
                     $senderAccount->balance = $senderAccount->balance + $interTransfer->amount;
                     $senderAccount->save();
 
+                    $client = $senderAccount->client()->first();
+                    Mail::to($client->email)
+                        ->queue(new TransferRefusedMail($interTransfer->destination_id,$interTransfer->creationdate,$interTransfer->amount));
+
                 } else {
                     $interTransfer->status = 'valide';
                     $interTransfer->save();
@@ -869,6 +885,21 @@ class VirmentController extends Controller
                     $receiverAccount->balance = $receiverAccount->balance + $interTransfer->amount;
                     $receiverAccount->save();
 
+                    $senderAccount = Account::find($interTransfer->source_id);
+                    $client = $senderAccount->client()->first();
+                    Mail::to($client->email)
+                        ->queue(new TransferAcceptedMail($interTransfer->destination_id,$interTransfer->creationdate,$interTransfer->amount));
+
+                    //email virement recu (to reciever)
+                    $receiverClient = $receiverAccount->client()->first();
+                    Mail::to($receiverClient->email)
+                        ->queue(new TransferMail($receiverClient->name()
+                            , 1
+                            , $client->name()
+                            , ""
+                            , $interTransfer->amount
+                            , ""
+                        ));//todo : _to & currency
                 }
 
             } else {//extern transfer from tharwa to an otherBank
@@ -900,6 +931,10 @@ class VirmentController extends Controller
                     $senderAccount->balance = $senderAccount->balance + $exterTransfer->amount;
                     $senderAccount->save();
 
+                    $client = $senderAccount->client()->first();
+                    Mail::to($client->email)
+                        ->queue(new TransferRefusedMail($exterTransfer->extern_account_name,$exterTransfer->creationdate,$exterTransfer->amount));
+
                 } else {
                     $exterTransfer->status = 'valide';
                     $exterTransfer->save();
@@ -921,6 +956,12 @@ class VirmentController extends Controller
                     $xmlBody = '<?xml version="1.0" encoding="utf-8"?>' . $xmlBody;
 
                     Storage::disk('xml_out')->put($exterTransfer->extern_bank . '/' . $request->virement_code . '.xml', $xmlBody);
+
+                    $senderAccount = Account::find($exterTransfer->intern_account_id);
+                    $client = $senderAccount->client()->first();
+                    Mail::to($client->email)
+                        ->queue(new TransferRefusedMail($exterTransfer->extern_account_name,$exterTransfer->creationdate,$exterTransfer->amount));
+
                 }
             }
 
