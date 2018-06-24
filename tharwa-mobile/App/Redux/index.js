@@ -14,12 +14,13 @@ import { reducer as bank } from './BankRedux'
 import { reducer as exchangeRate } from './ExchangeRateRedux'
 import { reducer as nfcTransfer } from './NfcTransferRedux'
 import { reducer as microTransferList } from './MicroTransferListRedux'
+import { reducer as unlockAccount } from './UnlockAccountRedux'
 
 // saga
 import rootSaga from '../Sagas/'
 
 export const reducers = combineReducers({
-  form, nav, auth, pinCode, signup, exchangeRate, nfcTransfer,
+  form, nav, auth, pinCode, signup, exchangeRate, nfcTransfer, unlockAccount,
   account, transfer, bank, tharwaTransfer, externalTransfer, microTransferList
 })
 

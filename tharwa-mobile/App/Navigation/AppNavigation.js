@@ -6,7 +6,8 @@ import {
   LoginScreen,
   LaunchScreen,
   NfcPendingScreen,
-  NfcTransferScreen
+  NfcTransferScreen,
+  UnlockAccountScreen
 } from '../Containers/Screens'
 import AppDrawer from './DrawerNavigation'
 import styles from './Styles/NavigationStyles'
@@ -24,10 +25,11 @@ const PrimaryNav = StackNavigator(
     PinCodeScreen: { screen: PinCodeScreen, ...headerHidden },
     LoginScreen: { screen: LoginScreen, ...headerHidden },
     LaunchScreen: { screen: LaunchScreen, ...headerHidden },
+    UnlockAccountScreen: { screen: UnlockAccountScreen, ...headerHidden },
   }, {
     // Default config for all screens
     // initialRouteName: 'NfcPendingScreen',
-    initialRouteName: 'LaunchScreen',
+    initialRouteName: 'AppDrawer',
     navigationOptions: {
       headerStyle: styles.header
     }

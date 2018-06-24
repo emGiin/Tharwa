@@ -27,6 +27,7 @@ const create = (baseURL = API_URL) => {
   const signup = user => api.post('client', user)
   const getProfile = () => api.get('client')
   const requestNewAccount = type => api.post('account', { type })
+  const unlockAccount = data => api.post('account/deblocage', data)
 
   // banks
   const getBanks = () => api.get(`bank`)
@@ -56,7 +57,8 @@ const create = (baseURL = API_URL) => {
     externalTransfer,
     getExchangeRates,
     nfcTransfer,
-    getMicroTransferList
+    getMicroTransferList,
+    unlockAccount
   }
 }
 
