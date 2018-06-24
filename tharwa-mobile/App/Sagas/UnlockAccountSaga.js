@@ -6,7 +6,6 @@ import UnlockAccountActions from '../Redux/UnlockAccountRedux'
 export function* unlockAccount(api, { data }) {
   // numero, justification
   const response = yield call(api.unlockAccount, data)
-  console.warn(data);
 
   // success?
   if (response.ok) {

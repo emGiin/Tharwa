@@ -20,17 +20,6 @@ class UnlockAccountScreen extends Component {
     const { params } = this.props.navigation.state
     if (params) {
       this.accountType = params.type
-      console.warn(this.accountType);
-
-    }
-  }
-
-  componentWillReceiveProps({ fetching, success }) {
-    /* istanbul ignore else */
-    if (!fetching && success) {
-      this.dialog.dismiss();
-      // this.goToMainPage();
-      // this.props.reset()
     }
   }
 
@@ -40,6 +29,7 @@ class UnlockAccountScreen extends Component {
 
   goBack = () => {
     this.props.navigation.dispatch(NavigationActions.back());
+    this.props.reset()
   }
 
   send = () => {
@@ -64,7 +54,7 @@ class UnlockAccountScreen extends Component {
           successTitle={I18n.t('unlockAccountDialogTitleSuccess')}
           fetching={fetching}
           fetchingTitle={I18n.t('unlockAccountDialogTitleFetching')}
-          fetchingMessage={I18n.t('unlockAccountInProgress')}>
+          fetchingMessage={I18n.t('unlockAccountDialogMessageFetching')}>
         </LoadingDialog>
         <View style={styles.container}>
           <Text style={styles.detailsText}>
