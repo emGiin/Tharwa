@@ -4,7 +4,7 @@
 //import { getDataset, acceptDemand, rejectDamand } from '../OtherAccountSaga';
 //import Actions from '../../redux/OtherAccountRedux';
 
-const stepper = fn => mock => fn.next(mock).value;
+//const stepper = fn => mock => fn.next(mock).value;
 
 describe('Other accounts saga', () => {
   it('should be able to get dataset', () => {

@@ -9,7 +9,7 @@ const stepper = (fn) => (mock) => fn.next(mock).value
 
 describe('PIN CODE SAGA', () => {
   it('should show pin code confirmation success path', () => {
-    const authObj = {
+   /* const authObj = {
       username: 'user@email.com',
       password: 'password',
       confirmation_method: "sms",
@@ -21,7 +21,7 @@ describe('PIN CODE SAGA', () => {
     const pinCodeObj = {
       pin: pinCode,
       temporary_token: authResponse.data.temporary_token
-    }
+    }*/
 
     //const response = FixtureAPI.confirmPinCode(pinCodeObj)
 
