@@ -8,9 +8,15 @@ use App\Client;
 use App\ExternAccountTransferOrder;
 use App\ExternTransfer;
 use App\InternTransfer;
+use App\Mail\TransferMail;
+use App\Mail\TransferOrdreAcceptedMail;
+use App\Mail\TransferOrdreNeedValidationMail;
+use App\Mail\TransferOrdreRefusedMail;
+use App\Manager;
 use App\TransferOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use View;
@@ -84,6 +90,13 @@ class OrdreVirementController extends Controller
                         'bank' => $externReceiver['bank'],//todo
                     ]);
                 }
+
+            //email ordre virement besoin de validation
+            $employer = $this->client()->first();
+            $banquier = Manager::banquier()->first();
+            Mail::to($banquier->email)
+                ->queue(new TransferOrdreNeedValidationMail($employer->name()));
+
 
             /**commit - no problems **/
             DB::commit();
@@ -184,10 +197,16 @@ class OrdreVirementController extends Controller
 
             if ($request->input('code') === 0) {//rejected
                 $transferOrder->status = 'rejete';
+
+                Mail::to($senderEmployer->email)
+                    ->queue(new TransferOrdreRefusedMail($transferOrder->created_at));
+
             } else {//accepted & executeIt
 
                 //todo suppose that amount is checked ?
 
+                Mail::to($senderEmployer->email)
+                    ->queue(new TransferOrdreAcceptedMail($transferOrder->created_at));
 
                 $now = \Carbon\Carbon::now();
                 $nb = BalanceHistory::count();//todo fix this !all sol tested! re-migrate DB
@@ -200,7 +219,7 @@ class OrdreVirementController extends Controller
                     $internTransferCode = $senderAccount->number . $internReceiverAccount->number . $now->format('YmdHi');
                     $commission = config('commission.COUR_COUR') * $amount;
 
-//                    $receiverClient = $receiverAccount->client()->get(['email', 'firstname', 'lastname'])->first();
+                    $receiverClient = $internReceiverAccount->client()->get(['email', 'firstname', 'lastname'])->first();
 
                     //sender history
                     BalanceHistory::create([
@@ -250,15 +269,15 @@ class OrdreVirementController extends Controller
                     $internReceiverAccount->balance = $internReceiverAccount->balance + $amount;
                     $internReceiverAccount->save();
 
-//                        //email virement recu (to reciever)
-//                        Mail::to($receiverClient->email)
-//                            ->queue(new TransferMail($receiverClient->firstname . ' ' . $receiverClient->lastname
-//                                , 1
-//                                , $senderClient->firstname . ' ' . $senderClient->lastname
-//                                , ""
-//                                , $amount
-//                                , ""
-//                            ));//todo : _to & currency
+                        //email virement recu (to reciever)
+                        Mail::to($receiverClient->email)
+                            ->queue(new TransferMail($receiverClient->name()
+                                , 1
+                                , $senderEmployer->name()
+                                , ""
+                                , $amount
+                                , ""
+                            ));//todo : _to & currency
 
 
                     InternTransfer::create([
