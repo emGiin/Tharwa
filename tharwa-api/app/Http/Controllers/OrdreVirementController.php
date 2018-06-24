@@ -55,7 +55,7 @@ class OrdreVirementController extends Controller
 //        $transferOrder = TransferOrder::create([
             $date = date('Y-m-d H:i:s');
             $transferOrder = DB::table('transferOrders')->insertGetId([
-                'justification' => $request->input('justification'),
+                'justification' => null,//$request->input('justification')
                 'reason' => $request->input('reason'),
                 'status' => 'traitement',
                 'employer_account_id' => $employerAccount->number,
@@ -145,6 +145,17 @@ class OrdreVirementController extends Controller
             }
             unset($notValidatedTrnasferOrder['internAccounts']);
         }
+
+//        $res = array();
+//        foreach ($notValidatedTrnasferOrders as $order) {
+//            foreach ($order["destination_ids"] as $destination) {
+//                if ($destination['amount'] > config('utils.amount_limit_validation')) {
+//                    array_push($res,$order);
+//                    break;
+//                }
+//            }
+//        }
+//        return response($res, config('code.OK'));
 
         return response($notValidatedTrnasferOrders, config('code.OK'));
     }
@@ -335,7 +346,7 @@ class OrdreVirementController extends Controller
                         'transaction_type' => 'transf',
                         'transaction_direction' => 'out',
                         'isIntern' => false,
-                        'target' =>  $externReceiverAccount->name,
+                        'target' => $externReceiverAccount->name,
                         'account_id' => $senderAccount->number,
                         'created_at' => $now->format('Y-m-d H:i:s'),
                         'updated_at' => $now->format('Y-m-d H:i:s'),
@@ -392,7 +403,8 @@ class OrdreVirementController extends Controller
 
     }
 
-    public function myOrdreVirements(){
+    public function myOrdreVirements()
+    {
 
         $trnasferOrders = $this->client()->accounts()
             ->courant()->first()->ordreVirement()
