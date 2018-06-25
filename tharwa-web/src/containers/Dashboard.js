@@ -262,7 +262,7 @@ class Dashboard extends Component {
               icon="usergroup-add"
               color="#fa541c"
               title="nombre de banquiers :"
-              number={this.state.nbInscr}
+              number={this.state.nbBanqier}
               type={2}
             />
           </Col>
@@ -271,17 +271,17 @@ class Dashboard extends Component {
           <Col lg={8} md={12}>
 
             <NumberCardGest
-              icon="swap"
+              icon="pay-circle-o"
               color="#4BB543"
               title="Les virements d'aujourd'huit :"
               number={this.state.nbV}
-              type={2}
+              type={3}
             />
           </Col>
 
           <Col lg={8} md={12}>
             <NumberCardGest
-              icon="usergroup-add"
+              icon="team"
               color="#fa541c"
               title="Clients inscrit aujourd'huit :"
               number={this.state.nbInscr}
@@ -290,7 +290,7 @@ class Dashboard extends Component {
           </Col>
           <Col lg={8} md={12}>
             <NumberCardGest
-              icon="usergroup-add"
+              icon="user"
               color="#fa541c"
               title="Banquiers connectés :"
               number={this.state.nbInscr}
@@ -298,6 +298,18 @@ class Dashboard extends Component {
             />
           </Col>
         </Row>
+        <Row gutter={24}>
+          <Col lg={12} md={12}>
+
+            <NumberCardGest
+              icon="pay-circle-o"
+              color="#4BB543"
+              title="Montant total de compte THRW :"
+              number={this.state.nbV}
+              type={3}
+            />
+          </Col>
+          </Row>
         <h2>Nombre des opérations :</h2>
         <Tabs defaultActiveKey="1" className="tabs_op">
           {console.log("testssssss", data_op_trimestre, data_op_year, data_op_mois)}
