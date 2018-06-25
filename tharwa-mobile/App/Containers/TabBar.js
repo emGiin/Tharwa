@@ -5,7 +5,7 @@ import styles from './Styles/TabBarStyles'
 import { Colors } from '../Themes'
 
 class CustomTabBar extends Component {
-  invisibleItems = ['TransactionOrderScreen'];
+  invisibleItems = ['TransferOrderHistoryScreen'];
 
   constructor(props) {
     super(props)
@@ -90,9 +90,9 @@ class CustomTabBar extends Component {
   }
 }
 
-const mapStateToProps = ({ account: { accountType, information: { infos = {} } } }) => {
+const mapStateToProps = ({ account: { information: { infos = {} } } }) => {
   return {
-    accountType: accountType || 'Employee' 
+    accountType: infos.accountType || 'Client'
   };
 }
 
