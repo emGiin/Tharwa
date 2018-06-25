@@ -18,7 +18,7 @@ class RootContainer extends Component {
   state = {
     isConnected: true,
     appState: AppState.currentState,
-    nfcSupported: true,
+    nfcSupported: false,
     nfcEnabled: false,
     nfcMsgSaved: true
   }
@@ -45,7 +45,7 @@ class RootContainer extends Component {
       const userDetails = JSON.stringify({
         email, name, picture, accountNumber
       })
-      NfcNdefManager.setMessage(userDetails)
+      if(this.state.nfcSupported) NfcNdefManager.setMessage(userDetails)
     }
   }
 
