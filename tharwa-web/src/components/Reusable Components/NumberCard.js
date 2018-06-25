@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Icon, Card } from "antd";
 import CountUp from "react-countup";
-import { Col, Row } from "antd";
 
 import "./Styles/NumberCard.css";
 
@@ -12,11 +11,10 @@ function NumberCard({ icon, color, title, number, countUp }) {
       className="numberCard"
       bordered={false}
       hoverable
-      bodyStyle={{ padding: 0,width: "290px" }}
+      bodyStyle={{ padding: 0 }}
     >
       <Icon className="iconWarp" style={{ color }} type={icon} />
-      <Row className="content">
-      <Col lg={7} md={12} style={{width: "86px"}}>
+      <div className="content">
         <p className={"titles"}> {title || "No Title"}</p>
         <p className="number">
           <CountUp
@@ -29,10 +27,7 @@ function NumberCard({ icon, color, title, number, countUp }) {
             {...countUp || {}}
           />
         </p>
-        </Col>
-        <Col lg={7} md={12} style={{width: "124px"}}>
-        </Col>
-      </Row>
+      </div>
     </Card>
   );
 }
@@ -42,9 +37,7 @@ NumberCard.propTypes = {
   color: PropTypes.string,
   title: PropTypes.string,
   number: PropTypes.number,
-  countUp: PropTypes.object,
-  data: PropTypes.object,
-  options: PropTypes.object,
+  countUp: PropTypes.object
 };
 
 export default NumberCard;

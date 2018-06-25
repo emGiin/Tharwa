@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+<<<<<<< HEAD
 import { Col, Row, Tabs, Icon } from "antd";
 import { NavLink } from "react-router-dom";
 
@@ -223,6 +224,20 @@ class Dashboard extends Component {
 
   
 
+=======
+import { connect } from "react-redux";
+import { Col, Row } from "antd";
+import { NavLink } from "react-router-dom";
+
+import bankerDashboardActions from "../redux/BankerDashboardRedux";
+
+import { NumberCard } from "../components/Reusable Components";
+
+class Dashboard extends Component {
+  componentWillMount() {
+    this.props.getCounts();
+  }
+>>>>>>> develop
   render() {
     const now = Date.now();
     const date = new Date('December 17, 1995');
@@ -237,6 +252,7 @@ class Dashboard extends Component {
     return (
       <div style={{ padding: 25 }}>
         <Row gutter={24}>
+<<<<<<< HEAD
           <Col lg={8} md={12}>
 
             <NumberCardGest
@@ -296,6 +312,57 @@ class Dashboard extends Component {
               number={this.state.nbInscr}
               type={2}
             />
+=======
+        <Col lg={6} md={12}>
+            <NavLink to="demandeInscriptions">
+              <NumberCard
+                icon="user-add"
+                color="#fa541c"
+                title="Inscriptions"
+                number={this.props.nbreInscriptions}
+              />
+            </NavLink>
+          </Col>
+          <Col lg={6} md={12}>
+            <NavLink to="otherAccount">
+              <NumberCard
+                icon="usergroup-add"
+                color="#42ab9e"
+                title="Autres comptes"
+                number={this.props.nbreAutresComptes}
+              />
+            </NavLink>
+          </Col>
+          <Col lg={6} md={12}>
+            <NavLink to="deblockAccount">
+              <NumberCard
+                icon="unlock"
+                color="f9bd38"
+                title="Déblocages"
+                number={this.props.nbreDeblocageComptes}
+              />
+            </NavLink>
+          </Col>
+          <Col lg={6} md={12}>
+            <NavLink to="virements">
+              <NumberCard
+                icon="swap"
+                color="#4BB543"
+                title="Virements"
+                number={this.props.nbreVirements}
+              />
+            </NavLink>
+          </Col>
+          <Col lg={6} md={12}>
+            <NavLink to="ordresVirement">
+              <NumberCard
+                icon="bars"
+                color="#4BB543"
+                title="Ordres de virements"
+                number={this.props.nbreOrdresVirements}
+              />
+            </NavLink>
+>>>>>>> develop
           </Col>
         </Row>
         <Row gutter={24}>
@@ -401,6 +468,7 @@ class Dashboard extends Component {
     );
   }
 
+<<<<<<< HEAD
 
   componentWillReceiveProps(nextProps) {
 
@@ -454,3 +522,26 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withHighcharts(Dashboard, Highcharts));
+=======
+}
+const mapStateToProps = state => {
+  const {
+    nbreInscriptions,
+    nbreAutresComptes,
+    nbreVirements,
+    nbreDeblocageComptes,
+    nbreOrdresVirements
+  }=state.bankerDashboard;
+  return { nbreInscriptions, nbreAutresComptes, nbreVirements,nbreDeblocageComptes,nbreOrdresVirements };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getCounts: () =>
+      dispatch(bankerDashboardActions.nbreRequest())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+
+>>>>>>> develop

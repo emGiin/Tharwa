@@ -1,150 +1,58 @@
-import React, { Component } from "react";
-import { Table, Icon, Modal, message, Tooltip } from "antd";
+import React from 'react';
 
-import TransferDetailsModal from "./TransferDetailsModal";
+import TransferDetailsModal from './TransferDetailsModal';
+import { TableWithActions } from '../Reusable Components';
 
-const confirm = Modal.confirm;
+const INITIAL_STATE = {
+  selectedRecord: {source_id:{},destination_id:{}},
+  isModalVisible: false
+};
 
-class TransfersTable extends Component {
-  INITIAL_STATE = {
-    selectedTrans: {},
-    isModalVisible: false
-  };
-
-  state = this.INITIAL_STATE;
-
-  showModal(record) {
-    this.setState({
-      selectedTrans: record,
-      isModalVisible: true
-    });
+const columns = [
+  {
+    title: 'Emetteur',
+    dataIndex: 'source_id',
+    key: 'source_id',
+    render: text => (
+      <span>
+        {`${text.firstname} ${text.lastname}`}
+        <br />
+        {text.account}
+      </span>
+    )
+  },
+  {
+    title: 'Destinataire',
+    dataIndex: 'destination_id',
+    key: 'destination_id',
+    render: text => (
+      <span>
+        {`${text.firstname} ${text.lastname}`}
+        <br />
+        {text.account}
+      </span>
+    )
+  },
+  {
+    title: 'Montant DZD',
+    dataIndex: 'amount',
+    key: 'amount'
+  },
+  {
+    title: 'Date',
+    dataIndex: 'creationdate',
+    key: 'creationdate'
   }
+];
 
-  closeModal() {
-    this.setState(this.INITIAL_STATE);
-  }
-
-  handleValidate(record) {
-    this.props.acceptDemand(record.id);
-    this.closeModal();
-  }
-
-  handleConfirmReject(record) {
-    const rejectDemand = this.props.rejectDemand;
-    const closeModal = this.closeModal.bind(this);
-    confirm({
-      title: "Voulez-vous vraiment refuser ce virement?",
-      content: "",
-      okText: "Oui",
-      okType: "danger",
-      cancelText: "Annuler",
-      onOk() {
-        rejectDemand(record.id);
-        closeModal();
-      }
-    });
-  }
-
-  render() {
-    message.destroy();
-    if (this.props.actionState.actionFetching) {
-      message.loading("En cours d'exécution...", 0);
-    } else {
-      if (this.props.actionState.actionSuccess) {
-        message.success("Action réussie!");
-      } else if (this.props.actionState.actionError) {
-        message.error(this.props.actionState.actionError);
-      }
-      setTimeout(this.props.setDefault, 1000);
-    }
-
-    return (
-      <div>
-        <TransferDetailsModal
-          handleValidate={this.handleValidate.bind(this)}
-          handleConfirmReject={this.handleConfirmReject.bind(this)}
-          actionState={this.props.actionState}
-          transfer={this.state.selectedTrans}
-          visible={this.state.isModalVisible}
-          onCancel={() => this.setState(this.INITIAL_STATE)}
-        />
-        <Table
-          columns={this.columns}
-          rowKey={record => record.code}
-          dataSource={this.props.list}
-          pagination={false}
-          loading={this.props.fetching}
-        />
-      </div>
-    );
-  }
-
-  columns = [
-    {
-      title: "Emetteur",
-      dataIndex: "source_id",
-      key: "source_id",
-      render: text => (
-        <span>
-          <span>
-          {text.firstname} {text.lastname}
-          </span>
-          <br />
-          <span>{text.account}</span>
-        </span>
-      )
-    },
-    {
-      title: "Destinataire",
-      dataIndex: "destination_id",
-      key: "destination_id",
-      render: text => (
-        <span>
-          <span>
-            {text.firstname} {text.lastname}
-          </span>
-          <br />
-          <span>{text.account}</span>
-        </span>
-      )
-    },
-    {
-      title: "Montant DZD",
-      dataIndex: "amount",
-      key: "amount"
-    },
-    {
-      title: "Date",
-      dataIndex: "transferdate",
-      key: "transferdate"
-      //sorter: true //TODO : Définir la fonction de sort sur les dates
-    },
-    {
-      title: "",
-      key: "action",
-      render: record => (
-        <span>
-          <Tooltip title="Afficher les détails">
-            <a onClick={() => this.showModal(record)}>
-              <Icon type="info-circle" />
-            </a>
-          </Tooltip>
-          <span className="ant-divider" />
-          <Tooltip title="Rejeter le virement">
-            <a onClick={() => this.handleConfirmReject(record)}>
-              <Icon type="close-circle-o" />
-            </a>
-          </Tooltip>
-          <span className="ant-divider" />
-          <Tooltip title="Accepter le virement">
-            <a onClick={() => this.handleValidate(record)}>
-              <Icon type="check-circle" />
-            </a>
-          </Tooltip>
-        </span>
-      )
-    }
-  ];
-}
-
-export default TransfersTable;
+export default props => (
+  <TableWithActions
+    initialState={INITIAL_STATE}
+    modal={TransferDetailsModal}
+    columns={columns}
+    dataSource={props.list.map(({ code, ...transfer }) => {
+      return { id: code, code, ...transfer };
+    })}
+    {...props}
+  />
+);

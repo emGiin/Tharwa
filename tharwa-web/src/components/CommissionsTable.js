@@ -56,7 +56,7 @@ class CommissionsTable extends Component {
           columns={this.columns}
           rowKey={record => record.email}
           dataSource={this.props.list}
-          pagination={true}
+          pagination={{pageSize:5 , size : "small", hideOnSinglePage:true}}
           loading={this.props.fetching}
         />
       </div>

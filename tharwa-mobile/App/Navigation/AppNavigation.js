@@ -1,28 +1,35 @@
 import { StackNavigator } from 'react-navigation'
 import {
-  MainScreen,
   PendingScreen,
   RegisterScreen,
   PinCodeScreen,
   LoginScreen,
-  LaunchScreen
+  LaunchScreen,
+  NfcPendingScreen,
+  NfcTransferScreen,
+  UnlockAccountScreen
 } from '../Containers/Screens'
-
+import AppDrawer from './DrawerNavigation'
 import styles from './Styles/NavigationStyles'
+
+const headerHidden = { navigationOptions: { header: null } }
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator(
   {
-    PendingScreen: { screen: PendingScreen },
-    MainScreen: { screen: MainScreen },
-    RegisterScreen: { screen: RegisterScreen },
-    PinCodeScreen: { screen: PinCodeScreen },
-    LoginScreen: { screen: LoginScreen },
-    LaunchScreen: { screen: LaunchScreen }
+    AppDrawer: { screen: AppDrawer },
+    NfcPendingScreen: { screen: NfcPendingScreen, ...headerHidden },
+    NfcTransferScreen: { screen: NfcTransferScreen, ...headerHidden },
+    PendingScreen: { screen: PendingScreen, ...headerHidden },
+    RegisterScreen: { screen: RegisterScreen, ...headerHidden },
+    PinCodeScreen: { screen: PinCodeScreen, ...headerHidden },
+    LoginScreen: { screen: LoginScreen, ...headerHidden },
+    LaunchScreen: { screen: LaunchScreen, ...headerHidden },
+    UnlockAccountScreen: { screen: UnlockAccountScreen, ...headerHidden },
   }, {
     // Default config for all screens
-    headerMode: 'none',
-    initialRouteName: 'LaunchScreen',
+    // initialRouteName: 'NfcPendingScreen',
+    initialRouteName: 'LoginScreen',
     navigationOptions: {
       headerStyle: styles.header
     }

@@ -34,7 +34,7 @@ const mapStateToProps = state => {
     fetching,
     error,
     success
-  }))(state.confirmInscription);
+  }))(state.commissions);
 
   const DemandAction = (({ actionFetching, actionError, actionSuccess }) => ({
     actionFetching,

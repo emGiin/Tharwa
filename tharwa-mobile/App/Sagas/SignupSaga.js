@@ -5,6 +5,7 @@ import SignupActions from '../Redux/SignupRedux'
 // attempts to login
 export function* signup(api, { user }) {
   const response = yield call(api.signup, user)
+  // console.warn(response);
 
   // success?
   if (response.ok) {

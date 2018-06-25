@@ -52,7 +52,8 @@ const getCommissionsList=()=>{
     inscriptionAction,
     transferAction,
     getTransfersList,
-    GET_stats
+    GET_stats,
+    getCommissionsList
   }
 }
 

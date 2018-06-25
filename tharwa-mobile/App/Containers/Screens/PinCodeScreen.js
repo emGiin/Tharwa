@@ -21,11 +21,12 @@ class PinCodeScreen extends Component {
     confirmPinCode: PropTypes.func
   }
 
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps({ fetching, success, reset }) {
     /* istanbul ignore else */
-    if (!props.fetching && props.success) {
+    if (!fetching && success) {
       this.dialog.dismiss();
       this.goToMainPage();
+      this.props.reset()
     }
   }
 
@@ -43,11 +44,12 @@ class PinCodeScreen extends Component {
   }
 
   render() {
-    const { fetching, error } = this.props;
+    const { fetching, error, reset } = this.props;
     return (
       <Container>
         <LoadingDialog
           init={/* istanbul ignore next */dialog => { this.dialog = dialog }}
+          reset={reset}
           error={error}
           errorTitle={I18n.t('pinCodeTitleError')}
           fetching={fetching}
@@ -83,6 +85,7 @@ const mapStateToProps = ({ pinCode: { fetching, error, success } }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     confirmPinCode: (pin) => dispatch(PinCodeActions.pinCodeRequest(pin)),
+    reset: (pin) => dispatch(PinCodeActions.pinCodeReset()),
   }
 }
 

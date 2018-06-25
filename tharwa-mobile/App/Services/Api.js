@@ -13,15 +13,52 @@ const create = (baseURL = API_URL) => {
     timeout: 10000
   })
 
-  const setAuthToken = (userAuth) => api.setHeader('Authorization', 'Bearer ' + userAuth)
-  const removeAuthToken = () => api.setHeader('Authorization', '')
-  const signup = (user) => api.post('client', user)
+  //#region Authorization
+  const setAuthHeaders = (token, pin) => {
+    api.setHeader('Authorization', `Bearer ${token}`)
+    api.setHeader('Pin', pin)
+  }
+  const removeAuthHeaders = () => {
+    api.setHeader('Authorization', '')
+    api.setHeader('Pin', '')
+  }
+  //#endregion
+
+  const signup = user => api.post('client', user)
+  const getProfile = () => api.get('client')
+  const requestNewAccount = type => api.post('account', { type })
+  const unlockAccount = data => api.post('account/deblocage', data)
+
+  // banks
+  const getBanks = () => api.get(`bank`)
+
+  // transfert
+  const transferURL = 'virement'
+  const myAccountTransfert = data => api.post(`${transferURL}/myaccount`, data)
+  const tharwaTransfer = data => api.post(`${transferURL}/intern`, data)
+  const externalTransfer = data => api.post(`${transferURL}/extern`, data)
+  const nfcTransfer = data => api.post(`${transferURL}/micro`, data)
+  const getMicroTransferList = () => api.get(`${transferURL}/micro`)
+
+  // exchange rates
+  const getExchangeRates = () => api.get(`exchange_rate`)
+
 
   return {
     api,
-    setAuthToken,
-    removeAuthToken,
+    setAuthHeaders,
+    removeAuthHeaders,
     signup,
+    getProfile,
+    requestNewAccount,
+    myAccountTransfert,
+    tharwaTransfer,
+    getBanks,
+    externalTransfer,
+    getExchangeRates,
+    nfcTransfer,
+    getMicroTransferList,
+    unlockAccount
   }
 }
 

@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'courant',
         ]);
         $accountTypes->insert([
-            'code' => 'EPAR',
+            'code' => 'EPARN',
             'name' => 'épargne',
         ]);
         $accountTypes->insert([
@@ -114,6 +114,33 @@ class DatabaseSeeder extends Seeder
             'currency_id'=>'DZD',
             'type_id'=>'COUR',
             'client_id'=>'a@d.c',
+        ]);
+
+
+        $banks  = DB::table('banks');
+        $banks->insert([
+            'code'=>'THW',
+            'name'=>'tharwa',
+            'email'=>'tharwa@thrwa.dz',
+            'address'=>'Esi ^^',
+            'created_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);
+        $banks->insert([
+            'code'=>'BNA',
+            'name'=>'bank bna',
+            'email'=>'bna@bna.dz',
+            'address'=>'Esi ^^',
+            'created_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);
+        $banks->insert([
+            'code'=>'BDL',
+            'name'=>'bank bdl',
+            'email'=>'bdl@bdl.dz',
+            'address'=>'Esi ^^',
+            'created_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => date("Y-m-d H:i:s"),
         ]);
     }
 }

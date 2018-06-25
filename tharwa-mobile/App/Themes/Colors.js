@@ -1,8 +1,11 @@
 const colors = {
+  skySilk: "#f4f7f9",
+  lightBackground: '#dedfe0',
   background: '#2c3e50',
   forground: '#25303c',
+  status: '#005662',
   button: '#16a085',
-  white: "#fff",
+  white: '#fff',
   clear: 'rgba(0,0,0,0)',
   facebook: '#3b5998',
   transparent: 'rgba(0,0,0,0)',
@@ -25,6 +28,6 @@ const colors = {
   border: '#483F53',
   banner: '#5F3E63',
   text: '#E0D7E5'
-}
+};
 
-export default colors
+export default colors;

@@ -41,7 +41,7 @@ export const success = state => {
 };
 
 export const saveReqList = (state, { list }) =>{
-  console.log("save Rqest Liste .....")
+  console.log("save Rqest Liste ..... || saved")
   return state.merge({ list: list  });
 };
 

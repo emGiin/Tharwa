@@ -1,3 +1,5 @@
 {
-  "token_": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiI"
+  "token_": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiI",
+  "expires_at": "2018-03-04 13:22:27",
+  "client_type": "Banquier"
 }

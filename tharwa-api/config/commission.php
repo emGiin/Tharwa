@@ -12,6 +12,7 @@
 //Commission mensuelle frais de gestion compte devise  //200 DA
 
 return [
+
     'COUR_EPART' => 0,
     'EPART_COUR' => 0.001, //0.10 %
     'COUR_DEV' => 0.02,//2.00 %
@@ -19,6 +20,7 @@ return [
     'COUR_COUR' => 0.01, //1%
     'SENDEXTBANK' => 0.02,
     'RECVEXTBANK' => 0.005,
+
     'MONTHCOUR' => 100,//100 DA
     'MONTHEPART' => 50,//50 DA
     'MONTHDEV' => 200,//200 DA

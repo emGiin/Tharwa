@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import createStore from './CreateStore'
-import rootSaga from '../sagas/'
+import rootSaga from '../sagas/';
+
 
 const reducers = combineReducers({
   auth: require('./AuthRedux').reducer,
@@ -8,7 +9,13 @@ const reducers = combineReducers({
   confirmInscription:require('./ConfirmInscriptionRedux').reducer,
   validateTransfer: require('./ValidateTransferRedux').reducer,
   newBanquier: require('./banquierRedux').reducer,
-  stats: require('./StatsRedux').reducer
+  stats: require('./StatsRedux').reducer,
+  otherAccount: require('./OtherAccountRedux').reducer,
+  bankerDashboard: require('./BankerDashboardRedux').reducer,
+  clientManagement: require('./ClientManagementRedux').reducer,
+  deblockAccount: require('./DeblockAccountRedux').reducer,
+  transferOrder: require('./TransferOrderRedux').reducer,
+  commissions: require('./CommissionsRedux').reducer
 });
 
 

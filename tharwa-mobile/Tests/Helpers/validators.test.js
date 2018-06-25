@@ -4,8 +4,10 @@ import {
   passwordValidators,
   nameValidators,
   phoneValidators,
-  pickerValidators
+  pickerValidators,
+  nfcAmountValidators
 } from '../../App/Helpers/validators'
+import { formatMoney } from '../../App/Transforms';
 
 describe('Validators', () => {
 
@@ -77,6 +79,32 @@ describe('Validators', () => {
     it('should return validation errors', () => {
       const picker = 'placeholder'
       expect(pickerValidators[0](picker)).toBe('Ce champ est obligatoire')
+    })
+  })
+
+
+  describe('NFC amount validators', () => {
+    const MAX_AMOUNT = 5000
+    let validators = nfcAmountValidators(MAX_AMOUNT)
+
+    it('should pass validation', () => {
+      const amount = 2000
+      expect(validators[0](amount.toString())).toBeUndefined()
+    })
+
+    it('should return required error', () => {
+      const amount = ''
+      expect(validators[0](amount)).toBe('Ce champ est obligatoire')
+    })
+
+    it('should return invalid error', () => {
+      const amount = -20
+      expect(validators[1](amount.toString())).toBe('Le montant est invalide')
+    })
+
+    it('should return max amount error', () => {
+      const amount = 50001
+      expect(validators[2](amount.toString())).toBe(`Montant max est de ${formatMoney(MAX_AMOUNT)} DZD`)
     })
   })
 })

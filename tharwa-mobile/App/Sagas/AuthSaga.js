@@ -4,6 +4,7 @@ import AuthActions from '../Redux/AuthRedux'
 import PinCodeActions from '../Redux/PinCodeRedux'
 
 export const selectAuthToken = (state) => state.auth.authToken
+export const selectPinCode = (state) => state.pin.code
 // attempts to login
 export function* login(api, { email, password, confirmationMethod }) {
   const authObj = {
@@ -27,16 +28,17 @@ export function* login(api, { email, password, confirmationMethod }) {
 
 // attempts to logout
 export function* logout(api) {
-  yield call(api.removeAuthToken)
+  yield call(api.removeAuthHeaders)
   yield put(AuthActions.logoutSuccess())
 }
 
 // loads the login
 export function* loadToken(api) {
   const authToken = yield select(selectAuthToken)
+  // const pinCode = yield select(selectPinCode)
   // only set the token if we have it
-  if (authToken) {
-    yield call(api.setAuthToken, authToken)
+  if (authToken/* && pinCode*/) {
+    yield call(api.setAuthHeaders, authToken)
   }
   yield put(AuthActions.tokenLoadSuccess())
 }
