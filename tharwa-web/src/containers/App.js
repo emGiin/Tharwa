@@ -6,9 +6,9 @@ import AppLayout from "./AppLayout";
 
 class App extends Component {
   render() {
-    // const isLoggedIn = (({ authToken, pinCode }) => authToken && pinCode)(
-    //   this.props.auth
-    // );
+    /*const isLoggedIn = (({ authToken, pinCode }) => authToken && pinCode)(
+      this.props.auth
+    );*/
     const isLoggedIn = true;
     if (!isLoggedIn) return <Redirect to="/login" push />;
     return (

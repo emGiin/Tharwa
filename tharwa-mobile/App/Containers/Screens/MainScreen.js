@@ -4,6 +4,7 @@ import {
   Dimensions, View,
   FlatList, RefreshControl
 } from 'react-native'
+import { NavigationActions } from 'react-navigation'
 import { Text } from 'native-base'
 import Carousel from 'react-native-snap-carousel';
 import { DialogButton } from 'react-native-popup-dialog'
@@ -95,6 +96,7 @@ class MainScreen extends Component {
                     this.showAccountDetails :
                     () => this.dialog.show()
                 }
+                unlockAccount={this.props.goToUnlockAccountScreen}
                 account={info[item.type]}
               />
             }
@@ -141,7 +143,10 @@ const mapDispatchToProps = (dispatch) => {
     getProfile: () => dispatch(AccountActions.accountRequest()),
     requestNewAccount: (...data) =>
       dispatch(AccountActions.newAccountRequest(...data)),
-    reset: () => dispatch(AccountActions.newAccountReset())
+    reset: () => dispatch(AccountActions.newAccountReset()),
+    goToUnlockAccountScreen: params => dispatch(NavigationActions.navigate({
+      routeName: 'UnlockAccountScreen', params
+    })),
   }
 }
 

@@ -4,6 +4,7 @@ import { Layout, Menu, Icon } from 'antd';
 
 import Routes from './Routes';
 
+import './Styles/AppLayout.css';
 const { Header, Content, Footer, Sider } = Layout;
 
 class SideBar extends Component {
@@ -52,6 +53,18 @@ class SideBar extends Component {
               <span>Acceuil</span>
             </NavLink>
           </Menu.Item>
+          <Menu.Item key="/accountManagement">
+            <NavLink to="/accountManagement">
+              <Icon type="solution" />
+              <span>Gestion des comptes</span>
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="/deblockAccount">
+            <NavLink to="/deblockAccount">
+              <Icon type="unlock" />
+              <span>Demandes de déblocage</span>
+            </NavLink>
+          </Menu.Item>
          {/*<Menu.Item key="/creerBanquier">
             <NavLink to="/creerBanquier">
               <Icon type="user-add" />
@@ -74,6 +87,12 @@ class SideBar extends Component {
             <NavLink to="/virements">
               <Icon type="swap" />
               <span>Demandes de Virements</span>
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="/OrdresVirement">
+            <NavLink to="/OrdresVirement">
+              <Icon type="bars" />
+              <span>Ordres de Virements</span>
             </NavLink>
           </Menu.Item>
         </Menu>
@@ -135,7 +154,7 @@ export default class AppLayout extends Component {
               </Menu.SubMenu>
             </Menu>
           </Header>
-          <Content style={{ margin: '24px 16px' }}>
+          <Content style={{ margin: '24px 16px'}}>
             <Routes />
           </Content>
           <Footer

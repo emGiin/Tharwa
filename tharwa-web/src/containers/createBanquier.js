@@ -117,10 +117,7 @@ class RegistrationForm extends Component {
   };
 
   onKeyPress(event) {
-    console.log('alah akbar');
-
     const charCode = event.which ? event.which : event.keyCode;
-    console.log(charCode);
     // if (!(charCode > 31 && (charCode < 48 || charCode > 57))) return true;
     //event.preventDefault();
     return false;

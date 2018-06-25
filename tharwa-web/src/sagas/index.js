@@ -13,12 +13,18 @@ import { OtherAccountTypes } from '../redux/OtherAccountRedux'
 import { ValidateTransferTypes} from '../redux/ValidateTransferRedux'
 import { newBanquierTypes} from '../redux/banquierRedux'
 import { BankerDashboardTypes} from '../redux/BankerDashboardRedux'
+import { ClientManagementTypes } from '../redux/ClientManagementRedux'
+import { TransferOrderTypes} from '../redux/TransferOrderRedux'
+import { DeblockAccountTypes} from '../redux/DeblockAccountRedux'
 
 /* ------------- Sagas ------------- */
 import { login, logout, loadToken } from './AuthSaga'
 import { confirmPinCode } from './PinCodeSaga'
 import { register } from './banquierSagas'
 import { getCounts } from './BankerDashboardSaga'
+import { getClientsList, actionRequest} from './ClientManagementSaga'
+import { getTransferOrdersList, transferOrderAction } from './TransferOrderSaga'
+import { getDeblockRequestsList, deblockAccountActionRequest} from './DeblockAccountSaga'
 
 import * as confirmInscriptionSaga from './ConfirmInscriptionSaga'
 import * as otherAccountSaga from './OtherAccountSaga'
@@ -59,6 +65,18 @@ export default function* root() {
     takeLatest(OtherAccountTypes.REJECT_DEMAND,otherAccountSaga.rejectDamand , mainAPI),
 
     takeLatest(BankerDashboardTypes.NBRE_REQUEST, getCounts, mainAPI),
+
+    takeLatest(ClientManagementTypes.CLIENTS_LIST_REQUEST, getClientsList, mainAPI),
+
+    takeLatest(ClientManagementTypes.ACCOUNT_ACTION_REQUEST, actionRequest, mainAPI),
+
+    takeLatest(TransferOrderTypes.TRANSFER_ORDER_LIST_REQUEST, getTransferOrdersList, mainAPI),
+    
+    takeLatest(TransferOrderTypes.TRANSFER_ORDER_ACTION, transferOrderAction, mainAPI),
+
+    takeLatest(DeblockAccountTypes.DEBLOCK_REQUESTS_LIST_REQUEST, getDeblockRequestsList, mainAPI),
+
+    takeLatest(DeblockAccountTypes.DEBLOCK_ACCOUNT_ACTION_REQUEST, deblockAccountActionRequest, mainAPI),
    
     takeLatest(newBanquierTypes.CREATE_BANQUIER,register , api_b)
   ])

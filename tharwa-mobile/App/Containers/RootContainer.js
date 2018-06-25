@@ -8,6 +8,7 @@ import { Colors } from '../Themes'
 import ReduxNavigation from '../Navigation/ReduxNavigation'
 import StartupActions from '../Redux/StartupRedux'
 import { Images } from '../Themes';
+import { initPusher } from '../Notifications'
 
 // Styles
 import styles from './Styles/RootContainerStyles'
@@ -18,7 +19,7 @@ class RootContainer extends Component {
   state = {
     isConnected: true,
     appState: AppState.currentState,
-    nfcSupported: true,
+    nfcSupported: false,
     nfcEnabled: false,
     nfcMsgSaved: true
   }
@@ -45,7 +46,8 @@ class RootContainer extends Component {
       const userDetails = JSON.stringify({
         email, name, picture, accountNumber
       })
-      NfcNdefManager.setMessage(userDetails)
+      if (this.state.nfcSupported && this.state.nfcEnabled) NfcNdefManager.setMessage(userDetails)
+      initPusher(email)
     }
   }
 

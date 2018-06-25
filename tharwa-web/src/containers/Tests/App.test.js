@@ -3,7 +3,7 @@ import {shallow} from 'enzyme';
 import configureStore from "redux-mock-store";
 
 
-import App, {store} from '../App';
+import App from '../App';
 
 describe('<App>', () => {
   let wrapper, store,dispatcherSpy,content; 

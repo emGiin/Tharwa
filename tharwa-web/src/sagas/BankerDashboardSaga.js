@@ -22,7 +22,6 @@ export function* getCounts(api) {
 
   if (response.ok) {
     yield put(bankerDashboardActions.nbreSuccess());
-    console.log(response.data);
     yield put(bankerDashboardActions.saveNbre(response.data));
   } else {
     yield put(bankerDashboardActions.nbreFailure("Non authorisé"));

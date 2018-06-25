@@ -5,7 +5,9 @@ let otherList = require('../fixtures/AccountsList.json');
 let pinCode, authToken;
 
 let counts=require('../fixtures/counts.json');
-
+let clientsList=require('../fixtures/ClientsList.json');
+let transferOrders=require('../fixtures/TransferOrders.json');
+let deblockList=require('../fixtures/deblockRequests.json');
 export const getDatasetTemplate = data => {
   if (
     true
@@ -97,7 +99,51 @@ export default {
   }
   
   ,
-
+  getClientsList:()=>{
+    
+    return{
+      ok:true,
+      data: clientsList
+    }
+  },
+  accountAction:({account,motif,type})=>{
+    console.log("account= ",account);
+    console.log("motif= ",motif);
+    console.log("type= ",type);
+    
+    clientsList.forEach(element => {
+      element.accounts.forEach(e => {
+        if(e.number===account) {
+          e.isvalid=!e.isvalid;
+        }
+      });
+    });
+    return{ ok:true}
+  }
+  ,
+  getTransferOrdersList:()=>{
+    return{
+      ok:true,
+      data: transferOrders
+    }
+  },
+  transferOrderAction:({id,code})=>{
+    transferOrders=transferOrders.filter(e=>e.code!==id);
+    return{ ok:true}
+  }
+  ,
+  getDeblockRequestsList:()=>{
+    return{
+      ok:true,
+      data: deblockList
+    }
+  },
+  deblockAccountAction:({account,motif,code})=> {
+    console.log("account ",account," motif ",motif," code ",code);
+    deblockList=deblockList.filter(e=>e.account!==account);
+    return {ok:true}
+  }
+  ,
   inscriptions: {
     getDataset: () => getDatasetTemplate(req),
     action: ({ id, code }) => {

@@ -34,8 +34,19 @@ const create = (baseURL = API_URL) => {
       api.post('account/validations', { id, code })
   };
 
-  const getCounts= () => api.get('banker/counts');
+  const getClientsList=()=> api.get('clients');
+
+  const accountAction=({account, motif, code})=> api.post('accounts',{account, motif, code});
+
+  const getCounts= () => api.get('banquier');
   
+  const getTransferOrdersList=()=> api.get('ordreVirement/validations')
+
+  const transferOrderAction=({id, code})=> api.post('ordreVirement/validations',{id,code})
+
+  const getDeblockRequestsList=()=> api.get('accounts/deblock')
+
+  const deblockAccountAction=({id,account,motif, code})=> api.post('accounts',{id,account,motif,code})
 
   return {
     api,
@@ -51,7 +62,16 @@ const create = (baseURL = API_URL) => {
 
     accounts,
 
-    getCounts
+    getCounts,
+
+    getClientsList,
+    accountAction,
+
+    getTransferOrdersList,
+    transferOrderAction,
+
+    getDeblockRequestsList,
+    deblockAccountAction
   };
 };
 
