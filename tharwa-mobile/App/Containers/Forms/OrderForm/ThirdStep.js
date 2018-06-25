@@ -9,9 +9,9 @@ import {
   requiredValidator, amountValidators
 } from '../../../Helpers/validators'
 import styles from '../Styles/SignupFormStyle'
-import { Colors } from '../../../Themes';
+import { Colors } from '../../../Themes'
 
-export class InfoStepForm extends Component {
+export class ThirdStep extends Component {
   focusOn = (field) => {
     /* istanbul ignore next */
     if (this[field] && this[field].getRenderedComponent)
@@ -26,7 +26,7 @@ export class InfoStepForm extends Component {
       <Container style={styles.mainformContainer}>
         <Content style={styles.inputContainer} >
           <Text style={{ color: Colors.white }}>
-            {I18n.t('recieverInformation')}
+            {I18n.t('employeInformation')}
           </Text>
 
           <Field
@@ -49,12 +49,25 @@ export class InfoStepForm extends Component {
             refField="name"
             icon={'md-person'}
             ref={/* istanbul ignore next */ref => this.name = ref}
+            onEnter={() => this.focusOn('lastName')}
+            component={InputField}
+            editable={editable}
+            validate={nameValidators}
+            returnKeyType={'next'}
+            placeholder={I18n.t('nom')}
+          />
+           <Field
+            name={'receiver.lastName'}
+            withRef
+            refField="lastName"
+            icon={'md-person'}
+            ref={/* istanbul ignore next */ref => this.name = ref}
             onEnter={() => this.focusOn('amount')}
             component={InputField}
             editable={editable}
             validate={nameValidators}
             returnKeyType={'next'}
-            placeholder={I18n.t('name')}
+            placeholder={I18n.t('prenom')}
           />
 
           <Field
@@ -69,21 +82,11 @@ export class InfoStepForm extends Component {
             validate={amountValidators}
             returnKeyType={'next'}
             keyboardType={'numeric'}
+            returnKeyType={'done'}
             placeholder={I18n.t('amount')}
           />
 
-          <Field
-            withRef
-            icon={'md-information-circle'}
-            ref={/* istanbul ignore next */ref => this.reason = ref}
-            refField="reason"
-            name={'reason'}
-            component={InputField}
-            editable={editable}
-            validate={[requiredValidator]}
-            returnKeyType={'done'}
-            placeholder={I18n.t('reason')}
-          />
+      
         </Content>
         <NextPrevious onPrevious={previousPage} onSubmit={handleSubmit} />
       </Container>
@@ -91,18 +94,8 @@ export class InfoStepForm extends Component {
   }
 }
 
-let StepForm = reduxForm({
-  form: 'ExternalTransferForm',
-  destroyOnUnmount: false,
-  forceUnregisterOnUnmount: true,
-})(InfoStepForm);
-
-// connect our component again to get some additional state
-StepForm = connect(
-  /* istanbul ignore next */
-  state => ({
-    selectedBank: formValueSelector('ExternalTransferForm')(state, 'receiver.bank')
-  })
-)(StepForm)
-
-export default StepForm
+export default reduxForm({
+    form: 'OrderForm',
+    destroyOnUnmount: false,
+    forceUnregisterOnUnmount: true,
+  })(ThirdStep);

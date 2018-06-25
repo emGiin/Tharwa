@@ -5,15 +5,16 @@ import { connect } from 'react-redux'
 import { reduxForm, formValueSelector } from 'redux-form'
 import styles from '../Styles/SignupFormStyle'
 import { Header } from '../../../Components'
-import InfoStepForm from './InfoStepForm'
-import ProofStepForm from './ProofStepForm'
-import ProgressStepForm from './ProgressStepForm'
+import FirstStep from './FirstStep'
+import SecondStep from './SecondStep'
+import ThirdStep from './ThirdStep'
 import { Colors } from '../../../Themes';
 
 class ExternalTransferForm extends Component {
   formSteps = [
-    InfoStepForm,
-    ProgressStepForm
+    FirstStep,
+    SecondStep,
+    ThirdStep
   ]
 
   constructor(props) {
@@ -23,19 +24,14 @@ class ExternalTransferForm extends Component {
     this.previousPage = this.previousPage.bind(this)
   }
 
-  componentWillReceiveProps({ amount }) {
-    if (amount > this.props.maxTransfer) {
+  componentWillReceiveProps({ OrderInfos }) {
+    
       this.formSteps = [
-        InfoStepForm,
-        ProofStepForm,
-        ProgressStepForm
+        FirstStep,
+        SecondStep,
+        ThirdStep
       ]
-    } else {
-      this.formSteps = [
-        InfoStepForm,
-        ProgressStepForm
-      ]
-    }
+    
   }
 
   nextPage() {
@@ -47,7 +43,7 @@ class ExternalTransferForm extends Component {
   }
 
   getNextComponent = (currentPage) => {
-    const { fetching, onSubmit, banks } = this.props;
+    const { fetching, onSubmit, OrderInfos } = this.props;
     const formStepProps = {
       editable: !fetching,
       onSubmit: currentPage !== this.formSteps.length ? this.nextPage : onSubmit,
@@ -72,7 +68,7 @@ class ExternalTransferForm extends Component {
 }
 
 let Form = reduxForm({
-  form: 'ExternalTransferForm',
+  form: 'OrderForm',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
 })(ExternalTransferForm);
@@ -81,7 +77,7 @@ let Form = reduxForm({
 Form = connect(
   /* istanbul ignore next */
   state => ({
-    amount: formValueSelector('ExternalTransferForm')(state, 'amount')
+    OrderInfos: formValueSelector('OrderForm')(state, 'OrderInfos')
   })
 )(Form)
 

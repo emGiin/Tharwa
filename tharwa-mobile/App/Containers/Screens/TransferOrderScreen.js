@@ -4,13 +4,15 @@ import {
   Dimensions, View,
   FlatList, RefreshControl
 } from 'react-native'
-import { Text } from 'native-base'
+import { Text, Button, Icon} from 'native-base'
 import Carousel from 'react-native-snap-carousel';
 import { DialogButton } from 'react-native-popup-dialog'
 import {
   MainHeader, TransferOrderItem, Header,
   AccountInfo, TransferOrderLoaderItem, LoadingDialog
 } from '../../Components'
+import I18n from 'react-native-i18n'
+
 
 // Redux
 import TransferOrderActions from '../../Redux/TransferOrderRedux'
@@ -20,8 +22,9 @@ import styles from './Styles/TransferOrderScreenStyles'
 
 
 class TransfertOrderScreen extends Component {
-  state = { refreshing: false }
-
+  
+  state = { refreshing: false, active: 'true', key: 0  }
+  
   componentWillMount() {
     this.props.getOrderHistory()
   }
@@ -34,7 +37,9 @@ class TransfertOrderScreen extends Component {
     }, 1000);
   }
 
-
+  goToEditOrderPage = () => {
+    this.props.navigation.navigate('OrderTransferAddScreen');
+  }
 
   render() {
     const { width } = Dimensions.get('window')
@@ -67,8 +72,11 @@ class TransfertOrderScreen extends Component {
           keyExtractor={(item, index) => index}
           renderItem={OrderInfos.length > 0 ? TransferOrderItem : TransferOrderLoaderItem}
         />
-         
+        
+      
+       
       </View>
+      
     
     )
   }

@@ -26,7 +26,7 @@ const create = (baseURL = API_URL) => {
 
   const signup = user => api.post('client', user)
   const getProfile = () => api.get('client')
-  const getOrderHistory = () => api.get('order')
+  const getOrderHistory = () => api.get('ordrevirement')
   const requestNewAccount = type => api.post('account', { type })
 
   // banks
@@ -37,6 +37,7 @@ const create = (baseURL = API_URL) => {
   const myAccountTransfert = data => api.post(`${transferURL}/myaccount`, data)
   const tharwaTransfer = data => api.post(`${transferURL}/intern`, data)
   const externalTransfer = data => api.post(`${transferURL}/extern`, data)
+  const newOrder = data => api.post(`ordrevirement`, data)
 
   // exchange rates
   const getExchangeRates = () => api.get(`exchange_rate`)
@@ -54,7 +55,8 @@ const create = (baseURL = API_URL) => {
     tharwaTransfer,
     getBanks,
     externalTransfer,
-    getExchangeRates
+    getExchangeRates,
+    newOrder
   }
 }
 
