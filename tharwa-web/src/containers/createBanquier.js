@@ -148,7 +148,7 @@ class RegistrationForm extends Component {
     return (
       <div >
       <TitlePage title="Ajouter un banquier" />
-      <Form onSubmit={this.handleSubmit} className="boite">
+      <Form onSubmit={this.handleSubmit} className="boite" id="register_form">
       <FormItem
           {...formItemLayout}
           label="Nom"

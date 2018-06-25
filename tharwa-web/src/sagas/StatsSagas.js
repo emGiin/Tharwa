@@ -16,5 +16,4 @@ if(response.ok){
 }else console.log('no response')
 
 
-
 }

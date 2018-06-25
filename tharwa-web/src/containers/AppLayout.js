@@ -73,6 +73,12 @@ class SideBar extends Component {
               <span>Demandes de Virements</span>
             </NavLink>
           </Menu.Item>
+          <Menu.Item key="/listCommissions">
+            <NavLink to="/listCommissions">
+              <Icon type="swap" />
+              <span>Liste Commissions</span>
+            </NavLink>
+          </Menu.Item>
         </Menu>
         <Icon
           className="ant-layout-sider-trigger"

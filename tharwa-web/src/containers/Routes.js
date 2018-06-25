@@ -5,6 +5,7 @@ import Dashboard from "./Dashboard";
 import ConfirmInscription from "./ConfirmInscription";
 import ValidateTransfer from "./ValidateTransfer";
 import RegistrationForm from './createBanquier'
+import Commissions from './Commissions'
 
 export default () => (
   <Switch>
@@ -13,6 +14,7 @@ export default () => (
       <Route path="/demandeInscriptions" component={ConfirmInscription} />
       <Route path="/virements" component={ValidateTransfer} />
       <Route path="/creerBanquier" component={RegistrationForm} />
+      <Route path="/listCommissions" component={Commissions} />
     </div>
   </Switch>
 );

@@ -6,10 +6,7 @@ import { Col, Row } from "antd";
 
 import "./Styles/NumberCard.css";
 
-import { Doughnut} from 'react-chartjs-2';
-
-
-function NumberCard({ icon, color, title, number, countUp, data, options }) {
+function NumberCard({ icon, color, title, number, countUp }) {
   return (
     <Card
       className="numberCard"
@@ -34,7 +31,6 @@ function NumberCard({ icon, color, title, number, countUp, data, options }) {
         </p>
         </Col>
         <Col lg={7} md={12} style={{width: "124px"}}>
-        <Doughnut data={data} options={options}  />
         </Col>
       </Row>
     </Card>

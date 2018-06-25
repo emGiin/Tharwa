@@ -38,7 +38,9 @@ const create = (baseURL = API_URL) => {
     console.log('dans APIapp:getStats.')
     return api.get('GET_stats')
   }
-
+const getCommissionsList=()=>{
+  return api.get('CommissionsListe')
+}
   
   return {
     api,

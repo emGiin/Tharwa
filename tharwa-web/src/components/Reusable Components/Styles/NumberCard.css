@@ -3,20 +3,27 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
-.numberCard {
+.numberCard,.numberCardGest {
   padding: 32px;
   margin-bottom: 24px;
   cursor: pointer;
 }
-.numberCard .iconWarp {
+.numberCardGest {
+  padding: 32px;
+  margin-bottom: 24px;
+  cursor: auto !important;
+  height: 149px;
+  
+}
+.numberCard .iconWarp, .numberCardGest .iconWarp {
   font-size: 54px;
   float: left;
 }
-.numberCard .content {
+.numberCard .content,.numberCardGest .content {
   width: 100%;
   padding-left: 78px;
 }
-.numberCard .content .title {
+.numberCard .content .title, .numberCardGest .content .title {
   line-height: 16px;
   font-size: 16px;
   margin-bottom: 8px;
@@ -33,4 +40,25 @@
   text-overflow: ellipsis;
   overflow: hidden;
   margin-bottom: 0;
+
+}
+.numberCardGest.type2 .content .number span{
+line-height: unset;
+height: unset;
+font-weight: bold;
+float: right;
+position: absolute;
+top: -11px;
+right: 5px;
+font-size: 45px;
+}
+.numberCardGest.type1 .number span{
+  font-size: 19pt;
+  font-weight: bold;
+  color: #001a21;
+}
+.numberCardGest.type3 .number span{
+  font-size: 40px;
+  font-weight: bold;
+  color: #001a21;
 }

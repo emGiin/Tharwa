@@ -12,6 +12,7 @@ import { ConfirmInscriptionTypes } from '../redux/ConfirmInscriptionRedux'
 import { ValidateTransferTypes} from '../redux/ValidateTransferRedux'
 import { newBanquierTypes} from '../redux/banquierRedux'
 import { statsTypes} from '../redux/StatsRedux'
+import { CommissionsTypes} from '../redux/CommissionsRedux'
 
 /* ------------- Sagas ------------- */
 import { login, logout, loadToken } from './AuthSaga'
@@ -20,6 +21,7 @@ import { getRequestsList, acceptDemand, rejectDemand } from './ConfirmInscriptio
 import { getTransfersList, acceptTransfer, rejectTransfer } from './ValidateTransferSaga'
 import { register } from './banquierSagas'
 import { get_stats} from './StatsSagas'
+import { getCommList} from './CommissionSaga'
 
 /* ------------- API ------------- */
 const api = useFixtures ? FixtureAPI : AuthAPI.create()
@@ -52,5 +54,7 @@ export default function* root() {
     takeLatest(newBanquierTypes.CREATE_BANQUIER,register , api_b),
 
     takeLatest(statsTypes.SET_STATS,get_stats , api_),
+
+    takeLatest(CommissionsTypes.REQ_LIST_COMM ,getCommList, api_)
   ])
 }

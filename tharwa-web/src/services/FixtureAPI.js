@@ -135,11 +135,11 @@ export default {
             {
               "nbVirement":{
                "total": 112,
-               "detail":[30,50]
+               "detail":[10,90]
               },
               "nbInscription":{
-                "total": 50,
-                "detail":[60,10]
+                "total": 70,
+                "detail":[60,50]
               },
               "nbOpeation":{
                 "mois":[
@@ -149,8 +149,8 @@ export default {
               ],
               "trimestre":[
                   [65, 59, 40, 11],
-                  [12, 20 , 40, 22],
-                  [12, 40 ,10, 30]
+                  [50, 20 , 40, 22],
+                  [17, 40 ,10, 30]
               ],
               "annee":[
                   [65, 59, 20, 21,65, 50, 10, 31, 52,50],
@@ -166,5 +166,17 @@ export default {
           }
           }
     }
+  },
+  getCommissionsList_:()=>{
+    return {
+      ok: true,
+      status: 200,
+      data: [
+        {"lastname":"test nom","firstname":"tesprenom","type":"comm1","montant":2500,"date":"20/06/2018"},
+        {"lastname":"test2 nom","firstname":"tes2prenom","type":"comm12","montant":200,"date":"20/06/2018"},
+        {"lastname":"test nom","firstname":"tesprenom","type":"comm1","montant":2500,"date":"20/06/2018"},
+      ]
+    };
   }
+
 };

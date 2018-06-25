@@ -17,13 +17,14 @@ console.log("je suis dans saga avec :data =");
 console.log(str)
 
   const response = yield call(api.register_banquier, str);
-const saved = response.data.saved
+const saved = response.ok
 
   if (saved) {
     Modal.success({
       title: 'Success',
       content: 'le compte banquier est creé avec succès',
     });
+    var form =document.getElementById('register_form')
 
     yield put(banquierActions.createDone());
     console.log("done");
