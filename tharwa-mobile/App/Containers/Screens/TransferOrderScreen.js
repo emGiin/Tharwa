@@ -1,18 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {
-  Dimensions, View,
-  FlatList, RefreshControl
-} from 'react-native'
-import { Text, Button, Icon} from 'native-base'
-import Carousel from 'react-native-snap-carousel';
-import { DialogButton } from 'react-native-popup-dialog'
-import {
-  MainHeader, TransferOrderItem, Header,
-  AccountInfo, TransferOrderLoaderItem, LoadingDialog
-} from '../../Components'
-import I18n from 'react-native-i18n'
-
+import { View, FlatList, RefreshControl } from 'react-native'
+import { Text } from 'native-base'
+import { TransferOrderItem, Header, TransferOrderLoaderItem } from '../../Components'
 
 // Redux
 import TransferOrderActions from '../../Redux/TransferOrderRedux'
@@ -22,9 +12,8 @@ import styles from './Styles/TransferOrderScreenStyles'
 
 
 class TransfertOrderScreen extends Component {
-  
-  state = { refreshing: false, active: 'true', key: 0  }
-  
+  state = { refreshing: false }
+
   componentWillMount() {
     this.props.getOrderHistory()
   }
@@ -42,56 +31,39 @@ class TransfertOrderScreen extends Component {
   }
 
   render() {
-    const { width } = Dimensions.get('window')
-    const { OrderInfos } = this.props
-
-    const OrderHistory = OrderInfos.length > 0 ? OrderInfos : new Array(3);
+    const { history } = this.props
+    const historyItems = history.length > 0 ? history : new Array(3);
 
     return (
       <View style={styles.container}>
-        <Header
-          text={'Ordre de Virement'}
-        />
-
-
-
+        <Header text={'Ordre de Virement'} />
         <View style={styles.historyTitleContainer}>
           <Text style={styles.historyTitle}>Ordres de Virement récents </Text>
         </View>
-
         <FlatList
           style={styles.historyList}
-          data={OrderHistory}
-          // TODO: change refresh control style
+          data={historyItems}
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
               onRefresh={this.onRefresh.bind(this)}
             />
           }
-          keyExtractor={(item, index) => index}
-          renderItem={OrderInfos.length > 0 ? TransferOrderItem : TransferOrderLoaderItem}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={history.length < 0 ? TransferOrderItem : TransferOrderLoaderItem}
         />
-        
-      
-       
       </View>
-      
-    
     )
   }
 }
 
-const mapStateToProps = ({
-  transferOrder: { information: { OrderInfos }, fetching, error, success }
-}) => {
-  return { OrderInfos, fetching, error, success }
+const mapStateToProps = ({ transferOrder: { history, fetching, error, success } }) => {
+  return { history, fetching, error, success }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getOrderHistory: () => dispatch(TransferOrderActions.transferOrderRequest())
-
   }
 }
 

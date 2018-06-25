@@ -3,7 +3,6 @@ import { View, TouchableOpacity, Dimensions } from 'react-native'
 import { Text, Icon } from 'native-base'
 import { Circle, Rect } from 'react-native-svg'
 import styles from './Styles/TransferItemStyles'
-import { formatMoney } from '../Transforms';
 import { ContentLoader } from './'
 
 const TransferOrderItem = ({ item }) => {
@@ -11,16 +10,16 @@ const TransferOrderItem = ({ item }) => {
   const [date/*, time*/] = item.created_at.split(' ')
   const type = item.reason === 'out'
   const color = type ? "#e74c3c" : "#218c74"
-  const icon = type ? 'arrow-down' : 'arrow-up'  
+  const icon = type ? 'arrow-down' : 'arrow-up'
 
   return (
     <TouchableOpacity activeOpacity={0.8} style={styles.container}>
       <View style={styles.leftContainer}>
-      <Text style={styles.target}>{item.reason}</Text>
+        <Text style={styles.target}>{item.reason}</Text>
         <Text style={styles.date}>{date}</Text>
       </View>
       <View style={styles.rightContainer}>
-        
+
         <Icon style={[styles.icon, { color }]} name={icon} />
       </View>
     </TouchableOpacity>

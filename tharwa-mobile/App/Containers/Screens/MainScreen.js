@@ -122,7 +122,7 @@ class MainScreen extends Component {
               onRefresh={this.onRefresh.bind(this)}
             />
           }
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item, index) => index.toString()}
           renderItem={selectedAccount ? TransferItem : TransferLoaderItem}
         />
       </View>

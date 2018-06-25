@@ -14,9 +14,7 @@ const INITIAL_STATE = Immutable({
   fetching: false,
   success: false,
   error: null,
-  information: {
-    OrderInfos: []
-  }
+  history: []
 })
 
 export const request = state => state.merge({
@@ -28,7 +26,7 @@ export const success = (state, { data }) => (
     fetching: false,
     error: null,
     success: false,
-    information: data
+    history: data
   })
 )
 
@@ -37,11 +35,8 @@ export const failure = (state, { error }) => state.merge({
 })
 
 
-
-
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.TRANSFER_ORDER_REQUEST]: request,
   [Types.TRANSFER_ORDER_SUCCESS]: success,
   [Types.TRANSFER_ORDER_FAILURE]: failure
-  
 });

@@ -42,7 +42,7 @@ class ContentLoader extends Component {
   }
   componentDidMount(props) {
     this._mounted = true;
-    this.loopAnimation()
+    // this.loopAnimation()
   }
 
   componentWillUnmount() {

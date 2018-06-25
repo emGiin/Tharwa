@@ -60,7 +60,7 @@ const screens = {
 }
 
 const AppTabs = TabNavigator(screens, {
-  initialRouteName: 'ExchangeRateScreen',
+  initialRouteName: 'TransactionOrderScreen',
   tabBarOptions: {
     activeTintColor: 'tomato',
     inactiveTintColor: 'gray',
