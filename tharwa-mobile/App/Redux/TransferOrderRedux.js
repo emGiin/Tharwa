@@ -6,7 +6,8 @@ const { Types, Creators } = createActions({
   transferOrderFailure: ['error'],
   transferOrderSuccess: ['data'],
   newTransferOrderRequest: ['data'],
-  newTransferOrderSuccess: []
+  newTransferOrderSuccess: [],
+  transferOrderReset: []
 })
 
 export const TransferOrderTypes = Types
@@ -44,11 +45,18 @@ export const failure = (state, { error }) => state.merge({
   fetching: false, error
 })
 
+export const reset = state => state.merge({
+  fetching: false,
+  success: false,
+  error: null,
+  history: []
+})
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.TRANSFER_ORDER_REQUEST]: request,
   [Types.TRANSFER_ORDER_SUCCESS]: success,
   [Types.NEW_TRANSFER_ORDER_SUCCESS]: newSuccess,
   [Types.TRANSFER_ORDER_FAILURE]: failure,
-  [Types.NEW_TRANSFER_ORDER_REQUEST]: request
+  [Types.NEW_TRANSFER_ORDER_REQUEST]: request,
+  [Types.TRANSFER_ORDER_RESET]: reset
 });
