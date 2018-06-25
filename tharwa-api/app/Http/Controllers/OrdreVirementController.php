@@ -446,7 +446,6 @@ class OrdreVirementController extends Controller
 
             unset($trnasferOrder['id']);
             unset($trnasferOrder['justification']);
-            unset($trnasferOrder['status']);
             unset($trnasferOrder['employer_account_id']);
             unset($trnasferOrder['updated_at']);
 
@@ -475,8 +474,7 @@ class OrdreVirementController extends Controller
             unset($trnasferOrder['internAccounts']);
         }
 
-        $res["OrderInfos"] = $trnasferOrders;
-        return response($res);
+        return response($trnasferOrders);
     }
 
 
