@@ -5,6 +5,7 @@ import {
   MyAccountTransferScreen,
   TharwaTransferScreen,
   ExternalTransferScreen,
+  TransferOrderHistoryScreen,
   ExchangeRateScreen
 } from '../Containers/Screens'
 import { DrawerIcon as TabIcon } from '../Components'
@@ -42,8 +43,8 @@ const screens = {
       params: { type: 'externalAccount' }
     }
   },
-  TransactionOrderScreen: {
-    screen: MainScreen,
+  TransferOrderHistoryScreen: {
+    screen: TransferOrderHistoryScreen,
     navigationOptions: {
       tabBarLabel: 'Ordres de virement',
       tabBarIcon: props => <TabIcon {...props} icon='reorder-horizontal' unselectedIcon='reorder-horizontal' />
@@ -59,7 +60,7 @@ const screens = {
 }
 
 const AppTabs = TabNavigator(screens, {
-  initialRouteName: 'MainScreen',
+  initialRouteName: 'TransferOrderHistoryScreen',
   tabBarOptions: {
     activeTintColor: 'tomato',
     inactiveTintColor: 'gray',

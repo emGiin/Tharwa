@@ -92,7 +92,7 @@ class CustomTabBar extends Component {
 
 const mapStateToProps = ({ account: { accountType, information: { infos = {} } } }) => {
   return {
-    accountType: accountType || 'Client'
+    accountType: accountType || 'Employee' 
   };
 }
 

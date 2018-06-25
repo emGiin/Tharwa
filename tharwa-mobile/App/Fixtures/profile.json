@@ -3,8 +3,8 @@
     "email": "client@domaine.com",
     "firstname": "cltest",
     "lastname": "cltest",
+    "type": "Employee",
     "picture": 0,
-    "type": "Client",
     "accountNumber": "THW000000DZD"
   },
   "amount_limit_validation": 200000,
