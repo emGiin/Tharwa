@@ -43,7 +43,7 @@ const create = (baseURL = API_URL) => {
   const getMicroTransferList = () => api.get(`${transferURL}/micro`)
 
   // exchange rates
-  const getExchangeRates = () => api.get(`exchange_rate`)
+  const getExchangeRates = () => api.get(`exchangerate`)
 
 
   return {
