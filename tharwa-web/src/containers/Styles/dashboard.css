@@ -13,3 +13,6 @@ font-weight: bold;
   box-shadow: 2px 2px 2px #80808033;
   background: linear-gradient(to bottom right,#30a7a3, #03ffd3);*/
 }
+.ant-card{
+  margin-bottom: 7px;
+}

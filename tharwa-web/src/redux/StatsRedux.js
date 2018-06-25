@@ -20,7 +20,7 @@ const INITIAL_STATE = Immutable({
   nbI: 9,
   nbI_detail: [],
   data_op: { mois: [], annee: [], trimestre: [] },
-  data_com: null,
+  data_com: {mois: [], annee: [], trimestre: []},
   stats_info: null
 });
 

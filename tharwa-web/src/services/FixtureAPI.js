@@ -180,6 +180,11 @@ export default {
       ok:true,
       data:         
             {
+              "virementToday":22,
+              "NbOrdreVir":33,
+              "NbBanquiers":50,
+              "NbBanques":35,
+              "montantTHRW":600000000,
               "nbVirement":{
                "total": 112,
                "detail":[10,90]
@@ -209,8 +214,26 @@ export default {
               "jours": [65, 59, 30, 21, 56, 55, 40, 65, 59, 10, 41, 56],
               "mois": [65, 59, 30, 21, 56, 55, 40, 65, 59, 10, 41, 56],
               "trimestre":[12, 40 ,10, 30] ,
-              "annee":[42, 10 ,40, 30, 2, 20 ,40, 40, 13 , 22]
-          }
+              "annee":[42, 10 ,40, 30]
+          },
+          "nbCommission1": {
+            "annee": {
+                "2018": 3410.04012
+            },
+            "trimestre": {
+                "2": 3410.04012
+            },
+            "mois": {
+                "05": 40.5,
+                "06": 3369.54012
+            },
+            "jours": {
+                "20": 0.5,
+                "21": 40,
+                "23": 267.24,
+                "24": 3102.30012
+            }
+        }
           }
     }
   },
@@ -221,7 +244,7 @@ export default {
       data: [
         {"lastname":"test nom","firstname":"tesprenom","type":"comm1","montant":2500,"date":"20/06/2018"},
         {"lastname":"test2 nom","firstname":"tes2prenom","type":"comm12","montant":200,"date":"20/06/2018"},
-        {"lastname":"test nom","firstname":"tesprenom","type":"comm1","montant":2500,"date":"20/06/2018"},
+        {"lastname":"test nom","firstname":"tesprenom","type":"comm1","montant":2500,"date":"20/06/2020"},
       ]
     };
   }

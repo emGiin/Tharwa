@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Row, Tabs, Icon } from "antd";
+import { Col, Row, Tabs, Icon, Card } from "antd";
 import { NavLink } from "react-router-dom";
 
 import { NumberCard, NumberCardGest } from "../components/Reusable Components";
@@ -111,7 +111,9 @@ var data_op_mois = [];
 var data_op_trimestre = [];
 var data_op_year = [];
 
-var data_comm;
+var data_comm_mois;
+var data_comm_trimestre;
+var data_comm_year;
 
 var d1, d2, d3;
 
@@ -176,17 +178,42 @@ function init_data(state) {
    * Les données de commissions
    */
 
-  d1 = { ...type_comm1, data: state.data_op_year[0] };
-  d2 = { ...type_comm2, data: state.data_op_year[1] };
-  d3 = { ...type_comm3, data: state.data_op_year[2] };
+  d1 = { ...type_comm1, data: state.data_comm_mois };
+  d2 = { ...type_comm2, data: state.data_comm_mois };
+  d3 = { ...type_comm3, data: state.data_comm_mois };
 
 
-  data_comm = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'Sept', 'Octo', 'Nov', 'Dec'],
+  data_comm_mois = {
+    labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mars', 'Juin', 'Juillet', 'Aout', 'Sept', 'Octo', 'Nov', 'Dec'],
     datasets: [
       d1, d2, d3
     ]
   };
+
+  d1 = { ...type_comm1, data: state.data_comm_year };
+  d2 = { ...type_comm2, data: state.data_comm_year };
+  d3 = { ...type_comm3, data: state.data_comm_year };
+
+
+  data_comm_year = {
+    labels: ['2018', '2017', '2016', '2015'],
+    datasets: [
+      d1, d2, d3
+    ]
+  };
+
+  d1 = { ...type_comm1, data: state.data_comm_trimestre };
+  d2 = { ...type_comm2, data: state.data_comm_trimestre };
+  d3 = { ...type_comm3, data: state.data_comm_trimestre };
+
+
+  data_comm_trimestre = {
+    labels: ['Trim 01', 'Trime 02', 'Trime 03', 'Trime 04'],
+    datasets: [
+      d1, d2, d3
+    ]
+  };
+ 
   /**
    * Fin des données des commissions
    */
@@ -208,14 +235,18 @@ class ManagerHome extends Component {
       nbV: 0,
       nbV_detail: [10, 10],
       nbInscr: 0,
+      nbBanquier:0,
+      nbVToday:0,
+      nbOrdre:0,
+      nbBanques:0,
       nbInscr_detail: [],
       data_op_mois: [],
       data_op_trimestre: [],
       data_op_year: [],
-      data_com_jour: [],
-      data_com_mois: [],
-      data_com_trim: [],
-      data_com_annee: [],
+      data_comm_jour: [],
+      data_comm_mois: [],
+      data_comm_trim: [],
+      data_comm_annee: [],
       stats: []
     };
     
@@ -242,7 +273,7 @@ class ManagerHome extends Component {
             <NumberCardGest
               icon="swap"
               color="#4BB543"
-              title="total des virements :"
+              title="Nombre total des virements :"
               number={this.state.nbV}
               data_sent={this.state.nbV_detail}
             />
@@ -252,7 +283,7 @@ class ManagerHome extends Component {
             <NumberCardGest
               icon="usergroup-add"
               color="#fa541c"
-              title="nombre de clients :"
+              title="Nombre total de clients :"
               number={this.state.nbInscr}
               data_sent={this.state.nbInscr_detail}
             />
@@ -261,8 +292,8 @@ class ManagerHome extends Component {
             <NumberCardGest
               icon="usergroup-add"
               color="#00d2d3"
-              title="nombre de banquiers :"
-              number={this.state.nbBanqier}
+              title="Nombre des banquiers :"
+              number={this.state.nbBanquier}
               type={2}
             />
           </Col>
@@ -273,8 +304,8 @@ class ManagerHome extends Component {
             <NumberCardGest
               icon="pay-circle-o"
               color="#001a21"
-              title="Les virements d'aujourd'huit :"
-              number={this.state.nbV}
+              title="Le montant des virements d'aujourd'huit :"
+              number={this.state.nbVToday}
               type={3}
             />
           </Col>
@@ -283,8 +314,8 @@ class ManagerHome extends Component {
             <NumberCardGest
               icon="team"
               color="#fa541c"
-              title="Clients inscrit aujourd'huit :"
-              number={this.state.nbInscr}
+              title="Nombre d'ordres de virement :"
+              number={this.state.nbOrdre}
               type={2}
             />
           </Col>
@@ -292,8 +323,8 @@ class ManagerHome extends Component {
             <NumberCardGest
               icon="user"
               color="#00d2d3"
-              title="Banquiers connectés :"
-              number={this.state.nbInscr}
+              title="Nombre des banques :"
+              number={this.state.nbBanques}
               type={2}
             />
           </Col>
@@ -305,52 +336,51 @@ class ManagerHome extends Component {
               icon="pay-circle"
               color="#4BB543"
               title="Montant total de compte THRW :"
-              number={this.state.nbV}
+              number={this.state.montantTHRW}
               type={3}
             />
           </Col>
           </Row>
-        <h2>Nombre des opérations :</h2>
-        <Tabs defaultActiveKey="1" className="tabs_op">
-          {console.log("testssssss", data_op_trimestre, data_op_year, data_op_mois)}
-          
-          <TabPane tab={<span className="tabBtn"><Icon type="bar-chart" />Par Mois</span>} key="1">
-            <Bar
+       
+
+<Row  gutter={24} style={{"height":"450px"}}>
+
+<h2>Nombre des opérations :</h2>
+<Card style={{height:350}}>
+<strong>Par mois :</strong>
+          <Bar
               data={data_op_mois}
               width={100}
-              height={2}
+              height={200}
               options={{
                 maintainAspectRatio: false
               }}
             />
-          </TabPane>
-          <TabPane tab={<span className="tabBtn"><Icon type="bar-chart" />Par Trimestre</span>} key="2">
+</Card >
+<Card style={{height:350}}>
+            <strong>Par trimestre :</strong>
             <Bar
               data={data_op_trimestre}
               width={100}
-              height={2}
+              height={200}
               options={{
                 maintainAspectRatio: false
               }}
             />
-          </TabPane>
-          
-          <TabPane tab={<span className="tabBtn"><Icon type="bar-chart" />Par Année</span>} key="3">
+  </Card>
+  <Card style={{height:350}}>
+            <strong>Par année :</strong>
             <Bar
               data={data_op_year}
               width={100}
-              height={2}
+              height={200}
               options={{
                 maintainAspectRatio: false
               }}
             />
-          </TabPane>
-        </Tabs>
+    </Card>
 
 
-        <h2>Revenus des Commissions :</h2>
-        <Tabs defaultActiveKey="1">
-          <TabPane tab={<span className="tabBtn"><Icon type="dot-chart" />Par Jour</span>} key="1">
             <HighchartsStockChart>
               <Chart zoomType="x" />
 
@@ -384,19 +414,12 @@ class ManagerHome extends Component {
               </Navigator>
             </HighchartsStockChart>
 
-          </TabPane>
-          <TabPane tab={<span className="tabBtn"><Icon type="dot-chart" />Par Mois</span>} key="2">
-            <Line data={data_comm} />
-          </TabPane>
-          <TabPane tab={<span className="tabBtn"><Icon type="bar-chart" />Par Trimestre</span>} key="3">
-            <Line data={data_comm} />
-          </TabPane>
-          <TabPane tab={<span className="tabBtn"><Icon type="dot-chart" />Par Année</span>} key="4">
-            <Line data={data_comm} />
-          </TabPane>
-        </Tabs>
+            <Line data={data_comm_mois} />
+            
+            <Line data={data_comm_trimestre} />
 
-
+            <Line data={data_comm_year} />
+            </Row>
       </div>
     );
   }
@@ -412,6 +435,9 @@ class ManagerHome extends Component {
       data_op_mois: nextProps.data_op_mois,
       data_op_trimestre: nextProps.data_op_trimestre,
       data_op_year: nextProps.data_op_year,
+      data_comm_mois: nextProps.data_comm_mois,
+      data_comm_trimestre: nextProps.data_comm_trimestre,
+      data_comm_year: nextProps.data_comm_year,
     });
 
    
@@ -443,6 +469,9 @@ const mapStateToProps = ({ stats }) => {
     data_op_mois: stats.data_op.mois,
     data_op_trimestre: stats.data_op.trimestre,
     data_op_year: stats.data_op.annee,
+    data_comm_mois: stats.data_com.mois,
+    data_comm_trimestre: stats.data_com.trimestre,
+    data_comm_year: stats.data_com.annee,
     //stats:stats.stats_info
   }
 }
