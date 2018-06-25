@@ -290,7 +290,7 @@ class ManagerHome extends Component {
           </Col>
           <Col lg={8} md={12}>
             <NumberCardGest
-              icon="usergroup-add"
+              icon="user"
               color="#00d2d3"
               title="Nombre des banquiers :"
               number={this.state.nbBanquier}
@@ -312,7 +312,7 @@ class ManagerHome extends Component {
 
           <Col lg={8} md={12}>
             <NumberCardGest
-              icon="team"
+              icon="read-envelop"
               color="#fa541c"
               title="Nombre d'ordres de virement :"
               number={this.state.nbOrdre}
@@ -321,7 +321,7 @@ class ManagerHome extends Component {
           </Col>
           <Col lg={8} md={12}>
             <NumberCardGest
-              icon="user"
+              icon="bank"
               color="#00d2d3"
               title="Nombre des banques :"
               number={this.state.nbBanques}
@@ -379,12 +379,12 @@ class ManagerHome extends Component {
               }}
             />
     </Card>
-
-
+    <h2>Montant perçu par les commissions :</h2>
+  <Card style={{}}>
             <HighchartsStockChart>
               <Chart zoomType="x" />
 
-              <Title>Commissions :</Title>
+              <Title>Commissions par jours :</Title>
 
               <Legend>
                 <Legend.Title>temps</Legend.Title>
@@ -413,12 +413,19 @@ class ManagerHome extends Component {
                 <Navigator.Series seriesId="mountant" />
               </Navigator>
             </HighchartsStockChart>
-
+            </Card>
+  <Card style={{}}>
+  <strong>Par mois :</strong>
             <Line data={data_comm_mois} />
-            
+            </Card>
+  <Card style={{}}>
+  <strong>Par trimestre :</strong>
             <Line data={data_comm_trimestre} />
-
+            </Card>
+  <Card style={{}}>
+  <strong>Par année :</strong>
             <Line data={data_comm_year} />
+            </Card>
             </Row>
       </div>
     );
