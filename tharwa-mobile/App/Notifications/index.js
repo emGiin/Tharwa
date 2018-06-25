@@ -28,13 +28,13 @@ const notificationTitles = {
 }
 
 
-export const initPusher = (email, dispatch) => {
+export const initPusher = email => {
   const pusher = new Pusher(PUSHER_APP_KEY, {
     cluster: 'eu',
     encrypted: true
   });
 
-  const channel = pusher.subscribe(CHANNEL_ID);
+  const channel = pusher.subscribe(`${CHANNEL_ID}.${email}`);
 
   for (const eventName in events) {
     if (events.hasOwnProperty(eventName)) {

@@ -30,7 +30,6 @@ class RootContainer extends Component {
     NetInfo.isConnected.addEventListener('connectionChange', this.handleConnetionChange);
     AppState.addEventListener('change', this.handleAppStateChange);
     this.checkNfcSupport();
-    initPusher("", this.props.dispatch)
   }
 
   componentWillUnmount() {
@@ -48,7 +47,7 @@ class RootContainer extends Component {
         email, name, picture, accountNumber
       })
       if (this.state.nfcSupported && this.state.nfcEnabled) NfcNdefManager.setMessage(userDetails)
-
+      initPusher(email)
     }
   }
 
