@@ -19,7 +19,7 @@ class RootContainer extends Component {
   state = {
     isConnected: true,
     appState: AppState.currentState,
-    nfcSupported: true,
+    nfcSupported: false,
     nfcEnabled: false,
     nfcMsgSaved: true
   }

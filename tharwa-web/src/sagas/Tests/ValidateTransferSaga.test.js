@@ -4,7 +4,7 @@
 //import { getDataset, acceptDemand, rejectDamand } from '../ValidateTransferSaga';
 //import Actions from '../../redux/ValidateTransferRedux';
 
-const stepper = fn => mock => fn.next(mock).value;
+//const stepper = fn => mock => fn.next(mock).value;
 
 describe('Transfer validation saga', () => {
   it('should be able to get dataset', () => {

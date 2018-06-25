@@ -3,7 +3,7 @@
 import createSaga/*, {setCredentials}*/ from "../TableWithActionsSaga";
 //import createReducer from "../../redux/TableWithActionsRedux";
 
-const stepper = fn => mock => fn.next(mock).value;
+//const stepper = fn => mock => fn.next(mock).value;
 
 describe("TableWithActions SAGA", () => {
   let saga = createSaga({}, "mock");

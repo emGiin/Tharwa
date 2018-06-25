@@ -105,7 +105,7 @@ componentWillReceiveProps(nextProps) {
           columns={columns}
           rowKey={record => record.email}
           dataSource={this.state.data}
-          pagination={{pageSize:5, size: "small"}}
+          pagination={{ pageSize: 5, size: 'small' , hideOnSinglePage: true}}
           loading={this.props.listState.fetching}
         />
     )

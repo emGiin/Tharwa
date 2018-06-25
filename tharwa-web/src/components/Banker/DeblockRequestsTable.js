@@ -128,7 +128,7 @@ class DeblockRequestsTable extends Component{
       columns={this.columns}
       rowKey={record => record.account}
       dataSource={this.props.list}
-      pagination={{pageSize:5, size: "small"}}
+      pagination={{ pageSize: 5, size: 'small' , hideOnSinglePage: true}}
       loading={this.props.listState.fetching}
     />
     </div>
