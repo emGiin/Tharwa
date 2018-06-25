@@ -147,7 +147,7 @@ export default class AppLayout extends Component {
     this.contentStyle =
       this.props.clientType === 'Banquier'
         ? { margin: '24px 16px' }
-        : { margin: '24px 16px', 'max-height': '563px', overflow: 'scroll' };
+        : {  'max-height': '563px', overflow: 'scroll' };
   }
 
   contentStyle = null;
