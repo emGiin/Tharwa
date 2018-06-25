@@ -7,6 +7,81 @@ import Routes from './Routes';
 import './Styles/AppLayout.css';
 const { Header, Content, Footer, Sider } = Layout;
 
+const getMenu = (clientType, location) => {
+  if (clientType === 'Banquier') {
+    return (
+      <Menu
+        theme="dark"
+        mode="inline"
+        defaultSelectedKeys={['/']}
+        selectedKeys={[location.pathname]}>
+        <Menu.Item key="/">
+          <NavLink to="/">
+            <Icon type="home" />
+            <span>Acceuil</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="/accountManagement">
+          <NavLink to="/accountManagement">
+            <Icon type="solution" />
+            <span>Gestion des comptes</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="/deblockAccount">
+          <NavLink to="/deblockAccount">
+            <Icon type="unlock" />
+            <span>Demandes de déblocage</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="/demandeInscriptions">
+          <NavLink to="/demandeInscriptions">
+            <Icon type="user-add" />
+            <span>Demandes d'inscriptions</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="/otherAccount">
+          <NavLink to="/otherAccount">
+            <Icon type="usergroup-add" />
+            <span>Demandes d'autres comptes</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="/virements">
+          <NavLink to="/virements">
+            <Icon type="swap" />
+            <span>Demandes de Virements</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="/OrdresVirement">
+          <NavLink to="/OrdresVirement">
+            <Icon type="bars" />
+            <span>Ordres de Virements</span>
+          </NavLink>
+        </Menu.Item>
+      </Menu>
+    )
+  } else if (clientType === 'Gestionnaire')
+    return (
+      <Menu
+        theme="dark"
+        mode="inline"
+        defaultSelectedKeys={['/']}
+        selectedKeys={[location.pathname]}>
+        <Menu.Item key="/dashboard">
+          <NavLink to="/dashboard">
+            <Icon type="home" />
+            <span>Acceuil</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="/creerBanquier">
+          <NavLink to="/creerBanquier">
+            <Icon type="user-add" />
+            <span>Creer un banquier</span>
+          </NavLink>
+        </Menu.Item>
+      </Menu>
+    );
+};
+
 class SideBar extends Component {
   state = {
     collapsed: false
@@ -42,60 +117,7 @@ class SideBar extends Component {
         <NavLink to="/">
           <div className={this.state.collapsed ? 'small-logo' : 'full-logo'} />{' '}
         </NavLink>
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={['/']}
-          selectedKeys={[this.props.location.pathname]}>
-          <Menu.Item key="/">
-            <NavLink to="/">
-              <Icon type="home" />
-              <span>Acceuil</span>
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="/accountManagement">
-            <NavLink to="/accountManagement">
-              <Icon type="solution" />
-              <span>Gestion des comptes</span>
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="/deblockAccount">
-            <NavLink to="/deblockAccount">
-              <Icon type="unlock" />
-              <span>Demandes de déblocage</span>
-            </NavLink>
-          </Menu.Item>
-         {/*<Menu.Item key="/creerBanquier">
-            <NavLink to="/creerBanquier">
-              <Icon type="user-add" />
-              <span>Creer un banquier</span>
-            </NavLink>
-      </Menu.Item>*/}
-          <Menu.Item key="/demandeInscriptions">
-            <NavLink to="/demandeInscriptions">
-              <Icon type="user-add" />
-              <span>Demandes d'inscriptions</span>
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="/otherAccount">
-            <NavLink to="/otherAccount">
-              <Icon type="usergroup-add" />
-              <span>Demandes d'autres comptes</span>
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="/virements">
-            <NavLink to="/virements">
-              <Icon type="swap" />
-              <span>Demandes de Virements</span>
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="/OrdresVirement">
-            <NavLink to="/OrdresVirement">
-              <Icon type="bars" />
-              <span>Ordres de Virements</span>
-            </NavLink>
-          </Menu.Item>
-        </Menu>
+        {getMenu(this.props.clientType, this.props.location)}
         <Icon
           className="ant-layout-sider-trigger"
           type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
@@ -122,6 +144,7 @@ export default class AppLayout extends Component {
             siderWidth !== this.state.siderWidth &&
             this.setState({ siderWidth })
           }
+          clientType={this.props.clientType}
         />
         <Layout
           style={{
@@ -147,14 +170,14 @@ export default class AppLayout extends Component {
                 title={
                   <span>
                     <Icon type="user" />
-                    Amine
+                    {this.props.clientType}
                   </span>
                 }>
                 <Menu.Item key="logout">Sign out</Menu.Item>
               </Menu.SubMenu>
             </Menu>
           </Header>
-          <Content style={{ margin: '24px 16px'}}>
+          <Content style={{ margin: '24px 16px' }}>
             <Routes />
           </Content>
           <Footer
