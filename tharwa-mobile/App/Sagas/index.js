@@ -18,6 +18,7 @@ import { BankTypes } from '../Redux/BankRedux'
 import { ExchangeRateTypes } from '../Redux/ExchangeRateRedux'
 import { NfcTransferTypes } from '../Redux/NfcTransferRedux'
 import { MicroTransferListTypes } from '../Redux/MicroTransferListRedux'
+import { UnlockAccountTypes } from '../Redux/UnlockAccountRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -35,6 +36,7 @@ import {
 } from './TransferSaga'
 import { getBanks } from './BankSaga'
 import { getExchangeRates } from './ExchangeRateSaga'
+import { unlockAccount } from './UnlockAccountSaga'
 
 /* ------------- API ------------- */
 
@@ -65,6 +67,7 @@ export default function* root() {
     // account
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getProfile, api),
     takeLatest(AccountTypes.NEW_ACCOUNT_REQUEST, requestNewAccount, api),
+    takeLatest(UnlockAccountTypes.UNLOCK_ACCOUNT_REQUEST, unlockAccount, api),
 
     // banks
     takeLatest(BankTypes.BANK_REQUEST, getBanks, api),

@@ -74,6 +74,14 @@ export default {
       }
     }
   },
+  unlockAccount: type => {
+    return {
+      ok: true,
+      data: {
+        "saved": true
+      }
+    }
+  },
   myAccountTransfer: data => {
     return {
       ok: true,
