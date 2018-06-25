@@ -38,7 +38,7 @@ const create = (baseURL = API_URL) => {
   const myAccountTransfert = data => api.post(`${transferURL}/myaccount`, data)
   const tharwaTransfer = data => api.post(`${transferURL}/intern`, data)
   const externalTransfer = data => api.post(`${transferURL}/extern`, data)
-  const newOrder = data => api.post(`ordrevirement`, data)
+  const sendTransferOrder = data => api.post(`ordrevirement`, data)
   const nfcTransfer = data => api.post(`${transferURL}/micro`, data)
   const getMicroTransferList = () => api.get(`${transferURL}/micro`)
 
@@ -59,7 +59,7 @@ const create = (baseURL = API_URL) => {
     getBanks,
     externalTransfer,
     getExchangeRates,
-    newOrder,
+    sendTransferOrder,
     nfcTransfer,
     getMicroTransferList,
     unlockAccount

@@ -1,20 +1,14 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
-import I18n from 'react-native-i18n'
-import { connect } from 'react-redux'
-import { reduxForm, formValueSelector } from 'redux-form'
+import { reduxForm } from 'redux-form'
 import styles from '../Styles/SignupFormStyle'
 import { Header } from '../../../Components'
 import FirstStep from './FirstStep'
-import SecondStep from './SecondStep'
-import ThirdStep from './ThirdStep'
 import { Colors } from '../../../Themes';
 
-class ExternalTransferForm extends Component {
+class TransferOrderForm extends Component {
   formSteps = [
-    FirstStep,
-    SecondStep,
-    ThirdStep
+    FirstStep
   ]
 
   constructor(props) {
@@ -22,16 +16,6 @@ class ExternalTransferForm extends Component {
     this.state = { currentPage: 1 }
     this.nextPage = this.nextPage.bind(this)
     this.previousPage = this.previousPage.bind(this)
-  }
-
-  componentWillReceiveProps({ OrderInfos }) {
-    
-      this.formSteps = [
-        FirstStep,
-        SecondStep,
-        ThirdStep
-      ]
-    
   }
 
   nextPage() {
@@ -43,7 +27,7 @@ class ExternalTransferForm extends Component {
   }
 
   getNextComponent = (currentPage) => {
-    const { fetching, onSubmit, OrderInfos } = this.props;
+    const { fetching, onSubmit, banks } = this.props;
     const formStepProps = {
       editable: !fetching,
       onSubmit: currentPage !== this.formSteps.length ? this.nextPage : onSubmit,
@@ -60,25 +44,11 @@ class ExternalTransferForm extends Component {
       <View style={[styles.mainformContainer, {
         backgroundColor: Colors.background
       }]}>
-        <Header icon={'md-arrow-round-back'} text={I18n.t('transfer')} />
+        <Header icon={'md-arrow-round-back'} text={'Nouveau ordre de virement'} />
         <CurrentFormComponent {...formStepProps} />
       </View>
     )
   }
 }
 
-let Form = reduxForm({
-  form: 'OrderForm',
-  destroyOnUnmount: false,
-  forceUnregisterOnUnmount: true,
-})(ExternalTransferForm);
-
-// connect our component again to get some additional state
-Form = connect(
-  /* istanbul ignore next */
-  state => ({
-    OrderInfos: formValueSelector('OrderForm')(state, 'OrderInfos')
-  })
-)(Form)
-
-export default Form
+export default TransferOrderForm

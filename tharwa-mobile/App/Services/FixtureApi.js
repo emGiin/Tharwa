@@ -147,4 +147,9 @@ export default {
       }]
     }
   },
+  sendTransferOrder: () => {
+    return {
+      ok: true
+    }
+  }
 }

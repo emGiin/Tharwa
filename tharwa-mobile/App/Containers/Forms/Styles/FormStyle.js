@@ -17,6 +17,6 @@ export default {
     width: '100%',
     flex: 1,
   },
-  
+
 
 }

@@ -4,7 +4,9 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   transferOrderRequest: [],
   transferOrderFailure: ['error'],
-  transferOrderSuccess: ['data']
+  transferOrderSuccess: ['data'],
+  newTransferOrderRequest: ['data'],
+  newTransferOrderSuccess: []
 })
 
 export const TransferOrderTypes = Types
@@ -30,6 +32,14 @@ export const success = (state, { data }) => (
   })
 )
 
+export const newSuccess = state => (
+  state.merge({
+    fetching: false,
+    error: null,
+    success: false
+  })
+)
+
 export const failure = (state, { error }) => state.merge({
   fetching: false, error
 })
@@ -38,5 +48,7 @@ export const failure = (state, { error }) => state.merge({
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.TRANSFER_ORDER_REQUEST]: request,
   [Types.TRANSFER_ORDER_SUCCESS]: success,
-  [Types.TRANSFER_ORDER_FAILURE]: failure
+  [Types.NEW_TRANSFER_ORDER_SUCCESS]: newSuccess,
+  [Types.TRANSFER_ORDER_FAILURE]: failure,
+  [Types.NEW_TRANSFER_ORDER_REQUEST]: request
 });

@@ -13,3 +13,14 @@ export function* getOrderHistory(api) {
   }
 }
 
+export function* sendTransferOrder(api) {
+  const response = yield call(api.sendTransferOrder)
+
+  // success? 
+  if (response.ok) {
+    yield put(TansferOrderActions.newTransferOrderSuccess())
+  } else {
+    yield put(TansferOrderActions.transferOrderFailure(I18n.t('accountFetchError')))
+  }
+}
+

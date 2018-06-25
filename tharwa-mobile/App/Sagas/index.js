@@ -28,7 +28,7 @@ import { login, logout, loadToken } from './AuthSaga'
 import { confirmPinCode } from './PinCodeSaga'
 import { signup } from './SignupSaga'
 import { getProfile, requestNewAccount } from './AccountSaga'
-import { getOrderHistory} from './TransferOrderSaga'
+import { getOrderHistory, sendTransferOrder } from './TransferOrderSaga'
 import {
   myAccountTransfer,
   tharwaTransfer,
@@ -71,8 +71,9 @@ export default function* root() {
     takeLatest(AccountTypes.NEW_ACCOUNT_REQUEST, requestNewAccount, api),
     takeLatest(UnlockAccountTypes.UNLOCK_ACCOUNT_REQUEST, unlockAccount, api),
 
-     // Order History
-     takeLatest(TransferOrderTypes.TRANSFER_ORDER_REQUEST, getOrderHistory, api),
+    // Order History
+    takeLatest(TransferOrderTypes.TRANSFER_ORDER_REQUEST, getOrderHistory, api),
+    takeLatest(TransferOrderTypes.NEW_TRANSFER_ORDER_REQUEST, getOrderHistory, api),
 
     // banks
     takeLatest(BankTypes.BANK_REQUEST, getBanks, api),
