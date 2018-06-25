@@ -15,7 +15,7 @@
       {
         "amount": "2000",
         "commission": null,
-        "transaction_type": "micro",
+        "transaction_type": "transf",
         "transaction_direction": "in",
         "target": "Mt De Me",
         "transfer_code": "THW000004DZDTHW000001DZD201805211326",
@@ -24,7 +24,7 @@
       {
         "amount": "50.5",
         "commission": ".5",
-        "transaction_type": "micro",
+        "transaction_type": "vir_client",
         "transaction_direction": "out",
         "target": "emtest emtest",
         "transfer_code": "THW000001DZDTHW000002DZD201805202340",
@@ -33,7 +33,7 @@
       {
         "amount": "2020",
         "commission": "20",
-        "transaction_type": "micro",
+        "transaction_type": "reject",
         "transaction_direction": "out",
         "target": "Mt De Me",
         "transfer_code": "THW000001DZDTHW000004DZD201805211325",
