@@ -25,10 +25,6 @@ class TransferOrderHistoryScreen extends Component {
     }, 1000);
   }
 
-  goToEditOrderPage = () => {
-    this.props.navigation.navigate('OrderTransferAddScreen');
-  }
-
   goToNewTransferOrder = () => {
     this.props.navigation.navigate('NewTransferOrderScreen');
   }
@@ -43,8 +39,8 @@ class TransferOrderHistoryScreen extends Component {
         <View style={styles.historyTitleContainer}>
           <Text style={styles.historyTitle}>Récents </Text>
           <Button transparent iconLeft onPress={this.goToNewTransferOrder} >
-            <Icon name='ios-add' />
-            <Text>Nouveau</Text>
+            <Icon style={styles.addButton} name='ios-add' />
+            <Text style={styles.addButton}>Nouveau</Text>
           </Button>
         </View>
         <FlatList

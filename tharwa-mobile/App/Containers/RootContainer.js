@@ -47,7 +47,7 @@ class RootContainer extends Component {
         email, name, picture, accountNumber
       })
       if (this.state.nfcSupported && this.state.nfcEnabled) NfcNdefManager.setMessage(userDetails)
-      initPusher(email)
+      // initPusher(email)
     }
   }
 

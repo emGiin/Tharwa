@@ -12,7 +12,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-
+    marginTop: -10
   },
   historyTitle: {
     color: Colors.forground,
@@ -24,5 +24,8 @@ export default StyleSheet.create({
     marginTop: 2,
     marginHorizontal: 10,
     height: "100%"
+  },
+  addButton: {
+    color: Colors.button
   }
 })

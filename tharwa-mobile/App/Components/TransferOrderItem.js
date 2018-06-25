@@ -6,8 +6,9 @@ import styles from './Styles/TransferItemStyles'
 import { ContentLoader } from './'
 
 const TransferOrderItem = ({ item }) => {
+  // status  ['traitement', 'valide' ,'rejete'] //bad
   if (!item) return <TransferOrderLoaderItem />
-  const [date/*, time*/] = item.created_at.split(' ')
+  const [date/*, time*/] = item.created_at ? item.created_at.split(' ') : ['traitement']
   const type = item.reason === 'out'
   const color = type ? "#e74c3c" : "#218c74"
   const icon = type ? 'arrow-down' : 'arrow-up'
