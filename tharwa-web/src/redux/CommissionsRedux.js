@@ -1,6 +1,5 @@
 import { createReducer, createActions } from "reduxsauce";
 import Immutable from "seamless-immutable";
-import {CONTENT_BASE_URL} from "../config/AppConfig";
 //Actions
 const { Types, Creators } = createActions({
   setDefault: [],

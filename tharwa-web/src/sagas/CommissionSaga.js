@@ -9,7 +9,7 @@ export const selectAuthToken = state => state.auth.authToken;
 export const selectPinCode= state=>state.auth.pinCode;
 
 export function* getCommList(api) {
-/*
+
   const authToken = yield select(selectAuthToken);
   if (authToken) {
     yield call(api.setAuthToken, authToken);
@@ -18,7 +18,7 @@ export function* getCommList(api) {
   if (pinCode) {
     yield call(api.setPinCode, pinCode);
    }
-*/
+
   
   const response = yield call(api.getCommissionsList_);
 
