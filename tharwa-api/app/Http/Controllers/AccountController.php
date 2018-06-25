@@ -46,7 +46,7 @@ class AccountController extends Controller
         $banquier = Manager::banquier()->first();
 
         Mail::to($banquier->email)
-                ->queue(new NewAccountRequestMail($client->name(),$request->type));
+            ->queue(new NewAccountRequestMail($client->name(), $request->type));
 
         //save to db
         AccountRequest::create([
@@ -100,6 +100,11 @@ class AccountController extends Controller
             Mail::to($client->email)
                 ->queue(new AccountRequestRefusedMail(""));
 
+            event(new \App\Events\AccountRequestRefused(
+                "Votre Demande de creation d'un compte ".$rejectedAccRequest->type_id
+                ." a été refusée",
+                $client->email));
+
             return response(["saved" => true], config('code.CREATED'));
 
         } else {//accepted
@@ -112,9 +117,6 @@ class AccountController extends Controller
                 //get the accepted client
                 $acceptedAccount = AccountRequest::find($request->input('id'));
 
-                $client = $acceptedAccount->client()->first();
-                Mail::to($client->email)
-                    ->queue(new AccountRequestAcceptedMail());
 
                 $currencies = ['EPARN' => 'DZD', 'DVEUR' => 'EUR', 'DVUSD' => 'USD'];
                 $currency = $currencies[$acceptedAccount->type_id];
@@ -128,6 +130,16 @@ class AccountController extends Controller
                     'type_id' => $acceptedAccount->type_id,
                     'client_id' => $acceptedAccount->client_id,
                 ]);
+
+                $client = $acceptedAccount->client()->first();
+                Mail::to($client->email)
+                    ->queue(new AccountRequestAcceptedMail());
+
+                event(new \App\Events\AccountRequestAccepted(
+                    "Votre Demande de creation d'un compte ".
+                    $acceptedAccount->type_id
+                    ." a été acceptée",
+                    $client->email));
 
                 $acceptedAccount->delete();
 
@@ -192,12 +204,12 @@ class AccountController extends Controller
                 $account->isvalid = true;
                 $managerAnswer = 'debloq';
                 Mail::to($client->email)
-                    ->queue(new AccountDeblockedMail($account->number,"".$request->input('motif')));
+                    ->queue(new AccountDeblockedMail($account->number, "" . $request->input('motif')));
             } else {//block
                 $account->isvalid = false;
                 $managerAnswer = 'bloq';
                 Mail::to($client->email)
-                    ->queue(new AccountBlockedMail($account->number,"".$request->input('motif')));
+                    ->queue(new AccountBlockedMail($account->number, "" . $request->input('motif')));
             }
 
             $account->save();
@@ -230,12 +242,24 @@ class AccountController extends Controller
     {
         //validation
         $validator = \Validator::make($request->all(), [
-            'numero' => ['required', 'regex:/^THW[0-9]{6}(DZD|EUR|USD)$/', 'exists:accounts,number'],
+            'account_type' => 'required|in:COUR,EPARN,DVEUR,DVUSD',
             'justification' => 'required',//img
         ]);
         if ($validator->fails()) {
             return response($validator->errors(), config('code.BAD_REQUEST'));
         }
+        $type_id = $request->input('account_type');
+        if ('COUR' == $type_id) $type_id = 'COUR ';
+
+        $account = $this->client()->accounts()
+            ->where('type_id', $type_id)->first();
+        if (is_null($account))
+            return response(["saved" => false, "account" => "does not exist"], config('code.UNAUTHORIZED'));
+
+
+        if (true == $account->isValid)
+            return response(["message" => "the account is not blocked"], config('code.UNAUTHORIZED'));
+
 
         //save image from 64base
         $file_name = strtoupper(md5(uniqid(rand(), true))) . ".jpeg";
@@ -244,20 +268,13 @@ class AccountController extends Controller
         //save file in disk
         $image = self::base64_to_jpeg(\Request::input('justification'), $path);
 
-        //todo check account belongs to client or change acc number to type_id
-
-        $account = Account::find($request->input('numero'));
-
-        if (true == $account->isValid)
-            return response(["message" => "the account is not blocked"], config('code.UNAUTHORIZED'));
-
 
         AccountStatus::create([
             'type' => 'dem_debloq',
             'justification' => $image,
             'treated' => false,
             'type_id' => $account->type_id,
-            'account_id' => \Request::input('numero'),
+            'account_id' => $account->number,
         ]);
 
 
@@ -266,7 +283,6 @@ class AccountController extends Controller
         Mail::to($banquier->email)
             ->queue(new AccountDeblockedRequestMail($client->name()));
 
-        //todo send mail to banqie
 
         return response(["saved" => true], config('code.CREATED'));
 
@@ -281,7 +297,7 @@ class AccountController extends Controller
         $baseUrl = url(config('filesystems.uploaded_file'));
 
         foreach ($deblockDemandes as $deblockDemande) {
-            $deblockDemande['justification'] =  $baseUrl . '/'
+            $deblockDemande['justification'] = $baseUrl . '/'
                 . $deblockDemande['justification'];
             $deblockDemande['client'] = clone $deblockDemande['account']['client'];
             $deblockDemande['client']['picture'] =

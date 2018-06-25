@@ -180,6 +180,13 @@ class VirmentController extends Controller
                     , ""
                 ));//todo : _to & currency
 
+            $splitedMethods = explode('_',$method);
+            event(new \App\Events\TransferBetweenMyAccount(
+                "Votre transfer entre les comptes ".
+                $splitedMethods[0]." et ".$splitedMethods[1]
+                ." a été affectée avec success",
+                $client->email));
+
             // all good
             /**commit - no problems **/
             DB::commit();
@@ -325,6 +332,12 @@ class VirmentController extends Controller
                         , $amount
                         , ""
                     ));//todo : _to & currency
+
+                event(new \App\Events\TransferReceived(
+                    "Un virement de la part de M. ".$senderClient->name()
+                    ."avec le montant ".$amount." DZD"
+                    ." a été reçu",
+                    $receiverClient->email));
             }
 
             InternTransfer::create([
@@ -673,6 +686,11 @@ class VirmentController extends Controller
 //                    , $status
 //                ));//todo : _to & currency
 
+            event(new \App\Events\TransferReceived(
+                "Un virement de la part de M. ".$senderClient->name()
+                ."avec le montant ".$amount." DZD"
+                ." a été reçu",
+                $receiverClient->email));
 
             // all good
             /**commit - no problems **/
@@ -861,6 +879,15 @@ class VirmentController extends Controller
                     Mail::to($client->email)
                         ->queue(new TransferRefusedMail($interTransfer->destination_id,$interTransfer->creationdate,$interTransfer->amount));
 
+                    $receiverAccount = Account::find($interTransfer->destination_id);
+                    $receiverClient = $receiverAccount->client()->first();
+
+                    event(new \App\Events\TransferRefused(
+                        "Votre virement vers M. ".$receiverClient->name()
+                        ."avec le montant ".$interTransfer->amount." DZD"
+                        ." a été refusé",
+                        $client->email));
+
                 } else {
                     $interTransfer->status = 'valide';
                     $interTransfer->save();
@@ -900,6 +927,18 @@ class VirmentController extends Controller
                             , $interTransfer->amount
                             , ""
                         ));//todo : _to & currency
+
+                    event(new \App\Events\TransferAccepted(
+                        "Votre virement vers M. ".$receiverClient->name()
+                        ."avec le montant ".$interTransfer->amount." DZD"
+                        ." a été accepté",
+                        $client->email));
+
+                    event(new \App\Events\TransferReceived(
+                        "Un virement de la part de M. ".$client->name()
+                        ."avec le montant ".$interTransfer->amount." DZD"
+                        ." a été reçu",
+                        $receiverClient->email));
                 }
 
             } else {//extern transfer from tharwa to an otherBank
@@ -935,6 +974,11 @@ class VirmentController extends Controller
                     Mail::to($client->email)
                         ->queue(new TransferRefusedMail($exterTransfer->extern_account_name,$exterTransfer->creationdate,$exterTransfer->amount));
 
+                    event(new \App\Events\TransferRefused(
+                        "Votre virement vers M. ".$exterTransfer->extern_account_name
+                        ."avec le montant ".$exterTransfer->amount." DZD"
+                        ." a été refusé",
+                        $client->email));
                 } else {
                     $exterTransfer->status = 'valide';
                     $exterTransfer->save();
@@ -962,6 +1006,11 @@ class VirmentController extends Controller
                     Mail::to($client->email)
                         ->queue(new TransferRefusedMail($exterTransfer->extern_account_name,$exterTransfer->creationdate,$exterTransfer->amount));
 
+                    event(new \App\Events\TransferAccepted(
+                        "Votre virement vers M. ".$exterTransfer->extern_account_name
+                        ."avec le montant ".$exterTransfer->amount." DZD"
+                        ." a été accepté",
+                        $client->email));
                 }
             }
 

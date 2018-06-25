@@ -201,12 +201,24 @@ class OrdreVirementController extends Controller
                 Mail::to($senderEmployer->email)
                     ->queue(new TransferOrdreRefusedMail($transferOrder->created_at));
 
+                event(new \App\Events\TransferOrderRefused(
+                    "Votre ordre de virement effecté a ".
+                    $transferOrder->created_at
+                    ." a été rejeté",
+                    $senderEmployer->email));
+
             } else {//accepted & executeIt
 
                 //todo suppose that amount is checked ?
 
                 Mail::to($senderEmployer->email)
                     ->queue(new TransferOrdreAcceptedMail($transferOrder->created_at));
+
+                event(new \App\Events\TransferOrderAccepted(
+                    "Votre ordre de virement effecté a ".
+                    $transferOrder->created_at
+                    ." a été accepté",
+                    $senderEmployer->email));
 
                 $now = \Carbon\Carbon::now();
                 $nb = BalanceHistory::count();//todo fix this !all sol tested! re-migrate DB

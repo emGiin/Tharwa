@@ -12,7 +12,7 @@ class NewAccountRequestMail extends Mailable
     use Queueable, SerializesModels;
 
     public $clientName;
-    public $motif;
+    public $accountType;
     /**
      * Create a new message instance.
      *

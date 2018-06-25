@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Pusher\Pusher;
 use Validator;
 
 class ClientController extends Controller
@@ -108,7 +109,7 @@ class ClientController extends Controller
                 'amount' => $account->balance,
                 'history' => $account->history()
                     ->orderBy('created_at', 'desc')
-                    ->limit(10)
+//                    ->limit(10)
                     ->get()
                     ->each(function ($item) {
                         $item->target = $item->target();
