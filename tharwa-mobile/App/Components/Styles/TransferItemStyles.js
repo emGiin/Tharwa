@@ -4,7 +4,7 @@ import { Colors } from '../../Themes';
 export default StyleSheet.create({
   container: {
     backgroundColor: Colors.white,
-    marginVertical: 3,
+    marginVertical: 4,
     // padding: 7,
     elevation: 1,
     flexDirection: 'row',
@@ -33,13 +33,14 @@ export default StyleSheet.create({
   info: {
     flexDirection: 'column',
     justifyContent: 'space-between',
-    padding : 7
+    padding: 7
   },
   leftContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
-  rightContainer: { 
-    margin : 7
+  rightContainer: {
+    margin: 7,
+    justifyContent: 'space-between'
   },
   amountContainer: {
     flexDirection: 'row'
@@ -57,7 +58,7 @@ export default StyleSheet.create({
     // marginHorizontal: 10,
     padding: 0
   },
-  typeIcon:{
+  typeIcon: {
     padding: 7,
     backgroundColor: Colors.forground,
     borderTopLeftRadius: 6,

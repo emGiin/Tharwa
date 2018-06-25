@@ -6,7 +6,7 @@ export default StyleSheet.create({
   container: {
     height: '100%',
     flex: 1,
-    // backgroundColor: Colors.background
+    backgroundColor: "#d5dde2"
   },
   carouselContainer: {
     height: 165,
@@ -19,10 +19,13 @@ export default StyleSheet.create({
   },
   historyTitle: {
     color: Colors.forground,
-    fontSize: 18
+    fontSize: 18,
+    marginTop : 10,
+    marginBottom: 3,
+    marginLeft: 3
   },
   historyList: {
-    marginTop: 2,
+    marginTop: 7,
     marginHorizontal: 10
   },
   actionButtonIcon: {
