@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, FlatList, RefreshControl } from 'react-native'
-import { Text } from 'native-base'
+import { Text, Button, Icon } from 'native-base'
 import { TransferOrderItem, Header, TransferOrderLoaderItem } from '../../Components'
 
 // Redux
 import TransferOrderActions from '../../Redux/TransferOrderRedux'
 
 // Styles
-import styles from './Styles/TransferOrderScreenStyles'
+import styles from './Styles/TransferOrderHistoryScreenStyles'
 
-
-class TransfertOrderScreen extends Component {
+class TransferOrderHistoryScreen extends Component {
   state = { refreshing: false }
 
   componentWillMount() {
@@ -30,6 +29,10 @@ class TransfertOrderScreen extends Component {
     this.props.navigation.navigate('OrderTransferAddScreen');
   }
 
+  goToNewTransferOrder = () => {
+    this.props.navigation.navigate('NewTransferOrderScreen');
+  }
+
   render() {
     const { history } = this.props
     const historyItems = history.length > 0 ? history : new Array(3);
@@ -38,7 +41,11 @@ class TransfertOrderScreen extends Component {
       <View style={styles.container}>
         <Header text={'Ordre de Virement'} />
         <View style={styles.historyTitleContainer}>
-          <Text style={styles.historyTitle}>Ordres de Virement récents </Text>
+          <Text style={styles.historyTitle}>Récents </Text>
+          <Button transparent iconLeft onPress={this.goToNewTransferOrder} >
+            <Icon name='ios-add' />
+            <Text>Nouveau</Text>
+          </Button>
         </View>
         <FlatList
           style={styles.historyList}
@@ -50,7 +57,7 @@ class TransfertOrderScreen extends Component {
             />
           }
           keyExtractor={(item, index) => index.toString()}
-          renderItem={history.length < 0 ? TransferOrderItem : TransferOrderLoaderItem}
+          renderItem={history.length > 0 ? TransferOrderItem : TransferOrderLoaderItem}
         />
       </View>
     )
@@ -67,4 +74,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TransfertOrderScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(TransferOrderHistoryScreen)

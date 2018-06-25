@@ -29,7 +29,7 @@ const PrimaryNav = StackNavigator(
   }, {
     // Default config for all screens
     // initialRouteName: 'NfcPendingScreen',
-    initialRouteName: 'LoginScreen',
+    initialRouteName: 'AppDrawer',
     navigationOptions: {
       headerStyle: styles.header
     }

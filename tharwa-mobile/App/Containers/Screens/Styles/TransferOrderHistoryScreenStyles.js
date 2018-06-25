@@ -6,34 +6,23 @@ export default StyleSheet.create({
   container: {
     height: '100%',
     flex: 1,
-    // backgroundColor: Colors.background
-  },
-  carouselContainer: {
-    height: 165,
-    marginVertical: -10
   },
   historyTitleContainer: {
     borderBottomColor: Colors.forground,
-    
-  },
-  actionButtonIcon: {
-    fontSize: 20,
-    height: 22,
-    color: 'white',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+
   },
   historyTitle: {
     color: Colors.forground,
     textAlign: 'center',
-    fontSize: 18
+    fontSize: 20,
+    marginLeft: 10
   },
   historyList: {
     marginTop: 2,
     marginHorizontal: 10,
     height: "100%"
-  },
-  actionButtonIcon: {
-    fontSize: 20,
-    height: 22,
-    color: 'white',
-  },
+  }
 })
