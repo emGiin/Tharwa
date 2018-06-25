@@ -40,8 +40,8 @@ class OauthController extends Controller
 
             $isNewClient = ClientRequest::check($request->username, $request->password);
 
-            if (!empty($isNewClient) && ( 2 == $request->client_id ) ) {
-                return response([ "status" => $isNewClient->validated ], config('code.UNAUTHORIZED'));
+            if (!empty($isNewClient) && (2 == $request->client_id)) {
+                return response(["status" => $isNewClient->validated], config('code.UNAUTHORIZED'));
             }
 
             return response(["credentials" => false], config('code.UNAUTHORIZED'));
@@ -53,14 +53,15 @@ class OauthController extends Controller
         $pin_code_expires_at = \Carbon\Carbon::now()->addHours(1)->format('Y-m-d H:i:s');
         if ('sms' == $request->confirmation_method) {
 
+//            return 'sms sent';
+
             $nexmo = app('Nexmo\Client');
             $nexmo->message()->send([
-                'to'   => '+213553673740',//$clientInfo['phone'] +213669479443 +213656092713
+                'to' => '+213553673740',//$clientInfo['phone'] +213669479443 +213656092713
                 'from' => '+213553673740',
-                'text' => 'code pin: '.$pinCode.' valide pour une heure, Tharwa '
+                'text' => 'code pin: ' . $pinCode . ' valide pour une heure, Tharwa '
             ]);
 
-            return 'sms sent';
         } else
             Mail::to($request->username)->queue(new PinCodeMail($pinCode, $pin_code_expires_at));
 

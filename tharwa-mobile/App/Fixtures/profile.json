@@ -3,10 +3,12 @@
     "email": "client@domaine.com",
     "firstname": "cltest",
     "lastname": "cltest",
-    "picture": "hi.png",
-    "type": "Employee"
+    "type": "Employee",
+    "picture": 0,
+    "accountNumber": "THW000000DZD"
   },
   "amount_limit_validation": 200000,
+  "max_nfc_amount": 5000,
   "COUR": {
     "amount": "2983954.93",
     "history": [
@@ -76,7 +78,7 @@
     "status": "requested",
     "at": "2018-05-06 09:29:10"
   },
-  "EPARGN": {
+  "EPARN": {
     "status": "blocked",
     "at": "2018-05-06 17:30:59"
   }

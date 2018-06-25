@@ -80,6 +80,14 @@ export default {
       }
     }
   },
+  unlockAccount: type => {
+    return {
+      ok: true,
+      data: {
+        "saved": true
+      }
+    }
+  },
   myAccountTransfer: data => {
     return {
       ok: true,
@@ -107,6 +115,15 @@ export default {
       }
     }
   },
+  nfcTransfer: data => {
+    return {
+      ok: true,
+      data: {
+        "saved": true,
+        "commission": 53
+      }
+    }
+  },
   getBanks: () => {
     return {
       ok: true,
@@ -117,6 +134,17 @@ export default {
     return {
       ok: true,
       data: require('../Fixtures/exchangeRates.json')
+    }
+  },
+  getMicroTransferList: () => {
+    return {
+      ok: true,
+      data: [{
+        amount: 4800,
+        name: 'User Tharwa',
+        email: 'user@tharwa.dz',
+        accountNumber: 'THW000002DZD'
+      }]
     }
   },
 }

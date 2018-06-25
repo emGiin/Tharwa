@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Input, Button } from "antd";
+import React, { Component } from 'react';
+import { Input, Button } from 'antd';
 
 class PinForm extends Component {
   state = {
@@ -13,7 +13,7 @@ class PinForm extends Component {
         <Input
           ref="pin"
           style={{
-            marginTop: "1em",
+            marginTop: '1em',
             maxWidth: 100
           }}
           size="large"
@@ -26,9 +26,8 @@ class PinForm extends Component {
         <Button
           type="primary"
           className="primaryAction"
-          onClick={this.done.bind(this)}
-        >
-          Done
+          onClick={this.done.bind(this)}>
+          Terminer
           {this.pin}
         </Button>
       </div>
@@ -45,14 +44,13 @@ class PinForm extends Component {
 
   onKeyPress(event) {
     const charCode = event.which ? event.which : event.keyCode;
-    console.log(charCode);
     if (!(charCode > 31 && (charCode < 48 || charCode > 57))) return true;
     event.preventDefault();
     return false;
   }
 
   onPaste(event) {
-    const pastedData = event.clipboardData.getData("Text");
+    const pastedData = event.clipboardData.getData('Text');
     const reg = /^[0-9]{4}$/;
     if (!reg.test(pastedData)) event.preventDefault();
   }
@@ -60,7 +58,6 @@ class PinForm extends Component {
   done() {
     const pin = this.state.pin;
     if (pin) {
-      console.log(`Pin entred ${pin}`);
       this.props.onNext(pin);
     }
   }

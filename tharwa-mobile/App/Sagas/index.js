@@ -17,6 +17,9 @@ import { TharwaTransferTypes } from '../Redux/TharwaTransferRedux'
 import { ExternalTransferTypes } from '../Redux/ExternalTransferRedux'
 import { BankTypes } from '../Redux/BankRedux'
 import { ExchangeRateTypes } from '../Redux/ExchangeRateRedux'
+import { NfcTransferTypes } from '../Redux/NfcTransferRedux'
+import { MicroTransferListTypes } from '../Redux/MicroTransferListRedux'
+import { UnlockAccountTypes } from '../Redux/UnlockAccountRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -29,10 +32,13 @@ import { getOrderHistory} from './TransferOrderSaga'
 import {
   myAccountTransfer,
   tharwaTransfer,
-  externalTransfer
+  externalTransfer,
+  nfcTransfer,
+  microTransferList
 } from './TransferSaga'
 import { getBanks } from './BankSaga'
 import { getExchangeRates } from './ExchangeRateSaga'
+import { unlockAccount } from './UnlockAccountSaga'
 
 /* ------------- API ------------- */
 
@@ -63,6 +69,7 @@ export default function* root() {
     // account
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getProfile, api),
     takeLatest(AccountTypes.NEW_ACCOUNT_REQUEST, requestNewAccount, api),
+    takeLatest(UnlockAccountTypes.UNLOCK_ACCOUNT_REQUEST, unlockAccount, api),
 
      // Order History
      takeLatest(TransferOrderTypes.TRANSFER_ORDER_REQUEST, getOrderHistory, api),
@@ -74,6 +81,8 @@ export default function* root() {
     takeLatest(TransferTypes.TRANSFER_REQUEST, myAccountTransfer, api),
     takeLatest(TharwaTransferTypes.THARWA_TRANSFER_REQUEST, tharwaTransfer, api),
     takeLatest(ExternalTransferTypes.EXTERNAL_TRANSFER_REQUEST, externalTransfer, api),
+    takeLatest(NfcTransferTypes.NFC_TRANSFER_REQUEST, nfcTransfer, api),
+    takeLatest(MicroTransferListTypes.MICRO_TRANSFER_LIST_REQUEST, microTransferList, api),
 
     // Exchange Rate
     takeLatest(ExchangeRateTypes.EXCHANGE_RATE_REQUEST, getExchangeRates, api)

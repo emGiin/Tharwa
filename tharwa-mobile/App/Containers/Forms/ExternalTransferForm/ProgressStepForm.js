@@ -7,7 +7,7 @@ import Pulse from 'react-native-pulse'
 import I18n from 'react-native-i18n'
 import { NextPrevious } from '../../../Components'
 import formStyles from '../Styles/SignupFormStyle'
-import styles from './Styles/ProgressStepFormStyle'
+import styles from '../Styles/ProgressStepFormStyle'
 import { Colors } from '../../../Themes';
 import { formatMoney } from '../../../Transforms';
 

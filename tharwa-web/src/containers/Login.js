@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Steps, Icon } from "antd";
+import { Redirect } from "react-router-dom";
 
 import AuthActions from "../redux/AuthRedux";
 import PinCodeActions from "../redux/PinCodeRedux";
@@ -83,6 +84,8 @@ class Login extends Component {
 
     return (
       <div className="loginForms">
+        <div className="logo"/>
+        {this.props.pinCode.success && <Redirect to='/'/>}
         {this.state.error && this.state.current===0 && alert(this.state.error)}
         <Steps current={current}>
           {steps.map(item => (
@@ -90,7 +93,7 @@ class Login extends Component {
           ))}
         </Steps>
 
-        <div className="stepContent">
+        <div className="stepContent">          
           {this.props.auth.fetching || this.props.pinCode.fetching ? (
             <Loading />
           ) : (

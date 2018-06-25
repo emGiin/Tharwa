@@ -1,4 +1,5 @@
 import I18n from 'react-native-i18n'
+import { formatMoney } from '../Transforms';
 
 // validators
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -13,6 +14,11 @@ export const requiredValidator = (val) => val ? undefined : I18n.t('fieldRequire
 export const amountValidators = [
   requiredValidator,
   (val) => val && amountRegex.test(val) ? undefined : I18n.t('invalidAmountError')
+]
+
+export const nfcAmountValidators = maxAmount => [
+  ...amountValidators,
+  (val) => parseInt(val, 10) <= maxAmount ? undefined : (I18n.t('maxAmountError') + formatMoney(maxAmount) + ' DZD')
 ]
 
 export const accountValidators = [

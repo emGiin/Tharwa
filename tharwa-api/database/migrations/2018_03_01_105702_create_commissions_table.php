@@ -16,8 +16,8 @@ class CreateCommissionsTable extends Migration
         Schema::create('commissions', function (Blueprint $table) {
             $table->increments('id');
             $table->char('code',8);
-            $table->string('description');
-            $table->boolean('isValide');
+            $table->string('description')->nullable();
+            $table->boolean('isValide')->default(true);
             $table->timestamps();
         });
     }

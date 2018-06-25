@@ -1,4 +1,4 @@
-import FixtureAPI from '../FixtureAPI'
+//import FixtureAPI from '../FixtureAPI'
 
 test('All fixtures map to actual API', () => {
 })

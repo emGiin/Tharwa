@@ -8,8 +8,9 @@ import { formatMoney } from '../Transforms'
 import styles from './Styles/AccountInfoStyles'
 import { Colors } from '../Themes';
 
-export const AccountInfo = ({ account, type, label, symbol, onPress }) => {
+export const AccountInfo = ({ account, type, label, symbol, onPress, unlockAccount }) => {
   let blocked = false
+  let pressFunction = onPress
   const getText = () => {
     if (account) {
       const { status } = account
@@ -17,6 +18,7 @@ export const AccountInfo = ({ account, type, label, symbol, onPress }) => {
       if (status === 'requested') return I18n.t('accountRequested')
       if (status === 'blocked') {
         blocked = true;
+        pressFunction = () => unlockAccount({ type })
         return I18n.t('accountBlocked')
       }
     } else return I18n.t('accountRequest')
@@ -27,7 +29,7 @@ export const AccountInfo = ({ account, type, label, symbol, onPress }) => {
   return (
     <View style={styles.page}>
       <TouchableOpacity
-        onPress={onPress}
+        onPress={pressFunction}
         activeOpacity={0.9}
         style={styles.contentContainer}>
         <View style={[styles.amountContainer, blocked && { backgroundColor: Colors.fire }]}>

@@ -28,9 +28,10 @@ const create = (baseURL = API_URL) => {
   const getProfile = () => api.get('client')
   const getOrderHistory = () => api.get('ordrevirement')
   const requestNewAccount = type => api.post('account', { type })
+  const unlockAccount = data => api.post('account/deblocage', data)
 
   // banks
-  const getBanks = () => api.get(`banks`)
+  const getBanks = () => api.get(`bank`)
 
   // transfert
   const transferURL = 'virement'
@@ -38,6 +39,8 @@ const create = (baseURL = API_URL) => {
   const tharwaTransfer = data => api.post(`${transferURL}/intern`, data)
   const externalTransfer = data => api.post(`${transferURL}/extern`, data)
   const newOrder = data => api.post(`ordrevirement`, data)
+  const nfcTransfer = data => api.post(`${transferURL}/micro`, data)
+  const getMicroTransferList = () => api.get(`${transferURL}/micro`)
 
   // exchange rates
   const getExchangeRates = () => api.get(`exchange_rate`)
@@ -56,7 +59,10 @@ const create = (baseURL = API_URL) => {
     getBanks,
     externalTransfer,
     getExchangeRates,
-    newOrder
+    newOrder,
+    nfcTransfer,
+    getMicroTransferList,
+    unlockAccount
   }
 }
 

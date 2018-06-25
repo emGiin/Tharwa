@@ -17,7 +17,7 @@ class CreateBanksTable extends Migration
             $table->char('code',3)->primary()->index();
             $table->string('name');
             $table->string('email',55)->unique();
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }

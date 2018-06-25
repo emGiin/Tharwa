@@ -9,7 +9,7 @@ const { Types, Creators } = createActions({
   logoutSuccess: null,
   tokenLoad: [],
   tokenLoadSuccess: [],
-  saveAuthToken: ["authToken"]
+  saveAuthToken: ["authToken", "pinCode"]
 });
 
 export const AuthTypes = Types;
@@ -20,7 +20,8 @@ const INITIAL_STATE = Immutable({
   loading: false,
   success: false,
   error: null,
-  authToken: null
+  authToken: null,
+  pinCode : null
 });
 
 export const request = state => state.merge({ fetching: true, success: false, error: null });
@@ -32,7 +33,7 @@ export const failure = (state, { error }) =>
 
 export const load = state => state.merge({ loading: true });
 export const loadSuccess = state => state.merge({ loading: false });
-export const saveToken = (state, { authToken }) => state.merge({ authToken });
+export const saveToken = (state, { authToken, pinCode }) => state.merge({ authToken, pinCode });
 
 export const logoutRequest = state => state.merge({ authToken: null });
 export const logoutSuccess = state => INITIAL_STATE;

@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
 use App\ClientRequest;
+use App\Mail\NewClientRequestMail;
+use App\Manager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Validator;
 
@@ -33,10 +37,9 @@ class ClientController extends Controller
             'password' => 'required|max:100',
             'address' => 'required|max:255',
             'phone' => 'required|max:100',
-//            'picture' => 'required|mimes:jpeg,bmp,png',//image
-            'picture' => 'required',//image
+            'picture' => 'required',//image base64
             'function' => 'required|max:100',
-            'type' => 'required|digits:1',//todo number or in ['Client', 'Employeur']
+            'type' => 'required|in:1,2',//todo number or in ['Client', 'Employeur']
         ]);
         if ($validator->fails()) {
             return response($validator->errors(), config('code.BAD_REQUEST'));
@@ -49,9 +52,8 @@ class ClientController extends Controller
         try {
 
             //save image from 64base
-//            $file_name = time() . ".jpeg";
-            $file_name = strtoupper(md5(uniqid(rand(),true))) . ".jpeg";
-            $path = 'pictures/client/'. $file_name;
+            $file_name = strtoupper(md5(uniqid(rand(), true))) . ".jpeg";
+            $path = 'pictures/client/' . $file_name;//todo config
 
             //save file in disk
             $image = self::base64_to_jpeg(\Request::input('picture'), $path);
@@ -66,8 +68,13 @@ class ClientController extends Controller
                 'picture' => $image,
                 'function' => \Request::input('function'),
                 'phone' => \Request::input('phone'),
-                'type' => 'Client', // todo get type related to the num
+                'type' => (\Request::input('type') === 1) ? 'Client' : 'Employeur',
             ]);
+
+            $banqier = Manager::where('role', 'Banquier')->first();
+
+            Mail::to($banqier->email)
+                ->queue(new NewClientRequestMail(\Request::input('firstName') . ' ' . \Request::input('lastName')));
 
             // all good
             /**commit - no problems **/
@@ -82,7 +89,6 @@ class ClientController extends Controller
 
             if (Storage::exists($path)) Storage::delete($path);
 
-            dd($e);
             return response(["saved" => false], config('code.UNKNOWN_ERROR'));
 
         }
@@ -90,4 +96,29 @@ class ClientController extends Controller
 
     }
 
+    public function index()
+    {
+        //get : email, name, img
+        $client = $this->client();
+
+        $infos = collect(['infos'=>$client]);
+
+        //get (amount & 10 last transact) for each account type
+        //todo if accounts are blocked
+        $accounts = $client->accounts()->get();
+        foreach ($accounts as $account){
+            $infos->put(
+                trim($account->type_id),[
+                 'amount' => $account->balance,
+                 'history' => $account->history()->get(),
+                ]);
+        }
+
+        return response($infos);
+    }
+
+    private function client()
+    {
+        return resolve(Client::class);
+    }
 }
