@@ -59,7 +59,7 @@ const screens = {
 }
 
 const AppTabs = TabNavigator(screens, {
-  initialRouteName: 'MainScreen',
+  initialRouteName: 'ExchangeRateScreen',
   tabBarOptions: {
     activeTintColor: 'tomato',
     inactiveTintColor: 'gray',
