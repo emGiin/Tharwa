@@ -2,6 +2,11 @@ import Pusher from 'pusher-js/react-native';
 import { PUSHER_APP_KEY } from '../Config/AppConfig'
 import { configurePushNotifcation } from './PushConfig'
 import { pushNotify } from './LocalNotification'
+import { store } from '../Containers/App'
+
+// Actions
+import AccountActions from '../Redux/AccountRedux'
+
 
 const CHANNEL_ID = 'tharwa-channel'
 
@@ -31,29 +36,13 @@ export const initPusher = (email, dispatch) => {
 
   const channel = pusher.subscribe(CHANNEL_ID);
 
-  channel.bind(events.ACCEPT_ACCOUNT, data => {
-    pushNotify(notificationTitles[events.ACCEPT_ACCOUNT], data.message)
-  });
-
-  channel.bind(events.TRANSFER_MY_ACCOUNT, data => {
-    pushNotify(notificationTitles[events.TRANSFER_MY_ACCOUNT], data.message)
-  });
-
-  channel.bind(events.TRANSFER_VALIDATION, data => {
-    pushNotify(notificationTitles[events.TRANSFER_VALIDATION], data.message)
-  });
-
-  channel.bind(events.TRANSFER_RECEIVED, data => {
-    pushNotify(notificationTitles[events.TRANSFER_RECEIVED], data.message)
-  });
-
-  channel.bind(events.COMMISION, data => {
-    pushNotify(notificationTitles[events.COMMISION], data.message)
-  });
-
-  channel.bind(events.TRANSFER_ORDRE, data => {
-    pushNotify(notificationTitles[events.TRANSFER_ORDRE], data.message)
-  });
-
+  for (const eventName in events) {
+    if (events.hasOwnProperty(eventName)) {
+      channel.bind(events[eventName], data => {
+        pushNotify(notificationTitles[events[eventName]], data.message)
+        store.dispatch(AccountActions.accountRequest())
+      });
+    }
+  }
   configurePushNotifcation()
 }
