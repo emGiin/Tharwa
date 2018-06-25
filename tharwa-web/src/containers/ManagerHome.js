@@ -239,6 +239,7 @@ class ManagerHome extends Component {
       nbVToday:0,
       nbOrdre:0,
       nbBanques:0,
+      montantTHRW:0,
       nbInscr_detail: [],
       data_op_mois: [],
       data_op_trimestre: [],
@@ -259,8 +260,7 @@ class ManagerHome extends Component {
     const date = new Date('December 17, 1995');
     const date1 = new Date('17-12-1995');
 
-    const data1 = createRandomData(now, 1e7, 500)
-    const data2 = createRandomData(now, 1e7, 500)
+    const data1 = createRandomData(now, 1e7, 100)
 
     init_data(this.state);
 
@@ -273,7 +273,7 @@ class ManagerHome extends Component {
             <NumberCardGest
               icon="swap"
               color="#4BB543"
-              title="Nombre total des virements :"
+              title="Nombre total des virements:"
               number={this.state.nbV}
               data_sent={this.state.nbV_detail}
             />
@@ -312,7 +312,7 @@ class ManagerHome extends Component {
 
           <Col lg={8} md={12}>
             <NumberCardGest
-              icon="read-envelop"
+              icon="red-envelope"
               color="#fa541c"
               title="Nombre d'ordres de virement :"
               number={this.state.nbOrdre}
@@ -406,7 +406,7 @@ class ManagerHome extends Component {
 
               <YAxis id="mountant">
                 <YAxis.Title>mountant(DZD)</YAxis.Title>
-                <AreaSplineSeries id="profit" name="Profit" data={data1} />
+                <AreaSplineSeries id="profit" name="montant" data={data1} />
               </YAxis>
 
               <Navigator>
@@ -445,6 +445,12 @@ class ManagerHome extends Component {
       data_comm_mois: nextProps.data_comm_mois,
       data_comm_trimestre: nextProps.data_comm_trimestre,
       data_comm_year: nextProps.data_comm_year,
+
+      nbBanquier:nextProps.nbBanquier,
+      nbVToday:nextProps.nbVToday,
+      nbOrdre:nextProps.nbOrdre,
+      nbBanques:nextProps.nbBanques,
+      montantTHRW:nextProps.montantTHRW
     });
 
    
@@ -479,6 +485,12 @@ const mapStateToProps = ({ stats }) => {
     data_comm_mois: stats.data_com.mois,
     data_comm_trimestre: stats.data_com.trimestre,
     data_comm_year: stats.data_com.annee,
+
+    nbBanquier:stats.nbBanquier,
+    nbVToday:stats.nbVToday,
+    nbOrdre:stats.nbOrdre,
+    nbBanques:stats.nbBanques,
+    montantTHRW:stats.montantTHRW,
     //stats:stats.stats_info
   }
 }
