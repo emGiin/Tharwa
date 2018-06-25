@@ -21,7 +21,8 @@ class RootContainer extends Component {
     appState: AppState.currentState,
     nfcSupported: false,
     nfcEnabled: false,
-    nfcMsgSaved: true
+    nfcMsgSaved: true,
+    pusherInitiated: false
   }
 
   componentDidMount() {
@@ -41,13 +42,18 @@ class RootContainer extends Component {
   }
 
   componentWillReceiveProps({ name, email, picture, accountNumber }) {
-    if (accountNumber && !this.setState.nfcMsgSaved) {
-      this.setState({ nfcMsgSaved: true })
+    if (accountNumber) {
       const userDetails = JSON.stringify({
         email, name, picture, accountNumber
       })
-      if (this.state.nfcSupported && this.state.nfcEnabled) NfcNdefManager.setMessage(userDetails)
-      // initPusher(email)
+      if (!this.state.nfcMsgSaved && this.state.nfcSupported && this.state.nfcEnabled) {
+        NfcNdefManager.setMessage(userDetails)
+        this.setState({ nfcMsgSaved: true })
+      }
+      if (!this.state.pusherInitiated) {
+        initPusher(email)
+        this.setState({ pusherInitiated: true })
+      }
     }
   }
 

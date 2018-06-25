@@ -37,12 +37,12 @@ export const newSuccess = state => (
   state.merge({
     fetching: false,
     error: null,
-    success: false
+    success: true
   })
 )
 
 export const failure = (state, { error }) => state.merge({
-  fetching: false, error
+  fetching: false, error, success: false
 })
 
 export const reset = state => state.merge({

@@ -31,7 +31,7 @@ const PrimaryNav = StackNavigator(
   }, {
     // Default config for all screens
     // initialRouteName: 'NfcPendingScreen',
-    initialRouteName: 'NewTransferOrderScreen',
+    initialRouteName: 'LoginScreen',
     navigationOptions: {
       headerStyle: styles.header
     }

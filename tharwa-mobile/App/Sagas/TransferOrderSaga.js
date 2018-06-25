@@ -9,18 +9,19 @@ export function* getOrderHistory(api) {
   if (response.ok) {
     yield put(TansferOrderActions.transferOrderSuccess(response.data))
   } else {
-    yield put(TansferOrderActions.transferOrderFailure(I18n.t('accountFetchError')))
+    yield put(TansferOrderActions.transferOrderFailure(I18n.t('orderTransferDialogMessageError')))
   }
 }
 
-export function* sendTransferOrder(api) {
-  const response = yield call(api.sendTransferOrder)
+export function* sendTransferOrder(api, { data }) {
+  const response = yield call(api.sendTransferOrder, data)
+  console.warn(response);
 
   // success? 
   if (response.ok) {
     yield put(TansferOrderActions.newTransferOrderSuccess())
   } else {
-    yield put(TansferOrderActions.transferOrderFailure(I18n.t('accountFetchError')))
+    yield put(TansferOrderActions.transferOrderFailure(I18n.t('orderTransferDialogMessageError')))
   }
 }
 

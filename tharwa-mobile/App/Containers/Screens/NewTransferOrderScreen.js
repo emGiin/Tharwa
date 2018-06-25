@@ -26,10 +26,12 @@ class TransferOrderHistoryScreen extends Component {
       }
     }
     data.receivers.forEach(receiver => {
-      if (receiver.account.substring(0, 3) === "THW") {
+      const bank = receiver.account.substring(0, 3)
+      if (bank === "THW") {
         if (receiver.name) delete receiver.name
         transferOrder.receivers.intern.push(receiver)
       } else {
+        receiver.bank = bank
         transferOrder.receivers.extern.push(receiver)
       }
     })
@@ -86,7 +88,7 @@ const mapStateToProps = ({ transferOrder: { fetching, error, success }, bank: { 
 const mapDispatchToProps = (dispatch) => {
   return {
     sendTransferOrder: data => dispatch(TransferOrderActions.newTransferOrderRequest(data)),
-    reset: dispatch(TransferOrderActions.transferOrderReset()),
+    reset: () => dispatch(TransferOrderActions.transferOrderReset()),
     resetForm: () => dispatch(resetReduxForm('OrderForm')),
     getBanks: () => dispatch(BankActions.bankRequest())
   }

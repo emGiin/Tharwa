@@ -73,7 +73,7 @@ export default function* root() {
 
     // Order History
     takeLatest(TransferOrderTypes.TRANSFER_ORDER_REQUEST, getOrderHistory, api),
-    takeLatest(TransferOrderTypes.NEW_TRANSFER_ORDER_REQUEST, getOrderHistory, api),
+    takeLatest(TransferOrderTypes.NEW_TRANSFER_ORDER_REQUEST, sendTransferOrder, api),
 
     // banks
     takeLatest(BankTypes.BANK_REQUEST, getBanks, api),
