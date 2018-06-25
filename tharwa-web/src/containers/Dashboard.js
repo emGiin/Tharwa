@@ -260,7 +260,7 @@ class Dashboard extends Component {
           <Col lg={8} md={12}>
             <NumberCardGest
               icon="usergroup-add"
-              color="#fa541c"
+              color="#00d2d3"
               title="nombre de banquiers :"
               number={this.state.nbBanqier}
               type={2}
@@ -272,7 +272,7 @@ class Dashboard extends Component {
 
             <NumberCardGest
               icon="pay-circle-o"
-              color="#4BB543"
+              color="#001a21"
               title="Les virements d'aujourd'huit :"
               number={this.state.nbV}
               type={3}
@@ -291,7 +291,7 @@ class Dashboard extends Component {
           <Col lg={8} md={12}>
             <NumberCardGest
               icon="user"
-              color="#fa541c"
+              color="#00d2d3"
               title="Banquiers connectés :"
               number={this.state.nbInscr}
               type={2}
@@ -302,7 +302,7 @@ class Dashboard extends Component {
           <Col lg={12} md={12}>
 
             <NumberCardGest
-              icon="pay-circle-o"
+              icon="pay-circle"
               color="#4BB543"
               title="Montant total de compte THRW :"
               number={this.state.nbV}
