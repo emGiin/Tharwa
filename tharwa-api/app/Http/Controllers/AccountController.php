@@ -15,6 +15,7 @@ use App\Mail\NewAccountRequestMail;
 use App\Manager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class AccountController extends Controller
@@ -55,6 +56,8 @@ class AccountController extends Controller
             'client_id' => $client->email,
         ]);
 
+        Log::info("Le client ".$client->name()." ( ".$client->email." ) "." a demander un nouveau compte de type ".$request->type);
+
         return response(["saved" => true], config('code.CREATED'));
     }
 
@@ -74,6 +77,8 @@ class AccountController extends Controller
                 . $item->client->picture;
         });
 
+        Log::info("Le banquier a demander la list des compte a valider");
+
         return response($res, config('code.OK'));
 
     }
@@ -90,6 +95,7 @@ class AccountController extends Controller
         }
 
 
+
         if ($request->input('code') === 0) {//rejected
 
             $rejectedAccRequest = AccountRequest::find($request->input('id'));
@@ -104,6 +110,9 @@ class AccountController extends Controller
                 "Votre Demande de creation d'un compte ".$rejectedAccRequest->type_id
                 ." a été refusée",
                 $client->email));
+
+            Log::info("Le banquier a refusé la demande du compte ".
+                $rejectedAccRequest->type_id." de M.".$client->name()." ( ".$client->email." ) ");
 
             return response(["saved" => true], config('code.CREATED'));
 
@@ -141,7 +150,11 @@ class AccountController extends Controller
                     ." a été acceptée",
                     $client->email));
 
+                Log::info("Le banquier a accepté la demande du compte ".
+                    $acceptedAccount->type_id." de M.".$client->name()." ( ".$client->email." ) ");
+
                 $acceptedAccount->delete();
+
 
                 // all good
                 /**commit - no problems **/
@@ -164,6 +177,8 @@ class AccountController extends Controller
     public function index()
     {
         $allAccounts = Account::get(['number', 'isvalid', 'type_id', 'created_at']);
+
+        Log::info("Le banquier a regarder la list de tout les comptes");
 
         return response($allAccounts);
     }
@@ -205,11 +220,20 @@ class AccountController extends Controller
                 $managerAnswer = 'debloq';
                 Mail::to($client->email)
                     ->queue(new AccountDeblockedMail($account->number, "" . $request->input('motif')));
+
+                Log::info("Le banquier a debloqué le compte ".
+                    $account->number." de M.".$client->name()." ( ".$client->email." ) ");
+
             } else {//block
                 $account->isvalid = false;
                 $managerAnswer = 'bloq';
                 Mail::to($client->email)
                     ->queue(new AccountBlockedMail($account->number, "" . $request->input('motif')));
+
+
+                Log::info("Le banquier a bloqué le compte ".
+                    $account->number." de M.".$client->name()." ( ".$client->email." ) ");
+
             }
 
             $account->save();
@@ -283,6 +307,7 @@ class AccountController extends Controller
         Mail::to($banquier->email)
             ->queue(new AccountDeblockedRequestMail($client->name()));
 
+        Log::info("Le client ".$client->name()." ( ".$client->email." ) "." a demander le deblocage de son compte de type ".$type_id);
 
         return response(["saved" => true], config('code.CREATED'));
 
@@ -311,6 +336,9 @@ class AccountController extends Controller
             unset($deblockDemande['client']['type']);
 
         }
+
+
+        Log::info("Le banquier a regarder la list des demandes deblocage compte");
 
         return response($deblockDemandes);
     }

@@ -67,5 +67,5 @@ Route::post('/ordreVirement/validations', 'OrdreVirementController@validateVirem
 Route::post('/banquier', 'BanquierController@create');//->middleware(AuthManager::class);
 
 //dashboard of the manager (gestionaire)
-Route::get('/dashboard', 'DashboardController@index')->middleware(AuthManager::class);
+Route::get('/dashboard', 'DashboardController@index');//->middleware(AuthManager::class);
 Route::get('/dashboard/commissions', 'DashboardController@getListCommissions')->middleware(AuthManager::class);
