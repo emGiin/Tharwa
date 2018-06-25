@@ -13,6 +13,7 @@ export function* login(api, { email, password, confirmationMethod }) {
     grant_type: "password"
   };
 
+  console.log(body)
   const response = yield call(api.login, body);
 
   if (response.ok) {

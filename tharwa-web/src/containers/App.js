@@ -6,15 +6,15 @@ import AppLayout from "./AppLayout";
 
 class App extends Component {
   render() {
-    /*const isLoggedIn = (({ authToken, pinCode }) => authToken && pinCode)(
+    const isLoggedIn = (({ authToken, pinCode }) => authToken && pinCode)(
       this.props.auth
-    );*/
-    const isLoggedIn = true;
+    );
+    // const isLoggedIn = true;
     if (!isLoggedIn) return <Redirect to="/login" push />;
     return (
       <Router>
         <div className="App">
-          <AppLayout />
+          <AppLayout clientType={this.props.auth.clientType}/>
         </div>
       </Router>
     );
@@ -22,9 +22,10 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  const auth = (({ authToken, pinCode }) => ({
+  const auth = (({ authToken, pinCode, clientType }) => ({
     authToken,
-    pinCode
+    pinCode,
+    clientType
   }))(state.auth);
   return { auth };
 };
