@@ -28,7 +28,7 @@ export function* myAccountTransfer(api, { data }) {
     method: this.methodchange,
     amount: data.amount
   }
-  const response = yield call(api.myAccountTransfer, request)
+  const response = yield call(api.myAccountTransfert, request)
 
   // success?
   if (response.ok) {

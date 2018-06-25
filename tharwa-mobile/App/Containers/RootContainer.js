@@ -183,8 +183,8 @@ const mapStateToProps = ({ account: { accountType, information: { infos = {} } }
   nav: nav,
   name: (infos ? `${infos.lastname} ${infos.firstname}` : 'John Doe'),
   picture: infos.picture ? { uri: infos.picture } : Images.avatar,
-  email: infos.email || 'john_doe@mail.com',
-  accountNumber: infos.accountNumber || 'THW00000DZD'
+  email: infos.email || '',
+  accountNumber: infos.accountNumber || ''
 })
 
 // wraps dispatch to create nicer functions to call within our component
