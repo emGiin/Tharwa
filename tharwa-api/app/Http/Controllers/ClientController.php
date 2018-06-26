@@ -97,6 +97,8 @@ class ClientController extends Controller
 
         $infos = collect(['infos' => $client]);
 
+        $infos['infos']['accountType'] = $infos['infos']['type'];
+        unset($infos['infos']['type']);
 
         //get (amount & 10 last transact) for each account type
         $accounts = $client->accounts()->valid()->get();

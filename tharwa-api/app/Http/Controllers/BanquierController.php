@@ -10,6 +10,7 @@ use App\InternTransfer;
 use App\Manager;
 use App\TransferOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Validator;
 
 class BanquierController extends Controller
@@ -44,6 +45,8 @@ class BanquierController extends Controller
             'phone' => \Request::input('phone'),
             'role' => 'Banquier',
         ]);
+
+        Log::info("Le manager a cree M.".$request->input('firstName')." ".$request->input('lastName')." ( ".$request->input('email')." ) ");
 
         return response(["saved" => true], config('code.CREATED'));
     }

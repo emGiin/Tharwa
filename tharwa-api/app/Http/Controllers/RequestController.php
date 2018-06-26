@@ -24,7 +24,15 @@ class RequestController extends Controller
 
     public function index()
     {
-        return ClientRequest::notValidated();
+        $res = ClientRequest::notValidated();
+
+        foreach ($res as $client){
+            $client->picture =
+                url(config('filesystems.uploaded_file')) . '/'
+                .$client->picture;
+        }
+
+        return response($res);
     }
 
     public function edit(Request $request)

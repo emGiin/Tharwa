@@ -21,6 +21,10 @@ class DashboardController extends Controller
 
     public function index()
     {
+
+//        virementToday
+
+
         $operations = BalanceHistory::get(['transaction_type', 'created_at']);
 
         $groupedOperations = $operations->groupBy(function ($item) {
@@ -60,7 +64,7 @@ class DashboardController extends Controller
         });
 
 //        dd($groupedOperations);
-        return response($groupedOperations, config('code.OK'));
+//        return response($groupedOperations, config('code.OK'));
 
         //todo counting groped by dates
 
@@ -129,7 +133,7 @@ class DashboardController extends Controller
 
 
         $res = collect([
-            'operations' => $t,
+            'operations' => $groupedOperations,
             'commissions' => $commissions,
         ]);
 

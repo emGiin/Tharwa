@@ -51,7 +51,8 @@ class DatabaseSeeder extends Seeder
 
         $managers = DB::table('managers');
         $managers->insert([
-            'email' => 'bl_banquier@Tharwa.com',
+            'email' => 'boualili18lila@gmail.com',
+//            'email' => 'bl_banquier@Tharwa.com',
             'firstName' => 'bantest',
             'lastName' => 'bantest',
             'password' => bcrypt('bl_bank'),
@@ -62,7 +63,9 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
         $managers->insert([
-            'email' => 'gestionnaire@tharwa.com',
+            'email' => 'boualili18lila@outlook.fr',
+//            'email' => 'el_boualili@esi.dz',
+//            'email' => 'gestionnaire@tharwa.com',
             'firstName' => 'gestest',
             'lastName' => 'gestest',
             'password' => bcrypt('Admin'),
@@ -76,7 +79,8 @@ class DatabaseSeeder extends Seeder
 
         $clients = DB::table('clients');
         $clients->insert([
-            'email' => 'client@domaine.com',
+            'email' => 'et_bazine@esi.dz',
+//            'email' => 'client@domaine.com',
             'firstName' => 'cltest',
             'lastName' => 'cltest',
             'password' => bcrypt('clientmdp'),
@@ -89,10 +93,11 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
         $clients->insert([
-            'email' => 'a@d.c',
+//            'email' => 'a@d.c',
+            'email' => 'dm_handaoui@esi.dz',
             'firstName' => 'emtest',
             'lastName' => 'emtest',
-            'password' => bcrypt('1'),
+            'password' => bcrypt('clientmdp'),
             'address' => 'oued essamar',
             'picture' => 'pictures/client/hi2.png',
             'function' => 'teacher',
