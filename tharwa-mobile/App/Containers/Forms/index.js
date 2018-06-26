@@ -4,3 +4,4 @@ export { default as TransferFormClientAccount } from './TransferFormClientAccoun
 export { default as TharwaTransferForm } from './TharwaTransferForm'
 export { default as ExternalTransferForm } from './ExternalTransferForm'
 export { default as NfcTransferForm } from './NfcTransferForm'
+export { default as TransferOrderForm } from './TransferOrderForm'

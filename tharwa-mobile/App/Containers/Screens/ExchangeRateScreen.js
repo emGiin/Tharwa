@@ -11,7 +11,7 @@ import styles from './Styles/ExchangeRateScreenStyles';
 
 
 class ExchangeRateScreen extends Component {
-  INTERVAL = 10000
+  INTERVAL = 60000
   state = {
     from: { value: '0', currency: '' },
     to: { value: '0', currency: '' }

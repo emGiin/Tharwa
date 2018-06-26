@@ -25,7 +25,7 @@ class PickerField extends Component {
 
   render() {
     const {
-      input, meta, refField, icon, initialValue, editable, placeholder
+      input, meta, refField, icon, initialValue, editable, placeholder, selectedValue
     } = this.props;
     const error = meta && meta.invalid && (input.value === 'placeholder' || meta.touched);
     const hasValue = !!input.value
@@ -46,7 +46,7 @@ class PickerField extends Component {
             disabled={!editable}
             iosHeader={placeholder}
             mode={"dialog"}
-            selectedValue={input.value || initialValue}
+            selectedValue={selectedValue || input.value || initialValue}
             onValueChange={this.handleChange}
           >
             {this.renderOptions()}

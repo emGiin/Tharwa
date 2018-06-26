@@ -40,20 +40,20 @@ const residences = [
             label: 'Draria'
           }
         ]
-      }
-    ]
-  },
-  {
-    value: 'Setif',
-    label: 'Setif',
-    children: [
+      },
       {
-        value: 'nanjing',
-        label: 'Nanjing',
+        value: 'Setif',
+        label: 'Setif',
         children: [
           {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men'
+            value: 'Setif centre',
+            label: 'Setif centre',
+            children: [
+              {
+                value: 'zhonghuamen',
+                label: 'Zhong Hua Men'
+              }
+            ]
           }
         ]
       }
@@ -159,117 +159,119 @@ class RegistrationForm extends Component {
     return (
       <div>
         <TitlePage title="Ajouter un banquier" />
-        <Form onSubmit={this.handleSubmit} className="boite">
-          <FormItem
-            {...formItemLayout}
-            label="Nom"
-            onKeyPress={this.onKeyPress}>
-            {getFieldDecorator('firstName', {
-              rules: [
-                {
-                  required: true,
-                  message: 'le nom est obligatoire !'
-                }
-              ]
-            })(<Input maxLength="30" />)}
-          </FormItem>
+        <div style={{ width: '80%', margin: '0 auto'}}>
+          <Form onSubmit={this.handleSubmit} className="boite">
+            <FormItem
+              {...formItemLayout}
+              label="Nom"
+              onKeyPress={this.onKeyPress}>
+              {getFieldDecorator('firstName', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'le nom est obligatoire !'
+                  }
+                ]
+              })(<Input maxLength="30" />)}
+            </FormItem>
 
-          <FormItem {...formItemLayout} label="Prenom">
-            {getFieldDecorator('lastName', {
-              rules: [
-                {
-                  required: true,
-                  message: 'prenom est obligatoire !'
-                }
-              ]
-            })(<Input />)}
-          </FormItem>
+            <FormItem {...formItemLayout} label="Prenom">
+              {getFieldDecorator('lastName', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'prenom est obligatoire !'
+                  }
+                ]
+              })(<Input />)}
+            </FormItem>
 
-          <FormItem {...formItemLayout} label="E-mail">
-            {getFieldDecorator('email', {
-              rules: [
-                {
-                  type: 'email',
-                  message: 'E-mail pas valide !'
-                },
-                {
-                  required: true,
-                  message: "Introduire l'e-mail SVP"
-                }
-              ]
-            })(<Input />)}
-          </FormItem>
-          <FormItem {...formItemLayout} label="Mot de passe">
-            {getFieldDecorator('password', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Entrez un mot de passe SVP!'
-                },
-                {
-                  validator: this.checkConfirm
-                }
-              ]
-            })(<Input type="password" />)}
-          </FormItem>
-          <FormItem {...formItemLayout} label="Confirmez le mot de passe ">
-            {getFieldDecorator('confirm', {
-              rules: [
-                {
-                  required: true,
-                  message: 'confirmez avec le meme mot de passe SVP!'
-                },
-                {
-                  validator: this.checkPassword
-                }
-              ]
-            })(<Input type="password" onBlur={this.handleConfirmBlur} />)}
-          </FormItem>
+            <FormItem {...formItemLayout} label="E-mail">
+              {getFieldDecorator('email', {
+                rules: [
+                  {
+                    type: 'email',
+                    message: 'E-mail pas valide !'
+                  },
+                  {
+                    required: true,
+                    message: "Introduire l'e-mail SVP"
+                  }
+                ]
+              })(<Input />)}
+            </FormItem>
+            <FormItem {...formItemLayout} label="Mot de passe">
+              {getFieldDecorator('password', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'Entrez un mot de passe SVP!'
+                  },
+                  {
+                    validator: this.checkConfirm
+                  }
+                ]
+              })(<Input type="password" />)}
+            </FormItem>
+            <FormItem {...formItemLayout} label="Confirmez le mot de passe ">
+              {getFieldDecorator('confirm', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'confirmez avec le meme mot de passe SVP!'
+                  },
+                  {
+                    validator: this.checkPassword
+                  }
+                ]
+              })(<Input type="password" onBlur={this.handleConfirmBlur} />)}
+            </FormItem>
 
-          <FormItem {...formItemLayout} label="Adresse residence">
-            {getFieldDecorator('adress', {
-              initialValue: ['Algerie', 'Alger', 'oued smar'],
-              rules: [
-                {
-                  type: 'array',
-                  required: true,
-                  message: 'selectionez votre lieu de residence svp!'
-                }
-              ]
-            })(<Cascader options={residences} />)}
-          </FormItem>
-          <FormItem {...formItemLayout} label="Numero de téléphone">
-            {getFieldDecorator('phone', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Entrez votre numero de telephone svp!'
-                }
-              ]
-            })(
-              <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
-            )}
-          </FormItem>
+            <FormItem {...formItemLayout} label="Adresse residence">
+              {getFieldDecorator('adress', {
+                initialValue: ['Algerie', 'Alger', 'oued smar'],
+                rules: [
+                  {
+                    type: 'array',
+                    required: true,
+                    message: 'selectionez votre lieu de residence svp!'
+                  }
+                ]
+              })(<Cascader options={residences} />)}
+            </FormItem>
+            <FormItem {...formItemLayout} label="Numero de téléphone">
+              {getFieldDecorator('phone', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'Entrez votre numero de telephone svp!'
+                  }
+                ]
+              })(
+                <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
+              )}
+            </FormItem>
 
-          <FormItem {...tailFormItemLayout}>
-            {getFieldDecorator('validate', {
-              valuePropName: 'checked'
-            })(
-              <Checkbox>
-                Je confirme que les données sont corrects et corespondent
-                exactement à ce banquier.
-              </Checkbox>
-            )}
-          </FormItem>
-          <FormItem {...tailFormItemLayout}>
-            <Button onClick={this.test} type="default" htmlType="reset">
-              Anuller
-            </Button>
-            <Button id="submit" type="primary" htmlType="submit">
-              valider
-            </Button>
-          </FormItem>
-        </Form>
+            <FormItem {...tailFormItemLayout}>
+              {getFieldDecorator('validate', {
+                valuePropName: 'checked'
+              })(
+                <Checkbox>
+                  Je confirme que les données sont corrects et corespondent
+                  exactement à ce banquier.
+                </Checkbox>
+              )}
+            </FormItem>
+            <FormItem {...tailFormItemLayout}>
+              {/* <Button onClick={this.test} type="default" htmlType="reset" style={{margin:10}}>
+                Anuller
+              </Button> */}
+              <Button id="submit" type="primary" htmlType="submit"style={{margin:10, width:"50%", float:"right"}}>
+                valider
+              </Button>
+            </FormItem>
+          </Form>
+        </div>
       </div>
     );
   }

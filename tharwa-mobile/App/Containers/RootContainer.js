@@ -21,7 +21,8 @@ class RootContainer extends Component {
     appState: AppState.currentState,
     nfcSupported: false,
     nfcEnabled: false,
-    nfcMsgSaved: true
+    nfcMsgSaved: true,
+    pusherInitiated: false
   }
 
   componentDidMount() {
@@ -41,13 +42,18 @@ class RootContainer extends Component {
   }
 
   componentWillReceiveProps({ name, email, picture, accountNumber }) {
-    if (accountNumber && !this.setState.nfcMsgSaved) {
-      this.setState({ nfcMsgSaved: true })
+    if (accountNumber) {
       const userDetails = JSON.stringify({
         email, name, picture, accountNumber
       })
-      if (this.state.nfcSupported && this.state.nfcEnabled) NfcNdefManager.setMessage(userDetails)
-      initPusher(email)
+      if (!this.state.nfcMsgSaved && this.state.nfcSupported && this.state.nfcEnabled) {
+        NfcNdefManager.setMessage(userDetails)
+        this.setState({ nfcMsgSaved: true })
+      }
+      if (!this.state.pusherInitiated) {
+        initPusher(email)
+        this.setState({ pusherInitiated: true })
+      }
     }
   }
 
@@ -177,8 +183,8 @@ const mapStateToProps = ({ account: { accountType, information: { infos = {} } }
   nav: nav,
   name: (infos ? `${infos.lastname} ${infos.firstname}` : 'John Doe'),
   picture: infos.picture ? { uri: infos.picture } : Images.avatar,
-  email: infos.email || 'john_doe@mail.com',
-  accountNumber: infos.accountNumber || 'THW00000DZD'
+  email: infos.email || '',
+  accountNumber: infos.accountNumber || ''
 })
 
 // wraps dispatch to create nicer functions to call within our component
